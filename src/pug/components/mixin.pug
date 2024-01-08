@@ -1,0 +1,37 @@
+//- кнопка каталог товарів
+mixin cta(catalog)
+    p.catalog-cta 
+        a(href="#") в каталог
+
+- 
+    let orders = {
+        step1: {
+            circleIcon: "",
+            alt: "",
+            step: "Крок 1",
+            takeBoots: "обираєте товар",
+            descript: "Ви обираєте товар який вам найбільше сподобався, додаєте його в корзину і залишаєте заявку, від двох пар взуття, робимо безкоштовну доставку."
+        },
+        step2: {
+            circleIcon: "",
+            alt: "",
+            step: "Крок 2",
+            takeBoots: "дзвінок менеджера",
+            descript: "Наш менеджер перетелефонує вам для уточнення даних, перед замовленням передивіться чи є саме ваш розмір та код моделі в наявності. Раді будемо дати вам відповіді на запитання."
+        },
+        step3: {
+            circleIcon: "",
+            alt: "",
+            step: "Крок 3",
+            takeBoots: "відправка замовлення",
+            descript: "Відправка товару здійснюється протягом 1-3 робочих днів, відправляємо сервісом Нова пошта (накладеним платежем), Укрпошта (повна передплата)"
+        }
+    } 
+
+mixin ordersStep(orders)
+    .icon-block
+        img(src=orders.circleIcon, alt=orders.alt)
+    .step-one 
+        p.step #{orders.step}
+        p.take-boots #{orders.takeBoots}
+        p.step-description #{orders.descript}

@@ -7,3 +7,70 @@ html(lang="en")
         title Document
         link(rel="stylesheet", href="css/styles.css")
     body 
+        include components/mixin
+        header 
+            .top-line
+                .wrapper.d-flex
+                    nav 
+                        ul.menu.d-flex
+                            li
+                                a(href="index.html") Головна
+                            li
+                                a(href="#") Каталог
+                            li
+                                a(href="#") Відгуки
+                            li
+                                a(href="#") Про нас
+                    .logo
+                        a(href="index.html")
+                            img(src="img/logo.png", alt="") 
+                    .header-contact.d-flex
+                        p.cart
+                            img(src="", alt="")
+                        p.phone
+                            a(href="tel:0677377108") 067 737 71 08
+            .header-carousel.proposition
+                .wrapper
+                    .proposition-description 
+                        p.price від 910 грн
+                        h1.season чоловіче зимове взуття
+                        .advantage.d-flex 
+                            p.producer український виробник
+                            p.price-propos приємні ціни
+                            p.size розміри 40 - 45
+                        +cta(catalog)
+                    .arrow
+                        a.arr-left(href="#")
+                        a.arr-right(href="#")
+                    .boots 
+                        picture 
+                            source(srcset="" type="image/jpg")
+                            img(src="", alt="")
+        main
+            section.card-menu.wrapper
+                h2 каталог товарів
+                p Оберіть те, що вас цікавить
+                .filter 
+                .card-block 
+            //- відгуки
+            section.aboutus 
+                h2 про нашу компанію
+                .bgc-block 
+                    .our-advantage.wrapper
+                        h3 Чому саме нас обирають клієнти?
+                        p.deliver Дні доставка взуття у ваше місто. Доставка товару здійснюється компаніями «Нова Пошта» та «Укрпошта»
+                        p.our-client Середня кількість пар взуття яку придбали наші постійні клієнти (для постійних клієнтів діють вигідні знижки)
+                        p.our-like Задоволених клієнтів за 3 роки, які замовили у нас чоловіче взуття та порекомендували нас друзям та знайомим.
+                    +cta(catalog)
+            section.order.wrapper 
+                .d-flex
+                    .order-description.d-flex 
+                        +ordersStep(orders.step1)
+                        +ordersStep(orders.step2)
+                        +ordersStep(orders.step3)
+                    .img-carousel 
+                +cta(catalog)
+
+
+
+
