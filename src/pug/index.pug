@@ -54,7 +54,7 @@ html(lang="en")
                 .card-block 
             section.reviews 
                 h2 Відгуки клієнтів
-                .reviews-list.flex-center
+                .reviews-list.flex-between.flex-wrap
                     //-приклад відгука
                     .review-card
                         .flex-between 
@@ -81,6 +81,14 @@ html(lang="en")
                         +ordersStep(orders.step3)
                     .img-carousel 
                 +cta(catalog)
+            section.email-news.wrapper  
+                div 
+                    h3 З взуттєвим магнатом купувати вигідніше
+                    p Підпишіться на новини. Ми надсилатимемо вам тільки найкращі пропозиції.
+                    .flex-between
+                        form(action="", method="POST")
+                            input(type="email", placeholder="Ваш e-mail", name="emailSend")
+                            button(type="submit") підписатися
 
 
 
