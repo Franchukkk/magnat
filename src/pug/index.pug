@@ -1,5 +1,5 @@
 doctype html
-html(lang="en")
+html(lang="uk")
     head
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
@@ -10,9 +10,9 @@ html(lang="en")
         include components/mixin
         header 
             .top-line
-                .wrapper.d-flex
+                .wrapper.flex-between.items-center
                     nav 
-                        ul.menu.d-flex
+                        ul.menu.flex-between.top-nav
                             li
                                 a(href="index.html") Головна
                             li
@@ -24,17 +24,19 @@ html(lang="en")
                     .logo
                         a(href="index.html")
                             img(src="img/logo.png", alt="") 
-                    .header-contact.d-flex
+                    .header-contact.flex.items-center
                         p.cart
-                            img(src="", alt="")
-                        p.phone
+                            a(href="#") 
+                            img(src="img/cart.svg", alt="")
+                        p.phone.flex-between.items-center
+                            img(src="img/phone.svg", alt="")
                             a(href="tel:0677377108") 067 737 71 08
             .header-carousel.proposition
                 .wrapper
                     .proposition-description 
                         p.price від 910 грн
                         h1.season чоловіче зимове взуття
-                        .advantage.d-flex 
+                        .advantage.flex-between 
                             p.producer український виробник
                             p.price-propos приємні ціни
                             p.size розміри 40 - 45
@@ -51,7 +53,7 @@ html(lang="en")
                 h2 каталог товарів
                 p Оберіть те, що вас цікавить
                 .btn-season 
-                    ul.menu.d-flex.filter-season
+                    ul.menu.flex-between.filter-season
                         li
                             a(href="#") Усі товари
                         li
@@ -88,62 +90,91 @@ html(lang="en")
                                 input(type="range" id="from" min="0" max="100") 
                             label(for="to")
                                 input(type="range" id="to" min="0" max="100") 
-                            label
-                                input(type="text")
-                            label
-                                input(type="text")
+                            p.range-value
+                                label
+                                    input(type="text")
+                                label
+                                    input(type="text")
                         .color-filter 
+                            h3 Колір
                             input(type="checkbox" id="brown")
-                            label(for="blue")  
+                            label(for="blue") Коричневий
                             input(type="checkbox" id="blue")
-                            label(for="green")  
+                            label(for="green") Синій
                             input(type="checkbox" id="brown")
-                            label(for="brown")  
+                            label(for="brown") Хакі
                             input(type="checkbox" id="black")
-                            label(for="black")  
+                            label(for="black") Чорний
+                        .model
+                            h3 Модель
+                            input(type="checkbox" id="boots1")
+                            label(for="boots1") Кросівки
+                            input(type="checkbox" id="boots2")
+                            label(for="boots2") Кеди
+                            input(type="checkbox" id="boots3")
+                            label(for="boots3") Черевики
+                            input(type="checkbox" id="boots4")
+                            label(for="boots4") Босоніжки
+                        .season-filter 
+                            h3 Сезон
+                            input(type="checkbox" id="sum")
+                            label(for="sum") Весна - літо
+                            input(type="checkbox" id="win")
+                            label(for="win") Осінь - зима
+                        .material 
+                            h3 Матеріал
+                            input(type="checkbox" id="arm")
+                            label(for="arm") Шкіра
+                            input(type="checkbox" id="fakearm")
+                            label(for="fakearm") Замша
+                            input(type="checkbox" id="nobok")
+                            label(for="nobok") Нубук
+                        .style 
+                            h3 Стиль
+                            input(type="checkbox" id="classic")
+                            label(for="classic") Класика
+                            input(type="checkbox" id="sport")
+                            label(for="sport") Спортивний
+                            input(type="checkbox" id="day-style")
+                            label(for="day-style") Повсякденний
+                        button(type="submit") застосувати фільтр
+                        button(type="reset") скинути фільтр
+                .card-block 
                         
 
-                                
-
-
-                .card-block 
-<<<<<<< HEAD
-                
-            //- відгуки
-=======
-            section.reviews.wrapper 
-                h2.text-title Відгуки клієнтів
-                .reviews-list.flex-wrap
-                    //-приклад відгука
-                    .review-card
-                        .flex-between.items-center
-                            span Шамрай Артем
-                            span.date 30.12.2023
-                        p В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною.
-                    .review-card
-                        .flex-between.items-center
-                            span Шамрай Артем
-                            span.date 30.12.2023
-                        p В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною.
-                    .review-card
-                        .flex-between.items-center
-                            span Шамрай Артем
-                            span.date 30.12.2023
-                        p В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною.
-                    .review-card
-                        .flex-between.items-center
-                            span Шамрай Артем
-                            span.date 30.12.2023
-                        p В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною.
-                    .review-card
-                        .flex-between.items-center
-                            span Шамрай Артем
-                            span.date 30.12.2023
-                        p В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною.
+            section.reviews
+                .wrapper 
+                    h2.text-title Відгуки клієнтів
+                    .reviews-list.flex-wrap
+                        //-приклад відгука
+                        .review-card
+                            .flex-between.items-center
+                                span Шамрай Артем
+                                span.date 30.12.2023
+                            p В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною.
+                        .review-card
+                            .flex-between.items-center
+                                span Шамрай Артем
+                                span.date 30.12.2023
+                            p В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною.
+                        .review-card
+                            .flex-between.items-center
+                                span Шамрай Артем
+                                span.date 30.12.2023
+                            p В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною.
+                        .review-card
+                            .flex-between.items-center
+                                span Шамрай Артем
+                                span.date 30.12.2023
+                            p В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною.
+                        .review-card
+                            .flex-between.items-center
+                                span Шамрай Артем
+                                span.date 30.12.2023
+                            p В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною.
                 .review-btns.flex
                     a(href="#").btn-style-one усі відгуки
                     a(href="#").btn-style-two залишити відгук
->>>>>>> 6b322385b3e65acf26baebf52f4253c2605f090e
             section.aboutus 
                 h2 про нашу компанію
                 .bgc-block 
@@ -154,8 +185,8 @@ html(lang="en")
                         p.our-like Задоволених клієнтів за 3 роки, які замовили у нас чоловіче взуття та порекомендували нас друзям та знайомим.
                     +cta(catalog)
             section.order.wrapper 
-                .d-flex
-                    .order-description.d-flex 
+                .flex-between
+                    .order-description.flex-between 
                         +ordersStep(orders.step1)
                         +ordersStep(orders.step2)
                         +ordersStep(orders.step3)
@@ -169,6 +200,8 @@ html(lang="en")
                         form(action="", method="POST")
                             input(type="email", placeholder="Ваш e-mail", name="emailSend")
                             button(type="submit") підписатися
+
+        script(src="js/scripts.js")
 
 
 

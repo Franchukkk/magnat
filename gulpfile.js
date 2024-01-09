@@ -20,7 +20,7 @@ export const browserSyncFunc = () => {
             baseDir: "docs"
         },
         open: true,
-        browser: "Google Chrome"
+        browser: "Chrome"
         //port: 8080
     })
 }
@@ -79,7 +79,8 @@ export const js = () => {
 export const files = () => {
     return gulp
     .src([
-        "src/*.*"
+        "src/*.*",
+        "src/php/*.*",
     ], {dot: true})
     .pipe(gulp.dest("docs"))
     .pipe(browserSync.reload({
