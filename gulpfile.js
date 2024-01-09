@@ -81,6 +81,7 @@ export const files = () => {
     .src([
         "src/*.*",
         "src/php/*.*",
+        "src/json/*.*"
     ], {dot: true})
     .pipe(gulp.dest("docs"))
     .pipe(browserSync.reload({
