@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
             figcaptionItems.appendChild(oldPrice)
             // створити елемент нової ціни
             const newPrice = document.createElement("p")
-            newPrice.classList.add("old-price")
+            newPrice.classList.add("new-price")
             newPrice.innerText = product.price
             figcaptionItems.appendChild(newPrice)
 
