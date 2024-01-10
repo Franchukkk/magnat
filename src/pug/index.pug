@@ -35,12 +35,15 @@ html(lang="uk")
                 .wrapper
                     .proposition-description 
                         p.price від 910 грн
-                        h1.season чоловіче зимове взуття
+                        h1.season чоловіче 
+                            span.winter зимове 
+                            span.summer літнє 
+                            | взуття
                         .advantage.flex-between 
                             p.producer український виробник
                             p.price-propos приємні ціни
                             p.size розміри 40 - 45
-                        +cta(catalog)
+                        a(href="#").btn-style-one в каталог
                     .arrow.flex-between
                         .arr-left(href="#")
                         .arr-right(href="#")
