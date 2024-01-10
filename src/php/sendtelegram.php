@@ -6,7 +6,7 @@ try {
         $userEmail = "ERROR IN MESSAGE";
 }
 
-$token = "6955843433:AAHq4PsIKlhlh9ED95MXctOJxMHziCney1Y";
+$token = "6955843433:AAHq4PsIKlhlh9ED95MXctOJxMHziCney1Y"; // api телеграм бота
 $chat_id = 1398506404;
 
 $userEmail = urlencode("$userEmail");
