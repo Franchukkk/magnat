@@ -49,10 +49,14 @@ document.addEventListener("DOMContentLoaded", function () {
             const listItem = document.createElement("figure"),
                 figcaptionItems = document.createElement("figcaption")
 
-
+                
             listItem.classList.add("card-box")
             listItem.appendChild(figcaptionItems)
 
+            const cardClick = document.createElement("a")
+            cardClick.classList.add("click-card")
+            cardClick.href = "#"
+            figcaptionItems.appendChild(cardClick)
             // Створити та додати зображення
             const imgElement = document.createElement("img")
             imgElement.src = product.img

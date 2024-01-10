@@ -67,56 +67,57 @@ html(lang="uk")
                             option(value="від меншого до більшого")  
                             option(value="від більшого до меншого")  
                             option(value="скинути")  
-                .filter 
-                    h2 фільтр
-                    form(action="")
-                        .check-size 
-                            h3 Розміри
-                            input(type="checkbox" id="s-40" value="40")
-                            label(for="s-40") 40
-                            input(type="checkbox" id="s-41" value="41")
-                            label(for="s-41") 41
-                            input(type="checkbox" id="s-42" value="42")
-                            label(for="s-42") 42
-                            input(type="checkbox" id="s-43" value="43") 
-                            label(for="s-43") 43
-                            input(type="checkbox" id="s-44" value="44")
-                            label(for="s-44") 44
-                            input(type="checkbox" id="s-45" value="45")
-                            label(for="s-45") 45
-                        .price-filter 
-                            h3 Ціна
-                            label(for="from")
-                                input(type="range" id="from" min="0" max="100") 
-                            label(for="to")
-                                input(type="range" id="to" min="0" max="100") 
-                            p.range-value
-                                label
-                                    input(type="text")
-                                label
-                                    input(type="text")
-                        .color-filter 
-                            h3 Колір
-                            input(type="checkbox" id="brown")
-                            label(for="blue") Коричневий
-                            input(type="checkbox" id="blue")
-                            label(for="green") Синій
-                            input(type="checkbox" id="brown")
-                            label(for="brown") Хакі
-                            input(type="checkbox" id="black")
-                            label(for="black") Чорний
-                        .model
-                            h3 Модель
-                            input(type="checkbox" id="boots1")
-                            label(for="boots1") Кросівки
-                            input(type="checkbox" id="boots2")
-                            label(for="boots2") Кеди
-                            input(type="checkbox" id="boots3")
-                            label(for="boots3") Черевики
-                            input(type="checkbox" id="boots4")
-                            label(for="boots4") Босоніжки
-                        .season-filter 
-                            h3 Сезон
+                .flex-between
+                    .filter 
+                        h2 фільтр
+                        form(action="")
+                            .check-size 
+                                h3 Розміри
+                                input(type="checkbox" id="s-40" value="40")
+                                label(for="s-40") 40
+                                input(type="checkbox" id="s-41" value="41")
+                                label(for="s-41") 41
+                                input(type="checkbox" id="s-42" value="42")
+                                label(for="s-42") 42
+                                input(type="checkbox" id="s-43" value="43") 
+                                label(for="s-43") 43
+                                input(type="checkbox" id="s-44" value="44")
+                                label(for="s-44") 44
+                                input(type="checkbox" id="s-45" value="45")
+                                label(for="s-45") 45
+                            .price-filter 
+                                h3 Ціна
+                                label(for="from")
+                                    input(type="range" id="from" min="0" max="100") 
+                                label(for="to")
+                                    input(type="range" id="to" min="0" max="100") 
+                                p.range-value
+                                    label
+                                        input(type="text")
+                                    label
+                                        input(type="text")
+                            .color-filter 
+                                h3 Колір
+                                input(type="checkbox" id="brown")
+                                label(for="blue") Коричневий
+                                input(type="checkbox" id="blue")
+                                label(for="green") Синій
+                                input(type="checkbox" id="brown")
+                                label(for="brown") Хакі
+                                input(type="checkbox" id="black")
+                                label(for="black") Чорний
+                            .model
+                                h3 Модель
+                                input(type="checkbox" id="boots1")
+                                label(for="boots1") Кросівки
+                                input(type="checkbox" id="boots2")
+                                label(for="boots2") Кеди
+                                input(type="checkbox" id="boots3")
+                                label(for="boots3") Черевики
+                                input(type="checkbox" id="boots4")
+                                label(for="boots4") Босоніжки
+                            .season-filter 
+                                h3 Сезон
                             input(type="checkbox" id="sum")
                             label(for="sum") Весна - літо
                             input(type="checkbox" id="win")
@@ -139,9 +140,7 @@ html(lang="uk")
                             label(for="day-style") Повсякденний
                         button(type="submit") застосувати фільтр
                         button(type="reset") скинути фільтр
-                .card-block 
-                        
-
+                    .card-block 
             section.reviews
                 .wrapper 
                     h2.text-title Відгуки клієнтів
