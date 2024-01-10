@@ -1,15 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // блк з картками товарів
-    const productList = document.querySelector(".card-block")
 
-    // Отримати елемент фільтру за категоріями
-    const categoryFilter = document.querySelector(".filter-season")
+    const productList = document.querySelector(".card-block"),
+        categoryFilter = document.querySelector(".filter-season")
 
-    // Завантажити дані з JSON-файлу (припустимо, що дані розміщені в файлі products.json)
+    // Завантажити дані з JSON-файлу
     fetch("products.json")
         .then(response => response.json())
         .then(data => {
-            // Додати подію на зміну значення фільтру
             categoryFilter.addEventListener("change", function () {
                 // Фільтрувати товари за вибраною категорією
                 const selectedCategory = categoryFilter.value
@@ -19,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 displayProducts(filteredProducts)
             })
 
-            // Вивести всі товари при завантаженні сторінки
             displayProducts(data)
         })
         .catch(error => console.error("Помилка завантаження даних:", error))
