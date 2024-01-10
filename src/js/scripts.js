@@ -21,16 +21,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Вивести всі товари при завантаженні сторінки
             displayProducts(data)
+
+            // вивожу у консоль id вибраного товару
+            const buyBtns = document.querySelectorAll(".cta-card")
+
+            console.log(buyBtns);
+
+            buyBtns.forEach(function (e) {
+                e.addEventListener("click", function (i) {
+                    let productID = this.dataset.value
+                    fetch('products.json')
+                        .then(response => response.json())
+                        .then(products => {
+                            const product = products.find(product => product.id === productID);
+                            console.log(product);
+                        });
+                })
+            })
         })
         .catch(error => console.error("Помилка завантаження даних:", error))
 
     // Функція для виведення товарів у вигляді списку
     function displayProducts(products) {
-        console.log(products)
-    
+        // console.log(products)
+
         // Очистити список перед виведенням нових товарів
         productList.innerHTML = ""
-    
+
         // Пройтися по кожному товару та додати його до списку
         products.forEach(product => {
             const listItem = document.createElement("figure"),
@@ -39,11 +56,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             listItem.classList.add("card-box")
             listItem.appendChild(figcaptionItems)
-            
+
             // Створити та додати зображення
             const imgElement = document.createElement("img")
             imgElement.src = product.img
-            imgElement.alt = product.alt 
+            imgElement.alt = product.alt
             figcaptionItems.appendChild(imgElement)
             // створити звголовок 
             const headerCard = document.createElement("h2")
@@ -62,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
             figcaptionItems.appendChild(newPrice)
 
             // створити інпути з розмірами
-            
+
             const inputBlock = document.createElement("div")
             inputBlock.classList.add("input-block")
             figcaptionItems.appendChild(inputBlock)
@@ -84,13 +101,13 @@ document.addEventListener("DOMContentLoaded", function () {
             // створити кнопку
             const ctaBuy = document.createElement("a")
             ctaBuy.classList.add("cta-card")
+            ctaBuy.setAttribute('data-value', product.id) // id товару для додання у кошик
             ctaBuy.innerText = product.cta
             ctaBuy.href = product.href
             figcaptionItems.appendChild(ctaBuy)
-    
+
             // Додати елемент до списку
             productList.appendChild(listItem)
         })
     }
-    
 })
