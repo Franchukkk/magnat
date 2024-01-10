@@ -1,5 +1,9 @@
 @import components/mixin
 
+h1,h2
+    margin: 0
+    
+
 html
     font-size: 1px
 
@@ -26,7 +30,8 @@ figure
 .wrapper
     margin: 0 auto
     // max-width: 1366rem
-    max-width: 1100rem
+    max-width: 1500rem
+    width: 80%
     // padding: 0 15rem
     box-sizing: border-box
 
@@ -300,3 +305,66 @@ span.date
 .btn-style-two
     color: #4E98B6
     background: #fff
+
+
+.price
+    color: #4E98B6
+    font-size: 30rem
+    font-weight: 600
+
+h1 
+    color: #25445E
+    font-size: 68rem
+    font-weight: 700
+    text-transform: uppercase
+
+.advantage
+    max-width: 780rem
+    p
+        color: #191919
+        font-size: 20rem
+        font-weight: 500
+        text-transform: uppercase
+
+.arrow
+    max-width: 140rem
+
+.arr-left,
+.arr-right
+    display: block
+    width: 52rem
+    height: 28rem
+    background-image: url(../img/arrow.svg)
+    background-size: cover
+
+.arr-right
+    transform: rotate(180deg)
+
+.header-carousel.proposition
+    display: flex
+    position: relative
+    align-items: center
+    min-height: 52vw
+    transition: 1s
+    background-repeat: no-repeat
+    
+
+
+.bg-first
+    background: url(../img/header-bg-1.jpg)
+    background-size: cover
+.bg-second
+    background: url(../img/header-background-2.jpg)
+    background-size: cover
+
+.advantage
+    margin-bottom: 50rem
+
+.arrow
+    position: absolute
+    bottom: 40rem
+    column-gap: 35rem
+    div
+        cursor: pointer
+
+
