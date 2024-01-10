@@ -18,6 +18,7 @@ $urlQuery = "https://api.telegram.org/bot". $token ."/sendMessage?chat_id=". $ch
     "E-mail покупця: ". $userEmail;
 
 
+    
 $result = file_get_contents($urlQuery);
 ?>
 
