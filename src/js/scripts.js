@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // console.log(products)
 
         // Очистити список перед виведенням нових товарів
-        // productList.innerHTML = ""
+        productList.innerHTML = ""
 
         // Пройтися по кожному товару та додати його до списку
         products.forEach(product => {
@@ -85,18 +85,20 @@ document.addEventListener("DOMContentLoaded", function () {
             const sizes = ["40", "41", "42", "43", "44", "45"];
 
             for (const size of sizes) {
-                const labelInput = document.createElement("label");
-                labelInput.classList.add(`label${size}`);
-                labelInput.setAttribute("for", `label${size}`);
-                labelInput.innerText = `${size}`;
-                inputBlock.appendChild(labelInput);
-
                 const inputSize = document.createElement("input");
                 inputSize.type = "checkbox";
-                inputSize.id = `label${size}`;
+                inputSize.id = `input-${product.id}-${size}`; // Встановлюємо унікальний id для кожного вводу
                 inputSize.value = size;
+        
+                const labelInput = document.createElement("label");
+                labelInput.classList.add(`label${size}`);
+                labelInput.setAttribute("for", `input-${product.id}-${size}`); // Відповідність атрибута 'for' з id вводу
+                labelInput.innerText = `${size}`;
+        
                 inputBlock.appendChild(inputSize);
+                inputBlock.appendChild(labelInput);
             }
+            
 
 
             // створити кнопку
