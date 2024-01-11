@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const productList = document.querySelector(".card-block"),
+    const productList = document.querySelector(".card-bott"),
         categoryFilter = document.querySelector(".filter-season")
 
     // Завантажити дані з JSON-файлу
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // console.log(products)
 
         // Очистити список перед виведенням нових товарів
-        productList.innerHTML = ""
+        // productList.innerHTML = ""
 
         // Пройтися по кожному товару та додати його до списку
         products.forEach(product => {
@@ -51,10 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             listItem.classList.add("card-box")
             listItem.appendChild(figcaptionItems)
-            const cardClick = document.createElement("a")
-            cardClick.href = "#"
-            cardClick.classList.add("click-card")
-            figcaptionItems.appendChild(cardClick)
+            // const cardClick = document.createElement("a")
+            // cardClick.href = "#"
+            // cardClick.classList.add("click-card")
+            // figcaptionItems.appendChild(cardClick)
             // Створити та додати зображення
             const imgElement = document.createElement("img")
             imgElement.src = product.img
@@ -82,19 +82,22 @@ document.addEventListener("DOMContentLoaded", function () {
             inputBlock.classList.add("input-block")
             figcaptionItems.appendChild(inputBlock)
 
-            const sizes = ["40", "41", "42", "43", "44", "45"]
+            const sizes = ["40", "41", "42", "43", "44", "45"];
 
             for (const size of sizes) {
-                const labelInput = document.createElement("label")
-                labelInput.classList.add(`label${size}`)
-                labelInput.innerText = `${size}`
-                inputBlock.appendChild(labelInput)
+                const labelInput = document.createElement("label");
+                labelInput.classList.add(`label${size}`);
+                labelInput.setAttribute("for", `label${size}`);
+                labelInput.innerText = `${size}`;
+                inputBlock.appendChild(labelInput);
 
-                const inputSize = document.createElement("input")
-                inputSize.type = "checkbox"
-                inputSize.value = size
-                labelInput.appendChild(inputSize)
+                const inputSize = document.createElement("input");
+                inputSize.type = "checkbox";
+                inputSize.id = `label${size}`;
+                inputSize.value = size;
+                inputBlock.appendChild(inputSize);
             }
+
 
             // створити кнопку
             const ctaBuy = document.createElement("a")
@@ -107,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Додати елемент до списку
             productList.appendChild(listItem)
         })
-    }
+    }      
 
     const container = document.querySelector(".header-carousel"),
         seasonWinter = document.querySelector(".winter"),

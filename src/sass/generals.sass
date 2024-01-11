@@ -57,7 +57,8 @@ figure
         font-size: 16rem
         transition: all 1s ease
         &:hover
-            transform: scale(1.05)
+            color: #4E98B6
+            text-decoration: underline
 
 .logo 
     img
@@ -97,8 +98,64 @@ figure
         font-size: 18rem
         font-weight: 500
 
+.btn-season
+    align-items: center
+    justify-content: space-between
+    column-gap: 95rem
+    padding-bottom: 22rem
+
+.filter-season
+    column-gap: 15rem
+    a
+        transition: all .5s ease
+        display: block
+        padding: 10rem
+        max-width: 225rem
+        color: #191919
+        text-align: center
+        font-size: 16rem
+        font-weight: 400
+        border-radius: 3px
+        border: 1px solid #A0A0A0   
+        &:hover
+            border: 1px solid #4E98B6
+            background: #4E98B6
+            color: #fff
+
+
+.arrow-select 
+    position: relative
+    display: block
+    background-color: #fff
+    &::before
+        content: ""
+        position: absolute
+        top: 50%
+        right: 10rem
+        z-index: 2
+        width: 12rem
+        height: 6rem
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none"><path d="M6 6L0.803849 0.749999L11.1962 0.75L6 6Z" fill="%234E98B6"/></svg>')
+        transform: translateY(-50%)
+    > select
+        padding: 10rem 30rem 10rem 10rem
+        position: relative
+        color: #191919
+        font-size: 12rem
+        font-weight: 400
+        background-color: #F1F1F1
+        border-radius: 3px
+        border: 0.5px solid #F1F1F1
+        background: #F1F1F1
+        appearance: none
+        -webkit-appearance: none
+        cursor: pointer
+        z-index: 1
+
+
 .filter
     max-width: 245rem
+    padding-top: 80rem
     > h2
         margin: 0
         color: #4E98B6
@@ -139,7 +196,7 @@ figure
         padding-left: 30rem
         padding-bottom: 14rem
 
-    input + label:before
+    input + label::before
         content: ""
         position: absolute
         top: 0
@@ -148,12 +205,16 @@ figure
         height: 15rem
         border-radius: 2rem
         border: 1px solid #A0A0A0
+    input:checked + label::before
+        background-color: #4E98B6
+
 .button-filter
     row-gap: 10rem
     padding-top: 16rem
     
 .submit-filter,
 .reset-filter
+    transition: all 1s ease
     max-width: 235rem
     padding: 11rem 33rem
     border: none
@@ -165,12 +226,20 @@ figure
     font-weight: 600
     cursor: pointer
 
+.submit-filter
+    &:hover
+        background-color: #25445E
+    
+.reset-filter
+    &:hover
+        background-color: #F1F1F1
+
 .reset-filter
     color: #4E98B6
     border: 1px solid #4E98B6
     background-color: #fff
 
-.card-block
+.card-bott
     width: 100%
     display: flex
     justify-content: space-between
@@ -182,7 +251,7 @@ figure
     position: relative
     padding: 20rem
     width: 100%
-    max-width: 300rem
+    max-width: 285rem
     border: 0.5rem solid #F1F1F1
     background-color: #fff
     box-sizing: border-box
@@ -198,6 +267,7 @@ figure
     z-index: 1
         
 .header-card
+    height: 60rem
     margin: 20rem 0 15rem
     color: #191919
     font-size: 16rem
@@ -217,6 +287,32 @@ figure
     font-size: 16px
     font-weight: 500
 
+.input-block
+    display: flex
+    column-gap: 20rem
+    padding-bottom: 10rem
+    color: #191919
+    font-size: 12px
+    font-weight: 300
+    input
+        display: none
+
+    label
+        position: relative
+        margin: 0
+
+    label::before
+        content: ""
+        position: absolute
+        top: -50%
+        left: -40%
+        width: 25rem
+        height: 25rem
+        border-radius: 3rem
+        border: 0.5rem solid #F1F1F1
+        z-index: 2
+    
+
 .cta-card
     position: relative
     display: block
@@ -226,10 +322,10 @@ figure
     padding: 13rem 43rem
     background-color: #4E98B6
     transition: all 1s ease
-    &:hover
-        transform: scale(1.05)
-        box-shadow: 0 2rem 5rem 2rem #ccc
+    box-shadow: 0 2rem 5rem 2rem #ccc
     z-index: 3
+    &:hover
+        background-color: #25445E
 
 .reviews-list
     display: flex
@@ -352,7 +448,6 @@ h1
     background-size: cover
     background-repeat: no-repeat
     
-
 
 .bg-first
     background: url(../img/header-bg-1.jpg)

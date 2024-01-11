@@ -55,21 +55,6 @@ html(lang="uk")
             section.card-menu.wrapper
                 h2 каталог товарів
                 p Оберіть те, що вас цікавить
-                .btn-season 
-                    ul.menu.flex-between.filter-season
-                        li
-                            a(href="#") Усі товари
-                        li
-                            a(href="#") Зимове взуття
-                        li
-                            a(href="#") Демісезонне взуття
-                        li
-                            a(href="#") Літнє взуття
-                    form(action="#")
-                        select(name="сортування: за замовчуванням") 
-                            option(value="від меншого до більшого")  
-                            option(value="від більшого до меншого")  
-                            option(value="скинути")  
                 .flex-between
                     .filter 
                         h2 фільтр
@@ -102,11 +87,11 @@ html(lang="uk")
                             .color-filter.flex
                                 h3 Колір
                                 input(type="checkbox" id="brown")
-                                label(for="blue") Коричневий
+                                label(for="brown") Коричневий
                                 input(type="checkbox" id="blue")
-                                label(for="green") Синій
-                                input(type="checkbox" id="brown")
-                                label(for="brown") Хакі
+                                label(for="blue") Синій
+                                input(type="checkbox" id="haki")
+                                label(for="haki") Хакі
                                 input(type="checkbox" id="black")
                                 label(for="black") Чорний
                             .model.flex
@@ -145,6 +130,26 @@ html(lang="uk")
                                 button.submit-filter(type="submit") застосувати фільтр
                                 button.reset-filter(type="reset") скинути фільтр
                     .card-block 
+                        .btn-season.flex
+                            ul.menu.flex-between.filter-season
+                                li
+                                    a(href="#") Усі товари
+                                li
+                                    a(href="#") Зимове взуття
+                                li
+                                    a(href="#") Демісезонне взуття
+                                li
+                                    a(href="#") Літнє взуття
+                            form(action="#")
+                                label.arrow-select
+                                    select(name="sort") 
+                                        option(value="" disabled selected hidden) сортування: за замовчуванням
+                                        option(value="")  ціна за спаданням
+                                        option(value="")  ціна за зростанням
+                                        option(value="")  за новизною
+                                        option(value="")  за популярністю
+                        .card-bott
+
 
             section.reviews
                 .wrapper 
