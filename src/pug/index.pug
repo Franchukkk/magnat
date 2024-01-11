@@ -87,15 +87,17 @@ html(lang="uk")
                                 label(for="s-45") 45
                             .price-filter.flex
                                 h3 Ціна
-                                label(for="from")
-                                    input(type="range" id="from" min="0" max="100" oninput="updateRange('from', 'to', 'fromValue')") 
-                                label(for="to")
-                                    input(type="range" id="to" min="0" max="100" oninput="updateRange('to', 'from', 'toValue')") 
-                                p.range-value.flex
-                                    label
-                                        input(type="text")
-                                    label
-                                        input(type="text")
+                                .slider
+                                    .progress
+                                .range-input
+                                    input.range-min(type='range' min='0' max='10000' value='0' step='100')
+                                    input.range-max(type='range' min='0' max='10000' value='10000' step='100')
+                                .price-input.flex
+                                    .field
+                                        input.input-min(type='number' value='0')
+                                    .separator
+                                    .field
+                                        input.input-max(type='number' value='10000')
                             .color-filter.flex
                                 h3 Колір
                                 input(type="checkbox" id="brown")
