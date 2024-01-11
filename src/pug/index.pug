@@ -9,6 +9,17 @@ html(lang="uk")
     
     body 
         include components/mixin
+        .basket-popup 
+            .basket-header-line
+                .wrapper.flex.items-center
+                    h2 кошик
+                    .calc-added-products 0
+            .basket-main.flex-between 
+                .added-products-list.wrapper 
+                .order-details
+            .basket-footer 
+                .wrapper
+                    span.basket-back повернутися у каталог
         header 
             .top-line
                 .wrapper.flex-between.items-center
