@@ -126,13 +126,15 @@ figure
 .arrow-select 
     position: relative
     display: block
-    background-color: #fff
+    background-color: #F1F1F1
+    border-radius: 3rem
+    overflow: hidden
     &::before
         content: ""
         position: absolute
         top: 50%
         right: 10rem
-        z-index: 2
+        z-index: 0
         width: 12rem
         height: 6rem
         background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none"><path d="M6 6L0.803849 0.749999L11.1962 0.75L6 6Z" fill="%234E98B6"/></svg>')
@@ -144,9 +146,8 @@ figure
         font-size: 12rem
         font-weight: 400
         background-color: #F1F1F1
-        border-radius: 3px
         border: 0.5px solid #F1F1F1
-        background: #F1F1F1
+        background-color: transparent
         appearance: none
         -webkit-appearance: none
         cursor: pointer

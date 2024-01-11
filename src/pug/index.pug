@@ -6,6 +6,7 @@ html(lang="uk")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Document
         link(rel="stylesheet", href="css/styles.css")
+    
     body 
         include components/mixin
         header 
@@ -76,9 +77,9 @@ html(lang="uk")
                             .price-filter.flex
                                 h3 Ціна
                                 label(for="from")
-                                    input(type="range" id="from" min="0" max="100") 
+                                    input(type="range" id="from" min="0" max="100" oninput="updateRange('from', 'to', 'fromValue')") 
                                 label(for="to")
-                                    input(type="range" id="to" min="0" max="100") 
+                                    input(type="range" id="to" min="0" max="100" oninput="updateRange('to', 'from', 'toValue')") 
                                 p.range-value.flex
                                     label
                                         input(type="text")
@@ -210,7 +211,7 @@ html(lang="uk")
                             input(type="email", placeholder="Ваш e-mail", name="userEmail")
                             button(type="submit") підписатися
 
-        script(src="js/scripts.js")
+        script(src="js/scripts.js" defer)
 
 
 

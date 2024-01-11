@@ -114,6 +114,8 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }      
 
+    //рейндж з інпутом
+
     const container = document.querySelector(".header-carousel"),
         seasonWinter = document.querySelector(".winter"),
         seasonSummer = document.querySelector(".summer"),
