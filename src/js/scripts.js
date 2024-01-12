@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         minusQuantity = document.querySelectorAll(".minus-quantity"),
         plusQuantity = document.querySelectorAll(".plus-quantity"),
         orderDetailSum = document.querySelector(".order-total-price")
+        buyBtns = document.querySelectorAll(".cta-card")
 
     orders.orderSum = 0
     // const productList = document.querySelector(".card-bott"),
@@ -204,10 +205,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 totalPages = Math.ceil(jsonData.length / itemsPerPage)
                 showData(currentPage)
                 showPagination()
-                let buyBtns = document.querySelectorAll(".cta-card")
-                buyBtns.forEach(function(e){
-                    buyBtnFunc(e)
-                })
 
 
 
@@ -285,7 +282,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         buyBtns = document.querySelectorAll(".cta-card")
         buyBtns.forEach(function(e){
-            buyBtnFunc(e)
+            e.addEventListener("click", buyBtnFunc(e))
+            
         })
         console.log(buyBtns);
     }
@@ -490,6 +488,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // console.log(product)
 
                     if (orders[product.id]) {
+                        console.log("already been");
                         orders[product.id].quantity++
                         orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
                         const totalPriceSpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]' + " .total-price span"),
@@ -499,6 +498,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
                         totalQuantitySpan.innerText = orders[product.id].quantity
                     } else {
+                        console.log("has not been");
                         orders[product.id] = {
                             product: product,
                             quantity: 1,
