@@ -488,8 +488,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     if (orders[product.id]) {
                         orders[product.id].quantity++
-                        const totalPriceSpan = addedProductsList.querySelector("." + product.id + " .total-price span"),
-                            totalQuantitySpan = addedProductsList.querySelector("." + product.id + " .quantity-number")
+                        const totalPriceSpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]' + " .total-price span"),
+                            totalQuantitySpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]'+ product.id + " .quantity-number")
                         console.log(totalQuantitySpan)
                         orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
                         totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
@@ -502,7 +502,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         const card = document.createElement("div")
                         card.innerHTML = `
-                            <div class="basket-card flex items-center ${product.id}">
+                            <div class="basket-card flex items-center" data-value=${product.id}>
                                 <div class="basket-product-description flex items-center">
                                     <img src=${product.img}>
                                     <div class="description">
@@ -556,8 +556,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                                     if (orders[product.id]) {
                                         orders[product.id].quantity = orders[product.id].quantity + 1
-                                        const totalPriceSpan = addedProductsList.querySelector("." + product.id + " .total-price span"),
-                                            totalQuantitySpan = addedProductsList.querySelector("." + product.id + " .quantity-number")
+                                        const totalPriceSpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]'+ " .total-price span"),
+                                            totalQuantitySpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]' + " .quantity-number")
                                         console.log(totalQuantitySpan)
                                         orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
                                         totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
@@ -580,8 +580,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                                     if (orders[product.id] && orders[product.id].quantity != 1) {
                                         orders[product.id].quantity = orders[product.id].quantity - 1
-                                        const totalPriceSpan = addedProductsList.querySelector("." + product.id + " .total-price span"),
-                                            totalQuantitySpan = addedProductsList.querySelector("." + product.id + " .quantity-number")
+                                        const totalPriceSpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]' + " .total-price span"),
+                                            totalQuantitySpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]' + " .quantity-number")
                                         console.log(totalQuantitySpan)
                                         orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
                                         totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
