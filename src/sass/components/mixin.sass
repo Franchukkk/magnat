@@ -1,0 +1,22 @@
+=btn ($fixed:true, $empty:false)
+    display: inline-block
+    padding: 15rem 0
+    width: 200rem
+    text-align: center
+    font-size: 16rem
+    font-weight: 600
+    letter-spacing: 1rem
+    border-radius: 5rem
+    text-decoration: none
+    transition: all 1s ease
+    @if $fixed
+        color: #fff
+        background: #4E98B6
+        &:hover
+            background-color: #25445E
+    @else
+        color: #4E98B6
+        border: 2px solid #4E98B6
+        background: #fff
+        &:hover
+            background-color: #F1F1F1

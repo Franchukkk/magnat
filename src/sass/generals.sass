@@ -405,7 +405,6 @@ input[type="range"]
         color: #A0A0A0
         background-color: #F1F1F1
             
-    
 .cta-card
     position: relative
     display: block
@@ -498,7 +497,7 @@ span.date
 
 .bgc-block
     position: relative
-    padding: 258rem 0
+    padding: 358rem 0
     background: url("../img/shouse-shadow.png") no-repeat center/cover
 
 .our-advantage
@@ -515,13 +514,32 @@ span.date
         text-transform: uppercase
     p
         margin: 0
-        padding-left: 90rem
+        // padding-left: 90rem
         margin-bottom: 45rem
         color: #191919
         font-size: 18px
         font-weight: 500
 
+.deliver,
+.our-client,
+.our-like
+    column-gap: 50rem
+    
+.circle
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 170rem
+    height: 70rem
+    border-radius: 50%
+    background-color: #4E98B6
 
+.catalog-cta
+    +btn($fixed:false)
+
+.catalog-blue
+    +btn($fixed:true)
+    
 .price
     color: #4E98B6
     font-size: 30rem

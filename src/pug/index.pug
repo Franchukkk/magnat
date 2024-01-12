@@ -142,7 +142,7 @@ html(lang="uk")
                                 label(for="day-style") Повсякденний
                             .flex.button-filter
                                 button.submit-filter(type="submit") застосувати фільтр
-                                button.reset-filter(type="reset") скинути фільтр
+                                button.cta-transparent.reset-filter(type="reset") скинути фільтр
                     .card-block 
                         .btn-season.flex
                             ul.menu.flex-between.filter-season
@@ -203,10 +203,16 @@ html(lang="uk")
                 .bgc-block 
                     .our-advantage.wrapper
                         h3 Чому саме нас обирають клієнти?
-                        p.deliver Дні доставка взуття у ваше місто. Доставка товару здійснюється компаніями «Нова Пошта» та «Укрпошта»
-                        p.our-client Середня кількість пар взуття яку придбали наші постійні клієнти (для постійних клієнтів діють вигідні знижки)
-                        p.our-like Задоволених клієнтів за 3 роки, які замовили у нас чоловіче взуття та порекомендували нас друзям та знайомим.
-                    +cta(catalog)
+                        p.deliver.flex
+                            span.circle 1-3
+                            span Дні доставка взуття у ваше місто. Доставка товару здійснюється компаніями «Нова Пошта» та «Укрпошта»
+                        p.our-client.flex
+                            span.circle 2-5
+                            span Середня кількість пар взуття яку придбали наші постійні клієнти (для постійних клієнтів діють вигідні знижки)
+                        p.our-like.flex
+                            span.circle 5000+
+                            span Задоволених клієнтів за 3 роки, які замовили у нас чоловіче взуття та порекомендували нас друзям та знайомим.
+                        a.catalog-cta(href="#") в каталог
             section.order.wrapper
                 h2 Як зробити замовлення?
                 .flex-between
@@ -215,7 +221,7 @@ html(lang="uk")
                         +ordersStep(orders.step2)
                         +ordersStep(orders.step3)
                     .img-carousel 
-                +cta(catalog)
+                a.catalog-blue(href="#") в каталог
             section.email-news.wrapper  
                 div 
                     h3 З взуттєвим магнатом купувати вигідніше
