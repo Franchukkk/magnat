@@ -4,7 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
         addedProductsList = document.querySelector(".added-products-list "),
         orders = {},
         minusQuantity = document.querySelectorAll(".minus-quantity"),
-        plusQuantity = document.querySelectorAll(".plus-quantity")
+        plusQuantity = document.querySelectorAll(".plus-quantity"),
+        orderDetailSum = document.querySelector(".order-total-price")
+
+    orders.orderSum = 0
     // const productList = document.querySelector(".card-bott"),
     //     categoryFilter = document.querySelector(".filter-season")
 
@@ -488,8 +491,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     if (orders[product.id]) {
                         orders[product.id].quantity++
+                        orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
                         const totalPriceSpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]' + " .total-price span"),
-                            totalQuantitySpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]'+ product.id + " .quantity-number")
+                            totalQuantitySpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]' + " .quantity-number")
                         console.log(totalQuantitySpan)
                         orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
                         totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
@@ -499,6 +503,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             product: product,
                             quantity: 1,
                         }
+                        
+                        orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
 
                         const card = document.createElement("div")
                         card.innerHTML = `
@@ -562,8 +568,10 @@ document.addEventListener("DOMContentLoaded", function () {
                                         orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
                                         totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
                                         totalQuantitySpan.innerText = orders[product.id].quantity
+                                        orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
                                         console.log(orders);
                                     }
+                                    orderDetailSum.innerText = orders.orderSum
                                 })
 
                         })
@@ -586,13 +594,19 @@ document.addEventListener("DOMContentLoaded", function () {
                                         orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
                                         totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
                                         totalQuantitySpan.innerText = orders[product.id].quantity
+                                        orders.orderSum -= Number((orders[product.id].product.price).slice(0, -4))
                                         console.log(orders);
                                     }
+                                    orderDetailSum.innerText = orders.orderSum
                                 })
 
                         })
                     })
+                    orderDetailSum.innerText = orders.orderSum
                 })
+            
+            
+            
         })
     }
 })
