@@ -1,60 +1,250 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    // const productList = document.querySelector(".card-bott"),
+    //     categoryFilter = document.querySelector(".filter-season")
+
+    // // Завантажити дані з JSON-файлу
+    // fetch("products.json")
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         categoryFilter.addEventListener("change", function () {
+    //             // Фільтрувати товари за вибраною категорією
+    //             const selectedCategory = categoryFilter.value
+    //             const filteredProducts = (selectedCategory === "all") ? data : data.filter(product => product.category === selectedCategory)
+
+    //             // Вивести відфільтровані товари
+    //             displayProducts(filteredProducts)
+    //         })
+
+    //         displayProducts(data)
+
+    //         // вивожу у консоль id вибраного товару
+    //         const buyBtns = document.querySelectorAll(".cta-card")
+
+    //         console.log(buyBtns)
+
+
+    //         let numberOfProductsDOM = document.querySelector(".calc-added-products"),
+    //             caclnumberOfProducts = 0,
+    //             addedProductsList = document.querySelector(".added-products-list "),
+    //             orders = {}
+    //         buyBtns.forEach(function (e) {
+    //             e.addEventListener("click", function (i) {
+    //                 let productID = this.dataset.value
+    //                 fetch('products.json')
+    //                     .then(response => response.json())
+    //                     .then(products => {
+    //                         caclnumberOfProducts++
+    //                         const product = products.find(product => product.id === productID)
+    //                         numberOfProductsDOM.innerText = caclnumberOfProducts
+    //                         // console.log(product)
+
+    //                         if (orders[product.id]) {
+    //                             orders[product.id].quantity++
+    //                             const totalPriceSpan = addedProductsList.querySelector("#" + product.id + " .total-price span"),
+    //                                 totalQuantitySpan = addedProductsList.querySelector("#" + product.id + " .quantity-number")
+    //                             console.log(totalQuantitySpan)
+    //                             orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
+    //                             totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
+    //                             totalQuantitySpan.innerText = orders[product.id].quantity
+    //                         } else {
+    //                             orders[product.id] = {
+    //                                 product: product,
+    //                                 quantity: 1,
+    //                             }
+
+    //                             const card = document.createElement("div")
+    //                             card.innerHTML = `
+    //                                     <div class="basket-card flex items-center" id=${product.id}>
+    //                                         <div class="basket-product-description flex items-center">
+    //                                             <img src=${product.img}>
+    //                                             <div class="description">
+    //                                                 <h3>${product.head}</h3>
+    //                                                 <table>
+    //                                                     <tr>
+    //                                                         <td>колір</td>
+    //                                                         <td></td>
+    //                                                     </tr>
+    //                                                     <tr>
+    //                                                         <td>розмір</td>
+    //                                                         <td></td>
+    //                                                     </tr>
+    //                                                     <tr>
+    //                                                         <td>ціна</td>
+    //                                                         <td>${product.price} <span>${product.saleprice}</span></td>
+    //                                                     </tr>
+    //                                                     <tr>
+    //                                                         <td>кількість</td>
+    //                                                         <td><div class="quantity flex">
+    //                                                             <div class="minus-quantity" data-value="${product.id}">-</div>
+
+    //                                                             <div class="quantity-number">${orders[product.id].quantity}</div>
+
+    //                                                             <div class="plus-quantity" data-value="${product.id}">+</div>
+    //                                                         </div></td>
+    //                                                     </tr>
+    //                                                 </table>
+    //                                                 <div class="delete-product">видалити товар</div>
+    //                                             </div>
+    //                                         </div>
+    //                                         <div class="total-price">
+    //                                             <span>${Number((orders[product.id].product.price).slice(0, -4))*orders[product.id].quantity + " грн"}</span> 
+    //                                         </div>
+    //                                     </div>
+    //                                 `
+    //                             addedProductsList.appendChild(card)
+    //                         }
+    //                         console.log(orders)
+
+
+
+    //                     })
+    //             })
+    //         })
+    //     })
+    //     .catch(error => console.error("Помилка завантаження даних:", error))
+
+    // // Функція для виведення товарів у вигляді списку
+    // function displayProducts(products) {
+    //     // console.log(products)
+
+    //     // Очистити список перед виведенням нових товарів
+    //     productList.innerHTML = ""
+
+    //     // Пройтися по кожному товару та додати його до списку
+    //     products.forEach(product => {
+    //         const listItem = document.createElement("figure"),
+    //             figcaptionItems = document.createElement("figcaption")
+
+    //         listItem.classList.add("card-box")
+    //         listItem.appendChild(figcaptionItems)
+    //         // const cardClick = document.createElement("a")
+    //         // cardClick.href = "#"
+    //         // cardClick.classList.add("click-card")
+    //         // figcaptionItems.appendChild(cardClick)
+    //         // Створити та додати зображення
+    //         const imgElement = document.createElement("img")
+    //         imgElement.src = product.img
+    //         imgElement.alt = product.alt
+    //         figcaptionItems.appendChild(imgElement)
+    //         // створити звголовок 
+    //         const headerCard = document.createElement("h2")
+    //         headerCard.classList.add("header-card")
+    //         headerCard.innerText = product.head
+    //         figcaptionItems.appendChild(headerCard)
+    //         // створити елемент старої ціни
+    //         const oldPrice = document.createElement("p")
+    //         oldPrice.classList.add("old-price")
+    //         oldPrice.innerText = product.saleprice
+    //         figcaptionItems.appendChild(oldPrice)
+    //         // створити елемент нової ціни
+    //         const newPrice = document.createElement("p")
+    //         newPrice.classList.add("new-price")
+    //         newPrice.innerText = product.price
+    //         figcaptionItems.appendChild(newPrice)
+
+    //         // створити інпути з розмірами
+
+    //         const inputBlock = document.createElement("div")
+    //         inputBlock.classList.add("input-block")
+    //         figcaptionItems.appendChild(inputBlock)
+
+    //         const sizes = ["40", "41", "42", "43", "44", "45"]
+
+    //         for (const size of sizes) {
+    //             const inputSize = document.createElement("input")
+    //             inputSize.type = "checkbox"
+    //             inputSize.id = `input-${product.id}-${size}`
+    //             inputSize.value = size
+
+    //             const labelInput = document.createElement("label")
+    //             labelInput.classList.add(`label${size}`)
+    //             labelInput.setAttribute("for", `input-${product.id}-${size}`)
+    //             labelInput.innerText = `${size}`
+
+    //             inputBlock.appendChild(inputSize)
+    //             inputBlock.appendChild(labelInput)
+    //         }
+
+    //         // створити кнопку
+    //         const ctaBuy = document.createElement("a")
+    //         ctaBuy.classList.add("cta-card")
+    //         ctaBuy.setAttribute('data-value', product.id) // id товару для додання у кошик
+    //         ctaBuy.innerText = product.cta
+    //         ctaBuy.href = product.href
+    //         figcaptionItems.appendChild(ctaBuy)
+
+    //         productList.appendChild(listItem)
+    //     })
+    // }
+
+    //  пагінатор
+
     const productList = document.querySelector(".card-bott"),
         categoryFilter = document.querySelector(".filter-season")
 
-    // Завантажити дані з JSON-файлу
-    fetch("products.json")
-        .then(response => response.json())
-        .then(data => {
-            categoryFilter.addEventListener("change", function () {
-                // Фільтрувати товари за вибраною категорією
-                const selectedCategory = categoryFilter.value
-                const filteredProducts = (selectedCategory === "all") ? data : data.filter(product => product.category === selectedCategory)
+    const itemsPerPage = 1
+    currentPage = 1
+    totalPages = 1
+    jsonData = []
 
-                // Вивести відфільтровані товари
-                displayProducts(filteredProducts)
-            })
+    function fetchData() {
+        fetch("products.json")
+            .then(response => response.json())
+            .then(data => {
+                jsonData = data
+                totalPages = Math.ceil(jsonData.length / itemsPerPage)
+                showData(currentPage)
+                showPagination()
+                    .then(data => {
+                        categoryFilter.addEventListener("change", function () {
+                            // Фільтрувати товари за вибраною категорією
+                            const selectedCategory = categoryFilter.value
+                            const filteredProducts = (selectedCategory === "all") ? data : data.filter(product => product.category === selectedCategory)
 
-            displayProducts(data)
+                            // Вивести відфільтровані товари
+                            displayProducts(filteredProducts)
+                        })
 
-            // вивожу у консоль id вибраного товару
-            const buyBtns = document.querySelectorAll(".cta-card")
+                        displayProducts(data)
 
-            console.log(buyBtns)
+                        // вивожу у консоль id вибраного товару
+                        const buyBtns = document.querySelectorAll(".cta-card")
+
+                        console.log(buyBtns)
 
 
-            let numberOfProductsDOM = document.querySelector(".calc-added-products"),
-                caclnumberOfProducts = 0,
-                addedProductsList = document.querySelector(".added-products-list "),
-                orders = {}
-            buyBtns.forEach(function (e) {
-                e.addEventListener("click", function (i) {
-                    let productID = this.dataset.value
-                    fetch('products.json')
-                        .then(response => response.json())
-                        .then(products => {
-                            caclnumberOfProducts++
-                            const product = products.find(product => product.id === productID)
-                            numberOfProductsDOM.innerText = caclnumberOfProducts
-                            // console.log(product)
+                        let numberOfProductsDOM = document.querySelector(".calc-added-products"),
+                            caclnumberOfProducts = 0,
+                            addedProductsList = document.querySelector(".added-products-list "),
+                            orders = {}
+                        buyBtns.forEach(function (e) {
+                            e.addEventListener("click", function (i) {
+                                let productID = this.dataset.value
+                                fetch('products.json')
+                                    .then(response => response.json())
+                                    .then(products => {
+                                        caclnumberOfProducts++
+                                        const product = products.find(product => product.id === productID)
+                                        numberOfProductsDOM.innerText = caclnumberOfProducts
+                                        // console.log(product)
 
-                            if (orders[product.id]) {
-                                orders[product.id].quantity++
-                                const totalPriceSpan = addedProductsList.querySelector("#" + product.id + " .total-price span"),
-                                    totalQuantitySpan = addedProductsList.querySelector("#" + product.id + " .quantity-number")
-                                console.log(totalQuantitySpan)
-                                orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
-                                totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
-                                totalQuantitySpan.innerText = orders[product.id].quantity
-                            } else {
-                                orders[product.id] = {
-                                    product: product,
-                                    quantity: 1,
-                                }
+                                        if (orders[product.id]) {
+                                            orders[product.id].quantity++
+                                            const totalPriceSpan = addedProductsList.querySelector("#" + product.id + " .total-price span"),
+                                                totalQuantitySpan = addedProductsList.querySelector("#" + product.id + " .quantity-number")
+                                            console.log(totalQuantitySpan)
+                                            orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
+                                            totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
+                                            totalQuantitySpan.innerText = orders[product.id].quantity
+                                        } else {
+                                            orders[product.id] = {
+                                                product: product,
+                                                quantity: 1,
+                                            }
 
-                                const card = document.createElement("div")
-                                card.innerHTML = `
+                                            const card = document.createElement("div")
+                                            card.innerHTML = `
                                         <div class="basket-card flex items-center" id=${product.id}>
                                             <div class="basket-product-description flex items-center">
                                                 <img src=${product.img}>
@@ -92,92 +282,148 @@ document.addEventListener("DOMContentLoaded", function () {
                                             </div>
                                         </div>
                                     `
-                                addedProductsList.appendChild(card)
-                            }
-                            console.log(orders)
+                                            addedProductsList.appendChild(card)
+                                        }
+                                        console.log(orders)
 
 
 
+                                    })
+                            })
                         })
-                })
+                    })
+
             })
-        })
-        .catch(error => console.error("Помилка завантаження даних:", error))
+            .catch(error => console.error("Помилка завантаження даних:", error))
+    }
 
-    // Функція для виведення товарів у вигляді списку
+    function showData(pageNumber) {
+        const startIndex = (pageNumber - 1) * itemsPerPage,
+            endIndex = startIndex + itemsPerPage,
+            pageData = jsonData.slice(startIndex, endIndex)
+        displayProducts(pageData)
+    }
+
     function displayProducts(products) {
-        // console.log(products)
-
-        // Очистити список перед виведенням нових товарів
         productList.innerHTML = ""
 
-        // Пройтися по кожному товару та додати його до списку
         products.forEach(product => {
             const listItem = document.createElement("figure"),
                 figcaptionItems = document.createElement("figcaption")
 
             listItem.classList.add("card-box")
             listItem.appendChild(figcaptionItems)
-            // const cardClick = document.createElement("a")
-            // cardClick.href = "#"
-            // cardClick.classList.add("click-card")
-            // figcaptionItems.appendChild(cardClick)
-            // Створити та додати зображення
+
             const imgElement = document.createElement("img")
             imgElement.src = product.img
             imgElement.alt = product.alt
             figcaptionItems.appendChild(imgElement)
-            // створити звголовок 
+
             const headerCard = document.createElement("h2")
             headerCard.classList.add("header-card")
             headerCard.innerText = product.head
             figcaptionItems.appendChild(headerCard)
-            // створити елемент старої ціни
+
             const oldPrice = document.createElement("p")
             oldPrice.classList.add("old-price")
             oldPrice.innerText = product.saleprice
             figcaptionItems.appendChild(oldPrice)
-            // створити елемент нової ціни
+
             const newPrice = document.createElement("p")
             newPrice.classList.add("new-price")
             newPrice.innerText = product.price
             figcaptionItems.appendChild(newPrice)
 
-            // створити інпути з розмірами
-
             const inputBlock = document.createElement("div")
             inputBlock.classList.add("input-block")
             figcaptionItems.appendChild(inputBlock)
 
-            const sizes = ["40", "41", "42", "43", "44", "45"];
+            const sizes = ["40", "41", "42", "43", "44", "45"]
 
             for (const size of sizes) {
-                const inputSize = document.createElement("input");
-                inputSize.type = "checkbox";
-                inputSize.id = `input-${product.id}-${size}`; // Встановлюємо унікальний id для кожного вводу
-                inputSize.value = size;
+                const inputSize = document.createElement("input")
+                inputSize.type = "checkbox"
+                inputSize.id = `input-${product.id}-${size}`
+                inputSize.value = size
 
-                const labelInput = document.createElement("label");
-                labelInput.classList.add(`label${size}`);
-                labelInput.setAttribute("for", `input-${product.id}-${size}`); // Відповідність атрибута 'for' з id вводу
-                labelInput.innerText = `${size}`;
+                const labelInput = document.createElement("label")
+                labelInput.classList.add(`label${size}`)
+                labelInput.setAttribute("for", `input-${product.id}-${size}`)
+                labelInput.innerText = `${size}`
 
-                inputBlock.appendChild(inputSize);
-                inputBlock.appendChild(labelInput);
+                inputBlock.appendChild(inputSize)
+                inputBlock.appendChild(labelInput)
             }
 
-            // створити кнопку
             const ctaBuy = document.createElement("a")
             ctaBuy.classList.add("cta-card")
-            ctaBuy.setAttribute('data-value', product.id) // id товару для додання у кошик
+            ctaBuy.setAttribute('data-value', product.id)
             ctaBuy.innerText = product.cta
             ctaBuy.href = product.href
             figcaptionItems.appendChild(ctaBuy)
 
-            // Додати елемент до списку
             productList.appendChild(listItem)
         })
     }
+
+    function showPagination() {
+        var paginationContainer = document.getElementById('pagination')
+        paginationContainer.innerHTML = ''
+    
+        // Стрілка "Назад"
+        var prevButton = document.createElement('button')
+        prevButton.innerText = '←'
+        prevButton.onclick = function () {
+            if (currentPage > 1) {
+                currentPage--
+                showData(currentPage)
+                updatePaginationButtons()
+            }
+        };
+        paginationContainer.appendChild(prevButton)
+    
+        // Кнопки сторінок
+        for (var i = 1; i <= totalPages; i++) {
+            var button = document.createElement('button')
+            button.innerText = i
+            button.onclick = function () {
+                currentPage = parseInt(this.innerText)
+                showData(currentPage)
+                updatePaginationButtons()
+            }
+            paginationContainer.appendChild(button)
+        }
+    
+        // Стрілка "Вперед"
+        var nextButton = document.createElement('button')
+        nextButton.innerText = '→'
+        nextButton.onclick = function () {
+            if (currentPage < totalPages) {
+                currentPage++
+                showData(currentPage)
+                updatePaginationButtons()
+            }
+        }
+        paginationContainer.appendChild(nextButton)
+    
+        updatePaginationButtons()
+    }
+
+    function updatePaginationButtons() {
+        var paginationButtons = document.getElementById('pagination').getElementsByTagName('button')
+
+        for (var i = 0; i < paginationButtons.length; i++) {
+            var pageNumber = parseInt(paginationButtons[i].innerText)
+
+            if (pageNumber === currentPage) {
+                paginationButtons[i].disabled = true
+            } else {
+                paginationButtons[i].disabled = false
+            }
+        }
+    }
+
+    fetchData()
 
     //рейндж з інпутом
 
@@ -250,8 +496,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const cart = document.querySelector(".cart"),
-    basketPopup = document.querySelector(".basket-popup"),
-    returnBasket = document.querySelector(".basket-back")
+        basketPopup = document.querySelector(".basket-popup"),
+        returnBasket = document.querySelector(".basket-back")
 
     function basketToggle() {
         basketPopup.classList.toggle("d-block")
