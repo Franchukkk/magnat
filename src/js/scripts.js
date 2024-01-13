@@ -9,15 +9,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     orders.orderSum = 0
 
-    //  пагінатор
-
     const productList = document.querySelector(".card-bott"),
         categoryFilter = document.querySelector(".filter-season")
 
-    const itemsPerPage = 1
+    const itemsPerPage = 12
     currentPage = 1
     totalPages = 1
     jsonData = []
+    
 
     function fetchData() {
         fetch("products.json")
@@ -114,47 +113,78 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(buyBtns);
     }
 
+    
+
+    //  пагінатор
+
     function showPagination() {
-        var paginationContainer = document.getElementById('pagination')
+        var paginationContainer = document.querySelector('#pagination')
         paginationContainer.innerHTML = ''
 
-        // Стрілка "Назад"
-        var prevButton = document.createElement('button')
-        prevButton.innerText = '←'
-        prevButton.onclick = function () {
+        paginationContainer.appendChild(createButton('←', 'arrow-pag prev', function () {
             if (currentPage > 1) {
                 currentPage--
                 showData(currentPage)
                 updatePaginationButtons()
             }
-        };
-        paginationContainer.appendChild(prevButton)
-
+        }))
+    
         // Кнопки сторінок
-        for (var i = 1; i <= totalPages; i++) {
-            var button = document.createElement('button')
-            button.innerText = i
-            button.onclick = function () {
+        var maxVisiblePages = 4,
+            halfVisiblePages = Math.floor(maxVisiblePages / 2),
+            startPage = Math.max(1, currentPage - halfVisiblePages),
+            endPage = Math.min(totalPages, startPage + maxVisiblePages - 1)
+    
+        if (startPage > 1) {
+            paginationContainer.appendChild(createButton(1, '', function () {
+                currentPage = 1
+                showData(currentPage)
+                updatePaginationButtons()
+            }))
+    
+            if (startPage > 2) {
+                paginationContainer.appendChild(createButton('...', 'ellipsis', function () {}));
+            }
+        }
+    
+        for (var i = startPage; i <= endPage; i++) {
+            paginationContainer.appendChild(createButton(i, (i === currentPage) ? 'active' : '', function () {
                 currentPage = parseInt(this.innerText)
                 showData(currentPage)
                 updatePaginationButtons()
-            }
-            paginationContainer.appendChild(button)
+            }))
         }
-
+    
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                paginationContainer.appendChild(createButton('...', 'ellipsis', function () {}))
+            }
+    
+            paginationContainer.appendChild(createButton(totalPages, '', function () {
+                currentPage = totalPages
+                showData(currentPage)
+                updatePaginationButtons();
+            }))
+        }
+    
         // Стрілка "Вперед"
-        var nextButton = document.createElement('button')
-        nextButton.innerText = '→'
-        nextButton.onclick = function () {
+        paginationContainer.appendChild(createButton('→', 'arrow-pag next', function () {
             if (currentPage < totalPages) {
                 currentPage++
                 showData(currentPage)
                 updatePaginationButtons()
             }
-        }
-        paginationContainer.appendChild(nextButton)
-
+        }))
+    
         updatePaginationButtons()
+    }
+    
+    function createButton(text, className, clickHandler) {
+        var button = document.createElement('button')
+        button.innerText = text
+        button.className = className
+        button.onclick = clickHandler
+        return button
     }
 
     function updatePaginationButtons() {
@@ -164,16 +194,16 @@ document.addEventListener("DOMContentLoaded", function () {
             var pageNumber = parseInt(paginationButtons[i].innerText)
 
             if (pageNumber === currentPage) {
+                paginationButtons[i].classList.add("current-page")
                 paginationButtons[i].disabled = true
             } else {
+                paginationButtons[i].classList.remove("current-page")
                 paginationButtons[i].disabled = false
             }
         }
     }
 
     fetchData()
-
-    //рейндж з інпутом
 
     const container = document.querySelector(".header-carousel"),
         seasonWinter = document.querySelector(".winter"),

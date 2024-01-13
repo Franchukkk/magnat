@@ -334,18 +334,22 @@ input[type="range"]
 
 .card-bott
     width: 100%
-    display: flex
-    justify-content: space-between
-    flex-wrap: wrap
+    display: grid
+    grid-template-columns: 2fr 2fr
     font-size: 14rem
-    border: 0.5rem solid #F1F1F1
+    border-top: 1rem solid #F1F1F1
+    border-left: 1rem solid #F1F1F1
+    +media(728)
+        grid-template-columns: 3fr 3fr 3fr 
+    +media(1440)
+        grid-template-columns: 3fr 3fr 3fr 3fr
 
 .card-box
     position: relative
     padding: 20rem
     width: 100%
-    max-width: 285rem
-    border: 0.5rem solid #F1F1F1
+    border-right: 1rem solid #F1F1F1
+    border-bottom: 1rem solid #F1F1F1
     background-color: #fff
     box-sizing: border-box
     img
@@ -421,13 +425,19 @@ input[type="range"]
         background-color: #25445E
 
 .pagination
+    text-align: center
+    padding: 30rem 0
     button
-        color: #191919
+        color: #A0A0A0
         font-size: 12rem
         font-weight: 400
         text-transform: uppercase
         border: none
         background-color: transparent
+    .arrow-pag,
+    .current-page
+        color: #191919
+
 
 .reviews-list
     display: flex
