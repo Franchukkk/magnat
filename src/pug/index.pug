@@ -224,10 +224,13 @@ html(lang="uk")
             section.order.wrapper
                 h2 Як зробити замовлення?
                 .flex-between
-                    .order-description.flex-between 
-                        +ordersStep(orders.step1)
-                        +ordersStep(orders.step2)
-                        +ordersStep(orders.step3)
+                    .order-description
+                        .step-block.flex.items-center
+                            +ordersStep(orders.step1)
+                        .step-block.flex.items-center
+                            +ordersStep(orders.step2)
+                        .step-block.flex.items-center
+                            +ordersStep(orders.step3)
                     .img-carousel 
                 a.catalog-blue(href="#") в каталог
             section.email-news.wrapper  
