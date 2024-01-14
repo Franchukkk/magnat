@@ -1,12 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let numberOfProductsDOM = document.querySelector(".calc-added-products"),
-        caclnumberOfProducts = 0,
-        addedProductsList = document.querySelector(".added-products-list "),
-        orders = {},
-        minusQuantity = document.querySelectorAll(".minus-quantity"),
-        orderDetailSum = document.querySelector(".order-total-price")
-    buyBtns = document.querySelectorAll(".cta-card")
-
     orders.orderSum = 0
 
     const productList = document.querySelector(".card-bott"),
@@ -99,18 +91,10 @@ document.addEventListener("DOMContentLoaded", function () {
             figcaptionItems.appendChild(ctaBuy)
 
             productList.appendChild(listItem)
-        })
-
-        buyBtns = document.querySelectorAll(".cta-card")
-        buyBtns.forEach(function (e) {
-            e.addEventListener("click", function () {
-                console.log("btn clicked");
-                console.log(e);
-                buyBtnFunc(e)
-            })
 
         })
-        console.log(buyBtns);
+
+
     }
 
 
@@ -258,7 +242,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 updateSeasonDisplay(seasonWinter, 0, "none", "0")
                 updateSeasonDisplay(seasonSummer, 1, "inline", "1")
             } else {
-                console.log(2)
                 container.style.backgroundImage = 'url(../img/header-bg-1.webp)'
                 updateSeasonDisplay(seasonSummer, 0, "none", "0")
                 updateSeasonDisplay(seasonWinter, 1, "inline", "1")
@@ -332,130 +315,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     })
 
-    function buyBtnFunc(e) {
 
-        let productID = e.dataset.value
-        fetch('products.json')
-            .then(response => response.json())
-            .then(products => {
-                caclnumberOfProducts++
-                const product = products.find(product => product.id === productID)
-                numberOfProductsDOM.innerText = caclnumberOfProducts
-                // console.log(product)
-                if (orders[product.id]) {
-                    console.log("already been");
-                    orders[product.id].quantity++
-                    orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
-                    const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
-                        totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
-                    console.log(totalQuantitySpan)
-                    orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
-                    totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
-                    totalQuantitySpan.innerText = orders[product.id].quantity
-                } else {
-                    console.log("has not been");
-                    orders[product.id] = {
-                        product: product,
-                        quantity: 1,
-                    }
-
-                    orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
-
-                    const card = document.createElement("div")
-                    card.innerHTML = `
-                        <div class="basket-card flex items-center" data-value=${product.id}>
-                            <div class="basket-product-description flex items-center">
-                                <img src=${product.img}>
-                                <div class="description">
-                                    <h3>${product.head}</h3>
-                                    <table>
-                                        <tr>
-                                            <td>колір</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>розмір</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>ціна</td>
-                                            <td>${product.price} <span>${product.saleprice}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>кількість</td>
-                                            <td><div class="quantity flex">
-                                                <div class="minus-quantity" data-value="${product.id}">-</div>
-
-                                                <div class="quantity-number">${orders[product.id].quantity}</div>
-
-                                                <div class="plus-quantity" data-value="${product.id}">+</div>
-                                            </div></td>
-                                        </tr>
-                                    </table>
-                                    <div class="delete-product">видалити товар</div>
-                                </div>
-                            </div>
-                            <div class="total-price">
-                                <span>${Number((orders[product.id].product.price).slice(0, -4))*orders[product.id].quantity + " грн"}</span> 
-                            </div>
-                        </div>
-                    `
-                    addedProductsList.appendChild(card)
-                }
-                console.log(orders)
-                minusQuantity = document.querySelectorAll(".minus-quantity")
-                let plusQuantity = document.querySelectorAll(".plus-quantity")
-
-                plusQuantity.forEach(function (e) {
-                    e.addEventListener("click", function (i) {
-                        let productID = this.dataset.value
-                        const product = products.find(product => product.id === productID)
-
-                        if (orders[product.id]) {
-                            orders[product.id].quantity = orders[product.id].quantity + 1
-                            const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
-                                totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
-                            console.log("span more");
-                            console.log(totalQuantitySpan)
-                            orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
-                            totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
-                            totalQuantitySpan.innerText = orders[product.id].quantity
-                            orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
-                            console.log(orders);
-                        }
-                        orderDetailSum.innerText = orders.orderSum
-
-                    })
-                })
-
-                minusQuantity.forEach(function (e) {
-                    e.addEventListener("click", function (i) {
-
-                        let productID = this.dataset.value
-                        const product = products.find(product => product.id === productID)
-
-                        if (orders[product.id] && orders[product.id].quantity != 1) {
-                            orders[product.id].quantity = orders[product.id].quantity - 1
-                            const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
-                                totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
-                            console.log(totalQuantitySpan)
-                            orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
-                            totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
-                            totalQuantitySpan.innerText = orders[product.id].quantity
-                            orders.orderSum -= Number((orders[product.id].product.price).slice(0, -4))
-                            console.log(orders);
-                        }
-                        orderDetailSum.innerText = orders.orderSum
-
-                    })
-                })
-                orderDetailSum.innerText = orders.orderSum
-            })
-
-
-
-
-    }
 
     let imgCarousel = document.querySelector('.img-carousel'),
         currentIndex = 1,
@@ -507,3 +367,144 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 })
+
+let minusQuantity = document.querySelectorAll(".minus-quantity"),
+    orderDetailSum = document.querySelector(".order-total-price"),
+    numberOfProductsDOM = document.querySelector(".calc-added-products"),
+    caclnumberOfProducts = 0,
+    addedProductsList = document.querySelector(".added-products-list "),
+    orders = {}
+
+const cartWaitTimeout = setTimeout(function () { cart () }, 1000)
+
+function cart () {
+
+    if (document.querySelectorAll(".cta-card")) {
+        clearInterval(cartWaitTimeout)
+        let buyBtns = document.querySelectorAll(".cta-card")
+        
+        buyBtns.forEach(function (e) {
+            e.addEventListener("click", function () {
+                console.log("btn clicked");
+                console.log(e);
+                buyBtnFunc(e)
+            })
+        
+        })
+        
+        function buyBtnFunc(e) {
+            let productID = e.dataset.value
+            fetch('products.json')
+                .then(response => response.json())
+                .then(products => {
+                    caclnumberOfProducts++
+                    const product = products.find(product => product.id === productID)
+                    numberOfProductsDOM.innerText = caclnumberOfProducts
+                    if (orders[product.id]) {
+                        orders[product.id].quantity++
+                        orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
+                        const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
+                            totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
+                        orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
+                        totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
+                        totalQuantitySpan.innerText = orders[product.id].quantity
+                    } else {
+                        orders[product.id] = {
+                            product: product,
+                            quantity: 1,
+                        }
+        
+                        orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
+        
+                        const card = document.createElement("div")
+                        card.innerHTML = `
+                            <div class="basket-card flex items-center" data-value=${product.id}>
+                                <div class="basket-product-description flex items-center">
+                                    <img src=${product.img}>
+                                    <div class="description">
+                                        <h3>${product.head}</h3>
+                                        <table>
+                                            <tr>
+                                                <td>колір</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>розмір</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>ціна</td>
+                                                <td>${product.price} <span>${product.saleprice}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>кількість</td>
+                                                <td><div class="quantity flex">
+                                                    <div class="minus-quantity" data-value="${product.id}">-</div>
+        
+                                                    <div class="quantity-number">${orders[product.id].quantity}</div>
+        
+                                                    <div class="plus-quantity" data-value="${product.id}">+</div>
+                                                </div></td>
+                                            </tr>
+                                        </table>
+                                        <div class="delete-product">видалити товар</div>
+                                    </div>
+                                </div>
+                                <div class="total-price">
+                                    <span>${Number((orders[product.id].product.price).slice(0, -4))*orders[product.id].quantity + " грн"}</span> 
+                                </div>
+                            </div>
+                        `
+                        addedProductsList.appendChild(card)
+                    }
+                    minusQuantity = document.querySelectorAll(".minus-quantity")
+                    let plusQuantity = document.querySelectorAll(".plus-quantity")
+        
+                    plusQuantity.forEach(function (e) {
+                        e.addEventListener("click", function (i) {
+                            let productID = this.dataset.value
+                            const product = products.find(product => product.id === productID)
+        
+                            if (orders[product.id]) {
+                                orders[product.id].quantity = orders[product.id].quantity + 1
+                                const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
+                                    totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
+                                orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
+                                totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
+                                totalQuantitySpan.innerText = orders[product.id].quantity
+                                orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
+                            }
+                            orderDetailSum.innerText = orders.orderSum
+        
+                        })
+                    })
+        
+                    minusQuantity.forEach(function (e) {
+                        e.addEventListener("click", function (i) {
+        
+                            let productID = this.dataset.value
+                            const product = products.find(product => product.id === productID)
+        
+                            if (orders[product.id] && orders[product.id].quantity != 1) {
+                                orders[product.id].quantity = orders[product.id].quantity - 1
+                                const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
+                                    totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
+                                orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
+                                totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
+                                totalQuantitySpan.innerText = orders[product.id].quantity
+                                orders.orderSum -= Number((orders[product.id].product.price).slice(0, -4))
+        
+                            }
+                            orderDetailSum.innerText = orders.orderSum
+        
+                        })
+                    })
+                    orderDetailSum.innerText = orders.orderSum
+                })
+        
+        
+        
+        
+        }
+    }
+}
