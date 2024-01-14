@@ -409,25 +409,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 plusQuantity.forEach(function (e) {
                     e.addEventListener("click", function (i) {
                         let productID = this.dataset.value
-                        fetch('products.json')
-                            .then(response => response.json())
-                            .then(products => {
-                                const product = products.find(product => product.id === productID)
+                        const product = products.find(product => product.id === productID)
 
-                                if (orders[product.id]) {
-                                    orders[product.id].quantity = orders[product.id].quantity + 1
-                                    const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
-                                        totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
-                                    console.log("span more");
-                                    console.log(totalQuantitySpan)
-                                    orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
-                                    totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
-                                    totalQuantitySpan.innerText = orders[product.id].quantity
-                                    orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
-                                    console.log(orders);
-                                }
-                                orderDetailSum.innerText = orders.orderSum
-                            })
+                        if (orders[product.id]) {
+                            orders[product.id].quantity = orders[product.id].quantity + 1
+                            const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
+                                totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
+                            console.log("span more");
+                            console.log(totalQuantitySpan)
+                            orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
+                            totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
+                            totalQuantitySpan.innerText = orders[product.id].quantity
+                            orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
+                            console.log(orders);
+                        }
+                        orderDetailSum.innerText = orders.orderSum
 
                     })
                 })
@@ -436,24 +432,20 @@ document.addEventListener("DOMContentLoaded", function () {
                     e.addEventListener("click", function (i) {
 
                         let productID = this.dataset.value
-                        fetch('products.json')
-                            .then(response => response.json())
-                            .then(products => {
-                                const product = products.find(product => product.id === productID)
+                        const product = products.find(product => product.id === productID)
 
-                                if (orders[product.id] && orders[product.id].quantity != 1) {
-                                    orders[product.id].quantity = orders[product.id].quantity - 1
-                                    const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
-                                        totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
-                                    console.log(totalQuantitySpan)
-                                    orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
-                                    totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
-                                    totalQuantitySpan.innerText = orders[product.id].quantity
-                                    orders.orderSum -= Number((orders[product.id].product.price).slice(0, -4))
-                                    console.log(orders);
-                                }
-                                orderDetailSum.innerText = orders.orderSum
-                            })
+                        if (orders[product.id] && orders[product.id].quantity != 1) {
+                            orders[product.id].quantity = orders[product.id].quantity - 1
+                            const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
+                                totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
+                            console.log(totalQuantitySpan)
+                            orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
+                            totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
+                            totalQuantitySpan.innerText = orders[product.id].quantity
+                            orders.orderSum -= Number((orders[product.id].product.price).slice(0, -4))
+                            console.log(orders);
+                        }
+                        orderDetailSum.innerText = orders.orderSum
 
                     })
                 })
