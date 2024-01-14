@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
         orders = {},
         minusQuantity = document.querySelectorAll(".minus-quantity"),
         orderDetailSum = document.querySelector(".order-total-price")
-        buyBtns = document.querySelectorAll(".cta-card")
+    buyBtns = document.querySelectorAll(".cta-card")
 
     orders.orderSum = 0
 
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     currentPage = 1
     totalPages = 1
     jsonData = []
-    
+
 
     function fetchData() {
         fetch("products.json")
@@ -102,18 +102,18 @@ document.addEventListener("DOMContentLoaded", function () {
         })
 
         buyBtns = document.querySelectorAll(".cta-card")
-        buyBtns.forEach(function(e){
-            e.addEventListener("click", function(){
+        buyBtns.forEach(function (e) {
+            e.addEventListener("click", function () {
                 console.log("btn clicked");
                 console.log(e);
                 buyBtnFunc(e)
             })
-            
+
         })
         console.log(buyBtns);
     }
 
-    
+
 
     //  пагінатор
 
@@ -128,25 +128,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 updatePaginationButtons()
             }
         }))
-    
+
         // Кнопки сторінок
         var maxVisiblePages = 4,
             halfVisiblePages = Math.floor(maxVisiblePages / 2),
             startPage = Math.max(1, currentPage - halfVisiblePages),
             endPage = Math.min(totalPages, startPage + maxVisiblePages - 1)
-    
+
         if (startPage > 1) {
             paginationContainer.appendChild(createButton(1, '', function () {
                 currentPage = 1
                 showData(currentPage)
                 updatePaginationButtons()
             }))
-    
+
             if (startPage > 2) {
                 paginationContainer.appendChild(createButton('...', 'ellipsis', function () {}));
             }
         }
-    
+
         for (var i = startPage; i <= endPage; i++) {
             paginationContainer.appendChild(createButton(i, (i === currentPage) ? 'active' : '', function () {
                 currentPage = parseInt(this.innerText)
@@ -154,19 +154,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 updatePaginationButtons()
             }))
         }
-    
+
         if (endPage < totalPages) {
             if (endPage < totalPages - 1) {
                 paginationContainer.appendChild(createButton('...', 'ellipsis', function () {}))
             }
-    
+
             paginationContainer.appendChild(createButton(totalPages, '', function () {
                 currentPage = totalPages
                 showData(currentPage)
                 updatePaginationButtons();
             }))
         }
-    
+
         // Стрілка "Вперед"
         paginationContainer.appendChild(createButton('→', 'arrow-pag next', function () {
             if (currentPage < totalPages) {
@@ -175,10 +175,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 updatePaginationButtons()
             }
         }))
-    
+
         updatePaginationButtons()
     }
-    
+
     function createButton(text, className, clickHandler) {
         var button = document.createElement('button')
         button.innerText = text
@@ -215,11 +215,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function animateBackground() {
         if (currentFrame === 0 || currentFrame === 100) {
-            container.style.backgroundImage = 'url(../img/header-bg-1.jpg)'
+            container.style.backgroundImage = 'url(../img/header-bg-1.webp)'
             updateSeasonDisplay(seasonSummer, 0, "none", "0")
             updateSeasonDisplay(seasonWinter, 1, "inline", "1")
         } else if (currentFrame === 50) {
-            container.style.backgroundImage = 'url(../img/header-background-2.jpg)'
+            container.style.backgroundImage = 'url(../img/header-background-2.webp)'
             updateSeasonDisplay(seasonWinter, 0, "none", "0")
             updateSeasonDisplay(seasonSummer, 1, "inline", "1")
         }
@@ -254,12 +254,12 @@ document.addEventListener("DOMContentLoaded", function () {
             canClick = false
             clearInterval(backgroundCarousel)
             if (seasonWinter.style.opacity == "1") {
-                container.style.backgroundImage = 'url(../img/header-background-2.jpg)'
+                container.style.backgroundImage = 'url(../img/header-background-2.webp)'
                 updateSeasonDisplay(seasonWinter, 0, "none", "0")
                 updateSeasonDisplay(seasonSummer, 1, "inline", "1")
             } else {
                 console.log(2)
-                container.style.backgroundImage = 'url(../img/header-bg-1.jpg)'
+                container.style.backgroundImage = 'url(../img/header-bg-1.webp)'
                 updateSeasonDisplay(seasonSummer, 0, "none", "0")
                 updateSeasonDisplay(seasonWinter, 1, "inline", "1")
             }
@@ -333,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     function buyBtnFunc(e) {
-        
+
         let productID = e.dataset.value
         fetch('products.json')
             .then(response => response.json())
@@ -347,8 +347,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("already been");
                     orders[product.id].quantity++
                     orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
-                    const totalPriceSpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]' + " .total-price span"),
-                        totalQuantitySpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]' + " .quantity-number")
+                    const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
+                        totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
                     console.log(totalQuantitySpan)
                     orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
                     totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
@@ -359,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         product: product,
                         quantity: 1,
                     }
-                    
+
                     orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
 
                     const card = document.createElement("div")
@@ -414,11 +414,11 @@ document.addEventListener("DOMContentLoaded", function () {
                             .then(response => response.json())
                             .then(products => {
                                 const product = products.find(product => product.id === productID)
-                                
+
                                 if (orders[product.id]) {
                                     orders[product.id].quantity = orders[product.id].quantity + 1
-                                    const totalPriceSpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]'+ " .total-price span"),
-                                        totalQuantitySpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]' + " .quantity-number")
+                                    const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
+                                        totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
                                     console.log("span more");
                                     console.log(totalQuantitySpan)
                                     orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
@@ -444,8 +444,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                                 if (orders[product.id] && orders[product.id].quantity != 1) {
                                     orders[product.id].quantity = orders[product.id].quantity - 1
-                                    const totalPriceSpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]' + " .total-price span"),
-                                        totalQuantitySpan = addedProductsList.querySelector('[data-value="'+ product.id + '"]' + " .quantity-number")
+                                    const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
+                                        totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
                                     console.log(totalQuantitySpan)
                                     orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
                                     totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
@@ -460,9 +460,59 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 orderDetailSum.innerText = orders.orderSum
             })
-        
-        
-            
-        
+
+
+
+
     }
+
+    let imgCarousel = document.querySelector('.img-carousel'),
+        currentIndex = 1,
+        stepBlocks = document.querySelectorAll(".step-block")
+        
+    console.log(imgCarousel)
+
+    function carouselHeight () {
+        console.log("func");
+        let imgCarouselHeight = 0
+        stepBlocks.forEach(function(e) {
+            imgCarouselHeight += e.getBoundingClientRect().height
+            console.log(imgCarouselHeight);
+        })
+    
+        imgCarousel.style.height = imgCarouselHeight + 20 * 2 + "px"
+    }
+
+    carouselHeight()
+
+    function changeImage() {
+        let imageUrl
+        console.log(4)
+        switch (currentIndex) {
+            case 1:
+                imageUrl = 'url(../img/frst-change.png)'
+                break
+            case 2:
+                imageUrl = 'url(../img/sec-change.png)'
+                break
+            case 3:
+                imageUrl = 'url(../img/three-change.png)'
+                break
+            case 4:
+                imageUrl = 'url(../img/last-change.png)'
+                break
+            default:
+                imageUrl = 'url(../img/frst-change.png)'
+        }
+
+        imgCarousel.style.backgroundImage = imageUrl
+
+        // збільшити індекс або скинути його на 1 якщо сдайдер досягнув останнього зображення
+        currentIndex = currentIndex < 4 ? currentIndex + 1 : 1
+    }
+
+   
+    setInterval(changeImage, 5000)
+
+
 })
