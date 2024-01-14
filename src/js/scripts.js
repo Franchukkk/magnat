@@ -342,7 +342,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const product = products.find(product => product.id === productID)
                 numberOfProductsDOM.innerText = caclnumberOfProducts
                 // console.log(product)
-
                 if (orders[product.id]) {
                     console.log("already been");
                     orders[product.id].quantity++
@@ -469,17 +468,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let imgCarousel = document.querySelector('.img-carousel'),
         currentIndex = 1,
         stepBlocks = document.querySelectorAll(".step-block")
-        
+
     console.log(imgCarousel)
 
-    function carouselHeight () {
+    function carouselHeight() {
         console.log("func");
         let imgCarouselHeight = 0
-        stepBlocks.forEach(function(e) {
+        stepBlocks.forEach(function (e) {
             imgCarouselHeight += e.getBoundingClientRect().height
             console.log(imgCarouselHeight);
         })
-    
+
         imgCarousel.style.height = imgCarouselHeight + 20 * 2 + "px"
     }
 
@@ -511,7 +510,7 @@ document.addEventListener("DOMContentLoaded", function () {
         currentIndex = currentIndex < 4 ? currentIndex + 1 : 1
     }
 
-   
+
     setInterval(changeImage, 5000)
 
 

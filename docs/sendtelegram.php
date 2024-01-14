@@ -14,7 +14,7 @@ $userEmail = urlencode("$userEmail");
 
 
 $urlQuery = "https://api.telegram.org/bot". $token ."/sendMessage?chat_id=". $chat_id ."&text=" . 
-    "**НОВЕ ЗАМОВЛЕННЯ**". "%0A". "%0A".
+    "Підписка на розсилку". "%0A". "%0A".
     "E-mail покупця: ". $userEmail;
 
 

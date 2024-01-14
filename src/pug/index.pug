@@ -27,6 +27,59 @@ html(lang="uk")
             .basket-footer 
                 .wrapper
                     span.basket-back повернутися у каталог
+        .order-confirm-popup.d-none
+            .basket-header-line
+                .wrapper.flex.items-center
+                    h2 оформлення замовлення
+                    .calc-added-products 0
+            .basket-main.flex-between.wrapper  
+                .order-form.wrapper 
+                
+                    h3 ваші контактні дані12
+                    form(action="sendorder.php", method="post")    
+                        .flex-between
+                            label 
+                                p Мобільний телефон
+                                input(type="number", name="userPhone") 
+                            label 
+                                p Електронна пошта
+                                input(type="email", name="userEmail") 
+                        .flex-between
+                            label 
+                                p Імʼя
+                                input(type="text", name="userName") 
+                            label 
+                                p Прізвище
+                                input(type="text", name="userFirstName")
+                        .payment-method 
+                            h3 спосіб оплати
+                            label
+                                input(type="radio", name="paymenttype" value="Готівкою при отриманні/накладений платіж")
+                                span Готівкою при отриманні/накладений платіж
+                            label
+                                input(type="radio", name="paymenttype" value="Переказ на банківську картку")
+                                span Переказ на банківську картку
+                        .delivery-method 
+                            h3 спосіб доставки
+                            label
+                                input(type="radio", name="deliveryMethod" value="Нова Пошта")
+                                span Нова Пошта
+                            label
+                                input(type="radio", name="deliveryMethod" value="Укрпошта")
+                                span Укрпошта
+                            .flex-between 
+                                label
+                                    p Місто
+                                    input(type="text", name="city")
+                                label
+                                    p Номер відділення
+                                    input(type="text", name="postNumber")
+                        .hidden-inputs
+                        input(type="submit", value="submit")
+                .order-price-details
+            .basket-footer 
+                .wrapper
+                    span.basket-back повернутися у каталог
         header 
             .top-line
                 .wrapper.flex-between.items-center
