@@ -223,7 +223,7 @@ html(lang="uk")
                         a.catalog-cta(href="#") в каталог
             section.order.wrapper
                 h2 Як зробити замовлення?
-                .flex-between
+                .flex-between.flex-wrap
                     .order-description
                         .step-block.flex.items-center
                             +ordersStep(orders.step1)
@@ -231,8 +231,9 @@ html(lang="uk")
                             +ordersStep(orders.step2)
                         .step-block.flex.items-center
                             +ordersStep(orders.step3)
-                    .img-carousel 
-                a.catalog-blue(href="#") в каталог
+                    .img-carousel
+                .order-btn
+                    a.catalog-blue(href="#") в каталог
             section.email-news 
                 .picture-box-blur
                 .blur-box 
