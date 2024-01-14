@@ -23,7 +23,7 @@ figure
     margin: 0
 
 h2
-    margin-bottom: 50rem
+    // margin-bottom: 50rem
     color: #25445E
     text-align: center
     font-size: 48px
@@ -938,3 +938,31 @@ p.step
 
 .d-none
     display: none
+
+.review-block-hidden
+    padding-right: 20rem
+    max-height: 85rem
+    overflow-y: scroll
+    .flex-between
+       margin-bottom: 10rem 
+    &::-webkit-scrollbar
+        width: 2px
+        background: #F1F1F1
+    &::-webkit-scrollbar-thumb
+        width: 4px
+        background: #A0A0A0
+
+.stars
+    margin-bottom: 10rem
+
+.star
+    width: 10px
+    height: 10px
+    background-image: url(../img/star-grey.svg)
+    background-position-x: 100%
+.star.active
+    width: 10px
+    height: 10px
+    background-image: url(../img/star.svg)
+    background-position-x: 0
+
