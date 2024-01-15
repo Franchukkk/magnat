@@ -303,12 +303,12 @@ html(lang="uk")
                     .picture-box.blur5
                 div.email-box.flex
                     h3 З взуттєвим магнатом купувати вигідніше
-                    p Підпишіться на новини. Ми надсилатимемо вам тільки найкращі пропозиції.
+                    p Залишились питання?
                     .form-email.flex
                         form.flex.flex-form(action="sendtelegram.php", method="POST")
                             p.input-email
-                                input(type="email", placeholder="Ваш e-mail", name="userEmail")
-                            button(type="submit") підписатися
+                                input(class="inputMask", type="tel", placeholder="", name="userTel")
+                            button(type="submit") передзвоніть мені
         footer 
             .bottom-contact-block
                 .wrapper.flex.bottom-navigation
