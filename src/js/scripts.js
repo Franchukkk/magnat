@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let imgCarousel = document.querySelector('.img-carousel'),
         stepBlocks = document.querySelectorAll(".step-block")
-
+    const imagesOrder = document.querySelectorAll(".img-carousel img")
     console.log(imgCarousel)
 
     function carouselHeight() {
@@ -304,12 +304,15 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(imgCarouselHeight);
         })
 
-        imgCarousel.style.height = imgCarouselHeight + 20 * 2 + "px"
+        imagesOrder.forEach(function (e) {
+            e.style.height = imgCarouselHeight + 20 * 2 + "px"
+
+        })
     }
 
     carouselHeight()
 
-    const imagesOrder = document.querySelectorAll(".img-carousel img")
+    
     let currentImgIndexOrder = 0
 
     function showNextImageOrder() {
