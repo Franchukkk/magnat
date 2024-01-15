@@ -5,7 +5,10 @@ h1,h2,p
     
 
 html
-    font-size: 1px
+
+    font-size: 0.8px
+    +media(650)
+        font-size: 1px
 
 body 
     margin: 0
@@ -26,7 +29,7 @@ h2
     // margin-bottom: 50rem
     color: #25445E
     text-align: center
-    font-size: 48px
+    font-size: 48rem
     font-weight: 700
     text-transform: uppercase
 .top-line
@@ -38,9 +41,10 @@ h2
     margin: 0 auto
     // max-width: 1366rem
     max-width: 1100rem
-    width: 100%
-    // padding: 0 15rem
+    width: 90%
     box-sizing: border-box
+    +media(1150)
+        width: 100%
 
 .flex-between
     display: flex
@@ -464,13 +468,15 @@ input[type="range"]
     align-items: center
 
 .review-card
-    width: 26%
+    width: 100%
     max-width: 500rem
     min-width: 300px
     border-radius: 5px
     border: 1px solid #A0A0A0
     background-color: #fff
     padding: 20rem
+    +media(780)
+        width: 26%
     span
         font-size: 18rem
         color: #191919
@@ -541,7 +547,7 @@ span.date
         // padding-left: 90rem
         margin-bottom: 45rem
         color: #191919
-        font-size: 18px
+        font-size: 18rem
         font-weight: 500
 
 .deliver,
@@ -575,14 +581,19 @@ h1
     font-size: 68rem
     font-weight: 700
     text-transform: uppercase
+    margin-bottom: 20rem
 
 .advantage
+    display: block
     max-width: 780rem
+    +media(570)
+        display: flex
     p
         color: #191919
         font-size: 20rem
         font-weight: 500
         text-transform: uppercase
+        margin-bottom: 20rem
 
 .arrow
     max-width: 140rem
@@ -632,7 +643,12 @@ h1
     transition: 0.5s
     opacity: 0
 
-
+.basket-main
+    display: block
+    padding-top: 50rem
+    overflow-y: scroll
+    +media(960)
+        display: flex
 
 .basket-popup 
     display: none
@@ -735,7 +751,7 @@ h1
     align-items: center
     background: #F1F1F1
     min-height: 100px
-    margin-bottom: 50px
+
 
 .basket-footer
     position: absolute
@@ -791,7 +807,10 @@ h1
 
 
 .order-details
-    width: 40%
+    width: 100%
+    margin-bottom: 20rem
+    +media(960)
+        width: 40%
     h3
         color: #4E98B6
         leading-trim: both
@@ -816,7 +835,12 @@ h1
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15)
     column-gap: 30rem
     padding: 30rem
-    margin-bottom: 20rem
+    &:not(&:last-child)
+        margin-bottom: 20rem
+
+.order-steps-content
+    margin-bottom: 30rem
+    row-gap: 50rem
 
 .icon-block
     display: flex
@@ -866,6 +890,9 @@ p.step
 
 .order
     padding: 100rem 0
+.order h2,
+.reviews h2
+    margin-bottom: 50rem
     
 
 .order-btn
@@ -873,7 +900,9 @@ p.step
     justify-content: center
 
 .order-description
-    width: 48%
+    width: 100%
+    +media(960)
+        width: 48%
 
 .email-news
     position: relative 
@@ -912,7 +941,7 @@ p.step
     background-image: url(../img/last-change.png)
 
 .img-carousel 
-    width: 50%
+    width: 100%
     min-width: 300px
     height: 300px
     background-size: cover
@@ -920,7 +949,8 @@ p.step
     background-image: url(../img/frst-change.png)
     background-position: center
     background-size: cover
-    
+    +media(960)
+        width: 50%
 .order-form
     h3
         color: #25445E
