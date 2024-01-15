@@ -237,6 +237,20 @@ ul.activemobile
             background: #4E98B6
             color: #fff
 
+.mobile-filter
+    +media(1024)
+        display: none
+    
+div.active-filter
+    display: block
+    width: 50vw
+    position: absolute
+    top: 150rem
+    left: 0
+    background-color: #fff
+    z-index: 5
+    box-sizing: border-box
+
 
 .arrow-select 
     position: relative
@@ -269,6 +283,7 @@ ul.activemobile
         z-index: 1
 
 .filter-block
+    position: relative
     align-items: flex-start
 
 .filter
@@ -1071,13 +1086,17 @@ p.step
     background: url(../img/blur-bottom5.webp) no-repeat center/cover
 
 .email-box
-    padding: 58rem 82rem
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    padding: 58rem 22rem
     color: #FFF
     text-align: center
     border-radius: 5px
     background: #25445E
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15)
     +media(768)
+        padding: 58rem 82rem
         position: absolute
         top: 50%
         left: 50%
@@ -1100,12 +1119,12 @@ p.step
     align-items: center
 
 .flex-form
-    width: 40vw
+    width: 50vw
     column-gap: 30rem
-    row-gap: 10rem
     justify-content: center
     flex-wrap: wrap
     +media(768)
+        width: 40vw
         justify-content: space-between
         flex-wrap: nowrap
     button

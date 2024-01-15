@@ -8,11 +8,14 @@ document.addEventListener("DOMContentLoaded", function () {
             mobileMenu.classList.toggle('activemobile')
     })
 
-    // function closeBurgerMenu() {
-    //     burger.classList.remove('active');
-    //     mobileMenu.classList.remove('activemobile');
-    //     mobileMenu.classList.toggle('top-nav');
-    // }
+    // filter-mobile
+    const filterMobile = document.querySelector(".mobile-filter"),
+        filterBlock = document.querySelector(".filter")
+
+    filterMobile.addEventListener("click", function (e) {
+        e.preventDefault()
+        filterBlock.classList.toggle("active-filter")
+    })
 
     orders.orderSum = 0
 
