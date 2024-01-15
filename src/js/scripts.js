@@ -209,13 +209,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const images = document.querySelectorAll('.slider-images img'),
         arrLeft = document.querySelector(".arr-left"),
-        arrRight = document.querySelector(".arr-right")
+        arrRight = document.querySelector(".arr-right"),
+        slideBlocks = document.querySelectorAll(".slide-description")
     let currentImgIndex = 0;
 
     function showNextImage() {
+        slideBlocks[currentImgIndex].classList.remove('active')
         images[currentImgIndex].classList.remove('active')
         currentImgIndex = (currentImgIndex + 1) % images.length
         images[currentImgIndex].classList.add('active')
+        slideBlocks[currentImgIndex].classList.add('active')
+
     }
 
     showNextImage()
