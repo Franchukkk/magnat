@@ -220,13 +220,20 @@ document.addEventListener("DOMContentLoaded", function () {
         slideBlocks = document.querySelectorAll(".slide-description")
     let currentImgIndex = 0;
 
+    function showPreviousImage() {
+        slideBlocks[currentImgIndex].classList.remove('active')
+        images[currentImgIndex].classList.remove('active')
+        currentImgIndex = (currentImgIndex - 1 + images.length) % images.length
+        images[currentImgIndex].classList.add('active')
+        slideBlocks[currentImgIndex].classList.add('active')
+    }
+
     function showNextImage() {
         slideBlocks[currentImgIndex].classList.remove('active')
         images[currentImgIndex].classList.remove('active')
         currentImgIndex = (currentImgIndex + 1) % images.length
         images[currentImgIndex].classList.add('active')
         slideBlocks[currentImgIndex].classList.add('active')
-
     }
 
     showNextImage()
@@ -235,12 +242,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     arrLeft.addEventListener("click", function () {
         clearInterval(headerSlideInterval)
-        showNextImage()
+        showPreviousImage()
     })
+
     arrRight.addEventListener("click", function () {
         clearInterval(headerSlideInterval)
         showNextImage()
     })
+
 
     const cart = document.querySelector(".cart"),
         basketPopup = document.querySelector(".basket-popup"),
