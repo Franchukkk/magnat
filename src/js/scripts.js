@@ -1,4 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
+     //бургер меню
+    const burger = document.querySelector(".burger"),
+        mobileMenu = document.querySelector(".top-nav")
+
+    burger.addEventListener('click', function () {
+        this.classList.toggle('active'),
+            mobileMenu.classList.toggle('activemobile')
+    })
+
+    // function closeBurgerMenu() {
+    //     burger.classList.remove('active');
+    //     mobileMenu.classList.remove('activemobile');
+    //     mobileMenu.classList.toggle('top-nav');
+    // }
+
     orders.orderSum = 0
 
     const productList = document.querySelector(".card-bott"),

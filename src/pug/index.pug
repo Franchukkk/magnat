@@ -35,7 +35,6 @@ html(lang="uk")
                     .calc-added-products 0
             .basket-main.flex-between.wrapper  
                 .order-form.wrapper 
-                
                     h3 ваші контактні дані
                     form(action="sendorder.php", method="post")    
                         .flex-between
@@ -84,7 +83,9 @@ html(lang="uk")
         header 
             .top-line
                 .wrapper.flex-between.items-center
-                    nav 
+                    nav
+                        .burger#burger.burger-fix
+                            span.bord
                         ul.menu.flex-between.top-nav
                             li
                                 a(href="index.html") Головна
