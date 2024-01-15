@@ -10,11 +10,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // filter-mobile
     const filterMobile = document.querySelector(".mobile-filter"),
-        filterBlock = document.querySelector(".filter")
+        filterBlock = document.querySelector(".filter"),
+        cancelFilter = document.querySelector(".cancel-filter"),
+        activeFilter = document.querySelector(".active-filter")
+        
 
     filterMobile.addEventListener("click", function (e) {
         e.preventDefault()
-        filterBlock.classList.toggle("active-filter")
+        filterBlock.classList.add("active-filter")
+    })
+
+    cancelFilter.addEventListener("click", function () {
+        filterBlock.classList.remove("active-filter")
     })
 
     orders.orderSum = 0

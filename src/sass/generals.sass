@@ -252,6 +252,7 @@ ul.activemobile
 div.active-filter
     display: block
     width: 50vw
+    height: 100vh
     padding-left: 15rem
     padding-bottom: 30rem
     position: fixed
@@ -260,6 +261,7 @@ div.active-filter
     background-color: #fff
     z-index: 6
     box-sizing: border-box
+    overflow: scroll
 
 
 .arrow-select 
@@ -317,11 +319,16 @@ div.active-filter
         color: #191919
         font-size: 18rem
         font-weight: 500
-    label 
+    label,
+    .cancel-filter 
         color: #191919
         font-size: 16rem
         font-weight: 300
 
+.cancel-filter
+    +media(1024)
+        display: none
+        
 .check-size,
 .price-filter,
 .color-filter,
