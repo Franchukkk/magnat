@@ -565,22 +565,22 @@ function cart() {
 
 
 }
-const inputMask = document.querySelector(".inputMask");
+const inputMask = document.querySelector(".inputMask")
 
-inputMask.value = "+38";
+inputMask.value = "+38"
 
 inputMask.addEventListener("input", function() {
-  let inputValue = inputMask.value;
+  let inputValue = inputMask.value
 
   // Забезпечте, щоб введення не перевищувало 10 символів
   if (inputValue.length > 13) {
-    inputMask.value = inputValue.slice(0, 13);
-    return;
+    inputMask.value = inputValue.slice(0, 13)
+    return
   }
 
   if (!inputValue.startsWith("+38")) {
-    inputMask.value = "+38" + inputValue.slice(3);
+    inputMask.value = "+38" + inputValue.slice(3)
   }
-});
+})
 
 
