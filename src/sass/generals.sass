@@ -723,7 +723,19 @@ h1
     background-position: right
     background-size: cover
     background-repeat: no-repeat
+    overflow: hidden
     
+.slider-images
+    img
+        position: absolute
+        top: 0
+        right: 0
+        opacity: 0
+        z-index: -1
+        transition: 1s
+
+    img.active
+        opacity: 1
 
 .bg-first
     background: url(../img/header-bg-1.webp)
@@ -1107,6 +1119,7 @@ p.step
     background-image: url(../img/last-change.png)
 
 .img-carousel 
+    position: relative
     width: 100%
     min-width: 300px
     height: 300px
@@ -1115,6 +1128,18 @@ p.step
     background-image: url(../img/frst-change.png)
     background-position: center
     background-size: cover
+    overflow: hidden
+    img
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        opacity: 0
+        transition: 1s
+    img.active
+        opacity: 1
+        z-index: 1
     +media(960)
         width: 50%
 

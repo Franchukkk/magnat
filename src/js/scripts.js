@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-     //бургер меню
+    //бургер меню
     const burger = document.querySelector(".burger"),
         mobileMenu = document.querySelector(".top-nav")
 
@@ -204,72 +204,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetchData()
 
-    const container = document.querySelector(".header-carousel"),
-        seasonWinter = document.querySelector(".winter"),
-        seasonSummer = document.querySelector(".summer"),
+    const images = document.querySelectorAll('.slider-images img'),
         arrLeft = document.querySelector(".arr-left"),
         arrRight = document.querySelector(".arr-right")
-    let currentFrame = 0,
-        backgroundCarousel
+    let currentImgIndex = 0;
 
-    function animateBackground() {
-        if (currentFrame === 0 || currentFrame === 100) {
-            container.style.backgroundImage = 'url(../img/header-bg-1.webp)'
-            updateSeasonDisplay(seasonSummer, 0, "none", "0")
-            updateSeasonDisplay(seasonWinter, 1, "inline", "1")
-        } else if (currentFrame === 50) {
-            container.style.backgroundImage = 'url(../img/header-background-2.webp)'
-            updateSeasonDisplay(seasonWinter, 0, "none", "0")
-            updateSeasonDisplay(seasonSummer, 1, "inline", "1")
-        }
-
-        currentFrame = (currentFrame + 1) % 101
+    function showNextImage() {
+        images[currentImgIndex].classList.remove('active')
+        currentImgIndex = (currentImgIndex + 1) % images.length
+        images[currentImgIndex].classList.add('active')
     }
 
-    function updateSeasonDisplay(season, opacityStart, displayValue, opacityEnd) {
-        season.style.opacity = opacityStart
-        season.style.display = displayValue
-        let opacityInterval = setInterval(() => {
-            season.style.opacity = opacityEnd
-            clearInterval(opacityInterval)
-        }, 0)
-    }
+    showNextImage()
 
-    function startAnimation() {
-        animateBackground()
-        backgroundCarousel = setInterval(animateBackground, 100)
-    }
+    const headerSlideInterval = setInterval(showNextImage, 5000)
 
-    startAnimation()
-
-    arrLeft.addEventListener("click", changeSlideArr)
-    arrRight.addEventListener("click", changeSlideArr)
-    let canClick = true
-
-    function changeSlideArr() {
-        if (!canClick) {
-            return
-        } else {
-            canClick = false
-            clearInterval(backgroundCarousel)
-            if (seasonWinter.style.opacity == "1") {
-                container.style.backgroundImage = 'url(../img/header-background-2.webp)'
-                updateSeasonDisplay(seasonWinter, 0, "none", "0")
-                updateSeasonDisplay(seasonSummer, 1, "inline", "1")
-            } else {
-                container.style.backgroundImage = 'url(../img/header-bg-1.webp)'
-                updateSeasonDisplay(seasonSummer, 0, "none", "0")
-                updateSeasonDisplay(seasonWinter, 1, "inline", "1")
-            }
-
-            let arrowDelay = setInterval(() => {
-                canClick = true
-                clearInterval(arrowDelay)
-            }, 1000)
-
-            startAnimation()
-        }
-    }
+    arrLeft.addEventListener("click", function () {
+        clearInterval(headerSlideInterval)
+        showNextImage()
+    })
+    arrRight.addEventListener("click", function () {
+        clearInterval(headerSlideInterval)
+        showNextImage()
+    })
 
     const cart = document.querySelector(".cart"),
         basketPopup = document.querySelector(".basket-popup"),
@@ -333,13 +290,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     let imgCarousel = document.querySelector('.img-carousel'),
-        currentIndex = 1,
         stepBlocks = document.querySelectorAll(".step-block")
 
     console.log(imgCarousel)
 
     function carouselHeight() {
-        console.log("func");
         let imgCarouselHeight = 0
         stepBlocks.forEach(function (e) {
             imgCarouselHeight += e.getBoundingClientRect().height
@@ -351,34 +306,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     carouselHeight()
 
-    function changeImage() {
-        let imageUrl
-        console.log(4)
-        switch (currentIndex) {
-            case 1:
-                imageUrl = 'url(../img/frst-change.png)'
-                break
-            case 2:
-                imageUrl = 'url(../img/sec-change.png)'
-                break
-            case 3:
-                imageUrl = 'url(../img/three-change.png)'
-                break
-            case 4:
-                imageUrl = 'url(../img/last-change.png)'
-                break
-            default:
-                imageUrl = 'url(../img/frst-change.png)'
-        }
+    const imagesOrder = document.querySelectorAll(".img-carousel img")
+    let currentImgIndexOrder = 0
 
-        imgCarousel.style.backgroundImage = imageUrl
-
-        // збільшити індекс або скинути його на 1 якщо сдайдер досягнув останнього зображення
-        currentIndex = currentIndex < 4 ? currentIndex + 1 : 1
+    function showNextImageOrder() {
+        imagesOrder[currentImgIndexOrder].classList.remove('active')
+        currentImgIndexOrder = (currentImgIndexOrder + 1) % imagesOrder.length
+        imagesOrder[currentImgIndexOrder].classList.add('active')
     }
 
 
-    setInterval(changeImage, 5000)
+
+    setInterval(showNextImageOrder, 5000)
 
 
 })
@@ -474,7 +413,7 @@ function cart() {
                     }
 
                     updateCart(productID)
-                    
+
 
                     orderDetailSum.innerText = orders.orderSum
                 })
@@ -533,11 +472,11 @@ function cart() {
                                     </div>
                                 `
                 addedProductsList.appendChild(card)
-                
+
                 plusBtn()
                 minBtn()
             })
-            
+
     }
 
     function plusBtn() {
@@ -545,14 +484,14 @@ function cart() {
             .then(response => response.json())
             .then(products => {
                 let plusQuantity = document.querySelectorAll(".plus-quantity")
-                plusQuantity.forEach(function(){
+                plusQuantity.forEach(function () {
                     console.log("очищення")
                 })
                 plusQuantity.forEach(function (e) {
                     e.addEventListener("click", function (i) {
                         let productID = this.dataset.value
                         const product = products.find(product => product.id === productID)
-            
+
                         if (orders[product.id]) {
                             orders[product.id].quantity = orders[product.id].quantity + 1
                             const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
@@ -563,26 +502,27 @@ function cart() {
                             orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
                         }
                         orderDetailSum.innerText = orders.orderSum
-            
+
                     })
                 })
             })
 
     }
-    function minBtn () {
+
+    function minBtn() {
         fetch('products.json')
             .then(response => response.json())
             .then(products => {
                 let minusQuantity = document.querySelectorAll(".minus-quantity")
-                minusQuantity.forEach(function(){
+                minusQuantity.forEach(function () {
                     console.log("очищення")
                 })
                 minusQuantity.forEach(function (e) {
                     e.addEventListener("click", function (i) {
-            
+
                         let productID = this.dataset.value
                         const product = products.find(product => product.id === productID)
-            
+
                         if (orders[product.id] && orders[product.id].quantity != 1) {
                             orders[product.id].quantity = orders[product.id].quantity - 1
                             const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
@@ -591,20 +531,20 @@ function cart() {
                             totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
                             totalQuantitySpan.innerText = orders[product.id].quantity
                             orders.orderSum -= Number((orders[product.id].product.price).slice(0, -4))
-            
+
                         }
                         orderDetailSum.innerText = orders.orderSum
-            
+
                     })
                 })
 
             })
 
-        
+
 
     }
 
-    
 
-  
+
+
 }
