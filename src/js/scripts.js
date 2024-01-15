@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showNextImage()
 
-    const headerSlideInterval = setInterval(showNextImage, 5000)
+    const headerSlideInterval = setInterval(showNextImage, 3000)
 
     arrLeft.addEventListener("click", function () {
         clearInterval(headerSlideInterval)
@@ -334,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    setInterval(showNextImageOrder, 5000)
+    setInterval(showNextImageOrder, 3000)
 
 
 })
