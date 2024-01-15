@@ -584,7 +584,6 @@ input[type="range"]
 .review-card
     width: 100%
     max-width: 500rem
-    min-width: 300px
     border-radius: 5px
     border: 1px solid #A0A0A0
     background-color: #fff
@@ -613,6 +612,8 @@ span.date
     display: flex
     justify-content: center
     column-gap: 10rem
+    flex-wrap: wrap
+    row-gap: 15rem
 
 .btn-style-one,
 .btn-style-two
@@ -702,12 +703,19 @@ h1
     max-width: 780rem
     +media(570)
         display: flex
+        flex-wrap: wrap
+        column-gap: 10rem
+        row-gap: 10rem
+    
         
     p
         color: #191919
         font-size: 20rem
         font-weight: 500
         text-transform: uppercase
+        margin-bottom: 20rem
+        +media(750)
+            margin-bottom: 0
         
 
 .arrow
@@ -1154,6 +1162,7 @@ p.step
     background-position: center
     background-size: cover
     overflow: hidden
+    object-fit: cover
     img
         position: absolute
         top: 0
@@ -1293,7 +1302,11 @@ p.step
     font-weight: 400
 
 .circle-advantages
+    display: none
     width: 10px
     height: 10px
     background: #4E98B6
     border-radius: 50%
+    +media(750)
+        display: block
+
