@@ -437,7 +437,7 @@ function cart() {
                         if (size) {
                             if (size.length === 1) {
                                 sizesList = sizesList + "" + size
-                                alert(sizesList)
+                                // alert(sizesList)
                                 orders[product.id].quantity += 1
                             } else {
                                 orders[product.id].quantity += size.length
@@ -448,8 +448,8 @@ function cart() {
                                         sizesList = sizesList + ", " + size[i]
                                     }
                                 }
-                                alert(sizesList)
-                                alert(orders[product.id].quantity)
+                                // alert(sizesList)
+                                // alert(orders[product.id].quantity)
                             }
                         }
 
