@@ -93,8 +93,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 showData(currentPage)
                 showPagination()
 
-
-
             })
             .catch(error => console.error("Помилка завантаження даних:", error))
     }
@@ -115,6 +113,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             listItem.classList.add("card-box")
             listItem.appendChild(figcaptionItems)
+
+            const clickFigure = document.createElement("a")
+            clickFigure.classList.add("click-card")
+            clickFigure.href = "#"
+            figcaptionItems.appendChild(clickFigure)
 
             const imgElement = document.createElement("img")
             imgElement.src = product.img

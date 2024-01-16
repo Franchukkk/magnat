@@ -601,6 +601,7 @@ input[type="range"]
     background-color: #fff
     box-sizing: border-box
     img
+        transition: all .5s ease
         width: 100%
 
 .click-card
@@ -609,9 +610,14 @@ input[type="range"]
     height: 100%
     top: 0
     left: 0
-    z-index: 1
+    z-index: 5
+    &:hover ~ img,
+    &:hover ~ h2
+        transform: scale(1.1)
+        
         
 .header-card
+    transition: all .5s ease
     height: 60rem
     margin: 20rem 0 15rem
     color: #191919
@@ -654,9 +660,13 @@ input[type="range"]
         font-weight: 300
         text-align: center
         cursor: pointer
-    input:checked + label
+        z-index: 6
+    input:disabled + label
         color: #A0A0A0
         background-color: #F1F1F1
+    input:checked + label
+        color: #4E98B6
+        border: 1rem solid #4E98B6
             
 .cta-card
     position: relative
@@ -668,7 +678,7 @@ input[type="range"]
     background-color: #4E98B6
     transition: all .25s ease
     box-shadow: 0 2rem 5rem 0rem #ccc
-    z-index: 3
+    z-index: 6
     &:hover
         background-color: #25445E
 
