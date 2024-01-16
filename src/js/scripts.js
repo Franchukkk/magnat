@@ -432,12 +432,10 @@ function cart() {
                 const productId = this.getAttribute('data-value');
                 const selectedSizes = [];
 
-                // Отримати вибрані розміри
                 document.querySelectorAll(`input[type="checkbox"][id^="input-${productId}"]:checked`).forEach(checkbox => {
                     selectedSizes.push(checkbox.value);
                 });
 
-                // Тепер ви можете використовувати selectedSizes для отримання вибраних розмірів
                 console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
                 buyBtnFunc(ctaButton, selectedSizes)
                 setTimeout(() => {
@@ -585,7 +583,6 @@ inputMask.value = "+38"
 inputMask.addEventListener("input", function () {
     let inputValue = inputMask.value
 
-    // Забезпечте, щоб введення не перевищувало 10 символів
     if (inputValue.length > 13) {
         inputMask.value = inputValue.slice(0, 13)
         return
