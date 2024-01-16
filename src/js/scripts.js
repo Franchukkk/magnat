@@ -220,27 +220,36 @@ document.addEventListener("DOMContentLoaded", function () {
         slideBlocks = document.querySelectorAll(".slide-description")
     let currentImgIndex = 0;
 
+    function showPreviousImage() {
+        slideBlocks[currentImgIndex].classList.remove('active')
+        images[currentImgIndex].classList.remove('active')
+        currentImgIndex = (currentImgIndex - 1 + images.length) % images.length
+        images[currentImgIndex].classList.add('active')
+        slideBlocks[currentImgIndex].classList.add('active')
+    }
+
     function showNextImage() {
         slideBlocks[currentImgIndex].classList.remove('active')
         images[currentImgIndex].classList.remove('active')
         currentImgIndex = (currentImgIndex + 1) % images.length
         images[currentImgIndex].classList.add('active')
         slideBlocks[currentImgIndex].classList.add('active')
-
     }
 
     showNextImage()
 
-    const headerSlideInterval = setInterval(showNextImage, 5000)
+    const headerSlideInterval = setInterval(showNextImage, 3000)
 
     arrLeft.addEventListener("click", function () {
         clearInterval(headerSlideInterval)
-        showNextImage()
+        showPreviousImage()
     })
+
     arrRight.addEventListener("click", function () {
         clearInterval(headerSlideInterval)
         showNextImage()
     })
+
 
     const cart = document.querySelector(".cart"),
         basketPopup = document.querySelector(".basket-popup"),
@@ -334,7 +343,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    setInterval(showNextImageOrder, 5000)
+    setInterval(showNextImageOrder, 3000)
 
 
 })
@@ -565,3 +574,22 @@ function cart() {
 
 
 }
+const inputMask = document.querySelector(".inputMask")
+
+inputMask.value = "+38"
+
+inputMask.addEventListener("input", function() {
+  let inputValue = inputMask.value
+
+  // Забезпечте, щоб введення не перевищувало 10 символів
+  if (inputValue.length > 13) {
+    inputMask.value = inputValue.slice(0, 13)
+    return
+  }
+
+  if (!inputValue.startsWith("+38")) {
+    inputMask.value = "+38" + inputValue.slice(3)
+  }
+})
+
+
