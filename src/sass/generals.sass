@@ -159,14 +159,29 @@ ul.activemobile
 .top-nav,
 .header-contact  
     a 
+        position: relative
         display: inline-block
         color: #191919
         font-family: Rubik
         font-size: 16rem
-        transition: all 1s ease
+        transition: all .5s ease
+        &::after 
+            content: ""
+            position: absolute
+            top: 20rem
+            left: 0
+            display: inline-block
+            width: 100%
+            height: 1rem
+            border-bottom: 1rem solid #4E98B6
+            opacity: 0
+            transition: opacity 0.35s, transform 0.35s
+            transform: scale(0.1)
+        &:hover::after 
+            opacity: 1
+            transform: scale(1)
         &:hover
             color: #4E98B6
-            text-decoration: underline
 
 .logo 
     img
@@ -319,13 +334,14 @@ div.active-filter
         color: #191919
         font-size: 18rem
         font-weight: 500
-    label,
-    .cancel-filter 
+    label
         color: #191919
         font-size: 16rem
         font-weight: 300
 
 .cancel-filter
+    font-size: 12rem
+    padding: 10rem
     +media(1024)
         display: none
         
