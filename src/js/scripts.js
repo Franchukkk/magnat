@@ -108,9 +108,16 @@ document.addEventListener("DOMContentLoaded", function () {
         productList.innerHTML = ""
 
         products.forEach(product => {
+            console.log(product)
             const listItem = document.createElement("figure"),
                 figcaptionItems = document.createElement("figcaption")
-
+            if(product.saleprice !== "") {
+                const saleFlag = document.createElement("span"),
+                    sale = 100 - (parseFloat(product.price) * 100) / parseFloat(product.saleprice)
+                saleFlag.classList.add("card-flag")
+                saleFlag.innerText = `sale -${sale.toFixed(0)}%`
+                figcaptionItems.appendChild(saleFlag)
+            }
             listItem.classList.add("card-box")
             listItem.appendChild(figcaptionItems)
 
