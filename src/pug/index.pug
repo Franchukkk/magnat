@@ -246,12 +246,14 @@ html(lang="uk")
                                     a(href="#") Літнє взуття
                             form(action="#")
                                 label.arrow-select
-                                    select(name="sort") 
-                                        option(value="" disabled selected hidden) сортування: за замовчуванням
-                                        option(value="")  ціна за спаданням
-                                        option(value="")  ціна за зростанням
-                                        option(value="")  за новизною
-                                        option(value="")  за популярністю
+                                    .select
+                                        input(type='hidden').select__input
+                                        .select__in сортування: за замовчуванням
+                                        .select__list
+                                            .select__item(data-value='2') ціна за спаданням
+                                            .select__item(data-value='3') ціна за зростанням
+                                            .select__item(data-value='4') за новизною
+                                            .select__item(data-value='5') за популярністю
                         .mobile-filter
                             a(href="#") фільтр
                         .card-bott

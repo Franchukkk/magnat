@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         filterBlock = document.querySelector(".filter"),
         cancelFilter = document.querySelector(".cancel-filter"),
         activeFilter = document.querySelector(".active-filter")
-        
+
 
     filterMobile.addEventListener("click", function (e) {
         e.preventDefault()
@@ -22,6 +22,55 @@ document.addEventListener("DOMContentLoaded", function () {
 
     cancelFilter.addEventListener("click", function () {
         filterBlock.classList.remove("active-filter")
+    })
+
+    // select 
+    const selects = document.querySelectorAll('.select')
+
+    selects.forEach(select => {
+        const selectIn = select.querySelector('.select__in'),
+            selectItems = select.querySelectorAll('.select__item'),
+            thisInput = select.querySelector('.select__input'),
+            event = new Event('change')
+
+        selectIn.addEventListener('click', () => {
+            selects.forEach(_select => {
+                if (_select !== select)
+                    _select.classList.remove('is-opened');
+            })
+            select.classList.toggle('is-opened');
+        })
+
+        selectItems.forEach(item => {
+            item.addEventListener('click', () => {
+                thisInput.value = item.dataset.value
+                thisInput.dispatchEvent(event)
+                selectIn.innerHTML = item.innerHTML
+                selectItems.forEach(_item => {
+                    _item.classList.remove('is-active')
+                });
+                item.classList.add('is-active')
+                select.classList.remove('is-opened')
+            });
+        });
+    });
+
+    document.addEventListener('click', e => {
+        if (!e.target.closest('.select')) {
+            selects.forEach(select => {
+                if (select.classList.contains('is-opened'))
+                    select.classList.remove('is-opened')
+            })
+        }
+    })
+
+    document.addEventListener('keyup', e => {
+        if (e.key == 'Escape') {
+            selects.forEach(select => {
+                if (select.classList.contains('is-opened'))
+                    select.classList.remove('is-opened')
+            })
+        }
     })
 
     orders.orderSum = 0
@@ -332,7 +381,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     carouselHeight()
 
-    
+
     let currentImgIndexOrder = 0
 
     function showNextImageOrder() {
@@ -578,18 +627,16 @@ const inputMask = document.querySelector(".inputMask")
 
 inputMask.value = "+38"
 
-inputMask.addEventListener("input", function() {
-  let inputValue = inputMask.value
+inputMask.addEventListener("input", function () {
+    let inputValue = inputMask.value
 
-  // Забезпечте, щоб введення не перевищувало 10 символів
-  if (inputValue.length > 13) {
-    inputMask.value = inputValue.slice(0, 13)
-    return
-  }
+    // Забезпечте, щоб введення не перевищувало 10 символів
+    if (inputValue.length > 13) {
+        inputMask.value = inputValue.slice(0, 13)
+        return
+    }
 
-  if (!inputValue.startsWith("+38")) {
-    inputMask.value = "+38" + inputValue.slice(3)
-  }
+    if (!inputValue.startsWith("+38")) {
+        inputMask.value = "+38" + inputValue.slice(3)
+    }
 })
-
-
