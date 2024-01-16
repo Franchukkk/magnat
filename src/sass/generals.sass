@@ -812,11 +812,13 @@ span.date
     display: flex
     align-items: center
     justify-content: center
-    width: 170rem
+    width: 200rem
     height: 70rem
     color: #fff
     border-radius: 50%
     background-color: #4E98B6
+    +media(425)
+        width: 170rem
 
 .catalog-cta
     +btn($fixed:true)
