@@ -48,6 +48,9 @@ h2
     backdrop-filter: blur(10px)
     z-index: 8
 
+.top-nav-gap
+    column-gap: 10rem
+
 .wrapper
     margin: 0 auto
     // max-width: 1366rem
@@ -199,8 +202,11 @@ ul.activemobile
 .header-contact
     max-width: 400rem
     width: 100%
-    column-gap: 30rem
+    column-gap: 10rem
     justify-content: flex-end
+    +media(768)
+        column-gap: 30rem
+
 
 .phone
     column-gap: 9rem
@@ -293,9 +299,15 @@ div.active-filter
     top: 99rem
     left: 0rem
     background-color: #fff
-    z-index: 6
+    z-index: 9
     box-sizing: border-box
     overflow: scroll
+    &::-webkit-scrollbar
+        width: 2px
+        background: #F1F1F1
+    &::-webkit-scrollbar-thumb
+        width: 4px
+        background: #A0A0A0
 
 
 .select
@@ -397,8 +409,23 @@ div.active-filter
         font-weight: 300
 
 .cancel-filter
-    font-size: 12rem
-    padding: 10rem
+    position: relative
+    &::before,
+    &::after
+        content: ""
+        position: absolute
+        width: 15rem
+        height: 15rem
+        top: -50rem
+    &::before
+        border-left: 2rem solid #4E98B6
+        left: 0
+        transform: rotate(-45deg)
+    &::after
+        border-right: 2rem solid #4E98B6
+        right: -7rem
+        transform: rotate(45deg)
+
     +media(1024)
         display: none
 
