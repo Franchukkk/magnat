@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(product)
             const listItem = document.createElement("figure"),
                 figcaptionItems = document.createElement("figcaption")
-            if(product.saleprice !== "") {
+            if (product.saleprice !== "") {
                 const saleFlag = document.createElement("span"),
                     sale = 100 - (parseFloat(product.price) * 100) / parseFloat(product.saleprice)
                 saleFlag.classList.add("card-flag")
@@ -384,7 +384,7 @@ document.addEventListener("DOMContentLoaded", function () {
             imgCarouselHeight += e.getBoundingClientRect().height
             console.log(imgCarouselHeight);
         })
-        if (window,innerHeight >= 960) {
+        if (window, innerHeight >= 960) {
             imgCarousel.style.height = imgCarouselHeight + 20 * 2 + "px"
 
         }
@@ -440,7 +440,14 @@ function cart() {
                 // Тепер ви можете використовувати selectedSizes для отримання вибраних розмірів
                 console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
                 buyBtnFunc(ctaButton, selectedSizes)
-                // Додайте інші дії за необхідності, наприклад, додавання товару до кошика
+                setTimeout(() => {
+                    console.log(document.querySelector(".minus-quantity[data-value='" + productId + "']"));
+                    plusBtn(".plus-quantity[data-value='" + productId + "']")
+                    minBtn(".minus-quantity[data-value='" + productId + "']")
+                }, 100)
+
+                
+
             });
         });
 
@@ -560,74 +567,8 @@ function cart() {
                                 `
                 addedProductsList.appendChild(card)
 
-                plusBtn()
-                minBtn()
-            })
-
-    }
-
-    function plusBtn() {
-        fetch('products.json')
-            .then(response => response.json())
-            .then(products => {
-                let plusQuantity = document.querySelectorAll(".plus-quantity")
-                plusQuantity.forEach(function () {
-                    console.log("очищення")
-                })
-                plusQuantity.forEach(function (e) {
-                    e.addEventListener("click", function (i) {
-                        let productID = this.dataset.value
-                        const product = products.find(product => product.id === productID)
-
-                        if (orders[product.id]) {
-                            orders[product.id].quantity = orders[product.id].quantity + 1
-                            const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
-                                totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
-                            orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
-                            totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
-                            totalQuantitySpan.innerText = orders[product.id].quantity
-                            orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
-                        }
-                        orderDetailSum.innerText = orders.orderSum
-
-                    })
-                })
-            })
-
-    }
-
-    function minBtn() {
-        fetch('products.json')
-            .then(response => response.json())
-            .then(products => {
-                let minusQuantity = document.querySelectorAll(".minus-quantity")
-                minusQuantity.forEach(function () {
-                    console.log("очищення")
-                })
-                minusQuantity.forEach(function (e) {
-                    e.addEventListener("click", function (i) {
-
-                        let productID = this.dataset.value
-                        const product = products.find(product => product.id === productID)
-
-                        if (orders[product.id] && orders[product.id].quantity != 1) {
-                            orders[product.id].quantity = orders[product.id].quantity - 1
-                            const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
-                                totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
-                            orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
-                            totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
-                            totalQuantitySpan.innerText = orders[product.id].quantity
-                            orders.orderSum -= Number((orders[product.id].product.price).slice(0, -4))
-
-                        }
-                        orderDetailSum.innerText = orders.orderSum
-
-                    })
-                })
 
             })
-
-
 
     }
 
@@ -635,6 +576,8 @@ function cart() {
 
 
 }
+
+
 const inputMask = document.querySelector(".inputMask")
 
 inputMask.value = "+38"
@@ -651,4 +594,79 @@ inputMask.addEventListener("input", function () {
     if (!inputValue.startsWith("+38")) {
         inputMask.value = "+38" + inputValue.slice(3)
     }
+})
+
+
+function plusBtn(button) {
+    fetch('products.json')
+        .then(response => response.json())
+        .then(products => {
+            let plusQuantity = document.querySelector(button);
+
+
+            plusQuantity.addEventListener("click", function (i) {
+                let productID = this.dataset.value;
+                const product = products.find(product => product.id === productID);
+
+                if (orders[product.id]) {
+                    orders[product.id].quantity = orders[product.id].quantity + 1;
+                    const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
+                        totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number");
+                    orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity;
+                    totalPriceSpan.innerText = orders[product.id].totalPrice + " грн";
+                    totalQuantitySpan.innerText = orders[product.id].quantity;
+                    orders.orderSum += Number((orders[product.id].product.price).slice(0, -4));
+                }
+                orderDetailSum.innerText = orders.orderSum;
+            });
+            
+        });
+}
+
+
+function minBtn(button) {
+    fetch('products.json')
+        .then(response => response.json())
+        .then(products => {
+            let minusQuantity = document.querySelector(button)
+
+
+            minusQuantity.addEventListener("click", function (i) {
+
+                let productID = this.dataset.value
+                const product = products.find(product => product.id === productID)
+
+                if (orders[product.id] && orders[product.id].quantity != 1) {
+                    orders[product.id].quantity = orders[product.id].quantity - 1
+                    const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
+                        totalQuantitySpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .quantity-number")
+                    orders[product.id].totalPrice = Number((orders[product.id].product.price).slice(0, -4)) * orders[product.id].quantity
+                    totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
+                    totalQuantitySpan.innerText = orders[product.id].quantity
+                    orders.orderSum -= Number((orders[product.id].product.price).slice(0, -4))
+
+                }
+                orderDetailSum.innerText = orders.orderSum
+
+            })
+
+
+        })
+
+
+
+}
+document.addEventListener("DOMContentLoaded", function() {
+
+    let buyBtns = document.querySelectorAll(".cta-card")
+    console.log(buyBtns);
+    buyBtns.forEach(function(e) {
+        e.addEventListener("click", function() {
+            alert(1)
+            let plusQuantity = document.querySelectorAll(".plus-quantity");
+            plusBtn()
+        })
+    })
+
+    
 })
