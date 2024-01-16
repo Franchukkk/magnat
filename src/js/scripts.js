@@ -287,16 +287,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showNextImage()
 
-    const headerSlideInterval = setInterval(showNextImage, 3000)
+    let headerSlideInterval = setInterval(showNextImage, 3000)
 
     arrLeft.addEventListener("click", function () {
         clearInterval(headerSlideInterval)
         showPreviousImage()
+        headerSlideInterval = setInterval(showNextImage, 3000)
     })
 
     arrRight.addEventListener("click", function () {
         clearInterval(headerSlideInterval)
         showNextImage()
+        headerSlideInterval = setInterval(showNextImage, 3000)
     })
 
 
@@ -372,11 +374,11 @@ document.addEventListener("DOMContentLoaded", function () {
             imgCarouselHeight += e.getBoundingClientRect().height
             console.log(imgCarouselHeight);
         })
+        if (window,innerHeight >= 960) {
+            imgCarousel.style.height = imgCarouselHeight + 20 * 2 + "px"
 
-        imagesOrder.forEach(function (e) {
-            e.style.height = imgCarouselHeight + 20 * 2 + "px"
+        }
 
-        })
     }
 
     carouselHeight()
