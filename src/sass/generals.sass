@@ -32,7 +32,7 @@ figure
     margin: 0
 
 h2
-    // margin-bottom: 50rem
+    margin-bottom: 50rem
     color: #25445E
     text-align: center
     font-size: 48rem
@@ -74,7 +74,7 @@ h2
     width: 100%
     height: 100%
     background-color: #25445E
-    transition: all 1s ease
+    transition: all .25s ease
     z-index: 4
     li
         margin: 0
@@ -96,7 +96,7 @@ ul.activemobile
             color: #fff
             font-family: Rubik
             font-size: 16rem
-            transition: all 1s ease
+            transition: all .25s ease
             &:hover
                 color: #4E98B6
                 text-decoration: underline
@@ -160,15 +160,37 @@ ul.activemobile
 .top-nav,
 .header-contact  
     a 
+        position: relative
         display: inline-block
         color: #191919
         font-family: Rubik
         font-size: 16rem
-        transition: all 1s ease
+        transition: all .5s ease
         &:hover
             color: #4E98B6
-            text-decoration: underline
+.top-nav,
+.nav-block
+    a  
+        &::after 
+            content: ""
+            position: absolute
+            top: 20rem
+            left: 0
+            display: inline-block
+            width: 100%
+            height: 1rem
+            border-bottom: 1rem solid #4E98B6
+            opacity: 0
+            transition: opacity 0.35s, transform 0.35s
+            transform: scale(0.1)
+        &:hover::after 
+            opacity: 1
+            transform: scale(1)
 
+.nav-block
+    a
+        &::after
+            top: 15rem
 .logo 
     img
         width: 75rem
@@ -265,35 +287,90 @@ div.active-filter
     overflow: scroll
 
 
-.arrow-select 
+// .arrow-select 
+//     position: relative
+//     display: block
+//     background-color: #F1F1F1
+//     border-radius: 3rem
+//     overflow: hidden
+//     &::before
+//         content: ""
+//         position: absolute
+//         top: 50%
+//         right: 10rem
+//         z-index: 0
+//         width: 13rem
+//         height: 7rem
+//         background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none"><path d="M6 6L0.803849 0.749999L11.1962 0.75L6 6Z" fill="%234E98B6"/></svg>')
+//         transform: translateY(-50%)
+ 
+
+.select
     position: relative
-    display: block
+    width: 250rem
+    height: 30rem
     background-color: #F1F1F1
     border-radius: 3rem
-    overflow: hidden
-    &::before
+
+.is-opened
+    border-radius: 5px 5px 0 0
+    .select__in
+        &:after
+            transform: translateY(-70%) rotate(180deg)
+    .select__list
+        visibility: visible
+        max-height: none
+        opacity: 1
+        z-index: 5
+    .select__item
+        display: block
+
+.is-active
+    display: none
+
+.select__in
+    position: absolute
+    padding-left: 20rem
+    top: 50%
+    left: 50%
+    width: 100%
+    font-size: 12rem
+    color:#191919
+    user-select: none
+    transform: translate(-50%, -50%)
+    cursor: pointer
+    &:after
         content: ""
         position: absolute
         top: 50%
-        right: 10rem
-        z-index: 0
-        width: 13rem
-        height: 7rem
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none"><path d="M6 6L0.803849 0.749999L11.1962 0.75L6 6Z" fill="%234E98B6"/></svg>')
-        transform: translateY(-50%)
-    > select
-        padding: 10rem 30rem 10rem 10rem
-        position: relative
-        color: #191919
-        font-size: 12rem
-        font-weight: 400
-        background-color: #F1F1F1
-        border: 0.5px solid #F1F1F1
-        background-color: transparent
-        appearance: none
-        -webkit-appearance: none
-        cursor: pointer
-        z-index: 1
+        right: 10%
+        display: block
+        border: 7rem solid transparent
+        border-top-color: #4E98B6 
+        transform: translateY(-20%)
+        // transition: transform .2s ease
+
+.select__list
+    display: block
+    background-color: #F1F1F1
+    border-radius: 0 0 5px 5px
+    overflow: hidden
+    width: 100%
+    position: absolute
+    top: 100%
+    left: 0
+    transition: opacity .2s ease .1s
+    visibility: hidden
+    max-height: 0
+    opacity: 0
+
+.select__item
+    display: none
+    padding: 10px
+    font-size: 12rem
+    color:#191919
+    transition: all .3s ease
+    cursor: pointer
 
 .filter-block
     position: relative
@@ -320,16 +397,20 @@ div.active-filter
         color: #191919
         font-size: 18rem
         font-weight: 500
-    label,
-    .cancel-filter 
+    label
         color: #191919
         font-size: 16rem
         font-weight: 300
 
 .cancel-filter
+    font-size: 12rem
+    padding: 10rem
     +media(1024)
         display: none
-        
+
+.price-filter
+    padding-bottom: 14rem   
+
 .check-size,
 .price-filter,
 .color-filter,
@@ -432,6 +513,8 @@ input[type="number"]
 
 input[type="range"]
     &::-webkit-slider-thumb
+        position: relative
+        left: -2rem
         height: 15px
         width: 15px
         border-radius: 50%
@@ -439,14 +522,14 @@ input[type="range"]
         pointer-events: auto
         -webkit-appearance: none
 
-    &::-moz-range-thumb
-        height: 15px
-        width: 15px
-        border: none
-        border-radius: 50%
-        background: #4E98B6
-        pointer-events: auto
-        -moz-appearance: none
+    // &::-moz-range-thumb
+    //     height: 15px
+    //     width: 15px
+    //     border: none
+    //     border-radius: 50%
+    //     background: #4E98B6
+    //     pointer-events: auto
+    //     -moz-appearance: none
 
 
 .button-filter
@@ -455,7 +538,7 @@ input[type="range"]
     
 .submit-filter,
 .reset-filter
-    transition: all 1s ease
+    transition: all .25s ease
     max-width: 235rem
     padding: 11rem 23rem
     border: none
@@ -571,7 +654,7 @@ input[type="range"]
     text-align: center
     padding: 13rem 43rem
     background-color: #4E98B6
-    transition: all 1s ease
+    transition: all .25s ease
     box-shadow: 0 2rem 5rem 0rem #ccc
     z-index: 3
     &:hover
@@ -716,7 +799,7 @@ span.date
     background-color: #4E98B6
 
 .catalog-cta
-    +btn($fixed:false)
+    +btn($fixed:true)
 
 .catalog-blue
     +btn($fixed:true)
@@ -1160,7 +1243,7 @@ p.step
         width: 40vw
         flex-wrap: nowrap
     button
-        transition: all 1s ease
+        transition: all .25s ease
         width: 234rem
         height: 40rem
         color: #FFF
@@ -1285,9 +1368,12 @@ p.step
         margin: 0
         padding: 0
         a
+            position: relative
             color: #191919
             font-size: 14rem
             font-weight: 300
+            &:hover
+                color: #4E98B6
 
 .nav-block-catalog,
 .contact-block
@@ -1334,7 +1420,7 @@ p.step
         height: 25rem
         border-radius: 50%
         background-color: #4E98B6
-        transition: all 1s ease
+        transition: all .25s ease
         &:hover
             background-color: #25445E
         svg
