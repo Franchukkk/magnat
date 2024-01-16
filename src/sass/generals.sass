@@ -238,24 +238,36 @@ ul.activemobile
     column-gap: 95rem
     row-gap: 30rem
     padding-bottom: 22rem
-    +media(768)
+    +media(1200)
         flex-wrap: nowrap
         justify-content: space-between
 
 
 .filter-season
+    justify-content: center
     column-gap: 15rem
+    row-gap: 15rem
+    flex-wrap: wrap
+    +media(768)
+        flex-wrap: nowrap
+        justify-content: space-between
+    +media(1400)
+        column-gap: 25rem
     a
         transition: all .5s ease
         display: block
         padding: 10rem
-        max-width: 225rem
+        width: 130rem
         color: #191919
         text-align: center
-        font-size: 16rem
+        font-size: 12rem
         font-weight: 400
         border-radius: 3px
         border: 1px solid #A0A0A0   
+        +media(1440)
+            width: 100%
+            max-width: 225rem
+            font-size: 16rem
         &:hover
             border: 1px solid #4E98B6
             background: #4E98B6

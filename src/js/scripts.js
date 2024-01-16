@@ -36,9 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
         selectIn.addEventListener('click', () => {
             selects.forEach(_select => {
                 if (_select !== select)
-                    _select.classList.remove('is-opened');
+                    _select.classList.remove('is-opened')
             })
-            select.classList.toggle('is-opened');
+            select.classList.toggle('is-opened')
         })
 
         selectItems.forEach(item => {
@@ -51,9 +51,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
                 item.classList.add('is-active')
                 select.classList.remove('is-opened')
-            });
-        });
-    });
+            })
+        })
+    })
 
     document.addEventListener('click', e => {
         if (!e.target.closest('.select')) {
