@@ -413,6 +413,8 @@ let orderDetailSum = document.querySelector(".order-total-price"),
     numberOfProductsDOM = document.querySelector(".calc-added-products"),
     caclnumberOfProducts = 0,
     addedProductsList = document.querySelector(".added-products-list "),
+    orderDiscount = document.querySelector(".order-discount"),
+    orderDiscountCalc = 0
     orders = {}
 
 const cartWaitTimeout = setTimeout(function () {
@@ -475,6 +477,8 @@ function cart() {
                             } else {
                                 document.querySelector(".plus-quantity[data-value='" + productID + size[i] + "']").click()
                             }
+                            orderDiscountCalc += orders[productID + size[i]].product.saleprice ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4)) : 0
+                            orderDiscount.innerText = orderDiscountCalc
                         }
                         console.log(orders)
                     } else {
@@ -501,6 +505,8 @@ function cart() {
                                 totalPriceSpan.innerText = orders[productID + size].totalPrice + " грн"
                                 totalQuantitySpan.innerText = orders[productID + size].quantity
                             }, 10)
+                            orderDiscountCalc += orders[productID + size].product.saleprice ? Number((orders[productID + size].product.saleprice).slice(0, -4)) - Number((orders[productID + size].product.price).slice(0, -4)) : 0
+                            orderDiscount.innerText = orderDiscountCalc
                         } else {
                             orders[productID + size] = {
                                 product: product,
@@ -518,6 +524,8 @@ function cart() {
                             minBtn(".minus-quantity[data-value='" + productID + size + "']")
                             caclnumberOfProducts++
                             numberOfProductsDOM.innerText = caclnumberOfProducts
+                            orderDiscountCalc += orders[productID + size].product.saleprice ? Number((orders[productID + size].product.saleprice).slice(0, -4)) - Number((orders[productID + size].product.price ).slice(0, -4)): 0
+                            orderDiscount.innerText = orderDiscountCalc
                         }
                         orderDetailSum.innerText = orders.orderSum
                     }
@@ -541,7 +549,7 @@ function cart() {
                                 <table>
                                     <tr>
                                         <td>колір</td>
-                                        <td></td>
+                                        <td>${product.color}</td>
                                     </tr>
                                     <tr>
                                         <td>розмір</td>
@@ -622,6 +630,8 @@ function plusBtn(button) {
 
                 caclnumberOfProducts++
                 numberOfProductsDOM.innerText = caclnumberOfProducts
+                orderDiscountCalc += orders[productID + productBlock.slice(-2)].product.saleprice ? Number((orders[productID + productBlock.slice(-2)].product.saleprice).slice(0, -4)) - Number((orders[productID + productBlock.slice(-2)].product.price).slice(0, -4)) : 0
+                orderDiscount.innerText = orderDiscountCalc
             })
         })
 }
@@ -658,8 +668,11 @@ function minBtn(button) {
                     }
 
                     numberOfProductsDOM.innerText = caclnumberOfProducts
+                    orderDetailSum.innerText = orders.orderSum
+    
+                    orderDiscountCalc -= orders[productID + productBlock.slice(-2)].product.saleprice ? Number((orders[productID + productBlock.slice(-2)].product.saleprice).slice(0, -4)) - Number((orders[productID + productBlock.slice(-2)].product.price).slice(0, -4)) : 0
+                    orderDiscount.innerText = orderDiscountCalc
                 }
-                orderDetailSum.innerText = orders.orderSum
             })
         })
 }
