@@ -438,11 +438,7 @@ function cart() {
 
                 console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
                 buyBtnFunc(ctaButton, selectedSizes)
-                setTimeout(() => {
-                    console.log(document.querySelector(".minus-quantity[data-value='" + productId + "']"));
-                    plusBtn(".plus-quantity[data-value='" + productId + "']")
-                    minBtn(".minus-quantity[data-value='" + productId + "']")
-                }, 100)
+                
 
                 
 
@@ -460,13 +456,14 @@ function cart() {
 
         function buyBtnFunc(e, size) {
             let productID = e.dataset.value
+            let currentSizesList = ""
             fetch('products.json')
                 .then(response => response.json())
                 .then(products => {
-                    caclnumberOfProducts++
                     const product = products.find(product => product.id === productID)
-                    numberOfProductsDOM.innerText = caclnumberOfProducts
                     if (orders[product.id]) {
+                        caclnumberOfProducts++
+                        numberOfProductsDOM.innerText = caclnumberOfProducts
                         orders[product.id].quantity++
                         orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
                         const totalPriceSpan = addedProductsList.querySelector('[data-value="' + product.id + '"]' + " .total-price span"),
@@ -475,36 +472,47 @@ function cart() {
                         totalPriceSpan.innerText = orders[product.id].totalPrice + " грн"
                         totalQuantitySpan.innerText = orders[product.id].quantity
                     } else {
-
+                        setTimeout(() => {
+                            console.log(document.querySelector(".minus-quantity[data-value='" + product.id + "']"));
+                            plusBtn(".plus-quantity[data-value='" + product.id + "']")
+                            minBtn(".minus-quantity[data-value='" + product.id + "']")
+                        }, 100)
                         orders[product.id] = {
                             product: product,
                             quantity: 0
                         }
-                        if (size) {
-                            if (size.length === 1) {
-                                sizesList = sizesList + "" + size
-                                // alert(sizesList)
-                                orders[product.id].quantity += 1
-                            } else {
-                                orders[product.id].quantity += size.length
-                                for (let i = 0; i < size.length; i++) {
-                                    if (i === 0) {
-                                        sizesList = "" + size[i]
-                                    } else {
-                                        sizesList = sizesList + ", " + size[i]
-                                    }
-                                }
-                                // alert(sizesList)
-                                // alert(orders[product.id].quantity)
-                            }
-                        }
+                        orders[product.id].quantity += 1
+                        // if (size) {
+                        //     if (size.length === 1) {
+                        //         currentSizesList = currentSizesList + "" + size
+                        //         // alert(sizesList)
+                                
+                        //     } else {
+                        //         orders[product.id].quantity += size.length
+                        //         for (let i = 0; i < size.length; i++) {
+                        //             if (i === 0) {
+                        //                 currentSizesList = "" + size[i]
+                        //             } else {
+                        //                 currentSizesList = currentSizesList + ", " + size[i]
+                        //             }
+                                    
+                        //         }
+                        //         caclnumberOfProducts += orders[product.id].quantity
+                        //         numberOfProductsDOM.innerText = caclnumberOfProducts
+                        //         // alert(sizesList)
+                        //         // alert(orders[product.id].quantity)
+                        //     }
+                        // }
+
+                        
 
                         orders.orderSum += Number((orders[product.id].product.price).slice(0, -4))
 
+                        orders[product.id].size = currentSizesList
 
+                        updateCart(productID, currentSizesList);
                     }
 
-                    updateCart(productID)
 
 
                     orderDetailSum.innerText = orders.orderSum
@@ -518,11 +526,10 @@ function cart() {
 
     }
 
-    function updateCart(id) {
+    function updateCart(id, sizesList) {
         fetch('products.json')
             .then(response => response.json())
             .then(products => {
-
                 const product = products.find(product => product.id === id)
                 const card = document.createElement("div")
                 card.innerHTML = `
@@ -538,7 +545,7 @@ function cart() {
                                                     </tr>
                                                     <tr>
                                                         <td>розмір</td>
-                                                        <td>${sizesList}</td>
+                                                        <td class="size-span">${sizesList}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>ціна</td>
@@ -598,10 +605,10 @@ function plusBtn(button) {
     fetch('products.json')
         .then(response => response.json())
         .then(products => {
-            let plusQuantity = document.querySelector(button);
-
+            let plusQuantity = document.querySelector(button)
 
             plusQuantity.addEventListener("click", function (i) {
+                
                 let productID = this.dataset.value;
                 const product = products.find(product => product.id === productID);
 
@@ -615,6 +622,11 @@ function plusBtn(button) {
                     orders.orderSum += Number((orders[product.id].product.price).slice(0, -4));
                 }
                 orderDetailSum.innerText = orders.orderSum;
+
+                caclnumberOfProducts++
+                console.log(numberOfProductsDOM);
+                numberOfProductsDOM.innerText = caclnumberOfProducts
+                
             });
             
         });
@@ -642,6 +654,12 @@ function minBtn(button) {
                     totalQuantitySpan.innerText = orders[product.id].quantity
                     orders.orderSum -= Number((orders[product.id].product.price).slice(0, -4))
 
+                    if (totalQuantitySpan !== 1) {
+                        caclnumberOfProducts--
+    
+                    }
+                    console.log(numberOfProductsDOM);
+                    numberOfProductsDOM.innerText = caclnumberOfProducts
                 }
                 orderDetailSum.innerText = orders.orderSum
 
