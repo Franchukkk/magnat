@@ -313,12 +313,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     const cart = document.querySelector(".cart"),
-        basketPopup = document.querySelector(".basket-popup"),
+        basketPopup = document.querySelector(".popup"),
         returnBasket = document.querySelector(".basket-back"),
-        productsScrollHeight = document.querySelector(".added-products-list"),
         body = document.querySelector("body")
 
-    productsScrollHeight.style.height = (window.innerHeight - 300) + "px"
 
     function basketToggle() {
         basketPopup.classList.toggle("d-block")
@@ -453,7 +451,6 @@ function cart() {
                 .then(products => {
                     const product = products.find(product => product.id === productID)
                     if(size.length > 1) {
-                        alert("more than 1")
                         console.log(size)
                         for (let i = 0; i < size.length; i++) {
                             if(!orders[productID + size[i]]) {
@@ -685,7 +682,6 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log(buyBtns);
     buyBtns.forEach(function (e) {
         e.addEventListener("click", function () {
-            alert(1)
             let plusQuantity = document.querySelectorAll(".plus-quantity")
             plusBtn()
         })

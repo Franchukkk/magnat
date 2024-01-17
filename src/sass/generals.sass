@@ -937,25 +937,29 @@ h2.season
         cursor: pointer
 
 
-.basket-main
+.popup-main
     display: block
     padding-top: 50rem
+    height: 45vh
     overflow-y: scroll
     +media(960)
         display: flex
 
     
-.basket-popup 
+.popup
     display: none
     position: fixed
     width: 100vw
     height: 100vh
-    padding-top: 100px
+    padding-top: 80px
     background-color: #fff
     z-index: 5
     overflow-y: hidden
+    +media(650)
+        padding-top: 100px
 
-.basket-header-line
+
+.popup-header-line
     column-gap: 10rem
     h2
         color: #25445E
@@ -984,8 +988,8 @@ h2.season
     font-weight: 600
 
 .added-products-list 
-    padding-bottom: 120rem
-    overflow-y: scroll
+    +media(960)
+        overflow-y: scroll
     img 
         width: 150rem
         height: 150rem
@@ -1023,8 +1027,8 @@ h2.season
     &::before
         content: ''
         position: absolute
-        width: 10rem
-        height: 10rem
+        width: 10px
+        height: 10px
         background: url("../img/crossico.svg")
         top: 50%
         transform: translateY(-50%)
@@ -1043,21 +1047,23 @@ h2.season
     font-size: 16rem
     font-weight: 500
 
-.basket-header-line
+.popup-header-line
     display: flex
     align-items: center
     background: #F1F1F1
     min-height: 100px
 
 
-.basket-footer
+.popup-footer
     position: absolute
     display: flex
     align-items: center
     width: 100%
     background: #F1F1F1
     min-height: 100px
-    bottom: 100px
+    bottom: 80px
+    +media(650)
+        bottom: 100px
 
 .basket-back 
     position: relative
@@ -1076,6 +1082,7 @@ h2.season
         top: 50%
         transform: translateY(-50%)
         background-image: url(../img/basket-arrow.svg)
+        background-repeat: no-repeat
 
 .d-block
     display: block

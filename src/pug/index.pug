@@ -10,30 +10,30 @@ html(lang="uk")
     
     body 
         include components/mixin
-        .basket-popup 
-            .basket-header-line
+        .popup
+            .popup-header-line
                 .wrapper.flex.items-center
                     h2 кошик
                     .calc-added-products 0
-            .basket-main.flex-between.wrapper  
+            .popup-main.flex-between.wrapper  
                 .added-products-list.wrapper 
                 .order-details
                     h3 деталі замовлення
                     .order-line.flex-between.w-100
                         span Вартість замовлення
-                        span.order-total-price 7690
+                        span.order-total-price 0
                     .order-line.flex-between.w-100
                         span Знижка
-                        span.order-discount 90       
-            .basket-footer 
+                        span.order-discount 0 
+            .popup-footer 
                 .wrapper
                     span.basket-back повернутися у каталог
         .order-confirm-popup.d-none
-            .basket-header-line
+            .popup-header-line
                 .wrapper.flex.items-center
                     h2 оформлення замовлення
                     .calc-added-products 0
-            .basket-main.flex-between.wrapper  
+            .popup-main.flex-between.wrapper  
                 .order-form.wrapper 
                     h3 ваші контактні дані
                     form(action="sendorder.php", method="post")    
@@ -77,7 +77,7 @@ html(lang="uk")
                         .hidden-inputs
                         input(type="submit", value="submit")
                 .order-price-details
-            .basket-footer 
+            .popup-footer 
                 .wrapper
                     span.basket-back повернутися у каталог
         header 
