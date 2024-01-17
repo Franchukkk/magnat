@@ -129,5 +129,136 @@
         "price": "950 грн",
         "cta": "купити",
         "href": "#"
+    },
+    {
+        "id": "a-04ch-r1",
+        "category": "demiseason",
+        "img": "img/a-04ch-r/cholovichi-krosivky-adidas1.webp",
+        "alt": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Black",
+        "head": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Black",
+        "saleprice": "2300 грн",
+        "price": "1890 грн",
+        "cta": "купити",
+        "href": "#"
+    },
+    {
+        "id": "a-04-ch-kr1",
+        "category": "demiseason",
+        "img": "img/a-04-ch-kr/cholovichi-shkiriani-krosivky1.webp",
+        "alt": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  ",
+        "head": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  ",
+        "saleprice": "2300 грн",
+        "price": "1890 грн",
+        "cta": "купити",
+        "href": "#"
+    },
+    {
+        "id": "a-04chs1",
+        "category": "demiseason",
+        "img": "img/a-04chs/cholovichi-shkiriani-cherevyky1.webp",
+        "alt": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Black",
+        "head": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Black",
+        "saleprice": "2300 грн",
+        "price": "1890 грн",
+        "cta": "купити",
+        "href": "#"
+    },
+    {
+        "id": "a-04-ol1",
+        "category": "demiseason",
+        "img": "img/a-04-ol/cholovichi-shkiriani-crosivky1.webp",
+        "alt": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Mokko",
+        "head": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Mokko",
+        "saleprice": "2300 грн",
+        "price": "1890 грн",
+        "cta": "купити",
+        "href": "#"
+    },
+    {
+        "id": "a-04shok1",
+        "category": "demiseason",
+        "img": "img/a-04shok/cholovichi-shkiriani-cherevyky1.webp",
+        "alt": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Brown",
+        "head": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Brown",
+        "saleprice": "2300 грн",
+        "price": "1890 грн",
+        "cta": "купити",
+        "href": "#"
+    },
+    {
+        "id": "a-04-haki1",
+        "category": "demiseason",
+        "img": "img/a-04-haki/cholovichi-shkiriani-crosivky1.webp",
+        "alt": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Green",
+        "head": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Green",
+        "saleprice": "2300 грн",
+        "price": "1890 грн",
+        "cta": "купити",
+        "href": "#"
+    },
+    {
+        "id": "bot-523-ol1",
+        "category": "winter",
+        "img": "img/bot-523-ol/adidashaki1.webp",
+        "alt": "Чоловічі шкіряні черевики Ads Terrex Green",
+        "head": "Чоловічі шкіряні черевики Ads Terrex Green",
+        "saleprice": "2510 грн",
+        "price": "2170 грн",
+        "cta": "купити",
+        "href": "#"
+    },
+    {
+        "id": "bot-5201",
+        "category": "winter",
+        "img": "img/bot-520/adidasblack1.webp",
+        "alt": "Чоловічі шкіряні черевики Ads Terrex Black",
+        "head": "Чоловічі шкіряні черевики Ads Terrex Black",
+        "saleprice": "2510 грн",
+        "price": "2170 грн",
+        "cta": "купити",
+        "href": "#"
+    },
+    {
+        "id": "90-ch-lito1",
+        "category": "summer",
+        "img": "img/90-ch-lito/cholovichi-shkiriani-bosonizky1.webp",
+        "alt": "чоловічі шкіряні сандалі на липучці ",
+        "head": "чоловічі шкіряні сандалі на липучці ",
+        "saleprice": "",
+        "price": "950 грн",
+        "cta": "купити",
+        "href": "#"
+    },
+    {
+        "id": "90-kor-lito1",
+        "category": "summer",
+        "img": "img/90-kor-lito/cholovichi-shkiriani-bosonizky1.webp",
+        "alt": "чоловічі шкіряні сандалі на липучці ",
+        "head": "чоловічі шкіряні сандалі на липучці ",
+        "saleprice": "",
+        "price": "950 грн",
+        "cta": "купити",
+        "href": "#"
+    },
+    {
+        "id": "90-s-lito1",
+        "category": "summer",
+        "img": "img/90-s-lito/Чоловічі шкіряні черевики(1).jpg",
+        "alt": "чоловічі шкіряні сандалі на липучці ",
+        "head": "чоловічі шкіряні сандалі на липучці ",
+        "saleprice": "",
+        "price": "950 грн",
+        "cta": "купити",
+        "href": "#"
+    },
+    {
+        "id": "90-x-lito1",
+        "img": "img/90-x-lito/Чоловічі шкіряні босоніжки(1).jpg",
+        "alt": "чоловічі шкіряні сандалі на липучці ",
+        "head": "чоловічі шкіряні сандалі на липучці ",
+        "saleprice": "",
+        "price": "950 грн",
+        "cta": "купити",
+        "href": "#"
     }
 ]

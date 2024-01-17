@@ -79,9 +79,10 @@ document.addEventListener("DOMContentLoaded", function () {
         categoryFilter = document.querySelector(".filter-season")
 
     const itemsPerPage = 12
-    currentPage = 1
-    totalPages = 1
-    jsonData = []
+
+    let currentPage = 1,
+        totalPages = 1,
+        jsonData = []
 
 
     function fetchData() {
@@ -177,11 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
             productList.appendChild(listItem)
 
         })
-
-
     }
-
-
 
     //  пагінатор
 
@@ -189,66 +186,75 @@ document.addEventListener("DOMContentLoaded", function () {
         var paginationContainer = document.querySelector('#pagination')
         paginationContainer.innerHTML = ''
 
-        paginationContainer.appendChild(createButton('←', 'arrow-pag prev', function () {
-            if (currentPage > 1) {
-                currentPage--
-                showData(currentPage)
-                updatePaginationButtons()
-            }
-        }))
+        if(totalPages > 1) {
 
-        // Кнопки сторінок
-        var maxVisiblePages = 4,
-            halfVisiblePages = Math.floor(maxVisiblePages / 2),
-            startPage = Math.max(1, currentPage - halfVisiblePages),
-            endPage = Math.min(totalPages, startPage + maxVisiblePages - 1)
-
-        if (startPage > 1) {
-            paginationContainer.appendChild(createButton(1, '', function () {
-                currentPage = 1
-                showData(currentPage)
-                updatePaginationButtons()
+            paginationContainer.appendChild(createButton('←', 'arrow-pag prev', function () {
+                if (currentPage > 1) {
+                    currentPage--
+                    showData(currentPage)
+                    showPagination()
+                    updatePaginationButtons()
+                }
             }))
-
-            if (startPage > 2) {
-                paginationContainer.appendChild(createButton('...', 'ellipsis', function () {}));
+        
+            // Кнопки сторінок
+            const maxVisiblePages = 4,
+                halfVisiblePages = Math.floor(maxVisiblePages / 2),
+                startPage = Math.max(1, currentPage - halfVisiblePages),
+                endPage = Math.min(totalPages, startPage + maxVisiblePages - 1)
+        
+            if (startPage > 1) {
+                paginationContainer.appendChild(createButton(1, '', function () {
+                    currentPage = 1
+                    showData(currentPage)
+                    showPagination()
+                    updatePaginationButtons()
+                }))
+                
+                if (startPage > 2) {
+                    paginationContainer.appendChild(createButton('...', 'ellipsis', function () {}))
+                }
             }
-        }
-
-        for (var i = startPage; i <= endPage; i++) {
-            paginationContainer.appendChild(createButton(i, (i === currentPage) ? 'active' : '', function () {
-                currentPage = parseInt(this.innerText)
-                showData(currentPage)
-                updatePaginationButtons()
+            
+            for (let i = startPage; i <= endPage; i++) {
+                (function (pageNumber) {
+                    paginationContainer.appendChild(createButton(pageNumber, (pageNumber === currentPage) ? 'active' : '', function () {
+                        currentPage = pageNumber
+                        showData(currentPage)
+                        showPagination()
+                        updatePaginationButtons()
+                    }))
+                })(i)
+            }
+        
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    paginationContainer.appendChild(createButton('...', 'ellipsis', function () {}))
+                }
+        
+                paginationContainer.appendChild(createButton(totalPages, '', function () {
+                    currentPage = totalPages
+                    showData(currentPage)
+                    showPagination()
+                    updatePaginationButtons()
+                }))
+            }
+        
+            // Стрілка "Вперед"
+            paginationContainer.appendChild(createButton('→', 'arrow-pag next', function () {
+                if (currentPage < totalPages) {
+                    currentPage++
+                    showData(currentPage)
+                    showPagination()
+                    updatePaginationButtons()
+                }
             }))
         }
-
-        if (endPage < totalPages) {
-            if (endPage < totalPages - 1) {
-                paginationContainer.appendChild(createButton('...', 'ellipsis', function () {}))
-            }
-
-            paginationContainer.appendChild(createButton(totalPages, '', function () {
-                currentPage = totalPages
-                showData(currentPage)
-                updatePaginationButtons();
-            }))
-        }
-
-        // Стрілка "Вперед"
-        paginationContainer.appendChild(createButton('→', 'arrow-pag next', function () {
-            if (currentPage < totalPages) {
-                currentPage++
-                showData(currentPage)
-                updatePaginationButtons()
-            }
-        }))
-
-        updatePaginationButtons()
+    
     }
-
+    
     function createButton(text, className, clickHandler) {
-        var button = document.createElement('button')
+        const button = document.createElement('button')
         button.innerText = text
         button.className = className
         button.onclick = clickHandler
@@ -256,11 +262,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updatePaginationButtons() {
-        var paginationButtons = document.getElementById('pagination').getElementsByTagName('button')
-
+        const paginationButtons = document.querySelector('#pagination').getElementsByTagName('button')
+    
         for (var i = 0; i < paginationButtons.length; i++) {
             var pageNumber = parseInt(paginationButtons[i].innerText)
-
+    
             if (pageNumber === currentPage) {
                 paginationButtons[i].classList.add("current-page")
                 paginationButtons[i].disabled = true
@@ -270,6 +276,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
+    
 
     fetchData()
 
