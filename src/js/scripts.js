@@ -588,7 +588,7 @@ function cart() {
                 .then(products => {
                     const product = products.find(product => product.id === productID)
                     if (size.length > 1) {
-                        alert("more than 1")
+
                         console.log(size)
                         for (let i = 0; i < size.length; i++) {
                             if (!orders[productID + size[i]]) {
