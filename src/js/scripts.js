@@ -461,7 +461,7 @@ function cart() {
                                 if (size) {
                                     orders[productID + size[i]].size = size[i]
                                 }
-                                orders.orderSum += Number((orders[productID + size[i]].product.price).slice(0, -4))
+                                orders.orderSum += Number((orders[productID + size[i]].product.saleprice).slice(0, -4))
 
                                 updateCart(productID, orders[productID + size[i]].size)
 
@@ -476,6 +476,7 @@ function cart() {
                             }
                             orderDiscountCalc += orders[productID + size[i]].product.saleprice ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4)) : 0
                             orderDiscount.innerText = orderDiscountCalc
+                            orderDetailSum.innerText = orders.orderSum
                         }
                         console.log(orders)
                     } else {
@@ -494,7 +495,7 @@ function cart() {
                             } else {
                                 orders[productID + size].quantity++
                             }
-                            orders.orderSum += Number((orders[productID + size].product.price).slice(0, -4))
+                            orders.orderSum += Number((orders[productID + size].product.saleprice).slice(0, -4))
                             setTimeout(function () {
                                 const totalPriceSpan = addedProductsList.querySelector('.basket-card[data-value="' + productID + size + '"]' + " .total-price span"),
                                     totalQuantitySpan = addedProductsList.querySelector('.basket-card[data-value="' + productID + size + '"]' + " .quantity-number");
@@ -513,7 +514,7 @@ function cart() {
                             if (size) {
                                 orders[productID + size].size = size
                             }
-                            orders.orderSum += Number((orders[productID + size].product.price).slice(0, -4))
+                            orders.orderSum += Number((orders[productID + size].product.saleprice).slice(0, -4))
                             updateCart(productID, orders[productID + size].size)
 
                             console.log(document.querySelector(".minus-quantity[data-value='" + productID + size + "']"))
@@ -621,7 +622,7 @@ function plusBtn(button) {
                     totalPriceSpan.innerText = ((orders[orderKey].product.price).slice(0, -4)) * orders[orderKey].quantity + " грн"
                     totalQuantitySpan.innerText = orders[orderKey].quantity
 
-                    orders.orderSum += Number((orders[orderKey].product.price).slice(0, -4))
+                    orders.orderSum += Number((orders[orderKey].product.saleprice).slice(0, -4))
                 }
                 orderDetailSum.innerText = orders.orderSum
 
@@ -658,7 +659,7 @@ function minBtn(button) {
                     totalPriceSpan.innerText = orders[orderKey].totalPrice + " грн"
                     totalQuantitySpan.innerText = orders[orderKey].quantity
 
-                    orders.orderSum -= Number((orders[orderKey].product.price).slice(0, -4))
+                    orders.orderSum -= Number((orders[orderKey].product.saleprice).slice(0, -4))
 
                     if (totalQuantitySpan !== 1) {
                         caclnumberOfProducts--
@@ -689,3 +690,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 })
+
+function sendData() {
+    let ordersInput = document.querySelector("#orderProductsObject")
+    const jsonString = JSON.stringify(orders)
+
+    ordersInput.value = jsonString
+  
+}
+  

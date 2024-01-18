@@ -15,7 +15,7 @@ html(lang="uk")
                 .wrapper.flex.items-center
                     h2 кошик
                     .calc-added-products 0
-            .popup-main.flex-between.wrapper  
+            .popup-main.flex-between.wrapper.overflow    
                 .added-products-list.wrapper 
                 .order-details
                     h3 деталі замовлення
@@ -25,35 +25,41 @@ html(lang="uk")
                     .order-line.flex-between.w-100
                         span Знижка
                         span.order-discount 0 
+                    hr
+                    .order-line.flex-between.w-100
+                        div
+                            b разом до  оплати
+                            span (без врахування доставки) 
+                        div
             .popup-footer 
                 .wrapper
                     span.basket-back повернутися у каталог
-        .order-confirm-popup.d-none
+        .order-confirm-popup
             .popup-header-line
                 .wrapper.flex.items-center
                     h2 оформлення замовлення
-                    .calc-added-products 0
-            .popup-main.flex-between.wrapper  
-                .order-form.wrapper 
+            .popup-main.flex-between.wrapper.overflow  
+                .order-form.w-50 
                     h3 ваші контактні дані
-                    form(action="sendorder.php", method="post")    
+                    form(action="sendorder.php", method="post") 
+                        input(type="hidden", name="orderProducts")#orderProductsObject
                         .flex-between
-                            label 
+                            label.w-50 
                                 p Мобільний телефон
                                 input(type="number", name="userPhone") 
-                            label 
+                            label.w-50 
                                 p Електронна пошта
                                 input(type="email", name="userEmail") 
                         .flex-between
-                            label 
+                            label.w-50 
                                 p Імʼя
                                 input(type="text", name="userName") 
-                            label 
+                            label.w-50 
                                 p Прізвище
                                 input(type="text", name="userFirstName")
                         .payment-method 
                             h3 спосіб оплати
-                            label
+                            label.flex
                                 input(type="radio", name="paymenttype" value="Готівкою при отриманні/накладений платіж")
                                 span Готівкою при отриманні/накладений платіж
                             label
@@ -61,17 +67,17 @@ html(lang="uk")
                                 span Переказ на банківську картку
                         .delivery-method 
                             h3 спосіб доставки
-                            label
+                            label.d-block
                                 input(type="radio", name="deliveryMethod" value="Нова Пошта")
                                 span Нова Пошта
-                            label
+                            label.d-block
                                 input(type="radio", name="deliveryMethod" value="Укрпошта")
                                 span Укрпошта
                             .flex-between 
-                                label
+                                label.w-50
                                     p Місто
                                     input(type="text", name="city")
-                                label
+                                label.w-50
                                     p Номер відділення
                                     input(type="text", name="postNumber")
                         .hidden-inputs
