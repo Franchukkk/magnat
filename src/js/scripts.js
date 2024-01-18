@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     orders.orderSum = 0
-
+    // карточки товару
     const productList = document.querySelector(".card-bott"),
         categoryFilter = document.querySelector(".filter-season")
 
@@ -220,7 +220,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function sortProducts(data) {
         const sortSelect = document.querySelector(".select__input"),
             selectedValue = parseInt(sortSelect.value)
-    
         switch (selectedValue) {
             case 2:
                 // Сортування за спаданням ціни
