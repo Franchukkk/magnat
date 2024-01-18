@@ -163,17 +163,17 @@ html(lang="uk")
                         form(action="")
                             .check-size.flex
                                 h3 Розміри
-                                input(type="checkbox" id="s-40" value="40")
+                                input(type="checkbox" id="s-40" name="size" value="size40")
                                 label(for="s-40") 40
-                                input(type="checkbox" id="s-41" value="41")
+                                input(type="checkbox" id="s-41" name="size" value="size41")
                                 label(for="s-41") 41
-                                input(type="checkbox" id="s-42" value="42")
+                                input(type="checkbox" id="s-42" name="size" value="size42")
                                 label(for="s-42") 42
-                                input(type="checkbox" id="s-43" value="43") 
+                                input(type="checkbox" id="s-43" name="size" value="size43") 
                                 label(for="s-43") 43
-                                input(type="checkbox" id="s-44" value="44")
+                                input(type="checkbox" id="s-44" name="size" value="size44")
                                 label(for="s-44") 44
-                                input(type="checkbox" id="s-45" value="45")
+                                input(type="checkbox" id="s-45" name="size" value="size45")
                                 label(for="s-45") 45
                             .price-filter.flex
                                 h3 Ціна
@@ -190,45 +190,45 @@ html(lang="uk")
                                         input.input-max(type='number' value='10000')
                             .color-filter.flex
                                 h3 Колір
-                                input(type="checkbox" id="brown")
+                                input(type="checkbox" id="brown" name="color" value="brown")
                                 label(for="brown") Коричневий
-                                input(type="checkbox" id="blue")
+                                input(type="checkbox" id="blue" name="color" value="blue")
                                 label(for="blue") Синій
-                                input(type="checkbox" id="haki")
+                                input(type="checkbox" id="haki" name="color" value="haki")
                                 label(for="haki") Хакі
-                                input(type="checkbox" id="black")
+                                input(type="checkbox" id="black" name="color" value="black")
                                 label(for="black") Чорний
                             .model.flex
                                 h3 Модель
-                                input(type="checkbox" id="boots1")
+                                input(type="checkbox" id="boots1" name="model" value="crosivky")
                                 label(for="boots1") Кросівки
-                                input(type="checkbox" id="boots2")
+                                input(type="checkbox" id="boots2" name="model" value="kedy")
                                 label(for="boots2") Кеди
-                                input(type="checkbox" id="boots3")
+                                input(type="checkbox" id="boots3" name="model" value="cherevyki")
                                 label(for="boots3") Черевики
-                                input(type="checkbox" id="boots4")
+                                input(type="checkbox" id="boots4" name="model" value="sandali")
                                 label(for="boots4") Босоніжки
                             .season-filter.flex
                                 h3 Сезон
-                                input(type="checkbox" id="sum")
+                                input(type="checkbox" id="sum" name="season" value="summer")
                                 label(for="sum") Весна - літо
-                                input(type="checkbox" id="win")
+                                input(type="checkbox" id="win" name="season" value="winter")
                                 label(for="win") Осінь - зима
                             .material.flex
                                 h3 Матеріал
-                                input(type="checkbox" id="arm")
+                                input(type="checkbox" id="arm" name="material" value="shkira")
                                 label(for="arm") Шкіра
-                                input(type="checkbox" id="fakearm")
+                                input(type="checkbox" id="fakearm" name="material" value="zamsh")
                                 label(for="fakearm") Замша
-                                input(type="checkbox" id="nobok")
+                                input(type="checkbox" id="nobok" name="material" value="nubuk")
                                 label(for="nobok") Нубук
                             .style.flex
                                 h3 Стиль
-                                input(type="checkbox" id="classic")
+                                input(type="checkbox" id="classic" name="style" value="classic")
                                 label(for="classic") Класика
-                                input(type="checkbox" id="sport")
+                                input(type="checkbox" id="sport" name="style" value="sport")
                                 label(for="sport") Спортивний
-                                input(type="checkbox" id="day-style")
+                                input(type="checkbox" id="day-style" name="style" value="povsiakdenny")
                                 label(for="day-style") Повсякденний
                             .flex.button-filter
                                 button.submit-filter(type="submit") застосувати фільтр
@@ -237,13 +237,13 @@ html(lang="uk")
                         .btn-season.flex
                             ul.menu.flex.filter-season
                                 li
-                                    a(href="#") Усі товари
+                                    a.card-cta-season(href="#" data-href="#all") Усі товари
                                 li
-                                    a(href="#") Зимове взуття
+                                    a.card-cta-season(href="#" data-href="winter") Зимове взуття
                                 li
-                                    a(href="#") Демісезонне взуття
+                                    a.card-cta-season(href="#" data-href="demiseason") Демісезонне взуття
                                 li
-                                    a(href="#") Літнє взуття
+                                    a.card-cta-season(href="#" data-href="summer") Літнє взуття
                             form(action="#")
                                 label.arrow-select
                                     .select
