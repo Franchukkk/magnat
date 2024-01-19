@@ -964,8 +964,6 @@ h2.season
     column-gap: 10rem
     h2
         color: #25445E
-        leading-trim: both
-        text-edge: cap
         font-size: 48rem
         font-weight: 700
         text-transform: uppercase
@@ -977,8 +975,6 @@ h2.season
 .order-summarize
     p
         color: #191919
-        leading-trim: both
-        text-edge: cap
         font-size: 18rem
         font-weight: 700
         text-transform: uppercase
@@ -986,8 +982,6 @@ h2.season
     text-align: right
     b
         color: #4E98B6
-        leading-trim: both
-        text-edge: cap
         font-size: 18rem
         font-weight: 700
 
@@ -1001,8 +995,6 @@ h2.season
     background: #4E98B6
     border-radius: 50%
     color: #FFF
-    leading-trim: both
-    text-edge: cap
     font-size: 24rem
     font-weight: 600
 
@@ -1014,16 +1006,15 @@ h2.season
         height: 150rem
     h3
         color: #191919
-        leading-trim: both
-        text-edge: cap
+
         font-size: 16rem
         font-weight: 500
         text-transform: uppercase
     .description
+        max-width: 400rem
         td
             color: #191919
-            leading-trim: both
-            text-edge: cap
+
             font-size: 12rem
             font-weight: 400
             span
@@ -1039,10 +1030,10 @@ h2.season
 .delete-product
     position: relative
     color: #191919
-    leading-trim: both
-    text-edge: cap
+
     font-size: 12rem
     font-weight: 300
+    padding-left: 20px
     &::before
         content: ''
         position: absolute
@@ -1051,7 +1042,7 @@ h2.season
         background: url("../img/crossico.svg")
         top: 50%
         transform: translateY(-50%)
-        left: -20rem
+        left: 0rem
 
 .hidden
     overflow-y: hidden
@@ -1061,10 +1052,10 @@ h2.season
 
 .total-price span
     color: #4E98B6
-    leading-trim: both
-    text-edge: cap
+
     font-size: 16rem
     font-weight: 500
+    text-align: right
 
 .popup-header-line
     display: flex
@@ -1087,8 +1078,7 @@ h2.season
 .basket-back 
     position: relative
     color: #191919
-    leading-trim: both
-    text-edge: cap
+
     font-size: 18px
     font-weight: 500
     padding-left: 40px
@@ -1122,8 +1112,7 @@ h2.season
 .plus-quantity
     color: #A0A0A0
     text-align: center
-    leading-trim: both
-    text-edge: cap
+
     font-size: 12rem
     font-weight: 300
     cursor: pointer
@@ -1136,8 +1125,7 @@ h2.season
         width: 40%
     h3
         color: #4E98B6
-        leading-trim: both
-        text-edge: cap
+
         font-size: 20rem
         font-weight: 700
         text-transform: uppercase
@@ -1145,8 +1133,7 @@ h2.season
     span
         font-size: 18rem
         color: #191919
-        leading-trim: both
-        text-edge: cap
+
         font-weight: 500
     span:last-child
         font-size: 16rem
@@ -1191,16 +1178,14 @@ h2.season
 
 p.step
     color: #A0A0A0
-    leading-trim: both
-    text-edge: cap
+
     font-size: 14rem
     font-weight: 400
     margin-bottom: 5rem
 
 .take-boots
     color: #191919
-    leading-trim: both
-    text-edge: cap
+
     font-size: 20rem
     font-weight: 700
     text-transform: uppercase
@@ -1208,8 +1193,7 @@ p.step
 
 .step-description
     color: #191919
-    leading-trim: both
-    text-edge: cap
+
     font-size: 14rem
     font-weight: 400
 
@@ -1543,8 +1527,7 @@ h2.dropshipping-title
 .order-form
     h3
         color: #25445E
-        leading-trim: both
-        text-edge: cap
+
         font-size: 20rem
         font-weight: 700
         text-transform: uppercase
@@ -1552,8 +1535,7 @@ h2.dropshipping-title
         margin-bottom: 20rem
         p
             color: #191919
-            leading-trim: both
-            text-edge: cap
+
             font-size: 14rem
             font-weight: 500
             margin-bottom: 10rem
@@ -1564,8 +1546,7 @@ h2.dropshipping-title
         background: #FFF
         padding: 12rem 9rem
         color: #191919
-        leading-trim: both
-        text-edge: cap
+
         font-size: 12rem
         font-weight: 300
         outline: none
@@ -1600,8 +1581,7 @@ h2.dropshipping-title
 .delivery-method 
     span
         color: #191919
-        leading-trim: both
-        text-edge: cap
+
         font-size: 16rem
         font-weight: 300
 
@@ -1612,3 +1592,14 @@ h2.dropshipping-title
 
 .relative
     position: relative
+
+hr
+    border: none
+    border: 1px solid #25445E
+
+.basket-card
+    width: 100%
+    padding-bottom: 22rem
+    border-bottom: 1px solid #25445E
+    table
+        margin-bottom: 30rem

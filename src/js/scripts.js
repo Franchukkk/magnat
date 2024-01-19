@@ -643,6 +643,9 @@ function cart() {
                 .then(response => response.json())
                 .then(products => {
                     const product = products.find(product => product.id === productID)
+                    if (product.saleprice === "") {
+                        product.saleprice = product.price;
+                    }
                     if (size.length > 1) {
 
                         console.log(size)
@@ -652,10 +655,12 @@ function cart() {
                                     product: product,
                                     quantity: 1
                                 }
+                                
                                 if (size) {
                                     orders[productID + size[i]].size = size[i]
                                 }
-                                orders.orderSumWithNoDiscount += Number((orders[productID + size[i]].product.saleprice).slice(0, -4))
+                                
+                                orders.orderSumWithNoDiscount += orders[productID + size[i]].product.saleprice != "" ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) : 0
                                 orders.orderSumWithDiscount += Number((orders[productID + size[i]].product.price).slice(0, -4))
                                 updateCart(productID, orders[productID + size[i]].size)
 
@@ -670,13 +675,13 @@ function cart() {
                             }
                             orderDiscountCalc += orders[productID + size[i]].product.saleprice ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4)) : 0
                             orderDiscount.innerText = orderDiscountCalc
-                            orderDetailSum.innerText = orders.orderSumWithNoDiscount
+                            orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                             orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
 
                         }
                         console.log(orders)
                     } else {
-
+                        
                         if (orders[productID + size]) {
                             caclnumberOfProducts++
                             numberOfProductsDOM.innerText = caclnumberOfProducts
@@ -691,7 +696,7 @@ function cart() {
                             } else {
                                 orders[productID + size].quantity++
                             }
-                            orders.orderSumWithNoDiscount += Number((orders[productID + size].product.saleprice).slice(0, -4))
+                            orders.orderSumWithNoDiscount += orders[productID + size].product.saleprice != "" ? Number((orders[productID + size].product.saleprice).slice(0, -4)) : 0
                             orders.orderSumWithDiscount += Number((orders[productID + size].product.price).slice(0, -4))
                             setTimeout(function () {
                                 const totalPriceSpan = addedProductsList.querySelector('.basket-card[data-value="' + productID + size + '"]' + " .total-price span"),
@@ -711,7 +716,7 @@ function cart() {
                             if (size) {
                                 orders[productID + size].size = size
                             }
-                            orders.orderSumWithNoDiscount += Number((orders[productID + size].product.saleprice).slice(0, -4))
+                            orders.orderSumWithNoDiscount += orders[productID + size].product.saleprice != "" ? Number((orders[productID + size].product.saleprice).slice(0, -4)) : 0
                             orders.orderSumWithDiscount += Number((orders[productID + size].product.price).slice(0, -4))
                             updateCart(productID, orders[productID + size].size)
 
@@ -723,7 +728,7 @@ function cart() {
                             orderDiscountCalc += orders[productID + size].product.saleprice ? Number((orders[productID + size].product.saleprice).slice(0, -4)) - Number((orders[productID + size].product.price ).slice(0, -4)): 0
                             orderDiscount.innerText = orderDiscountCalc
                         }
-                        orderDetailSum.innerText = orders.orderSumWithNoDiscount
+                        orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                         orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                     }
                 })
@@ -738,40 +743,43 @@ function cart() {
                 const product = products.find(product => product.id === id);
                 const card = document.createElement("div");
                 card.innerHTML = `
-                    <div class="basket-card flex items-center" data-value=${product.id + "" + sizesList}>
-                        <div class="basket-product-description flex items-center">
-                            <img src=${product.img}>
+                    <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
+                        <img src=${product.img}>
+                        
+                        <div class="w-100 flex-between items-center">
                             <div class="description">
-                                <h3>${product.head}</h3>
-                                <table>
-                                    <tr>
-                                        <td>колір</td>
-                                        <td>${product.color}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>розмір</td>
-                                        <td class="size-span">${sizesList}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ціна</td>
-                                        <td>${product.price} <span>${product.saleprice}</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>кількість</td>
-                                        <td>
-                                            <div class="quantity flex">
-                                                <div class="minus-quantity" data-value="${product.id + "" + sizesList}">-</div>
-                                                <div class="quantity-number">${orders[product.id + sizesList].quantity}</div>
-                                                <div class="plus-quantity" data-value="${product.id + "" + sizesList}">+</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <div class="delete-product">видалити товар</div>
+                                <div>
+                                    <h3>${product.head}</h3>
+                                    <table>
+                                        <tr>
+                                            <td>колір</td>
+                                            <td>${product.color}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>розмір</td>
+                                            <td class="size-span">${sizesList}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ціна</td>
+                                            <td>${product.price} <span>${product.saleprice}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>кількість</td>
+                                            <td>
+                                                <div class="quantity flex">
+                                                    <div class="minus-quantity" data-value="${product.id + "" + sizesList}">-</div>
+                                                    <div class="quantity-number">${orders[product.id + sizesList].quantity}</div>
+                                                    <div class="plus-quantity" data-value="${product.id + "" + sizesList}">+</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="delete-product">видалити товар</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="total-price">
-                            <span>${Number((orders[product.id + sizesList].product.price).slice(0, -4)) * orders[product.id + sizesList].quantity + " грн"}</span> 
+                            <div class="total-price">
+                                <span>${Number((orders[product.id + sizesList].product.price).slice(0, -4)) * orders[product.id + sizesList].quantity + " грн"}</span>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -821,10 +829,10 @@ function plusBtn(button) {
                     totalPriceSpan.innerText = ((orders[orderKey].product.price).slice(0, -4)) * orders[orderKey].quantity + " грн"
                     totalQuantitySpan.innerText = orders[orderKey].quantity
 
-                    orders.orderSumWithNoDiscount += Number((orders[orderKey].product.saleprice).slice(0, -4))
+                    orders.orderSumWithNoDiscount += orders[orderKey].product.saleprice !== 0 ? Number((orders[orderKey].product.saleprice).slice(0, -4)) : 0
                     orders.orderSumWithDiscount += Number((orders[orderKey].product.price).slice(0, -4))
                 }
-                orderDetailSum.innerText = orders.orderSumWithNoDiscount
+                orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                 orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
 
                 caclnumberOfProducts++
@@ -860,7 +868,7 @@ function minBtn(button) {
                     totalPriceSpan.innerText = orders[orderKey].totalPrice + " грн"
                     totalQuantitySpan.innerText = orders[orderKey].quantity
 
-                    orders.orderSumWithNoDiscount -= Number((orders[orderKey].product.saleprice).slice(0, -4))
+                    orders.orderSumWithNoDiscount -= orders[orderKey].product.saleprice != "" ? Number((orders[orderKey].product.saleprice).slice(0, -4)) : 0
                     orders.orderSumWithDiscount -= Number((orders[orderKey].product.price).slice(0, -4))
 
                     if (totalQuantitySpan !== 1) {
@@ -868,7 +876,7 @@ function minBtn(button) {
                     }
 
                     numberOfProductsDOM.innerText = caclnumberOfProducts
-                    orderDetailSum.innerText = orders.orderSumWithNoDiscount
+                    orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                     orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
     
                     orderDiscountCalc -= orders[productID + productBlock.slice(-2)].product.saleprice ? Number((orders[productID + productBlock.slice(-2)].product.saleprice).slice(0, -4)) - Number((orders[productID + productBlock.slice(-2)].product.price).slice(0, -4)) : 0
