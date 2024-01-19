@@ -117,7 +117,7 @@ html(lang="uk")
                         div.price-totally
                             b 0
                     .flex-between.order-btns 
-                        a(href="#").btn-style-one оформити замовлення  
+                        a(href="#").btn-style-one#openConfirmPopup оформити замовлення  
                         a(href="#").btn-style-two продовжити покупки
             .popup-footer 
                 .wrapper
@@ -126,10 +126,11 @@ html(lang="uk")
             .popup-header-line
                 .wrapper.flex.items-center
                     h2 оформлення замовлення
-            .popup-main.flex-between.wrapper.overflow  
-                .order-form.w-50 
-                    h3 ваші контактні дані
-                    form(action="sendorder.php", method="post") 
+            form(action="sendorder.php", method="post") 
+                .popup-main.flex-between.wrapper.overflow 
+
+                    .order-form.w-50 
+                        h3 ваші контактні дані
                         input(type="hidden", name="orderProducts")#orderProductsObject
                         .flex-between
                             label.w-50 
@@ -173,11 +174,28 @@ html(lang="uk")
                                     p Номер відділення
                                     input(type="text", name="postNumber")
                         .hidden-inputs
-                        input(type="submit", value="submit")
-                .order-price-details
+                    .order-details
+                        h3 Разом
+                        .order-line.flex-between.w-100
+                            span 4 товари на суму
+                            span 
+                        .order-line.flex-between.w-100
+                            span Вартість доставки
+                            span за тарифами перевізника
+                        .line 
+                            hr
+                        .order-line.flex-between.w-100.margin-to-btns
+                            div.order-summarize
+                                p разом до  оплати
+                                span (без врахування доставки) 
+                            div
+                                b 0
+                        .flex-between.order-btns 
+                            button(type="submit").btn-style-one оформити замовлення  
+                            a(href="#").btn-style-two продовжити покупки
             .popup-footer 
                 .wrapper
-                    span.basket-back повернутися у каталог
+                    span.confirm-back повернутися у каталог
         header 
             .top-line
                 .wrapper.flex-between.items-center.top-nav-gap
