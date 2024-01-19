@@ -76,6 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
     orders.orderSumWithNoDiscount = 0
     orders.orderSumWithDiscount = 0
 
+    orders.orderSum = 0
+    // карточки товару
     const productList = document.querySelector(".card-bott"),
         categoryFilter = document.querySelector(".filter-season")
 
@@ -94,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 totalPages = Math.ceil(jsonData.length / itemsPerPage)
                 showData(currentPage)
                 showPagination()
+                updateProductDisplay(selectedCategory)
 
             })
             .catch(error => console.error("Помилка завантаження даних:", error))
@@ -167,6 +170,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 labelInput.setAttribute("for", `input-${product.id}-${size}`)
                 labelInput.innerText = `${size}`
 
+                if (`size${size}` in product) {
+                    inputSize.disabled = false
+                } else {
+                    inputSize.disabled = true
+                }
+
                 inputBlock.appendChild(inputSize)
                 inputBlock.appendChild(labelInput)
             }
@@ -184,6 +193,66 @@ document.addEventListener("DOMContentLoaded", function () {
         
     }
 
+    // вибір категорій і додавання до локального сховища, при завантажені сторінки підзавантажуються дані згідно вибраних категорій а не весь список
+
+    const btnProduct = document.querySelectorAll(".card-cta-season"),
+        categories = ["winter", "summer", "demiseason"], 
+        lastSelectedCategory = localStorage.getItem("lastSelectedCategory")
+
+    function updateProductDisplay(category) {
+        jsonData.forEach(product => {
+            const element = document.querySelector(`.${product.category}`)
+            if (element) {
+                element.style.display = category === "#all" || category === `#${product.category}` ? "block" : "none"
+            }
+        })
+    }
+    
+    categoryFilter.addEventListener("click", (evt) => {
+        if (evt.target.tagName === "BUTTON") {
+            selectedCategory = evt.target.getAttribute("data-href")
+            localStorage.setItem("lastSelectedCategory", selectedCategory)
+            resetFilters()
+            updateProductDisplay(selectedCategory)
+            showData(currentPage)
+        }
+    })
+
+    // сщртування по селекту
+    
+    function sortProducts(data) {
+        const sortSelect = document.querySelector(".select__input"),
+            selectedValue = parseInt(sortSelect.value)
+        switch (selectedValue) {
+            case 2:
+                // Сортування за спаданням ціни
+                data.sort((a, b) => parseFloat(b.price) - parseFloat(a.price))
+                break
+            case 3:
+                // Сортування за зростанням ціни
+                data.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
+                break
+            case 4:
+                // Сортування за новизною
+                break
+            case 5:
+                // Сортування за популярністю 
+                break
+            default:
+                break
+        }
+    
+        return data
+    }
+    
+    const selectInput = document.querySelector(".select__input")
+    selectInput.addEventListener("change", function () {
+        const sortedData = sortProducts(jsonData)
+        showData(currentPage)
+        showPagination()
+        updatePaginationButtons()
+    })
+    
     //  пагінатор
 
     function showPagination() {
@@ -282,12 +351,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetchData()
 
-    // сортування карток товарів
-    const btnProduct = document.querySelectorAll(".card-cta-season"),
-        categories = ["winter", "summer", "demiseason"], 
-        lastSelectedCategory = localStorage.getItem("lastSelectedCategory")
-
-    console.log(categories)
+    //сортування карток товарів
 
     let selectedCategory = lastSelectedCategory
 
@@ -300,14 +364,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const selectedItem = document.querySelector(`[data-href="${selectedCategory}"]`)
     if (selectedItem) {
-        selectedItem.style.display = "grid"
+        selectedItem.style.color = "#fff"
+        selectedItem.style.backgroundColor = "#4E98B6"
     } 
 
     categories.forEach((category) => {
         const elements = document.querySelectorAll(`.${category}`)
         elements.forEach((element) => {
             element.style.display =
-                selectedCategory === `${category}` || selectedCategory === "#all" ? "grid" : "none"
+                selectedCategory === `${category}` || selectedCategory === "#all" ? "block" : "none"
         })
     })
 
@@ -319,15 +384,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 button.style.color = "#191919"
                 button.style.backgroundColor = "#fff"
             });
-
             item.style.color = "#fff";
             item.style.backgroundColor = "#4E98B6"
 
-            let id = evt.target.getAttribute("data-href")
+            let category = evt.target.getAttribute("data-href")
 
-            localStorage.setItem("lastSelectedCategory", id)
+            localStorage.setItem("lastSelectedCategory", category)
 
-            updateProductDisplay(id)
+            updateProductDisplay(category)
         })
     })
 
@@ -335,16 +399,16 @@ document.addEventListener("DOMContentLoaded", function () {
         categories.forEach((cat) => {
             const elements = document.querySelectorAll(`.${cat}`)
             elements.forEach((element) => {
-                element.style.display = category === `${cat}` || category === "#all" ? "grid" : "none"
+                element.style.display = category === `${cat}` || category === "#all" ? "block" : "none"
             })
         })
     }
 
     // фільтр
     document.querySelector(".submit-filter").addEventListener("click", function (e) {
-        e.preventDefault();
-        updateProductFilter();
-    });
+        e.preventDefault()
+        updateProductFilter()
+    })
     
     function updateProductFilter() {
         const minPrice = parseInt(document.querySelector('.input-min').value) || 0,
@@ -408,9 +472,6 @@ document.addEventListener("DOMContentLoaded", function () {
         updateProductFilter()
     }
     
-    
-    
-
     const images = document.querySelectorAll('.slider-images img'),
         arrLeft = document.querySelector(".arr-left"),
         arrRight = document.querySelector(".arr-right"),
@@ -507,8 +568,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     })
 
-
-
     let imgCarousel = document.querySelector('.img-carousel'),
         stepBlocks = document.querySelectorAll(".step-block")
     const imagesOrder = document.querySelectorAll(".img-carousel img")
@@ -524,11 +583,9 @@ document.addEventListener("DOMContentLoaded", function () {
             imgCarousel.style.height = imgCarouselHeight + 20 * 2 + "px"
 
         }
-
     }
 
     carouselHeight()
-
 
     let currentImgIndexOrder = 0
 
@@ -538,11 +595,7 @@ document.addEventListener("DOMContentLoaded", function () {
         imagesOrder[currentImgIndexOrder].classList.add('active')
     }
 
-
-
     setInterval(showNextImageOrder, 3000)
-
-
 })
 
 let orderDetailSum = document.querySelector(".order-total-price"),
