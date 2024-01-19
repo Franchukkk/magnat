@@ -942,3 +942,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     })
 })
+
+document.addEventListener("DOMContentLoaded", function () {
+    //попап оформлення замовлення
+    const openConfirmPopup = document.querySelector("#openConfirmPopup"),
+        confirmPopup = document.querySelector(".order-confirm-popup"),
+        confirmPopupClose = document.querySelector(".confirm-back")
+
+    openConfirmPopup.addEventListener("click", function() {
+        sendData()
+        confirmPopup.classList.toggle("d-block")
+    })
+
+    confirmPopupClose.addEventListener("click", function() {
+        confirmPopup.classList.toggle("d-block")
+    })
+
+})
