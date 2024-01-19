@@ -973,6 +973,24 @@ h2.season
     .flex
         column-gap: 10rem
         
+
+.order-summarize
+    p
+        color: #191919
+        leading-trim: both
+        text-edge: cap
+        font-size: 18rem
+        font-weight: 700
+        text-transform: uppercase
+.price-totally
+    text-align: right
+    b
+        color: #4E98B6
+        leading-trim: both
+        text-edge: cap
+        font-size: 18rem
+        font-weight: 700
+
 .calc-added-products
     display: flex
     justify-content: center
@@ -1551,12 +1569,32 @@ h2.dropshipping-title
         font-size: 12rem
         font-weight: 300
         outline: none
+        
     
     .flex-between
         column-gap: 45rem
 
 .w-50
     width: 50%
+
+
+.checkbox-style
+    position: relative
+    padding-left: 25rem
+
+.custom-checkbox+label::before
+    content: ""
+    position: absolute
+    top: 0
+    left: 0rem
+    width: 15rem
+    height: 15rem
+    border-radius: 2rem
+    border: 1px solid #a0a0a0
+
+.custom-checkbox:checked+label::before
+    opacity: 0
+
 
 .payment-method,
 .delivery-method 
@@ -1566,3 +1604,11 @@ h2.dropshipping-title
         text-edge: cap
         font-size: 16rem
         font-weight: 300
+
+.custom-checkbox
+    position: absolute
+    z-index: -1
+    opacity: 0
+
+.relative
+    position: relative

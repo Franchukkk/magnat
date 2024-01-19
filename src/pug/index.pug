@@ -27,10 +27,11 @@ html(lang="uk")
                         span.order-discount 0 
                     hr
                     .order-line.flex-between.w-100
-                        div
-                            b разом до  оплати
+                        div.order-summarize
+                            p разом до  оплати
                             span (без врахування доставки) 
-                        div
+                        div.price-totally
+                            b 0
             .popup-footer 
                 .wrapper
                     span.basket-back повернутися у каталог
@@ -59,20 +60,24 @@ html(lang="uk")
                                 input(type="text", name="userFirstName")
                         .payment-method 
                             h3 спосіб оплати
-                            label.flex
-                                input(type="radio", name="paymenttype" value="Готівкою при отриманні/накладений платіж")
-                                span Готівкою при отриманні/накладений платіж
-                            label
-                                input(type="radio", name="paymenttype" value="Переказ на банківську картку")
-                                span Переказ на банківську картку
+                            .relative
+                                input(type="radio", name="paymenttype" value="Готівкою при отриманні/накладений платіж").custom-checkbox
+                                label.flex.checkbox-style
+                                    span Готівкою при отриманні/накладений платіж
+                            .relative
+                                input(type="radio", name="paymenttype" value="Переказ на банківську картку").custom-checkbox
+                                label.flex.checkbox-style
+                                    span Переказ на банківську картку
                         .delivery-method 
                             h3 спосіб доставки
-                            label.d-block
-                                input(type="radio", name="deliveryMethod" value="Нова Пошта")
-                                span Нова Пошта
-                            label.d-block
-                                input(type="radio", name="deliveryMethod" value="Укрпошта")
-                                span Укрпошта
+                            .relative
+                                input(type="radio", name="deliveryMethod" value="Нова Пошта").custom-checkbox
+                                label.d-block.checkbox-style
+                                    span Нова Пошта
+                            .relative
+                                input(type="radio", name="deliveryMethod" value="Укрпошта").custom-checkbox
+                                label.d-block.checkbox-style
+                                    span Укрпошта
                             .flex-between 
                                 label.w-50
                                     p Місто
