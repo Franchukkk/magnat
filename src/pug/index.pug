@@ -10,6 +10,88 @@ html(lang="uk")
     
     body 
         include components/mixin
+        .popap-card
+            .popap-header
+                p.back-to-main.wrapper повернутися 
+            .wrapper
+                .card-info
+                    .img-card
+                        .small-img 
+                            picture
+                                img.small-img-first(src="", alt="")
+                            picture
+                                img.small-img-second(src="", alt="")
+                            picture
+                                img.small-img-last(src="", alt="")
+                        .main-img
+                            picture
+                                img.main-card-img(src="", alt="")
+                    .description-card
+                        h2.description-card_popap
+                        p.code-card_popap
+                        p.new-price
+                        p.price
+                        hr.card-hr
+                        .choise-card-popap 
+                            .choise-size_popap.input-block
+                                p Оберіть розмір:
+                            .choise-color_popap 
+                                p Оберіть колір:
+                                form
+                                    input(type="checkbox" id="brown-popap" name="color-popap" value="brown")
+                                    label(for="brown-popap")
+                                    input(type="checkbox" id="blue-popap" name="color-popap" value="blue")
+                                    label(for="blue-popap") 
+                                    input(type="checkbox" id="haki-popap" name="color-popap" value="haki")
+                                    label(for="haki-popap")
+                                    input(type="checkbox" id="black-popap" name="color-popap" value="black")
+                                    label(for="black-popap")
+                            .choise-quantiti_popap 
+                                p Оберіть кількість:
+                                .quantity.flex
+                                    .minus-quantity.min-count_card -
+                                    .quantity-number.num-count-card
+                                    .plus-quantity.max-count_card +
+                        .size-popap
+                            a(href="#") розмірна сітка
+                    .description-select    
+                        .select.card-select
+                            input(type='hidden').select__input
+                            .select__in Опис
+                            .select__list
+                                .select__item 
+                        .select.card-select
+                            input(type='hidden').select__input
+                            .select__in Характеристики
+                                .haracteristic-head 
+                                    p.producer-card_popap
+                                        span 
+                                    p.country-card_popap
+                                        span 
+                                    p.kind-card_popap
+                                        span 
+                                    p.season-card_popap
+                                        span 
+                                    p.material-top_popap
+                                        span 
+                                    p.material-bottom_popap
+                                        span 
+                                    p.material-insole_popap
+                                        span 
+                                    p.material-sole_popap
+                                        span 
+                                    p.style-card_popap
+                                        span 
+                                .haracteristic-text
+                            .select__list
+                                .select__item 
+                        .select.card-select
+                            input(type='hidden').select__input
+                            .select__in Доставка
+                            .select__list
+                                .select__item 1-3 дні доставка взуття у ваше місто. Доставка товару здійснюється компаніями «Нова Пошта» та «Укрпошта»
+                    .same-card.flex
+                        p схожі товари
         .popup
             .popup-header-line
                 .wrapper.flex.items-center

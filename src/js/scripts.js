@@ -79,7 +79,9 @@ document.addEventListener("DOMContentLoaded", function () {
     orders.orderSum = 0
     // карточки товару
     const productList = document.querySelector(".card-bott"),
-        categoryFilter = document.querySelector(".filter-season")
+        categoryFilter = document.querySelector(".filter-season"),
+        productPopup = document.querySelector('.popap-card'),
+        sameCard = document.querySelector(".same-card")
 
     const itemsPerPage = 12
 
@@ -106,92 +108,222 @@ document.addEventListener("DOMContentLoaded", function () {
         const startIndex = (pageNumber - 1) * itemsPerPage,
             endIndex = startIndex + itemsPerPage,
             pageData = jsonData.slice(startIndex, endIndex)
-        displayProducts(pageData)
+            displayProducts(pageData, productList)
     }
 
-    function displayProducts(products) {
-        productList.innerHTML = ""
-
+    function createCardElement(product) {
+        const listItem = document.createElement("figure"),
+            figcaptionItems = document.createElement("figcaption")
+    
+        if (product.saleprice !== "") {
+            const saleFlag = document.createElement("span"),
+                sale = 100 - (parseFloat(product.price) * 100) / parseFloat(product.saleprice)
+            saleFlag.classList.add("card-flag")
+            saleFlag.innerText = `sale -${sale.toFixed(0)}%`
+            figcaptionItems.appendChild(saleFlag)
+        }
+    
+        listItem.classList.add("card-box", product.category, product.color, product.model, product.material, product.style, product.size40, product.size41, product.size42, product.size43, product.size44, product.size45)
+        listItem.appendChild(figcaptionItems)
+    
+        const clickFigure = document.createElement("a")
+        clickFigure.classList.add("click-card")
+        clickFigure.href = "#"
+        clickFigure.setAttribute("data-value", product.id)
+        clickFigure.addEventListener("click", function (event) {
+            event.preventDefault()
+            openPopup(event, product.id)
+        });
+        figcaptionItems.appendChild(clickFigure)
+    
+        const imgElement = document.createElement("img")
+        imgElement.src = product.img
+        imgElement.alt = product.alt
+        figcaptionItems.appendChild(imgElement)
+    
+        const headerCard = document.createElement("h2")
+        headerCard.classList.add("header-card")
+        headerCard.innerText = product.head
+        figcaptionItems.appendChild(headerCard)
+    
+        const oldPrice = document.createElement("p")
+        oldPrice.classList.add("old-price")
+        oldPrice.innerText = product.saleprice
+        figcaptionItems.appendChild(oldPrice)
+    
+        const newPrice = document.createElement("p")
+        const priceValue = parseInt(product.price.replace(/\D/g, ''))
+        listItem.dataset.price = priceValue
+        newPrice.classList.add("new-price")
+        newPrice.innerText = product.price
+        figcaptionItems.appendChild(newPrice)
+    
+        const inputBlock = document.createElement("div")
+        inputBlock.classList.add("input-block")
+        figcaptionItems.appendChild(inputBlock)
+    
+        const sizes = ["40", "41", "42", "43", "44", "45"]
+    
+        for (const size of sizes) {
+            const inputSize = document.createElement("input")
+            inputSize.type = "checkbox"
+            inputSize.id = `input-${product.id}-${size}`
+            inputSize.value = size
+    
+            const labelInput = document.createElement("label")
+            labelInput.classList.add(`label${size}`)
+            labelInput.setAttribute("for", `input-${product.id}-${size}`)
+            labelInput.innerText = `${size}`
+    
+            if (`size${size}` in product) {
+                inputSize.disabled = false
+            } else {
+                inputSize.disabled = true
+            }
+    
+            inputBlock.appendChild(inputSize)
+            inputBlock.appendChild(labelInput)
+        }
+    
+        const ctaBuy = document.createElement("a")
+        ctaBuy.classList.add("cta-card")
+        ctaBuy.setAttribute('data-value', product.id)
+        ctaBuy.innerText = product.cta
+        ctaBuy.href = "#"
+        figcaptionItems.appendChild(ctaBuy)
+    
+        return listItem
+    }
+    
+    function displayProducts(products, container) {
+        container.innerHTML = ""
+    
         products.forEach(product => {
-            console.log(product)
-            const listItem = document.createElement("figure"),
-                figcaptionItems = document.createElement("figcaption")
-            if (product.saleprice !== "") {
-                const saleFlag = document.createElement("span"),
-                    sale = 100 - (parseFloat(product.price) * 100) / parseFloat(product.saleprice)
-                saleFlag.classList.add("card-flag")
-                saleFlag.innerText = `sale -${sale.toFixed(0)}%`
-                figcaptionItems.appendChild(saleFlag)
-            }
-            listItem.classList.add("card-box", product.category, product.color, product.model, product.material, product.style, product.size40, product.size41, product.size42, product.size43, product.size44, product.size45)
-            listItem.appendChild(figcaptionItems)
-
-            const clickFigure = document.createElement("a")
-            clickFigure.classList.add("click-card")
-            clickFigure.href = "#"
-            figcaptionItems.appendChild(clickFigure)
-
-            const imgElement = document.createElement("img")
-            imgElement.src = product.img
-            imgElement.alt = product.alt
-            figcaptionItems.appendChild(imgElement)
-
-            const headerCard = document.createElement("h2")
-            headerCard.classList.add("header-card")
-            headerCard.innerText = product.head
-            figcaptionItems.appendChild(headerCard)
-
-            const oldPrice = document.createElement("p")
-            oldPrice.classList.add("old-price")
-            oldPrice.innerText = product.saleprice
-            figcaptionItems.appendChild(oldPrice)
-
-            const newPrice = document.createElement("p")
-            const priceValue = parseInt(product.price.replace(/\D/g, ''))
-            listItem.dataset.price = priceValue
-            newPrice.classList.add("new-price")
-            newPrice.innerText = product.price
-            figcaptionItems.appendChild(newPrice)
-
-            const inputBlock = document.createElement("div")
-            inputBlock.classList.add("input-block")
-            figcaptionItems.appendChild(inputBlock)
-
-            const sizes = ["40", "41", "42", "43", "44", "45"]
-
-            for (const size of sizes) {
-                const inputSize = document.createElement("input")
-                inputSize.type = "checkbox"
-                inputSize.id = `input-${product.id}-${size}`
-                inputSize.value = size
-
-                const labelInput = document.createElement("label")
-                labelInput.classList.add(`label${size}`)
-                labelInput.setAttribute("for", `input-${product.id}-${size}`)
-                labelInput.innerText = `${size}`
-
-                if (`size${size}` in product) {
-                    inputSize.disabled = false
-                } else {
-                    inputSize.disabled = true
-                }
-
-                inputBlock.appendChild(inputSize)
-                inputBlock.appendChild(labelInput)
-            }
-
-            const ctaBuy = document.createElement("a")
-            ctaBuy.classList.add("cta-card")
-            ctaBuy.setAttribute('data-value', product.id)
-            ctaBuy.innerText = product.cta
-            ctaBuy.href = product.href
-            figcaptionItems.appendChild(ctaBuy)
-
-            productList.appendChild(listItem)
-
+            const listItem = createCardElement(product)
+            container.appendChild(listItem)
         })
-        
     }
+
+    // попап на карточку товару
+    function openPopup(event, productId) {
+        
+        if (productId) {
+            const selectedProduct = jsonData.find(product => product.id === productId)
+    
+            if (selectedProduct) {
+                clearPopup()
+                updatePopupContent(selectedProduct)
+                productPopup.style.display = 'block'
+            } else {
+                console.error(`Товар з ID ${productId} не знайдений.`)
+            }
+        } else {
+            console.error('error')
+        }
+    }
+
+    function updatePopupContent(product) {
+        const descrHead = document.querySelector('.description-card_popap'),
+            newPricePopap = document.querySelector(".new-price"),
+            spanId = document.querySelector('.code-card_popap'),
+            cardSpanPrice = document.querySelector(".price"),
+            mainImgPopap = document.querySelector(".main-card-img"),
+            smallPopapImg1 = document.querySelector(".small-img-first"),
+            smallPopapImg2 = document.querySelector(".small-img-second"),
+            smallPopapImg3 = document.querySelector(".small-img-last")
+
+        descrHead.innerText = product.head
+        newPricePopap.innerText = product.price
+        spanId.innerText = product.id
+        cardSpanPrice.innerText = product.saleprice
+        mainImgPopap.src = product.img
+        mainImgPopap.alt = product.alt
+        smallPopapImg1.src = product.imgPopap1
+        smallPopapImg1.alt = product.altPopap1
+        smallPopapImg2.src = product.imgPopap2
+        smallPopapImg2.alt = product.altPopap2
+        smallPopapImg3.src = product.imgPopap3
+        smallPopapImg3.alt = product.altPopap3
+
+        const sizes = ["40", "41", "42", "43", "44", "45"],
+            choiseSizePopap = document.querySelector(".choise-size_popap")
+
+        for (const size of sizes) {
+            const inputSize = document.createElement("input");
+            inputSize.type = "checkbox";
+            inputSize.id = `input-${product.id}-${size}`;
+            inputSize.value = size;
+        
+            const labelInput = document.createElement("label");
+            labelInput.classList.add(`label${size}`);
+            labelInput.setAttribute("for", `input-${product.id}-${size}`);
+            labelInput.innerText = `${size}`;
+        
+            if (`size${size}` in product) {
+                inputSize.disabled = false;
+            } else {
+                inputSize.disabled = true;
+            }
+        
+            choiseSizePopap.appendChild(inputSize)
+            choiseSizePopap.appendChild(labelInput)
+        }
+
+        const minCount = document.querySelector(".min-count_card"),
+            maxCountCard = document.querySelector(".max-count_card"),
+            numbCountCard = document.querySelector(".num-count-card")
+
+            let currentCount = 1
+
+            const increaseCount = () => {
+                if (currentCount < 10) {
+                    currentCount++
+                    numbCountCard.innerText = currentCount
+                }
+            }
+            const decreaseCount = () => {
+                if (currentCount > 1) {
+                    currentCount--
+                    numbCountCard.innerText = currentCount
+                }
+            }
+
+            minCount.addEventListener("click", decreaseCount)
+            maxCountCard.addEventListener("click", increaseCount)
+
+            let popupCategory = product.color
+        
+            sameCard.innerHTML = ''
+        
+            displaySimilarProducts(jsonData, popupCategory, sameCard)
+    }
+    
+    function displaySimilarProducts(products, popupCategory, container) {
+        products.forEach(product => {
+            if (popupCategory && product.color === popupCategory) {
+                const listItem = createCardElement(product)
+                container.appendChild(listItem)
+            }
+        })
+    }
+
+    function clearPopup() {
+        const choiseSizePopap = document.querySelector(".choise-size_popap"),
+            sameCard = document.querySelector(".same-card")
+    
+        choiseSizePopap.innerHTML = ''
+    
+        if (sameCard) {
+            sameCard.innerHTML = ''
+        }
+    }
+
+    const backPopapCard = document.querySelector(".back-to-main")
+    
+    backPopapCard.addEventListener("click", function(e) {
+        e.preventDefault()
+        productPopup.style.display = "none"
+    })
 
     // вибір категорій і додавання до локального сховища, при завантажені сторінки підзавантажуються дані згідно вибраних категорій а не весь список
 
