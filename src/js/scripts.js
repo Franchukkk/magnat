@@ -920,17 +920,11 @@ function sendData() {
 }
   
 document.addEventListener("DOMContentLoaded", function () {
-    // ... existing code ...
-
-    // Add an event listener for the delete-product elements
     document.addEventListener('click', function (event) {
         if (event.target.classList.contains('delete-product')) {
-            const productBlock = event.target.closest('.basket-card');
-            const productID = productBlock.dataset.value;
+            const productBlock = event.target.closest('.basket-card')
+            const productID = productBlock.dataset.value
 
-            // Store the product details before deleting it
-            
-            // Remove the product from the orders object
             if (orders[productID]) {
                 const size = orders[productID].size;
                 caclnumberOfProducts -= orders[productID].quantity
@@ -941,10 +935,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 orderDiscount.innerText = orderDiscountCalc
                 orders.orderSumWithDiscount -= Number((orders[productID].product.price).slice(0, -4)) * orders[productID].quantity
                 orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
-                delete orders[productID];
-                productBlock.remove();
+                delete orders[productID]
+                productBlock.remove()
 
             }
         }
-    });
-});
+    })
+})
