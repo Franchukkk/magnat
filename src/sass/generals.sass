@@ -927,18 +927,27 @@ h2.season
 .slider-images
     img
         position: absolute
-        top: 0
-        left: -190%
-        width: 340%
-        height: 110%
+        width: 240%
+        height: 100%
+        object-fit: cover
+        top: 0%
+        right: 0
+        left: auto
         opacity: 0
         z-index: -1
         transition: 1s
         +media(425)
-            width: 100%
+            width: 200%
             height: 100%
             object-fit: cover
-            top: 0
+            top: 0%
+            right: 0
+            left: auto
+        +media(575)
+            width: 180%
+            height: 100%
+            object-fit: cover
+            top: 0%
             right: 0
             left: auto
 
@@ -1551,8 +1560,6 @@ h2.dropshipping-title
 
 .proposition-description
     min-height: 409px
-    +media(425)
-        min-height: auto
 
 .order-form
     h3
