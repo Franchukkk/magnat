@@ -704,12 +704,126 @@ input[type="range"]
         background-color: #25445E
 
 .popap-card
-    position: absolute
+    position: fixed
+    display: none
+    grid-template-rows: 100rem 40% 50%
     width: 100%
     height: 100%
     background-color: #fff
+    overflow-y: scroll
     z-index: 999
 
+.main-block-popap
+    padding: 50rem 0
+
+.card-info
+    display: grid
+    grid-template-columns: 1fr 1fr
+    grid-column-gap: 50rem
+    margin-bottom: 100rem
+
+.img-card
+    width: 100%
+    height: 100%
+    display: grid
+    grid-template-columns: 1fr 3fr
+    grid-column-gap: 20rem
+
+.small-img 
+    display: grid
+    grid-template-rows: 1fr 1fr 1fr
+    grid-row-gap: 10rem
+    img
+        width: 100%
+        height: 100%
+        object-fit: cover
+        border: 1px solid #A0A0A0
+
+.main-img
+    border: 1px solid #A0A0A0
+    img
+        width: 100%
+        height: 100%
+        object-fit: cover
+
+.description-card_popap
+    margin-bottom: 13rem 
+    color: #25445E
+    font-size: 26rem
+    font-style: normal
+    font-weight: 700
+    line-height: 1em
+    text-align: left
+    +media(1960)
+        font-size: 36rem
+
+.code-card_popap
+    margin-bottom: 15rem
+    color: #A0A0A0
+    font-size: 14rem
+    font-weight: 400
+
+.new-price-popap
+    padding-right: 8rem
+    color: #4E98B6
+    font-size: 24rem
+    font-weight: 700
+
+.price-popap
+    color: #A0A0A0
+    font-size: 24rem
+    font-weight: 300
+    text-decoration-line: line-through
+
+.card-hr
+    margin: 21rem 0 30rem
+    border: none
+    border-top: 1px solid #25445E
+
+.choise-card-popap 
+    > div
+        margin-bottom: 23rem
+    p
+        width: 140rem
+        color: #191919
+        font-size: 16rem
+        font-weight: 500
+
+.choise-size_popap,
+.color-form-popap,
+.quantity-popap
+    padding: 0 0 0 37rem
+
+.num-count-card
+    color: #191919
+    font-size: 12rem
+    font-weight: 400
+
+.card-select
+    width: 100%
+    margin-bottom: 5rem
+
+.last-select-popap
+    margin-bottom: 30rem
+
+.select_in-popap
+    &::after
+        right: 4%
+
+.cta-popap
+    +btn($fixed: true)
+    width: 275rem
+    
+.text-same-card 
+    margin-bottom: 20rem
+    color: #25445E
+    font-size: 20rem
+    font-weight: 700
+    text-transform: uppercase
+          
+div.same-card
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 1fr
 
 .pagination
     text-align: center
