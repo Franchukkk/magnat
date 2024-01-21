@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
         for (const size of sizes) {
             const inputSize = document.createElement("input")
-            inputSize.type = "radio"
+            inputSize.type = "checkbox"
             inputSize.name = "size-radio"
             inputSize.id = `input-${product.id}-${size}`
             inputSize.value = size
@@ -254,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         for (const size of sizes) {
             const inputSize = document.createElement("input")
-            inputSize.type = "radio"
+            inputSize.type = "checkbox"
             inputSize.id = `input-${product.id}-${size}`
             inputSize.name = "size-popap"
             inputSize.value = size
@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const inputId = color + "-popap"
                 
                 const inputColorPopap = document.createElement('input');
-                inputColorPopap.type = 'radio'
+                inputColorPopap.type = 'checkbox'
                 inputColorPopap.id = inputId
                 inputColorPopap.name = 'color-popap'
                 inputColorPopap.value = color
