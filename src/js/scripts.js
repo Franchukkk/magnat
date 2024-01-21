@@ -133,6 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
         clickFigure.addEventListener("click", function (event) {
             event.preventDefault()
             openPopup(event, product.id)
+            cart()
         })
         figcaptionItems.appendChild(clickFigure)
     
@@ -804,6 +805,22 @@ function cart() {
                     selectedSizes.push(checkbox.value)
                 })
 
+                console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
+                buyBtnFunc(ctaButton, selectedSizes)
+
+            })
+        })
+
+        document.querySelectorAll('.cta-popap').forEach(ctaButton => {
+            ctaButton.addEventListener('click', function (event) {
+                event.preventDefault()
+                const productId = this.getAttribute('data-value');
+                const selectedSizes = []
+
+                document.querySelectorAll(`input[type="checkbox"][id^="input-${productId}"]:checked`).forEach(checkbox => {
+                    selectedSizes.push(checkbox.value)
+                })
+                
                 console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
                 buyBtnFunc(ctaButton, selectedSizes)
 
