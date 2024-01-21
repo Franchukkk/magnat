@@ -871,8 +871,7 @@ div.same-card
     border: 1px solid #A0A0A0
     background-color: #fff
     padding: 20rem
-    +media(780)
-        width: 26%
+
     span
         font-size: 18rem
         color: #191919
@@ -884,6 +883,13 @@ div.same-card
         font-weight: 300
         line-height: 1.2em
 
+
+.reviews-list .review-card
+    +media(780)
+        width: 26%
+
+.reviews-popup-list .review-card
+    margin-bottom: 10rem
 
 span.date
     font-size: 12rem
@@ -1123,7 +1129,7 @@ h2.season
     position: fixed
     overflow-y: scroll 
     background-color: #fff
-    z-index: 8
+    z-index: 10
 
 .popup-main
     display: block
@@ -1132,15 +1138,15 @@ h2.season
         display: flex
 
     
-.popup
-    // display: none
+.popup,
+.reviews-popup,
+.order-confirm-popup
     position: relative
-    padding-top: 80px
+    width: 100vw
+    height: 100vh
     background-color: #fff
-    overflow-y: hidden
+    z-index: 8
     padding-bottom: 170px
-    +media(650)
-        padding-top: 100px
 
 
 .popup-header-line
@@ -1261,7 +1267,8 @@ h2.season
 
 .basket-back,
 .back-to-main,
-.confirm-back
+.confirm-back,
+.reviews-back
     position: relative
     color: #191919
     cursor: pointer
@@ -1616,16 +1623,7 @@ p.step
     +media(495)
         max-width: 151rem
 
-.order-confirm-popup
-    position: relative
-    width: 100vw
-    height: 100vh
-    padding-top: 80px
-    background-color: #fff
-    z-index: 8
-    padding-bottom: 170px
-    +media(650)
-        padding-top: 100px
+
 
 .review-block-hidden
     padding-right: 20rem

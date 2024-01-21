@@ -192,11 +192,42 @@ html(lang="uk")
                                 div.price-totally-confirm
                                     b.text-align-right#confirmTotalPrice 
                             .flex-between.order-btns 
-                                button(type="submit").btn-style-one оформити замовлення  
-                                a(href="#").btn-style-two продовжити покупки
+                                button(type="submit").btn-style-one підтвердити замовлення
+                                a(href="#").btn-style-two повернутися у корзину
             .popup-footer 
                 .wrapper
                     span.confirm-back повернутися у каталог
+        .popups-outline
+            .reviews-popup
+                .popup-header-line
+                    .wrapper.flex.items-center
+                        h2 усі відгуки
+                .popup-main.flex-between.wrapper.overflow 
+                    .reviews-popup-list.w-50
+                    .review-details 
+                        form(action="", method="POST") 
+                            .rate-review.d-flex 
+                                span Оцініть товар
+                                .stars 
+                                    .star 
+                                    .star 
+                                    .star 
+                                    .star 
+                                    .star 
+                            .flex-between 
+                                label(for="")
+                                    p Імʼя
+                                    input(type="text" name="userName") 
+                                label(for="")
+                                    p Прізвище
+                                    input(type="text" name="userFirstName") 
+                            textarea(name="userReview")
+                            button(type="submit").btn-style-one підтвердити замовлення 
+
+                        
+            .popup-footer 
+                .wrapper
+                    span.reviews-back повернутися у каталог
         header 
             .top-line
                 .wrapper.flex-between.items-center.top-nav-gap
@@ -380,11 +411,11 @@ html(lang="uk")
                     h2.text-title Відгуки клієнтів
                     .reviews-list.flex-wrap
                         //-приклад відгука
-                        +lastReviews(reviews.review1)
-                        +lastReviews(reviews.review2)
-                        +lastReviews(reviews.review3)
-                        +lastReviews(reviews.review4)
-                        +lastReviews(reviews.review5)
+                        //- +lastReviews(reviews.review1)
+                        //- +lastReviews(reviews.review2)
+                        //- +lastReviews(reviews.review3)
+                        //- +lastReviews(reviews.review4)
+                        //- +lastReviews(reviews.review5)
                                             
                 .review-btns.flex
                     a(href="#").btn-style-one усі відгуки
