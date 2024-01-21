@@ -1014,7 +1014,7 @@ h2.season
 .popup-main
     display: block
     padding-top: 50rem
-    +media(960)
+    +media(1150)
         display: flex
 
     
@@ -1068,8 +1068,7 @@ h2.season
     font-weight: 600
 
 .added-products-list 
-    +media(960)
-        overflow-y: scroll
+
     img 
         width: 150rem
         height: 150rem
@@ -1141,11 +1140,13 @@ h2.season
     background: #F1F1F1
     min-height: 100px
     bottom: 0px
+    z-index: 10
     +media(650)
         bottom: 0px
 
 .basket-back,
-.back-to-main
+.back-to-main,
+.confirm-back
     position: relative
     color: #191919
     cursor: pointer
@@ -1189,7 +1190,7 @@ h2.season
 .order-details
     width: 100%
     margin-bottom: 20rem
-    +media(960)
+    +media(1150)
         width: 40%
     h3
         color: #4E98B6
@@ -1199,6 +1200,7 @@ h2.season
         text-transform: uppercase
         margin-bottom: 60rem
 .order-line
+    column-gap: 10px
     span
         font-size: 18rem
         color: #191919
@@ -1279,7 +1281,7 @@ p.step
 
 .order-description
     width: 100%
-    +media(960)
+    +media(1150)
         width: 48%
 
 .email-news
@@ -1409,6 +1411,7 @@ p.step
     background-position: center
     background-size: cover
     overflow: hidden
+    margin: 0 auto
 
     img
         position: absolute
@@ -1499,14 +1502,13 @@ p.step
         max-width: 151rem
 
 .order-confirm-popup
-    display: none
-    position: fixed
+    position: relative
     width: 100vw
     height: 100vh
     padding-top: 80px
     background-color: #fff
     z-index: 8
-    overflow-y: hidden
+    padding-bottom: 170px
     +media(650)
         padding-top: 100px
 
@@ -1595,6 +1597,10 @@ h2.dropshipping-title
     min-height: 409px
 
 .order-form
+    width: 100%
+    +media(1150)
+        width: 50%
+
     h3
         color: #25445E
 
@@ -1616,7 +1622,7 @@ h2.dropshipping-title
         background: #FFF
         padding: 12rem 9rem
         color: #191919
-
+        box-sizing: border-box
         font-size: 12rem
         font-weight: 300
         outline: none
@@ -1624,6 +1630,8 @@ h2.dropshipping-title
     
     .flex-between
         column-gap: 45rem
+
+
 
 .w-50
     width: 50%
@@ -1694,3 +1702,7 @@ hr
 
 .d-block
     display: block
+
+.text-align-right
+    text-align: right
+

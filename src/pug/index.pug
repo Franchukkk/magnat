@@ -92,7 +92,7 @@ html(lang="uk")
                                 .select__item 1-3 дні доставка взуття у ваше місто. Доставка товару здійснюється компаніями «Нова Пошта» та «Укрпошта»
                     .same-card.flex
                         p схожі товари
-        .popups-outline
+        .popups-outline#basket-popup-outline
             .popup
                 .popup-header-line
                     .wrapper.flex.items-center
@@ -123,77 +123,78 @@ html(lang="uk")
             .popup-footer 
                 .wrapper
                     span.basket-back повернутися у каталог
-        .order-confirm-popup
-            .popup-header-line
-                .wrapper.flex.items-center
-                    h2 оформлення замовлення
-            form(action="sendorder.php", method="post") 
-                .popup-main.flex-between.wrapper.overflow 
+        .popups-outline#popup-confirm-outline
+            .order-confirm-popup
+                .popup-header-line
+                    .wrapper.flex.items-center
+                        h2 оформлення замовлення
+                form(action="sendorder.php", method="post") 
+                    .popup-main.flex-between.wrapper.overflow 
 
-                    .order-form.w-50 
-                        h3 ваші контактні дані
-                        input(type="hidden", name="orderProducts")#orderProductsObject
-                        .flex-between
-                            label.w-50 
-                                p Мобільний телефон
-                                input(type="number", name="userPhone") 
-                            label.w-50 
-                                p Електронна пошта
-                                input(type="email", name="userEmail") 
-                        .flex-between
-                            label.w-50 
-                                p Імʼя
-                                input(type="text", name="userName") 
-                            label.w-50 
-                                p Прізвище
-                                input(type="text", name="userFirstName")
-                        .payment-method 
-                            h3 спосіб оплати
-                            .relative
-                                input(type="radio", name="paymenttype" value="Готівкою при отриманні/накладений платіж").custom-checkbox
-                                label.flex.checkbox-style
-                                    span Готівкою при отриманні/накладений платіж
-                            .relative
-                                input(type="radio", name="paymenttype" value="Переказ на банківську картку").custom-checkbox
-                                label.flex.checkbox-style
-                                    span Переказ на банківську картку
-                        .delivery-method 
-                            h3 спосіб доставки
-                            .relative
-                                input(type="radio", name="deliveryMethod" value="Нова Пошта").custom-checkbox
-                                label.d-block.checkbox-style
-                                    span Нова Пошта
-                            .relative
-                                input(type="radio", name="deliveryMethod" value="Укрпошта").custom-checkbox
-                                label.d-block.checkbox-style
-                                    span Укрпошта
-                            .flex-between 
-                                label.w-50
-                                    p Місто
-                                    input(type="text", name="city")
-                                label.w-50
-                                    p Номер відділення
-                                    input(type="text", name="postNumber")
-                        .hidden-inputs
-                    .order-details
-                        h3 Разом
-                        .order-line.flex-between.w-100
-                            span 4 товари на суму
-                            span 
-                        .order-line.flex-between.w-100
-                            span Вартість доставки
-                            span за тарифами перевізника
-                        .line 
-                            hr
-                        .order-line.flex-between.w-100.margin-to-btns
-                            div.order-summarize
-                                p разом до  оплати
-                                span (без врахування доставки) 
-                            div
-                                b 0
-                        .flex-between.order-btns 
-                            button(type="submit").btn-style-one оформити замовлення  
-                            a(href="#").btn-style-two продовжити покупки
+                        .order-form
+                            h3 ваші контактні дані
+                            input(type="hidden", name="orderProducts")#orderProductsObject
+                            .flex-between
+                                label.w-50 
+                                    p Мобільний телефон
+                                    input(type="number", name="userPhone") 
+                                label.w-50 
+                                    p Електронна пошта
+                                    input(type="email", name="userEmail") 
+                            .flex-between
+                                label.w-50 
+                                    p Імʼя
+                                    input(type="text", name="userName") 
+                                label.w-50 
+                                    p Прізвище
+                                    input(type="text", name="userFirstName")
+                            .payment-method 
+                                h3 спосіб оплати
+                                .relative
+                                    input(type="radio", name="paymenttype" value="Готівкою при отриманні/накладений платіж").custom-checkbox
+                                    label.flex.checkbox-style
+                                        span Готівкою при отриманні/накладений платіж
+                                .relative
+                                    input(type="radio", name="paymenttype" value="Переказ на банківську картку").custom-checkbox
+                                    label.flex.checkbox-style
+                                        span Переказ на банківську картку
+                            .delivery-method 
+                                h3 спосіб доставки
+                                .relative
+                                    input(type="radio", name="deliveryMethod" value="Нова Пошта").custom-checkbox
+                                    label.d-block.checkbox-style
+                                        span Нова Пошта
+                                .relative
+                                    input(type="radio", name="deliveryMethod" value="Укрпошта").custom-checkbox
+                                    label.d-block.checkbox-style
+                                        span Укрпошта
+                                .flex-between 
+                                    label.w-50
+                                        p Місто
+                                        input(type="text", name="city")
+                                    label.w-50
+                                        p Номер відділення
+                                        input(type="text", name="postNumber")
+                            .hidden-inputs
+                        .order-details
+                            h3 Разом
+                            .order-line.flex-between.w-100
+                                span 4 товари на суму
+                                span.text-align-right 
+                            .order-line.flex-between.w-100
+                                span Вартість доставки
+                                span.text-align-right за тарифами перевізника
+                            .line 
+                                hr
+                            .order-line.flex-between.w-100.margin-to-btns
+                                div.order-summarize
+                                    p разом до  оплати
+                                    span.text-align-right (без врахування доставки) 
+                                div
+                                    b.text-align-right 0
+                            .flex-between.order-btns 
+                                button(type="submit").btn-style-one оформити замовлення  
+                                a(href="#").btn-style-two продовжити покупки
             .popup-footer 
                 .wrapper
                     span.confirm-back повернутися у каталог

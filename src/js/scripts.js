@@ -644,7 +644,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     const cart = document.querySelector(".cart"),
-        basketPopup = document.querySelector(".popups-outline"),
+        basketPopup = document.querySelector("#basket-popup-outline"),
         returnBasket = document.querySelector(".basket-back"),
         body = document.querySelector("body")
 
@@ -1096,7 +1096,7 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
     //попап оформлення замовлення
     const openConfirmPopup = document.querySelector("#openConfirmPopup"),
-        confirmPopup = document.querySelector(".order-confirm-popup"),
+        confirmPopup = document.querySelector("#popup-confirm-outline"),
         confirmPopupClose = document.querySelector(".confirm-back")
 
     openConfirmPopup.addEventListener("click", function() {
