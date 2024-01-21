@@ -176,8 +176,10 @@ html(lang="uk")
                         .order-details
                             h3 Разом
                             .order-line.flex-between.w-100
-                                span 4 товари на суму
-                                span.text-align-right 
+                                span
+                                    span#orderConfirmProductsQuantity
+                                    |товари на суму
+                                span.text-align-right#confirmPrice 
                             .order-line.flex-between.w-100
                                 span Вартість доставки
                                 span.text-align-right за тарифами перевізника
@@ -187,8 +189,8 @@ html(lang="uk")
                                 div.order-summarize
                                     p разом до  оплати
                                     span.text-align-right (без врахування доставки) 
-                                div
-                                    b.text-align-right 0
+                                div.price-totally-confirm
+                                    b.text-align-right#confirmTotalPrice 
                             .flex-between.order-btns 
                                 button(type="submit").btn-style-one оформити замовлення  
                                 a(href="#").btn-style-two продовжити покупки

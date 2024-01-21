@@ -792,7 +792,8 @@ function cart() {
     let sizesList = ""
     if (document.querySelectorAll(".cta-card")) {
         clearInterval(cartWaitTimeout)
-        let buyBtns = document.querySelectorAll(".cta-card")
+        let buyBtns = document.querySelectorAll(".cta-card"),
+            orderConfirmProductsQuantity = document.querySelector("#orderConfirmProductsQuantity")
 
         document.querySelectorAll('.cta-card').forEach(ctaButton => {
             ctaButton.addEventListener('click', function (event) {
@@ -1163,6 +1164,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (Object.keys(orders).length > 3) {
             confirmPopup.classList.toggle("d-block")
             sendData(orders)
+            let confirmPrice = document.querySelector("#confirmPrice"),
+                confirmTotalPrice = document.querySelector("#confirmTotalPrice")
+            orderConfirmProductsQuantity.innerText = caclnumberOfProducts + " "
+            confirmTotalPrice.innerText = orders.orderSumWithDiscount + " грн"
+            confirmPrice.innerText = orders.orderSumWithDiscount + " грн"
 
         }
     })
