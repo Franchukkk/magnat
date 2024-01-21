@@ -644,7 +644,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     const cart = document.querySelector(".cart"),
-        basketPopup = document.querySelector(".popup"),
+        basketPopup = document.querySelector(".popups-outline"),
         returnBasket = document.querySelector(".basket-back"),
         body = document.querySelector("body")
 
