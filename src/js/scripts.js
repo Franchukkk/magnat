@@ -687,7 +687,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     const cart = document.querySelector(".cart"),
-        basketPopup = document.querySelector(".popup"),
+        basketPopup = document.querySelector(".popups-outline"),
         returnBasket = document.querySelector(".basket-back"),
         body = document.querySelector("body")
 
@@ -806,6 +806,7 @@ function cart() {
 
                 console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
                 buyBtnFunc(ctaButton, selectedSizes)
+
             })
         })
 
@@ -1086,13 +1087,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 })
 
-function sendData() {
+
+function sendData(orders) {
+    let orderDetails = ""
+    for (const key in orders) {
+        if (Object.hasOwnProperty.call(orders, key)) {
+            const order = orders[key]
+
+            if (order && order.product) {
+                orderDetails += `ID: ${order.product.id}, Розмір: ${order.size}, Кількість: ${order.quantity}     `
+            }
+        }
+    }
+
+
+    console.log(orderDetails)
+
+
     let ordersInput = document.querySelector("#orderProductsObject")
-    const jsonString = JSON.stringify(orders)
+    const jsonString = JSON.stringify(orderDetails)
 
     ordersInput.value = jsonString
-  
+
 }
+
   
 document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener('click', function (event) {
@@ -1125,8 +1143,11 @@ document.addEventListener("DOMContentLoaded", function () {
         confirmPopupClose = document.querySelector(".confirm-back")
 
     openConfirmPopup.addEventListener("click", function() {
-        sendData()
-        confirmPopup.classList.toggle("d-block")
+        if (Object.keys(orders).length > 3) {
+            confirmPopup.classList.toggle("d-block")
+            sendData(orders)
+
+        }
     })
 
     confirmPopupClose.addEventListener("click", function() {
