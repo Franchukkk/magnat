@@ -329,7 +329,9 @@ document.addEventListener("DOMContentLoaded", function () {
             sameCard.innerHTML = ''
         
             displaySimilarProducts(jsonData, popupCategory, sameCard, maxSimilarProducts)
-            
+            let ctaPopup = document.querySelector(".cta-popap")
+
+            ctaPopup.setAttribute("data-value", product.id)
     }
 
     //вивід карточок товару
@@ -820,6 +822,7 @@ function cart() {
 
                 document.querySelectorAll(`input[type="checkbox"][id^="input-${productId}"]:checked`).forEach(checkbox => {
                     selectedSizes.push(checkbox.value)
+                    alert(checkbox.value)
                 })
                 
                 console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
