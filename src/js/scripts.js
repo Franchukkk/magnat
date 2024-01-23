@@ -206,27 +206,26 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
+    let openedProductId
+
     // попап на карточку товару
     function openPopup(event, productId) {
-        
         if (productId) {
+            openedProductId = productId
             const selectedProduct = jsonData.find(product => product.id === productId)
     
             if (selectedProduct) {
                 clearPopup()
                 updatePopupContent(selectedProduct)
                 productPopup.style.display = 'grid'
-
-            } else {
-                console.error(`Товар з ID ${productId} не знайдений.`)
-            }
+            } 
         } else {
             console.error('error')
         }
     }
 
     function updatePopupContent(product) {
-        ///
+        
         const descrHead = document.querySelector('.description-card_popap'),
             newPricePopap = document.querySelector(".new-price-popap"),
             spanId = document.querySelector('.code-card_popap'),
@@ -235,8 +234,84 @@ document.addEventListener("DOMContentLoaded", function () {
             smallPopapImg1 = document.querySelector(".small-img-first"),
             smallPopapImg2 = document.querySelector(".small-img-second"),
             smallPopapImg3 = document.querySelector(".small-img-last"),
-            choiseColorPopap = document.querySelector(".choise-color_popap")
-        
+            choiseColorPopap = document.querySelector(".choise-color_popap"),
+            descriptPopap = document.querySelector(".descript-popap"),
+            producerCard = document.querySelector(".producer-card_popap"),
+            countryCard = document.querySelector(".country-card_popap"),
+            kindCard = document.querySelector(".kind-card_popap"),
+            seasonCard = document.querySelector(".season-card_popap"),
+            materialTop = document.querySelector(".material-top_popap"),
+            materialBottom = document.querySelector(".material-bottom_popap"),
+            materialSole = document.querySelector(".material-sole_popap"),
+            styleCard = document.querySelector(".style-card_popap")
+            
+        //запис характеристик товару 
+            producerInfo = document.createElement("p")
+            producerInfo.innerText = "виробник"
+            producerInfo2 = document.createElement("p")
+            producerInfo2.classList.add("bold-card")
+            producerInfo2.innerText = product.producer
+            producerCard.appendChild(producerInfo)
+            producerCard.appendChild(producerInfo2)
+
+            countryInfo = document.createElement("p")
+            countryInfo.innerText = "країна виробник"
+            countryInfo2 = document.createElement("p")
+            countryInfo2.innerText = product.country
+            countryInfo2.classList.add("bold-card")
+            countryCard.appendChild(countryInfo)
+            countryCard.appendChild(countryInfo2)
+            
+            kindInfo = document.createElement("p")
+            kindInfo.innerText = "вид взуття"
+            kindInfo1 = document.createElement("p")
+            kindInfo1.classList.add("bold-card")
+            kindInfo1.innerText = product.kind
+            kindCard.appendChild(kindInfo)
+            kindCard.appendChild(kindInfo1)
+
+            seasonInfo = document.createElement("p")
+            seasonInfo.innerText = "сезон"
+            seasonInfo1 = document.createElement("p")
+            seasonInfo1.classList.add("bold-card")
+            seasonInfo1.innerText = product.seasonHaract
+            seasonCard.appendChild(seasonInfo)
+            seasonCard.appendChild(seasonInfo1)
+            
+            materialTopInfo = document.createElement("p")
+            materialTopInfo.innerText = "матеріал верху"
+            materialTopInfo1 = document.createElement("p")
+            materialTopInfo1.classList.add("bold-card")
+            materialTopInfo1.innerText = product.materialTop
+            materialTop.appendChild(materialTopInfo)
+            materialTop.appendChild(materialTopInfo1)
+            
+            materialBottomInfo = document.createElement("p")
+            materialBottomInfo.innerText = "матеріал підкладки"
+            materialBottomInfo1 = document.createElement("p")
+            materialBottomInfo1.classList.add("bold-card")
+            materialBottomInfo1.innerText = product.materialBottom
+            materialBottom.appendChild(materialBottomInfo)
+            materialBottom.appendChild(materialBottomInfo1)
+            
+            materialSoleInfo = document.createElement("p")
+            materialSoleInfo.innerText = "матеріал підошви"
+            materialSoleInfo1 = document.createElement("p")
+            materialSoleInfo1.classList.add("bold-card")
+            materialSoleInfo1.innerText = product.materialSole
+            materialSole.appendChild(materialSoleInfo)
+            materialSole.appendChild(materialSoleInfo1)
+            
+            styleCardInfo = document.createElement("p")
+            styleCardInfo.innerText = "стиль"
+            styleCardInfo1 = document.createElement("p")
+            styleCardInfo1.classList.add("bold-card")
+            styleCardInfo1.innerText = product.styleCard
+            styleCard.appendChild(styleCardInfo)
+            styleCard.appendChild(styleCardInfo1)
+
+
+            
         descrHead.innerText = product.head
         newPricePopap.innerText = product.price
         spanId.innerText = product.id
@@ -249,21 +324,39 @@ document.addEventListener("DOMContentLoaded", function () {
         smallPopapImg2.alt = product.altPopap2
         smallPopapImg3.src = product.imgPopap3
         smallPopapImg3.alt = product.altPopap3
+        
+        const listPopap = document.createElement("ol"),
+        bottomDescript = document.createElement("p"),
+        topdescript = document.createElement("p")
+        
+        
+        descriptPopap.appendChild(topdescript)
+        topdescript.innerText = product.descript
 
-        productPopup.setAttribute("data-value", product.id)
+        const arrListPopap = [product.list1, product.list2, product.list3, product.list4, product.list5, product.list6].filter(Boolean);
+        for (const listItem of arrListPopap) {
+            const listPopapChild = document.createElement('li')
+            listPopapChild.innerText = listItem
+            listPopap.appendChild(listPopapChild)
+        }
+
+        descriptPopap.appendChild(listPopap)
+        bottomDescript.innerText = product.bottomDescript
+        descriptPopap.appendChild(bottomDescript)
+
         const sizes = ["40", "41", "42", "43", "44", "45"],
             choiseSizePopap = document.querySelector(".choise-size_popap")
 
         for (const size of sizes) {
             const inputSize = document.createElement("input")
             inputSize.type = "checkbox"
-            inputSize.id = `popup-input-${product.id}-${size}`
+            inputSize.id = `input-${product.id}-${size}`
             inputSize.name = "size-popap"
             inputSize.value = size
         
             const labelInput = document.createElement("label")
             labelInput.classList.add(`label${size}`)
-            labelInput.setAttribute("for", `popup-input-${product.id}-${size}`)
+            labelInput.setAttribute("for", `input-${product.id}-${size}`)
             labelInput.innerText = `${size}`
         
             if (`size${size}` in product) {
@@ -285,7 +378,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             console.log(availableColors)
             availableColors.forEach(function (color) {
-                const inputId = color + "-popap"
+                const inputId = color + "-popap" + product.id
                 
                 const inputColorPopap = document.createElement('input');
                 inputColorPopap.type = 'checkbox'
@@ -295,7 +388,27 @@ document.addEventListener("DOMContentLoaded", function () {
         
                 const labelColor = document.createElement('label')
                 labelColor.htmlFor = inputId
-        
+                switch (color) {
+                    case 'blue':
+                        console.log("blue");
+                        labelColor.classList.add("blue");
+                        break;
+                    case 'black':
+                        console.log("black");
+                        labelColor.classList.add("black");
+                        break;
+                    case 'green':
+                        console.log("green");
+                        labelColor.classList.add("haki");
+                        break;
+                    case 'brown':
+                        console.log("brown");
+                        labelColor.classList.add("brown");
+                        break;
+                    default:
+                        break;
+                }
+
                 formColor.appendChild(inputColorPopap)
                 formColor.appendChild(labelColor)   
             })
@@ -330,37 +443,63 @@ document.addEventListener("DOMContentLoaded", function () {
             sameCard.innerHTML = ''
         
             displaySimilarProducts(jsonData, popupCategory, sameCard, maxSimilarProducts)
-            let ctaPopup = document.querySelector(".cta-popap")
-            ctaPopup.addEventListener("click", function (e) {
-                e.preventDefault()
-                productPopup.style.display = "none"
-                //додати відкриття кошика
-                
+                let ctaPopup = document.querySelector(".cta-popap")
+                ctaPopup.setAttribute("data-value", product.id)
+                ctaPopup.addEventListener("click", function (e) {
+                    e.preventDefault()
+                    productPopup.style.display = "none"
+                    //додати відкриття кошика 
             })
 
-            ctaPopup.setAttribute("data-value", product.id)
     }
 
     //вивід карточок товару
     
     function displaySimilarProducts(products, popupCategory, container, maxCount) {
-        let count = 0
+        let count = 0,
+            hasSimilarProducts = false
+        const noSimilarProductsMessage = document.querySelector(".text-same-card")
 
         products.forEach(product => {
-            if (count < maxCount && popupCategory && product.color === popupCategory) {
+            if (count < maxCount && popupCategory && product.color === popupCategory && openedProductId !== product.id) {
                 const listItem = createCardElement(product)
                 container.appendChild(listItem)
                 count++
+                hasSimilarProducts = true
+                noSimilarProductsMessage.innerText = "схожі товари"
             }
         })
+        if(!hasSimilarProducts) {
+            noSimilarProductsMessage.innerText = 'Нажаль схожих товарів не знайдено.'
+            container.appendChild(noSimilarProductsMessage)
+        }
     }
 
     function clearPopup() {
         const choiseSizePopap = document.querySelector(".choise-size_popap"),
             choiseColorPopap = document.querySelector(".choise-color_popap"),
-            sameCard = document.querySelector(".same-card")
+            sameCard = document.querySelector(".same-card"),
+            descriptPopap = document.querySelector(".descript-popap"),
+            producerCard = document.querySelector(".producer-card_popap"),
+            countryCard = document.querySelector(".country-card_popap"),
+            kindCard = document.querySelector(".kind-card_popap"),
+            seasonCard = document.querySelector(".season-card_popap"),
+            materialTop = document.querySelector(".material-top_popap"),
+            materialBottom = document.querySelector(".material-bottom_popap"),
+            materialSole = document.querySelector(".material-sole_popap"),
+            styleCard = document.querySelector(".style-card_popap")
     
         choiseSizePopap.innerHTML = ''
+        descriptPopap.innerHTML = ''
+        producerCard.innerHTML = ''
+        countryCard.innerHTML = ''
+        kindCard.innerHTML = ''
+        seasonCard.innerHTML = ''
+        materialTop.innerHTML = ''
+        materialBottom.innerHTML = ''
+        materialSole.innerHTML = ''
+        styleCard.innerHTML = ''
+
         const formColor = document.querySelector(".color-form-popap");
         if (formColor && formColor.parentNode === choiseColorPopap) {
             choiseColorPopap.removeChild(formColor);
@@ -437,6 +576,37 @@ document.addEventListener("DOMContentLoaded", function () {
         showPagination()
         updatePaginationButtons()
     })
+
+    //випадаючий список
+
+    const btnReadMore = document.querySelectorAll(".readmore");
+
+    btnReadMore.forEach((item) => {
+        item.addEventListener("click", function () {
+            const descriptionMore = item.nextElementSibling
+            descriptionMore.classList.toggle("visible")
+            item.classList.toggle("readmore-active")
+        })
+    })
+
+    //розмірна сітка
+
+    const ctaSizePopap = document.querySelector(".cta-size-popap"),
+        closePopapSize = document.querySelector(".cancel-size-popap"),
+        sizeBlockPopap = document.querySelector(".size-block_popap"),
+        bgSizeDark = document.querySelector(".bg-size-popap")
+
+    ctaSizePopap.addEventListener("click", function () {
+        sizeBlockPopap.style.display = "block"
+        bgSizeDark.style.display = "block"
+        sizeBlockPopap.classList.add("active-size-popap")
+    })
+    closePopapSize.addEventListener("click", function () {
+        sizeBlockPopap.style.display = "none"
+        bgSizeDark.style.display = "none"
+        sizeBlockPopap.classList.remove("active-size-popap")
+    })
+
     
     //  пагінатор
 
@@ -827,20 +997,18 @@ function cart() {
                 const productId = this.getAttribute('data-value');
                 const selectedSizes = []
 
-                document.querySelectorAll(`input[type="checkbox"][id^="popup-input-${productId}"]:checked`).forEach(checkbox => {
+                document.querySelectorAll(`input[type="checkbox"][id^="input-${productId}"]:checked`).forEach(checkbox => {
                     selectedSizes.push(checkbox.value)
                     alert(checkbox.value)
                 })
                 
-                let quantityFromPopup = document.querySelector('.popap-card[data-value="' + productId + '"] .quantity-number');
-
                 console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
-                buyBtnFunc(ctaButton, selectedSizes, quantityFromPopup.innerText)
+                buyBtnFunc(ctaButton, selectedSizes)
 
             })
         })
 
-        function buyBtnFunc(e, size, quantityPopup) {
+        function buyBtnFunc(e, size) {
             let productID = e.dataset.value
 
 
@@ -852,7 +1020,7 @@ function cart() {
                     if (product.saleprice === "") {
                         product.saleprice = product.price;
                     }
-                    if (true) {
+                    if (size.length > 1) {
 
                         console.log(size)
                         for (let i = 0; i < size.length; i++) {
@@ -861,17 +1029,13 @@ function cart() {
                                     product: product,
                                     quantity: 1
                                 }
-
-                                if (quantityPopup) {
-                                    orders[productID + size[i]].quantity = quantityPopup
-                                }
                                 
                                 if (size) {
                                     orders[productID + size[i]].size = size[i]
                                 }
                                 
-                                orders.orderSumWithNoDiscount += orders[productID + size[i]].product.saleprice != "" ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) * orders[productID + size[i]].quantity : 0
-                                orders.orderSumWithDiscount += Number((orders[productID + size[i]].product.price).slice(0, -4)) * orders[productID + size[i]].quantity
+                                orders.orderSumWithNoDiscount += orders[productID + size[i]].product.saleprice != "" ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) : 0
+                                orders.orderSumWithDiscount += Number((orders[productID + size[i]].product.price).slice(0, -4))
                                 updateCart(productID, orders[productID + size[i]].size)
 
                                 console.log(document.querySelector(".minus-quantity[data-value='" + productID + size[i] + "']"))
@@ -880,10 +1044,10 @@ function cart() {
 
                                 caclnumberOfProducts++
                                 numberOfProductsDOM.innerText = caclnumberOfProducts
-                                orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * orders[productID + size[i]].quantity
+                                orderDiscountCalc += Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))
                                 console.log(1)
                                 console.log(orderDiscountCalc)
-                                orderDiscount.innerText = orderDiscountCalc * orders[productID + size[i]].quantity
+                                orderDiscount.innerText = orderDiscountCalc
                                 orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                                 orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                             } else {
@@ -893,66 +1057,61 @@ function cart() {
 
                         }
                         console.log(orders)
-                    }
-                    // } else {
+                    } else {
                         
-                    //     if (orders[productID + size]) {
-                    //         caclnumberOfProducts++
-                    //         numberOfProductsDOM.innerText = caclnumberOfProducts
+                        if (orders[productID + size]) {
+                            caclnumberOfProducts++
+                            numberOfProductsDOM.innerText = caclnumberOfProducts
 
-                    //         if ((orders[productID + size].size)[0] != size) {
-                    //             updateCart(productID, size)
-                    //             setTimeout(() => {
-                    //                 console.log(document.querySelector(".minus-quantity[data-value='" + productID + size + "']"))
-                    //                 plusBtn('.basket-card[data-value="' + productID + size + '"]' + " .plus-quantity")
-                    //                 minBtn(".minus-quantity[data-value='" + productID + size + "']")
-                    //             }, 100)
-                    //         } else {
-                    //             orders[productID + size].quantity++
-                    //         }
-                    //         orders.orderSumWithNoDiscount += orders[productID + size].product.saleprice != "" ? Number((orders[productID + size].product.saleprice).slice(0, -4)) : 0
-                    //         orders.orderSumWithDiscount += Number((orders[productID + size].product.price).slice(0, -4))
-                    //         setTimeout(function () {
-                    //             const totalPriceSpan = addedProductsList.querySelector('.basket-card[data-value="' + productID + size + '"]' + " .total-price span"),
-                    //                 totalQuantitySpan = addedProductsList.querySelector('.basket-card[data-value="' + productID + size + '"]' + " .quantity-number");
-                    //             orders[productID + size].totalPrice = Number((orders[productID + size].product.price).slice(0, -4)) * orders[productID + size].quantity
-                    //             totalPriceSpan.innerText = orders[productID + size].totalPrice + " грн"
-                    //             totalQuantitySpan.innerText = orders[productID + size].quantity
-                    //         }, 10)
-                    //         orderDiscountCalc += Number((orders[productID + size].product.saleprice).slice(0, -4)) - Number((orders[productID + size].product.price).slice(0, -4))
-                    //         console.log(2)
-                    //         console.log(orderDiscountCalc)
-                    //         orderDiscount.innerText = orderDiscountCalc
-                    //     } else {
-                    //         orders[productID + size] = {
-                    //             product: product,
-                    //             quantity: 0
-                    //         }
-                    //         orders[productID + size].quantity += 1
+                            if ((orders[productID + size].size)[0] != size) {
+                                updateCart(productID, size)
+                                setTimeout(() => {
+                                    console.log(document.querySelector(".minus-quantity[data-value='" + productID + size + "']"))
+                                    plusBtn('.basket-card[data-value="' + productID + size + '"]' + " .plus-quantity")
+                                    minBtn(".minus-quantity[data-value='" + productID + size + "']")
+                                }, 100)
+                            } else {
+                                orders[productID + size].quantity++
+                            }
+                            orders.orderSumWithNoDiscount += orders[productID + size].product.saleprice != "" ? Number((orders[productID + size].product.saleprice).slice(0, -4)) : 0
+                            orders.orderSumWithDiscount += Number((orders[productID + size].product.price).slice(0, -4))
+                            setTimeout(function () {
+                                const totalPriceSpan = addedProductsList.querySelector('.basket-card[data-value="' + productID + size + '"]' + " .total-price span"),
+                                    totalQuantitySpan = addedProductsList.querySelector('.basket-card[data-value="' + productID + size + '"]' + " .quantity-number");
+                                orders[productID + size].totalPrice = Number((orders[productID + size].product.price).slice(0, -4)) * orders[productID + size].quantity
+                                totalPriceSpan.innerText = orders[productID + size].totalPrice + " грн"
+                                totalQuantitySpan.innerText = orders[productID + size].quantity
+                            }, 10)
+                            orderDiscountCalc += Number((orders[productID + size].product.saleprice).slice(0, -4)) - Number((orders[productID + size].product.price).slice(0, -4))
+                            console.log(2)
+                            console.log(orderDiscountCalc)
+                            orderDiscount.innerText = orderDiscountCalc
+                        } else {
+                            orders[productID + size] = {
+                                product: product,
+                                quantity: 0
+                            }
+                            orders[productID + size].quantity += 1
+                            if (size) {
+                                orders[productID + size].size = size
+                            }
+                            orders.orderSumWithNoDiscount += orders[productID + size].product.saleprice != "" ? Number((orders[productID + size].product.saleprice).slice(0, -4)) : 0
+                            orders.orderSumWithDiscount += Number((orders[productID + size].product.price).slice(0, -4))
+                            updateCart(productID, orders[productID + size].size)
 
-                    //         if (quantityPopup) {
-                    //             orders[productID + size].quantity = quantityPopup
-                    //         }
-                    //         if (size) {
-                    //             orders[productID + size].size = size
-                    //         }
-                    //         orders.orderSumWithNoDiscount += orders[productID + size].product.saleprice != "" ? Number((orders[productID + size].product.saleprice).slice(0, -4)) : 0
-                    //         orders.orderSumWithDiscount += Number((orders[productID + size].product.price).slice(0, -4))
-                    //         updateCart(productID, orders[productID + size].size)
-
-                    //         console.log(document.querySelector(".minus-quantity[data-value='" + productID + size + "']"))
-                    //         plusBtn(".plus-quantity[data-value='" + productID + size + "']")
-                    //         minBtn(".minus-quantity[data-value='" + productID + size + "']")
-                    //         caclnumberOfProducts++
-                    //         numberOfProductsDOM.innerText = caclnumberOfProducts
-                    //         orderDiscountCalc += Number((orders[productID + size].product.saleprice).slice(0, -4)) - Number((orders[productID + size].product.price ).slice(0, -4))
-                    //         console.log(3)
-                    //         console.log(orderDiscountCalc)
-                    //         orderDiscount.innerText = orderDiscountCalc
-                    //     }
-                    //     orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
-                    //     orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
-                    // }
+                            console.log(document.querySelector(".minus-quantity[data-value='" + productID + size + "']"))
+                            plusBtn(".plus-quantity[data-value='" + productID + size + "']")
+                            minBtn(".minus-quantity[data-value='" + productID + size + "']")
+                            caclnumberOfProducts++
+                            numberOfProductsDOM.innerText = caclnumberOfProducts
+                            orderDiscountCalc += Number((orders[productID + size].product.saleprice).slice(0, -4)) - Number((orders[productID + size].product.price ).slice(0, -4))
+                            console.log(3)
+                            console.log(orderDiscountCalc)
+                            orderDiscount.innerText = orderDiscountCalc
+                        }
+                        orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
+                        orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
+                    }
                 })
         }
     }
@@ -1134,7 +1293,7 @@ function sendData(orders) {
             const order = orders[key]
 
             if (order && order.product) {
-                orderDetails += `ID: ${order.product.id}, Розмір: ${order.size}, Кількість: ${order.quantity} \n    `
+                orderDetails += `ID: ${order.product.id}, Розмір: ${order.size}, Кількість: ${order.quantity}     `
             }
         }
     }
@@ -1144,8 +1303,7 @@ function sendData(orders) {
 
 
     let ordersInput = document.querySelector("#orderProductsObject")
-    const jsonString = encodeURIComponent(orderDetails)
-
+    const jsonString = JSON.stringify(orderDetails)
 
     ordersInput.value = jsonString
 

@@ -711,22 +711,25 @@ input[type="range"]
     height: 100%
     background-color: #fff
     overflow-y: scroll
-    z-index: 999
+    z-index: 10
 
 .main-block-popap
     padding: 50rem 0
 
 .card-info
     display: grid
-    grid-template-columns: 1fr 1fr
-    grid-column-gap: 50rem
+    grid-template-columns: 1.3fr 1.2fr
+    grid-column-gap: 20rem
     margin-bottom: 100rem
+    +media(1440)
+        grid-column-gap: 50rem
 
 .img-card
+    max-height: 500rem
     width: 100%
     height: 100%
     display: grid
-    grid-template-columns: 1fr 3fr
+    grid-template-columns: 1.2fr 4fr
     grid-column-gap: 20rem
 
 .small-img 
@@ -790,9 +793,53 @@ input[type="range"]
         font-weight: 500
 
 .choise-size_popap,
-.color-form-popap,
 .quantity-popap
     padding: 0 0 0 37rem
+
+   
+.choise-color_popap
+    form
+        display: flex
+        justify-content: flex-start
+        column-gap: 30rem
+        padding-left: 40rem
+        width: 50%
+        height: 20rem
+    input
+        display: none
+    input + label 
+        position: relative
+        &::before
+            content: ""
+            position: absolute
+            top: 0
+            left: 0
+            width: 15em
+            height: 15rem
+            border-radius: 3rem
+    input:checked + label 
+        &::after
+            content: ""
+            position: absolute
+            top: 0
+            left: 0
+            width: 19rem
+            height: 19rem
+            border: 1px solid #191919
+            transform: translate(-13%, -13%)
+            border-radius: 3rem
+    input + .blue 
+        &::before
+            background-color: blue
+    input + .haki
+        &::before
+            background-color: darkgreen
+    input + .black
+        &::before
+            background-color: black
+    input + .brown
+        &::before
+            background-color: brown
 
 .num-count-card
     color: #191919
@@ -806,9 +853,143 @@ input[type="range"]
 .last-select-popap
     margin-bottom: 30rem
 
-.select_in-popap
+.size-popap
+    position: relative
+    a
+        display: block
+        color: #4E98B6
+        font-size: 14rem
+        font-weight: 500
+        text-decoration-line: underline
+
+.cancel-size-popap
+    position: absolute
+    top: 20rem
+    right: 20rem
+    fill: #4E98B6
+
+.bg-size-popap 
+    display: none
+    position: fixed
+    top: 0
+    left: 0
+    width: 100vw
+    height: 100vw
+    background-color: black
+    opacity: 1
+    z-index: 11
+
+div.active-size-popap
+    display: block
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    z-index: 200
+
+.size-block_popap
+    display: none
+    padding: 50rem
+    max-width: 550rem
+    width: 100%
+    background-color: #fff
+    border-radius: 5rem
+    border: 1px solid #A0A0A0
+    h3
+        margin: 0 0 30rem 0
+        font-size: 20rem
+        color: #25445E
+        text-align: center
+        font-weight: 700
+        text-transform: uppercase
+.sizes
+    width: 80%
+    margin: 0 auto
+.name-sizes
+    p
+        padding-right: 17rem
+        &:first-child
+            margin-bottom: 13rem
+
+.name-sizes,
+.sizes-number-block,
+.sm-number-block
+    p
+        text-align: left
+        color: #191919
+        font-size: 12rem
+        font-weight: 500
+
+.sizes-number
+    display: table
+    width: 100%
+    border-collapse: collapse
+    border-radius: 3rem
+    overflow: hidden
+
+.sizes-number-block,
+.sm-number-block
+    display: table-row
+    border: 1rem solid #4E98B6
+    p
+        border: 1rem solid #4E98B6
+        display: table-cell
+        padding: 8rem 7rem
+        text-align: center
+
+.description-blog
+    margin: 0 0 10rem 0
+    width: 100%
+    padding: 10rem 9rem
+    max-width: 710rem
+    background-color: #F1F1F1
+    border-radius: 5rem
+
+.readmore
+    position: relative
+    display: block
+    padding: 7rem 0
+    color: #191919
+    font-size: 16rem
     &::after
-        right: 4%
+        transition: all 1s ease
+        font-weight: 500
+        content: ""
+        position: absolute
+        top: 50%
+        right: 10rem
+        display: block
+        border: 7rem solid transparent
+        border-top-color: #4E98B6 
+        transform: translateY(-20%)
+
+.readmore-active
+    &::after
+        transform: translateY(-70%) rotate(180deg)
+
+.description-more
+    background-color: #F1F1F1
+    border-radius: 5rem
+    color: #191919
+    font-size: 12px
+    font-weight: 400
+    max-height: 0
+    overflow: hidden
+    transition: max-height 1s ease
+    ol
+        padding-left: 15rem
+
+.visible 
+    max-height: 1000rem
+    transition: max-height 1s ease
+
+.bord-popap
+    border-bottom: 1px solid #A0A0A0
+    p
+        padding: 11rem 0
+
+.bold-card
+    font-weight: bold  
 
 .cta-popap
     +btn($fixed: true)
@@ -824,6 +1005,7 @@ input[type="range"]
 div.same-card
     display: grid
     grid-template-columns: 1fr 1fr 1fr 1fr
+
 
 .pagination
     text-align: center
