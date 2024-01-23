@@ -823,7 +823,7 @@ function cart() {
 
                 document.querySelectorAll(`input[type="checkbox"][id^="popup-input-${productId}"]:checked`).forEach(checkbox => {
                     selectedSizes.push(checkbox.value)
-                    alert(checkbox.value)
+                    // alert(checkbox.value)
                 })
                 
                 let quantityFromPopup = document.querySelector('.popap-card[data-value="' + productId + '"] .quantity-number');
@@ -852,7 +852,7 @@ function cart() {
                         for (let i = 0; i < size.length; i++) {
                             if (!orders[productID + size[i]]) {
 
-                                alert("hasnotbeen")
+                                // alert("hasnotbeen")
 
                                 orders[productID + size[i]] = {
                                     product: product,
@@ -880,7 +880,7 @@ function cart() {
                                 orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                                 orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                             } else {
-                                alert("been")
+                                // alert("been")
                                 for (let i = quantityPopup ? quantityPopup : 1; i > 0; i--) {
 
                                     orders[productID + size[i]]
@@ -981,7 +981,7 @@ function plusBtn(button) {
             let plusQuantity = document.querySelector(button)
 
             plusQuantity.addEventListener("click", function () {
-                alert("plbtn")
+                // alert("plbtn")
                 let productBlock = this.dataset.value
                 // console.log(productBlock)
                 let productID = (this.dataset.value).slice(0, -2)
