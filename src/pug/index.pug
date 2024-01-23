@@ -49,44 +49,59 @@ html(lang="uk")
                                                 .quantity-number.num-count-card 1
                                                 .plus-quantity.max-count_card +
                                 .size-popap
-                                    a(href="#") розмірна сітка
+                                    a.cta-size-popap(href="#") розмірна сітка
+                                .bg-size-popap 
+                                .size-block_popap
+                                    a.cancel-size-popap(href="#") 
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.267146 0.181446C0.506963 -0.0604821 0.895783 -0.0604821 1.1356 0.181446L5 4.07987L8.8644 0.181446C9.10422 -0.0604821 9.49304 -0.0604821 9.73285 0.181446C9.97267 0.423375 9.97267 0.815619 9.73285 1.05755L5.86845 4.95597L9.82014 8.94245C10.06 9.18438 10.06 9.57662 9.82014 9.81855C9.58032 10.0605 9.1915 10.0605 8.95168 9.81855L5 5.83207L1.04832 9.81855C0.8085 10.0605 0.419679 10.0605 0.179863 9.81855C-0.0599542 9.57662 -0.0599542 9.18438 0.179863 8.94245L4.13155 4.95597L0.267146 1.05755C0.0273296 0.815619 0.0273296 0.423375 0.267146 0.181446Z" fill="#4E98B6"/>
+                                        </svg>
+                                    h3 Розмірна сітка
+                                    .sizes.flex-between.items-center
+                                        .name-sizes
+                                            p розмір
+                                            p сантиметри
+                                        .sizes-number
+                                            .sizes-number-block
+                                                p 39
+                                                p 40
+                                                p 41
+                                                p 42
+                                                p 43
+                                                p 44
+                                                p 45
+                                                p 46
+                                            .sm-number-block
+                                                p 25
+                                                p 26
+                                                p 27
+                                                p 28
+                                                p 28,5
+                                                p 29
+                                                p 29,5
+                                                p 30
+
+
                         .description-select    
-                            .select.card-select
-                                input(type='hidden').select__input
-                                .select__in.select_in-popap Опис
-                                .select__list
-                                    .select__item 
-                            .select.card-select
-                                input(type='hidden').select__input
-                                .select__in.select_in-popap Характеристики
-                                    .haracteristic-head 
-                                        p.producer-card_popap
-                                            span 
-                                        p.country-card_popap
-                                            span 
-                                        p.kind-card_popap
-                                            span 
-                                        p.season-card_popap
-                                            span 
-                                        p.material-top_popap
-                                            span 
-                                        p.material-bottom_popap
-                                            span 
-                                        p.material-insole_popap
-                                            span 
-                                        p.material-sole_popap
-                                            span 
-                                        p.style-card_popap
-                                            span 
-                                    .haracteristic-text
-                                .select__list
-                                    .select__item 
-                            .select.card-select.last-select-popap
-                                input(type='hidden').select__input
-                                .select__in.select_in-popap Доставка
-                                .select__list
-                                    .select__item 1-3 дні доставка взуття у ваше місто. Доставка товару здійснюється компаніями «Нова Пошта» та «Укрпошта»
-                            a.cta-popap(href="#") у кошик 
+                            .description-blog
+                                a.readmore(href="#") Опис
+                                .description-more
+                                    .descript-popap 
+                            .description-blog
+                                a.readmore(href="#") Характеристики
+                                .description-more
+                                    p.producer-card_popap.flex-between.bord-popap
+                                    p.country-card_popap.flex-between.bord-popap
+                                    p.kind-card_popap.flex-between.bord-popap
+                                    p.season-card_popap.flex-between.bord-popap
+                                    p.material-top_popap.flex-between.bord-popap
+                                    p.material-bottom_popap.flex-between.bord-popap
+                                    p.material-sole_popap.flex-between.bord-popap
+                                    p.style-card_popap.flex-between.bord-popap
+                            .description-blog
+                                a.btn.readmore(href="#")  Доставка
+                                .description-more 1-3 дні доставка взуття у ваше місто. Доставка товару здійснюється компаніями «Нова Пошта» та «Укрпошта»
+                        a.cta-popap(href="#") у кошик 
                 p.text-same-card схожі товари
                 .same-card.wrapper
         .popups-outline#basket-popup-outline
