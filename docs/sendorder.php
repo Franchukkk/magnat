@@ -9,7 +9,7 @@ try {
     $deliveryMethod =  $_POST["deliveryMethod"];
     $city =  $_POST["city"];
     $postNumber =  $_POST["postNumber"];
-    $phpObject = $_POST["orderProducts"];
+    $phpObject = json_decode($_POST["orderProducts"]);
 
     $table = '<table border="1">
         <thead>

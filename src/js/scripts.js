@@ -283,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let availableColors = [product.color, product.color1, product.color2].filter(Boolean)
 
-            console.log(availableColors)
+            // console.log(availableColors)
             availableColors.forEach(function (color) {
                 const inputId = color + "-popap"
                 
@@ -750,13 +750,13 @@ document.addEventListener("DOMContentLoaded", function () {
     let imgCarousel = document.querySelector('.img-carousel'),
         stepBlocks = document.querySelectorAll(".step-block")
     const imagesOrder = document.querySelectorAll(".img-carousel img")
-    console.log(imgCarousel)
+    // console.log(imgCarousel)
 
     function carouselHeight() {
         let imgCarouselHeight = 0
         stepBlocks.forEach(function (e) {
             imgCarouselHeight += e.getBoundingClientRect().height
-            console.log(imgCarouselHeight);
+            // console.log(imgCarouselHeight);
         })
         if (window, innerHeight >= 960) {
             imgCarousel.style.height = imgCarouselHeight + 20 * 2 + "px"
@@ -809,7 +809,7 @@ function cart() {
                     selectedSizes.push(checkbox.value)
                 })
 
-                console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
+                // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
                 buyBtnFunc(ctaButton, selectedSizes)
 
             })
@@ -828,7 +828,7 @@ function cart() {
                 
                 let quantityFromPopup = document.querySelector('.popap-card[data-value="' + productId + '"] .quantity-number');
 
-                console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
+                // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
                 buyBtnFunc(ctaButton, selectedSizes, quantityFromPopup.innerText)
 
             })
@@ -848,16 +848,15 @@ function cart() {
                     }
                     if (true) {
 
-                        console.log(size)
+                        // console.log(size)
                         for (let i = 0; i < size.length; i++) {
                             if (!orders[productID + size[i]]) {
+
+                                alert("hasnotbeen")
+
                                 orders[productID + size[i]] = {
                                     product: product,
-                                    quantity: 1
-                                }
-
-                                if (quantityPopup) {
-                                    orders[productID + size[i]].quantity = quantityPopup
+                                    quantity: quantityPopup ? Number(quantityPopup) : 1
                                 }
                                 
                                 if (size) {
@@ -868,85 +867,36 @@ function cart() {
                                 orders.orderSumWithDiscount += Number((orders[productID + size[i]].product.price).slice(0, -4)) * orders[productID + size[i]].quantity
                                 updateCart(productID, orders[productID + size[i]].size)
 
-                                console.log(document.querySelector(".minus-quantity[data-value='" + productID + size[i] + "']"))
+                                // console.log(document.querySelector(".minus-quantity[data-value='" + productID + size[i] + "']"))
                                 plusBtn(".plus-quantity[data-value='" + productID + size[i] + "']")
                                 minBtn(".minus-quantity[data-value='" + productID + size[i] + "']")
 
                                 caclnumberOfProducts++
                                 numberOfProductsDOM.innerText = caclnumberOfProducts
                                 orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * orders[productID + size[i]].quantity
-                                console.log(1)
-                                console.log(orderDiscountCalc)
+                                // console.log(1)
+                                // console.log(orderDiscountCalc)
                                 orderDiscount.innerText = orderDiscountCalc * orders[productID + size[i]].quantity
                                 orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                                 orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                             } else {
-                                document.querySelector(".plus-quantity[data-value='" + productID + size[i] + "']").click()
+                                alert("been")
+                                for (let i = quantityPopup ? quantityPopup : 1; i > 0; i--) {
+
+                                    orders[productID + size[i]]
+                                    console.log(productID );
+                                    console.log(size);
+                                    // orders[productID + size].quantity++
+                                    document.querySelector(".plus-quantity[data-value='" + productID + size + "']").click()
+
+                                }
                             }
                             
 
                         }
-                        console.log(orders)
+                        // console.log(orders)
                     }
-                    // } else {
-                        
-                    //     if (orders[productID + size]) {
-                    //         caclnumberOfProducts++
-                    //         numberOfProductsDOM.innerText = caclnumberOfProducts
-
-                    //         if ((orders[productID + size].size)[0] != size) {
-                    //             updateCart(productID, size)
-                    //             setTimeout(() => {
-                    //                 console.log(document.querySelector(".minus-quantity[data-value='" + productID + size + "']"))
-                    //                 plusBtn('.basket-card[data-value="' + productID + size + '"]' + " .plus-quantity")
-                    //                 minBtn(".minus-quantity[data-value='" + productID + size + "']")
-                    //             }, 100)
-                    //         } else {
-                    //             orders[productID + size].quantity++
-                    //         }
-                    //         orders.orderSumWithNoDiscount += orders[productID + size].product.saleprice != "" ? Number((orders[productID + size].product.saleprice).slice(0, -4)) : 0
-                    //         orders.orderSumWithDiscount += Number((orders[productID + size].product.price).slice(0, -4))
-                    //         setTimeout(function () {
-                    //             const totalPriceSpan = addedProductsList.querySelector('.basket-card[data-value="' + productID + size + '"]' + " .total-price span"),
-                    //                 totalQuantitySpan = addedProductsList.querySelector('.basket-card[data-value="' + productID + size + '"]' + " .quantity-number");
-                    //             orders[productID + size].totalPrice = Number((orders[productID + size].product.price).slice(0, -4)) * orders[productID + size].quantity
-                    //             totalPriceSpan.innerText = orders[productID + size].totalPrice + " грн"
-                    //             totalQuantitySpan.innerText = orders[productID + size].quantity
-                    //         }, 10)
-                    //         orderDiscountCalc += Number((orders[productID + size].product.saleprice).slice(0, -4)) - Number((orders[productID + size].product.price).slice(0, -4))
-                    //         console.log(2)
-                    //         console.log(orderDiscountCalc)
-                    //         orderDiscount.innerText = orderDiscountCalc
-                    //     } else {
-                    //         orders[productID + size] = {
-                    //             product: product,
-                    //             quantity: 0
-                    //         }
-                    //         orders[productID + size].quantity += 1
-
-                    //         if (quantityPopup) {
-                    //             orders[productID + size].quantity = quantityPopup
-                    //         }
-                    //         if (size) {
-                    //             orders[productID + size].size = size
-                    //         }
-                    //         orders.orderSumWithNoDiscount += orders[productID + size].product.saleprice != "" ? Number((orders[productID + size].product.saleprice).slice(0, -4)) : 0
-                    //         orders.orderSumWithDiscount += Number((orders[productID + size].product.price).slice(0, -4))
-                    //         updateCart(productID, orders[productID + size].size)
-
-                    //         console.log(document.querySelector(".minus-quantity[data-value='" + productID + size + "']"))
-                    //         plusBtn(".plus-quantity[data-value='" + productID + size + "']")
-                    //         minBtn(".minus-quantity[data-value='" + productID + size + "']")
-                    //         caclnumberOfProducts++
-                    //         numberOfProductsDOM.innerText = caclnumberOfProducts
-                    //         orderDiscountCalc += Number((orders[productID + size].product.saleprice).slice(0, -4)) - Number((orders[productID + size].product.price ).slice(0, -4))
-                    //         console.log(3)
-                    //         console.log(orderDiscountCalc)
-                    //         orderDiscount.innerText = orderDiscountCalc
-                    //     }
-                    //     orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
-                    //     orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
-                    // }
+                    
                 })
         }
     }
@@ -1031,8 +981,9 @@ function plusBtn(button) {
             let plusQuantity = document.querySelector(button)
 
             plusQuantity.addEventListener("click", function () {
+                alert("plbtn")
                 let productBlock = this.dataset.value
-                console.log(productBlock)
+                // console.log(productBlock)
                 let productID = (this.dataset.value).slice(0, -2)
                 const product = products.find(product => product.id === productID)
                 const orderKey = productBlock
@@ -1054,8 +1005,8 @@ function plusBtn(button) {
                 caclnumberOfProducts++
                 numberOfProductsDOM.innerText = caclnumberOfProducts
                 orderDiscountCalc += Number((orders[productID + productBlock.slice(-2)].product.saleprice).slice(0, -4)) - Number((orders[productID + productBlock.slice(-2)].product.price).slice(0, -4))
-                console.log(4)
-                console.log(orderDiscountCalc)
+                // console.log(4)
+                // console.log(orderDiscountCalc)
                 orderDiscount.innerText = orderDiscountCalc
             })
         })
@@ -1073,8 +1024,8 @@ function minBtn(button) {
                 const product = products.find(product => product.id === productID)
                 const orderKey = productBlock
 
-                console.log(productID)
-                console.log(orderKey)
+                // console.log(productID)
+                // console.log(orderKey)
 
                 if (orders[orderKey] && orders[orderKey].quantity !== 1) {
                     orders[orderKey].quantity -= 1
@@ -1098,8 +1049,8 @@ function minBtn(button) {
                     orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
     
                     orderDiscountCalc -= Number((orders[productID + productBlock.slice(-2)].product.saleprice).slice(0, -4)) - Number((orders[productID + productBlock.slice(-2)].product.price).slice(0, -4))
-                    console.log(5)
-                    console.log(orderDiscountCalc)
+                    // console.log(5)
+                    // console.log(orderDiscountCalc)
                     orderDiscount.innerText = orderDiscountCalc
                 }
             })
@@ -1109,7 +1060,7 @@ function minBtn(button) {
 document.addEventListener("DOMContentLoaded", function () {
 
     let buyBtns = document.querySelectorAll(".cta-card")
-    console.log(buyBtns);
+    // console.log(buyBtns);
     buyBtns.forEach(function (e) {
         e.addEventListener("click", function () {
             let plusQuantity = document.querySelectorAll(".plus-quantity")
@@ -1122,26 +1073,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function sendData(orders) {
-    let orderDetails = ""
-    for (const key in orders) {
-        if (Object.hasOwnProperty.call(orders, key)) {
-            const order = orders[key]
+    // let orderDetails = ""
+    // for (const key in orders) {
+    //     if (Object.hasOwnProperty.call(orders, key)) {
+    //         const order = orders[key]
 
-            if (order && order.product) {
-                orderDetails += `ID: ${order.product.id}, Розмір: ${order.size}, Кількість: ${order.quantity} \n    `
-            }
-        }
-    }
+    //         if (order && order.product) {
+    //             orderDetails += `ID: ${encodeURIComponent(order.product.id)}, Розмір: ${encodeURIComponent(order.size)}, Кількість: ${encodeURIComponent(order.quantity)}%0A`;
 
-
-    console.log(orderDetails)
+    //         }
+    //     }
+    // }
 
 
+    // console.log(orderDetails)
+
+
+    // let ordersInput = document.querySelector("#orderProductsObject")
+    // const jsonString = encodeURIComponent(orderDetails)
+
+
+    // ordersInput.value = jsonString
+
+    const phpOrdersObj = JSON.stringify(orders)
     let ordersInput = document.querySelector("#orderProductsObject")
-    const jsonString = encodeURIComponent(orderDetails)
-
-
-    ordersInput.value = jsonString
+    ordersInput.value = phpOrdersObj
 
 }
 
