@@ -330,6 +330,12 @@ document.addEventListener("DOMContentLoaded", function () {
         
             displaySimilarProducts(jsonData, popupCategory, sameCard, maxSimilarProducts)
             let ctaPopup = document.querySelector(".cta-popap")
+            ctaPopup.addEventListener("click", function (e) {
+                e.preventDefault()
+                productPopup.style.display = "none"
+                //додати відкриття кошика
+                
+            })
 
             ctaPopup.setAttribute("data-value", product.id)
     }
