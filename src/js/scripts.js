@@ -1,3 +1,7 @@
+function updateCartBtns() {
+    cart()
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     //бургер меню
     const burger = document.querySelector(".burger"),
@@ -133,7 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
         clickFigure.addEventListener("click", function (event) {
             event.preventDefault()
             openPopup(event, product.id)
-            cart()
         })
         figcaptionItems.appendChild(clickFigure)
     
@@ -347,6 +350,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 count++
             }
         })
+        updateCartBtns()
     }
 
     function clearPopup() {
@@ -371,6 +375,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault()
         sameCard.innerHTML = ''
         productPopup.style.display = "none"
+        updateCartBtns()
     })
 
     // вибір категорій і додавання до локального сховища, при завантажені сторінки підзавантажуються дані згідно вибраних категорій а не весь список
