@@ -797,117 +797,89 @@ const cartWaitTimeout = setTimeout(function () {
     cart()
 }, 1000)
 
-function cart() {
-    let sizesList = ""
-    if (document.querySelectorAll(".cta-card")) {
-        clearInterval(cartWaitTimeout)
-        let buyBtns = document.querySelectorAll(".cta-card"),
-            orderConfirmProductsQuantity = document.querySelector("#orderConfirmProductsQuantity")
 
-        document.querySelectorAll('.cta-card').forEach(ctaButton => {
-            ctaButton.addEventListener('click', function (event) {
-                event.preventDefault()
+function buyBtnFunc(e, size, quantityPopup) {
 
-                const productId = this.getAttribute('data-value');
-                const selectedSizes = []
-
-                document.querySelectorAll(`input[type="checkbox"][id^="input-${productId}"]:checked`).forEach(checkbox => {
-                    selectedSizes.push(checkbox.value)
-                })
-
-                // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
-                buyBtnFunc(ctaButton, selectedSizes)
-
-            })
-        })
-
-        document.querySelectorAll('.cta-popap').forEach(ctaButton => {
-            ctaButton.addEventListener('click', function (event) {
-                event.preventDefault()
-                const productId = this.getAttribute('data-value');
-                const selectedSizes = []
-
-                document.querySelectorAll(`input[type="checkbox"][id^="popup-input-${productId}"]:checked`).forEach(checkbox => {
-                    selectedSizes.push(checkbox.value)
-                    // alert(checkbox.value)
-                })
-                
-                let quantityFromPopup = document.querySelector('.popap-card[data-value="' + productId + '"] .quantity-number');
-
-                // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
-                buyBtnFunc(ctaButton, selectedSizes, quantityFromPopup.innerText)
-
-            })
-        })
-
-        function buyBtnFunc(e, size, quantityPopup) {
-            let productID = e.dataset.value
+    // console.log(e, size, quantityPopup);
+    let productID = e.dataset.value
 
 
-            let currentSizesList = ""
-            fetch('products.json')
-                .then(response => response.json())
-                .then(products => {
-                    const product = products.find(product => product.id === productID)
-                    if (product.saleprice === "") {
-                        product.saleprice = product.price;
-                    }
-                    if (true) {
+    let currentSizesList = ""
+    fetch('products.json')
+        .then(response => response.json())
+        .then(products => {
+            const product = products.find(product => product.id === productID)
+            if (product.saleprice === "") {
+                product.saleprice = product.price;
+            }
+            if (true) {
 
-                        // console.log(size)
-                        for (let i = 0; i < size.length; i++) {
-                            if (!orders[productID + size[i]]) {
+                // console.log(size)
+                for (let i = 0; i < size.length; i++) {
+                    if (!orders[productID + size[i]]) {
 
-                                // alert("hasnotbeen")
+                        // alert("hasnotbeen")
 
-                                orders[productID + size[i]] = {
-                                    product: product,
-                                    quantity: quantityPopup ? Number(quantityPopup) : 1
-                                }
+                        orders[productID + size[i]] = {
+                            product: product,
+                            quantity: quantityPopup ? Number(quantityPopup) : 1
+                        }
+                        
+                        if (size) {
+                            orders[productID + size[i]].size = size[i]
+                        }
+                        
+                        orders.orderSumWithNoDiscount += orders[productID + size[i]].product.saleprice != "" ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) * orders[productID + size[i]].quantity : 0
+                        orders.orderSumWithDiscount += Number((orders[productID + size[i]].product.price).slice(0, -4)) * orders[productID + size[i]].quantity
+                        updateCart(productID, orders[productID + size[i]].size)
+
+                        // console.log(document.querySelector(".minus-quantity[data-value='" + productID + size[i] + "']"))
+                        plusBtn(".plus-quantity[data-value='" + productID + size[i] + "']")
+                        minBtn(".minus-quantity[data-value='" + productID + size[i] + "']")
+
+                        caclnumberOfProducts++
+                        numberOfProductsDOM.innerText = caclnumberOfProducts
+                        orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * orders[productID + size[i]].quantity
+                        // console.log(1)
+                        // console.log(orderDiscountCalc)
+                        orderDiscount.innerText = orderDiscountCalc * orders[productID + size[i]].quantity
+                        orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
+                        orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
+                    } else {
+                        // alert("been")
+                        if(quantityPopup) {
+                            for (let i = quantityPopup; i > 0; i--) {
+    
+                                orders[productID + size[i]]
+                                console.log(productID );
+                                console.log(size);
+                                // orders[productID + size].quantity++
+                                document.querySelector(".plus-quantity[data-value='" + productID + size[i] + "']").click()
                                 
-                                if (size) {
-                                    orders[productID + size[i]].size = size[i]
-                                }
-                                
-                                orders.orderSumWithNoDiscount += orders[productID + size[i]].product.saleprice != "" ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) * orders[productID + size[i]].quantity : 0
-                                orders.orderSumWithDiscount += Number((orders[productID + size[i]].product.price).slice(0, -4)) * orders[productID + size[i]].quantity
-                                updateCart(productID, orders[productID + size[i]].size)
-
-                                // console.log(document.querySelector(".minus-quantity[data-value='" + productID + size[i] + "']"))
-                                plusBtn(".plus-quantity[data-value='" + productID + size[i] + "']")
-                                minBtn(".minus-quantity[data-value='" + productID + size[i] + "']")
-
-                                caclnumberOfProducts++
-                                numberOfProductsDOM.innerText = caclnumberOfProducts
-                                orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * orders[productID + size[i]].quantity
-                                // console.log(1)
-                                // console.log(orderDiscountCalc)
-                                orderDiscount.innerText = orderDiscountCalc * orders[productID + size[i]].quantity
-                                orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
-                                orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
-                            } else {
-                                // alert("been")
-                                for (let i = quantityPopup ? quantityPopup : 1; i > 0; i--) {
-
-                                    orders[productID + size[i]]
-                                    console.log(productID );
-                                    console.log(size);
-                                    // orders[productID + size].quantity++
-                                    document.querySelector(".plus-quantity[data-value='" + productID + size + "']").click()
-
-                                }
                             }
                             
+                        } else if (size.length > 1) {
+                            document.querySelector(".plus-quantity[data-value='" + productID + size[i] + "']").click()
+
+                        } else {
+
+                            document.querySelector(".plus-quantity[data-value='" + productID + size[0] + "']").click()
 
                         }
-                        // console.log(orders)
                     }
                     
-                })
-        }
-    }
 
-    function updateCart(id, sizesList) {
+                }
+                // console.log(orders)
+            }
+            
+        })
+}
+
+
+
+
+function updateCart(id, sizesList) {
 
         fetch('products.json')
             .then(response => response.json())
@@ -958,6 +930,171 @@ function cart() {
                 addedProductsList.appendChild(card);
             });
     }
+
+
+function cart() {
+    let sizesList = ""
+    if (document.querySelectorAll(".cta-card")) {
+        clearInterval(cartWaitTimeout)
+        let buyBtns = document.querySelectorAll(".cta-card"),
+            orderConfirmProductsQuantity = document.querySelector("#orderConfirmProductsQuantity")
+
+        document.querySelectorAll('.cta-card').forEach(ctaButton => {
+            ctaButton.addEventListener('click', function (event) {
+                event.preventDefault()
+
+                const productId = this.getAttribute('data-value');
+                const selectedSizes = []
+
+                document.querySelectorAll(`input[type="checkbox"][id^="input-${productId}"]:checked`).forEach(checkbox => {
+                    selectedSizes.push(checkbox.value)
+                })
+
+                // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
+                buyBtnFunc(ctaButton, selectedSizes)
+
+            })
+        })
+
+        document.querySelectorAll('.cta-popap').forEach(ctaButton => {
+            ctaButton.addEventListener('click', function (event) {
+                event.preventDefault()
+                const productId = this.getAttribute('data-value');
+                const selectedSizes = []
+
+                document.querySelectorAll(`input[type="checkbox"][id^="popup-input-${productId}"]:checked`).forEach(checkbox => {
+                    selectedSizes.push(checkbox.value)
+                    // alert(checkbox.value)
+                })
+                
+                let quantityFromPopup = document.querySelector('.popap-card[data-value="' + productId + '"] .quantity-number');
+
+                // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
+                buyBtnFunc(ctaButton, selectedSizes, quantityFromPopup.innerText)
+
+            })
+        })
+
+        // function buyBtnFunc(e, size, quantityPopup) {
+
+        //     console.log(e, size, quantityPopup);
+        //     let productID = e.dataset.value
+
+
+        //     let currentSizesList = ""
+        //     fetch('products.json')
+        //         .then(response => response.json())
+        //         .then(products => {
+        //             const product = products.find(product => product.id === productID)
+        //             if (product.saleprice === "") {
+        //                 product.saleprice = product.price;
+        //             }
+        //             if (true) {
+
+        //                 // console.log(size)
+        //                 for (let i = 0; i < size.length; i++) {
+        //                     if (!orders[productID + size[i]]) {
+
+        //                         // alert("hasnotbeen")
+
+        //                         orders[productID + size[i]] = {
+        //                             product: product,
+        //                             quantity: quantityPopup ? Number(quantityPopup) : 1
+        //                         }
+                                
+        //                         if (size) {
+        //                             orders[productID + size[i]].size = size[i]
+        //                         }
+                                
+        //                         orders.orderSumWithNoDiscount += orders[productID + size[i]].product.saleprice != "" ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) * orders[productID + size[i]].quantity : 0
+        //                         orders.orderSumWithDiscount += Number((orders[productID + size[i]].product.price).slice(0, -4)) * orders[productID + size[i]].quantity
+        //                         updateCart(productID, orders[productID + size[i]].size)
+
+        //                         // console.log(document.querySelector(".minus-quantity[data-value='" + productID + size[i] + "']"))
+        //                         plusBtn(".plus-quantity[data-value='" + productID + size[i] + "']")
+        //                         minBtn(".minus-quantity[data-value='" + productID + size[i] + "']")
+
+        //                         caclnumberOfProducts++
+        //                         numberOfProductsDOM.innerText = caclnumberOfProducts
+        //                         orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * orders[productID + size[i]].quantity
+        //                         // console.log(1)
+        //                         // console.log(orderDiscountCalc)
+        //                         orderDiscount.innerText = orderDiscountCalc * orders[productID + size[i]].quantity
+        //                         orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
+        //                         orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
+        //                     } else {
+        //                         // alert("been")
+        //                         for (let i = quantityPopup ? quantityPopup : 1; i > 0; i--) {
+
+        //                             orders[productID + size[i]]
+        //                             console.log(productID );
+        //                             console.log(size);
+        //                             // orders[productID + size].quantity++
+        //                             document.querySelector(".plus-quantity[data-value='" + productID + size + "']").click()
+
+        //                         }
+        //                     }
+                            
+
+        //                 }
+        //                 // console.log(orders)
+        //             }
+                    
+        //         })
+        // }
+    }
+
+    // function updateCart(id, sizesList) {
+
+    //     fetch('products.json')
+    //         .then(response => response.json())
+    //         .then(products => {
+    //             const product = products.find(product => product.id === id);
+    //             const card = document.createElement("div");
+    //             card.innerHTML = `
+    //                 <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
+    //                     <img src=${product.img}>
+                        
+    //                     <div class="w-100 flex-between items-center">
+    //                         <div class="description">
+    //                             <div>
+    //                                 <h3>${product.head}</h3>
+    //                                 <table>
+    //                                     <tr>
+    //                                         <td>колір</td>
+    //                                         <td>${product.color}</td>
+    //                                     </tr>
+    //                                     <tr>
+    //                                         <td>розмір</td>
+    //                                         <td class="size-span">${sizesList}</td>
+    //                                     </tr>
+    //                                     <tr>
+    //                                         <td>ціна</td>
+    //                                         <td>${product.price} <span>${product.saleprice}</span></td>
+    //                                     </tr>
+    //                                     <tr>
+    //                                         <td>кількість</td>
+    //                                         <td>
+    //                                             <div class="quantity flex">
+    //                                                 <div class="minus-quantity" data-value="${product.id + "" + sizesList}">-</div>
+    //                                                 <div class="quantity-number">${orders[product.id + sizesList].quantity}</div>
+    //                                                 <div class="plus-quantity" data-value="${product.id + "" + sizesList}">+</div>
+    //                                             </div>
+    //                                         </td>
+    //                                     </tr>
+    //                                 </table>
+    //                                 <div class="delete-product">видалити товар</div>
+    //                             </div>
+    //                         </div>
+    //                         <div class="total-price">
+    //                             <span>${Number((orders[product.id + sizesList].product.price).slice(0, -4)) * orders[product.id + sizesList].quantity + " грн"}</span>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             `;
+    //             addedProductsList.appendChild(card);
+    //         });
+    // }
 }
 
 
@@ -1156,3 +1293,20 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
 })
+
+function btnSimilar () {
+    let similarBtns = document.querySelectorAll(".popap-card .cta-card")
+    similarBtns.forEach(function(e) {
+        e.addEventListener("click", function() {
+            let similarProductId = this.dataset.value,
+                similarSizesArr = []
+
+
+            document.querySelectorAll(`.popap-card input[type="checkbox"][id^="input-${similarProductId}"]:checked`).forEach(checkbox => {
+                similarSizesArr.push(checkbox.value)
+            })
+
+            buyBtnFunc(e, similarSizesArr)
+        })
+    })
+}
