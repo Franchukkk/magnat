@@ -1,5 +1,5 @@
 function updateCartBtns() {
-    cart()
+    console.log("");
 }
 
 document.addEventListener("DOMContentLoaded", function () {
