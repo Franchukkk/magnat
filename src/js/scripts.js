@@ -369,6 +369,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     backPopapCard.addEventListener("click", function(e) {
         e.preventDefault()
+        sameCard.innerHTML = ''
         productPopup.style.display = "none"
     })
 
