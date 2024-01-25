@@ -711,7 +711,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let selectedCategory = lastSelectedCategory
 
-    btnProduct.forEach((button) => (button.style.color = "#191919"))
+    btnProduct.forEach((button) => (button.classList.add("card-cta-season")))
 
     if (!lastSelectedCategory) {
         selectedCategory = "#all"
