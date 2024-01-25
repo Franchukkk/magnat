@@ -498,9 +498,10 @@ document.addEventListener("DOMContentLoaded", function () {
         materialTop.innerHTML = ''
         materialBottom.innerHTML = ''
         materialSole.innerHTML = ''
-        styleCard.innerHTML = ''
+        countryCard.innerHTML = ''
+        countryCard.innerHTML = ''
 
-        const formColor = document.querySelector(".color-form-popap")
+        const formColor = document.querySelector(".color-form-popap");
         if (formColor && formColor.parentNode === choiseColorPopap) {
             choiseColorPopap.removeChild(formColor);
         }

@@ -14,6 +14,7 @@ html
 body 
     margin: 0
     font-family: 'Rubik'
+    scroll-behavior: smooth
 
 header
     padding-top: 100rem
@@ -30,6 +31,7 @@ figure
     margin: 0
 
 h2
+    padding-top: 50rem
     margin-bottom: 50rem
     color: #25445E
     text-align: center
@@ -69,12 +71,15 @@ h2
     display: flex
 
 .popap-card 
+    padding-top: 100rem
     display: none
 
 .popap-header
+    position: fixed
     width: 100%
     padding: 44rem 0
     background-color: #F1F1F1
+    z-index: 10
 
 .back-to-main
     cursor: pointer
@@ -258,6 +263,7 @@ ul.activemobile
 
 
 .filter-season
+    max-width: 700rem
     justify-content: center
     column-gap: 15rem
     row-gap: 15rem
@@ -279,6 +285,7 @@ ul.activemobile
         font-weight: 400
         border-radius: 3px
         border: 1px solid #A0A0A0   
+        box-sizing: border-box
         +media(1440)
             font-size: 16rem
         &:hover
@@ -388,7 +395,11 @@ div.active-filter
 
 .filter-block
     position: relative
+    column-gap: 25rem
     align-items: flex-start
+    flex-basis: auto
+    max-width: 1300rem
+    width: 100%
 
 .filter
     display: none
@@ -396,7 +407,6 @@ div.active-filter
     top: 30rem
     width: 100%
     max-width: 245rem
-    padding-right: 25rem
     padding-top: 80rem
     box-sizing: border-box
     +media(1024)
@@ -584,6 +594,8 @@ input[type="range"]
 
 .card-block
     width: 100%
+    flex-basis: auto
+    max-width: 1000rem
 
 .card-bott,
 .same-card
@@ -594,11 +606,11 @@ input[type="range"]
     border-top: 1rem solid #F1F1F1
     border-left: 1rem solid #F1F1F1
     +media(500)
-        grid-template-columns: 3fr 3fr
+        grid-template-columns: 300rem 300rem
     +media(728)
-        grid-template-columns: 3fr 3fr 3fr 
+        grid-template-columns: 300rem 300rem 300rem 
     +media(1440)
-        grid-template-columns: 3fr 3fr 3fr 3fr
+        grid-template-columns: 250rem 250rem 250rem 250rem
         
 .card-flag
     position: absolute
@@ -710,6 +722,13 @@ input[type="range"]
     background-color: #fff
     overflow-y: scroll
     z-index: 10
+    &::-webkit-scrollbar
+        width: 4px
+        background: #F1F1F1
+    &::-webkit-scrollbar-thumb
+        width: 4px
+        background: #A0A0A0
+        border-radius: 2px
 
 .main-block-popap
     padding: 50rem 0

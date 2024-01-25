@@ -253,11 +253,11 @@ html(lang="uk")
                             li
                                 a(href="index.html") Головна
                             li
-                                a(href="#") Каталог
+                                a(href="#catalog") Каталог
                             li
-                                a(href="#") Відгуки
+                                a(href="#comentar") Відгуки
                             li
-                                a(href="#") Про нас
+                                a(href="#aboutus") Про нас
                     .logo
                         a(href="index.html")
                             img(src="img/logo.webp", alt="") 
@@ -316,7 +316,7 @@ html(lang="uk")
                             source(srcset="" type="image/jpg")
                             img(src="", alt="")
         main
-            section.card-menu.wrapper
+            section.card-menu.wrapper#catalog
                 h2 каталог товарів
                 p Оберіть те, що вас цікавить
                 .flex-between.filter-block
@@ -421,7 +421,7 @@ html(lang="uk")
                             a(href="#") фільтр
                         .card-bott
                         div#pagination.pagination
-            section.reviews
+            section.reviews#comentar
                 .wrapper 
                     h2.text-title Відгуки клієнтів
                     .reviews-list.flex-wrap
@@ -435,7 +435,7 @@ html(lang="uk")
                 .review-btns.flex
                     a(href="#").btn-style-one усі відгуки
                     a(href="#").btn-style-two залишити відгук
-            section.aboutus 
+            section.aboutus#aboutus
                 h2 про нашу компанію
                 .bgc-block 
                     .our-advantage.wrapper
