@@ -153,7 +153,7 @@
     {
         "id": "a-04-haki",
         "category": "demiseason",
-        "color": "haki",
+        "color": "green",
         "model": "crosivky",
         "material": "shkira",
         "style": "sport",
@@ -180,7 +180,7 @@
     {
         "id": "bot-523-ol",
         "category": "winter",
-        "color": "haki",
+        "color": "green",
         "model": "cherevyki",
         "material": "shkira",
         "style": "classic",
