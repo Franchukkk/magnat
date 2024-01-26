@@ -134,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault()
             openPopup(event, product.id)
             cart()
+            
         })
         figcaptionItems.appendChild(clickFigure)
 
@@ -451,7 +452,7 @@ document.addEventListener("DOMContentLoaded", function () {
             productPopup.style.display = "none"
             //додати відкриття кошика 
         })
-
+        btnSimilar()
     }
 
     //вивід карточок товару
@@ -517,6 +518,8 @@ document.addEventListener("DOMContentLoaded", function () {
     backPopapCard.addEventListener("click", function (e) {
         e.preventDefault()
         productPopup.style.display = "none"
+
+        document.querySelector(".same-card").innerHTML = ""
     })
     // вибір категорій і додавання до локального сховища, при завантажені сторінки підзавантажуються дані згідно вибраних категорій а не весь список
 
