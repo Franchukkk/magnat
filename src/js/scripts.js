@@ -1,3 +1,7 @@
+function updateCartBtns () {
+    cart()
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     //бургер меню
     const burger = document.querySelector(".burger"),
@@ -579,6 +583,9 @@ document.addEventListener("DOMContentLoaded", function () {
         showData(currentPage)
         showPagination()
         updatePaginationButtons()
+
+
+        updateCartBtns()
     })
 
     //випадаючий список
@@ -1001,7 +1008,7 @@ function buyBtnFunc(e, size, quantityPopup) {
                 for (let i = 0; i < size.length; i++) {
                     if (!orders[productID + size[i]]) {
 
-                        alert("hasnotbeen")
+                        // alert("hasnotbeen")
 
                         orders[productID + size[i]] = {
                             product: product,
@@ -1029,7 +1036,7 @@ function buyBtnFunc(e, size, quantityPopup) {
                         orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                         orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                     } else {
-                        alert("been")
+                        // alert("been")
                         if (quantityPopup) {
                             for (let j = quantityPopup; j > 0; j--) {
                                 document.querySelector(".plus-quantity[data-value='" + productID + size[i] + "']").click()
