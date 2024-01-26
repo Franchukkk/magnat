@@ -351,13 +351,13 @@ document.addEventListener("DOMContentLoaded", function () {
         for (const size of sizes) {
             const inputSize = document.createElement("input")
             inputSize.type = "checkbox"
-            inputSize.id = `input-${product.id}-${size}`
+            inputSize.id = `popup-input-${product.id}-${size}`
             inputSize.name = "size-popap"
             inputSize.value = size
 
             const labelInput = document.createElement("label")
             labelInput.classList.add(`label${size}`)
-            labelInput.setAttribute("for", `input-${product.id}-${size}`)
+            labelInput.setAttribute("for", `popup-input-${product.id}-${size}`)
             labelInput.innerText = `${size}`
 
             if (`size${size}` in product) {
@@ -1142,13 +1142,18 @@ function cart() {
                 const productId = this.getAttribute('data-value');
                 const selectedSizes = []
 
-                document.querySelectorAll(`input[type="checkbox"][id^="popup-input-${productId}"]:checked`).forEach(checkbox => {
+                document.querySelectorAll(`.popap-card input[type="checkbox"][id^="popup-input-${productId}"]:checked`).forEach(checkbox => {
                     selectedSizes.push(checkbox.value)
+                    alert(checkbox.value)
                     // alert(checkbox.value)
                 })
 
-                let quantityFromPopup = document.querySelector('.popap-card[data-value="' + productId + '"] .quantity-number');
-                console.log(quantityFromPopup);
+                let quantityFromPopup = document.querySelector('.popap-card .quantity-number');
+                // console.log(quantityFromPopup);
+                console.log(document.querySelectorAll(`choise-size_popap input[type="checkbox"][id^="popup-input-${productId}"]:checked`));
+                console.log(ctaButton)
+                console.log(selectedSizes)
+                console.log(quantityFromPopup.innerText)
                 // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
                 buyBtnFunc(ctaButton, selectedSizes, quantityFromPopup.innerText)
 
