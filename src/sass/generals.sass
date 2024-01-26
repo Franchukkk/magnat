@@ -762,19 +762,28 @@ input[type="range"]
 
 .card-info
     display: grid
-    grid-template-columns: 1.3fr 1.2fr
+    grid-template-row: 1fr 1fr
     grid-column-gap: 20rem
     margin-bottom: 100rem
+    +media(1024)
+        grid-template-columns: 1.3fr 1.2fr
     +media(1440)
         grid-column-gap: 50rem
 
 .img-card
+    display: grid
+    grid-template-columns: 80rem 250rem
+    grid-column-gap: 20rem
+    margin-bottom: 30rem
     max-height: 500rem
     width: 100%
     height: 100%
-    display: grid
-    grid-template-columns: 1.2fr 4fr
-    grid-column-gap: 20rem
+    +media(500)
+        grid-template-columns: 1.2fr 4fr
+    +media(768)
+        grid-template-columns: 20% 60%
+    +media(1024)
+        grid-template-columns: 1.2fr 4fr
 
 .small-img 
     display: grid
@@ -783,7 +792,7 @@ input[type="range"]
     img
         width: 100%
         height: 100%
-        object-fit: cover
+        object-fit: contain
         border: 1px solid #A0A0A0
 
 .main-img
@@ -791,7 +800,10 @@ input[type="range"]
     img
         width: 100%
         height: 100%
-        object-fit: cover
+        object-fit: contain
+
+.description-car
+    width: 100%
 
 .description-card_popap
     margin-bottom: 13rem 
@@ -827,7 +839,14 @@ input[type="range"]
     border: none
     border-top: 1px solid #25445E
 
-.choise-card-popap 
+.choise-block
+    flex-wrap: wrap
+    margin-bottom: 30rem
+    +media(768)
+        flex-wrap: nowrap
+        margin: 0
+
+.choise-card-popap
     > div
         margin-bottom: 23rem
     p
@@ -838,17 +857,20 @@ input[type="range"]
 
 .choise-size_popap,
 .quantity-popap
-    padding: 0 0 0 37rem
-
+    padding: 0 0 0 17rem
+    +media(425)
+        padding: 0 0 0 37rem
    
 .choise-color_popap
     form
         display: flex
         justify-content: flex-start
         column-gap: 30rem
-        padding-left: 40rem
+        padding-left: 20rem
         width: 50%
         height: 20rem
+        +media(425)
+            padding-left: 40rem
     input
         display: none
     input + label 
@@ -918,23 +940,24 @@ input[type="range"]
     top: 0
     left: 0
     width: 100vw
-    height: 100vw
+    height: 100vh
     background-color: black
     opacity: 1
     z-index: 11
 
 div.active-size-popap
     display: block
-    position: absolute
+    position: fixed
     top: 50%
     left: 50%
     transform: translate(-50%, -50%)
     z-index: 200
 
 .size-block_popap
+    position: fixed
     display: none
-    padding: 50rem
-    max-width: 550rem
+    padding: 30rem 40rem
+    max-width: 320rem
     width: 100%
     background-color: #fff
     border-radius: 5rem
@@ -946,9 +969,16 @@ div.active-size-popap
         text-align: center
         font-weight: 700
         text-transform: uppercase
+    +media(425)
+        padding: 50rem
+    +media(1024)
+        max-width: 550rem
+
 .sizes
-    width: 80%
-    margin: 0 auto
+    +media(1024)
+        width: 80%
+        margin: 0 auto
+
 .name-sizes
     p
         padding-right: 17rem
@@ -984,11 +1014,14 @@ div.active-size-popap
 .description-blog
     margin: 0 0 10rem 0
     width: 100%
+    max-width: 350rem
     padding: 10rem 9rem
-    max-width: 710rem
     background-color: #F1F1F1
     border-radius: 5rem
-
+    +media(375)
+        max-width: none
+    +media(1024)
+        max-width: 710rem
 .readmore
     position: relative
     display: block
@@ -1011,13 +1044,16 @@ div.active-size-popap
     &::after
         transform: translateY(-70%) rotate(180deg)
 
+.description-select 
+    width: 100%
+
 .description-more
-    background-color: #F1F1F1
-    border-radius: 5rem
     color: #191919
     font-size: 12px
+    background-color: #F1F1F1
     font-weight: 400
     max-height: 0
+    border-radius: 5rem
     overflow: hidden
     transition: max-height 1s ease
     ol
@@ -1048,7 +1084,14 @@ div.active-size-popap
           
 div.same-card
     display: grid
-    grid-template-columns: 1fr 1fr 1fr 1fr
+    grid-template-columns: 350rem
+    grid-template-rows: 1fr
+    +media(425)
+        grid-template-columns: 240rem 240rem
+    +media(700)
+        grid-template-columns: 250rem 250rem
+    +media(1024)
+        grid-template-columns: 1fr 1fr 1fr 1fr
 
 
 .pagination

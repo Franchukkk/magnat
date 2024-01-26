@@ -108,13 +108,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const startIndex = (pageNumber - 1) * itemsPerPage,
             endIndex = startIndex + itemsPerPage,
             pageData = jsonData.slice(startIndex, endIndex)
-            displayProducts(pageData, productList)
+        displayProducts(pageData, productList)
     }
 
     function createCardElement(product) {
         const listItem = document.createElement("figure"),
             figcaptionItems = document.createElement("figcaption")
-    
+
         if (product.saleprice !== "") {
             const saleFlag = document.createElement("span"),
                 sale = 100 - (parseFloat(product.price) * 100) / parseFloat(product.saleprice)
@@ -122,10 +122,10 @@ document.addEventListener("DOMContentLoaded", function () {
             saleFlag.innerText = `sale -${sale.toFixed(0)}%`
             figcaptionItems.appendChild(saleFlag)
         }
-    
+
         listItem.classList.add("card-box", product.category, product.color, product.model, product.material, product.style, product.size40, product.size41, product.size42, product.size43, product.size44, product.size45)
         listItem.appendChild(figcaptionItems)
-    
+
         const clickFigure = document.createElement("a")
         clickFigure.classList.add("click-card")
         clickFigure.href = "#"
@@ -136,70 +136,70 @@ document.addEventListener("DOMContentLoaded", function () {
             cart()
         })
         figcaptionItems.appendChild(clickFigure)
-    
+
         const imgElement = document.createElement("img")
         imgElement.src = product.img
         imgElement.alt = product.alt
         figcaptionItems.appendChild(imgElement)
-    
+
         const headerCard = document.createElement("h2")
         headerCard.classList.add("header-card")
         headerCard.innerText = product.head
         figcaptionItems.appendChild(headerCard)
-    
+
         const oldPrice = document.createElement("p")
         oldPrice.classList.add("old-price")
         oldPrice.innerText = product.saleprice
         figcaptionItems.appendChild(oldPrice)
-    
+
         const newPrice = document.createElement("p")
         const priceValue = parseInt(product.price.replace(/\D/g, ''))
         listItem.dataset.price = priceValue
         newPrice.classList.add("new-price")
         newPrice.innerText = product.price
         figcaptionItems.appendChild(newPrice)
-    
+
         const inputBlock = document.createElement("div")
         inputBlock.classList.add("input-block")
         figcaptionItems.appendChild(inputBlock)
-    
+
         const sizes = ["40", "41", "42", "43", "44", "45"]
-    
+
         for (const size of sizes) {
             const inputSize = document.createElement("input")
             inputSize.type = "checkbox"
             inputSize.name = "size-radio"
             inputSize.id = `input-${product.id}-${size}`
             inputSize.value = size
-    
+
             const labelInput = document.createElement("label")
             labelInput.classList.add(`label${size}`)
             labelInput.setAttribute("for", `input-${product.id}-${size}`)
             labelInput.innerText = `${size}`
-    
+
             if (`size${size}` in product) {
                 inputSize.disabled = false
             } else {
                 inputSize.disabled = true
             }
-    
+
             inputBlock.appendChild(inputSize)
             inputBlock.appendChild(labelInput)
         }
-    
+
         const ctaBuy = document.createElement("a")
         ctaBuy.classList.add("cta-card")
         ctaBuy.setAttribute('data-value', product.id)
         ctaBuy.innerText = product.cta
         ctaBuy.href = "#"
         figcaptionItems.appendChild(ctaBuy)
-    
+
         return listItem
     }
-    
+
     function displayProducts(products, container) {
         container.innerHTML = ""
-    
+
         products.forEach(product => {
             const listItem = createCardElement(product)
             container.appendChild(listItem)
@@ -213,19 +213,19 @@ document.addEventListener("DOMContentLoaded", function () {
         if (productId) {
             openedProductId = productId
             const selectedProduct = jsonData.find(product => product.id === productId)
-    
+
             if (selectedProduct) {
                 clearPopup()
                 updatePopupContent(selectedProduct)
                 productPopup.style.display = 'grid'
-            } 
+            }
         } else {
             console.error('error')
         }
     }
 
     function updatePopupContent(product) {
-        
+
         const descrHead = document.querySelector('.description-card_popap'),
             newPricePopap = document.querySelector(".new-price-popap"),
             spanId = document.querySelector('.code-card_popap'),
@@ -244,74 +244,74 @@ document.addEventListener("DOMContentLoaded", function () {
             materialBottom = document.querySelector(".material-bottom_popap"),
             materialSole = document.querySelector(".material-sole_popap"),
             styleCard = document.querySelector(".style-card_popap")
-            
+
         //запис характеристик товару 
-            producerInfo = document.createElement("p")
-            producerInfo.innerText = "виробник"
-            producerInfo2 = document.createElement("p")
-            producerInfo2.classList.add("bold-card")
-            producerInfo2.innerText = product.producer
-            producerCard.appendChild(producerInfo)
-            producerCard.appendChild(producerInfo2)
+        producerInfo = document.createElement("p")
+        producerInfo.innerText = "виробник"
+        producerInfo2 = document.createElement("p")
+        producerInfo2.classList.add("bold-card")
+        producerInfo2.innerText = product.producer
+        producerCard.appendChild(producerInfo)
+        producerCard.appendChild(producerInfo2)
 
-            countryInfo = document.createElement("p")
-            countryInfo.innerText = "країна виробник"
-            countryInfo2 = document.createElement("p")
-            countryInfo2.innerText = product.country
-            countryInfo2.classList.add("bold-card")
-            countryCard.appendChild(countryInfo)
-            countryCard.appendChild(countryInfo2)
-            
-            kindInfo = document.createElement("p")
-            kindInfo.innerText = "вид взуття"
-            kindInfo1 = document.createElement("p")
-            kindInfo1.classList.add("bold-card")
-            kindInfo1.innerText = product.kind
-            kindCard.appendChild(kindInfo)
-            kindCard.appendChild(kindInfo1)
+        countryInfo = document.createElement("p")
+        countryInfo.innerText = "країна виробник"
+        countryInfo2 = document.createElement("p")
+        countryInfo2.innerText = product.country
+        countryInfo2.classList.add("bold-card")
+        countryCard.appendChild(countryInfo)
+        countryCard.appendChild(countryInfo2)
 
-            seasonInfo = document.createElement("p")
-            seasonInfo.innerText = "сезон"
-            seasonInfo1 = document.createElement("p")
-            seasonInfo1.classList.add("bold-card")
-            seasonInfo1.innerText = product.seasonHaract
-            seasonCard.appendChild(seasonInfo)
-            seasonCard.appendChild(seasonInfo1)
-            
-            materialTopInfo = document.createElement("p")
-            materialTopInfo.innerText = "матеріал верху"
-            materialTopInfo1 = document.createElement("p")
-            materialTopInfo1.classList.add("bold-card")
-            materialTopInfo1.innerText = product.materialTop
-            materialTop.appendChild(materialTopInfo)
-            materialTop.appendChild(materialTopInfo1)
-            
-            materialBottomInfo = document.createElement("p")
-            materialBottomInfo.innerText = "матеріал підкладки"
-            materialBottomInfo1 = document.createElement("p")
-            materialBottomInfo1.classList.add("bold-card")
-            materialBottomInfo1.innerText = product.materialBottom
-            materialBottom.appendChild(materialBottomInfo)
-            materialBottom.appendChild(materialBottomInfo1)
-            
-            materialSoleInfo = document.createElement("p")
-            materialSoleInfo.innerText = "матеріал підошви"
-            materialSoleInfo1 = document.createElement("p")
-            materialSoleInfo1.classList.add("bold-card")
-            materialSoleInfo1.innerText = product.materialSole
-            materialSole.appendChild(materialSoleInfo)
-            materialSole.appendChild(materialSoleInfo1)
-            
-            styleCardInfo = document.createElement("p")
-            styleCardInfo.innerText = "стиль"
-            styleCardInfo1 = document.createElement("p")
-            styleCardInfo1.classList.add("bold-card")
-            styleCardInfo1.innerText = product.styleCard
-            styleCard.appendChild(styleCardInfo)
-            styleCard.appendChild(styleCardInfo1)
+        kindInfo = document.createElement("p")
+        kindInfo.innerText = "вид взуття"
+        kindInfo1 = document.createElement("p")
+        kindInfo1.classList.add("bold-card")
+        kindInfo1.innerText = product.kind
+        kindCard.appendChild(kindInfo)
+        kindCard.appendChild(kindInfo1)
+
+        seasonInfo = document.createElement("p")
+        seasonInfo.innerText = "сезон"
+        seasonInfo1 = document.createElement("p")
+        seasonInfo1.classList.add("bold-card")
+        seasonInfo1.innerText = product.seasonHaract
+        seasonCard.appendChild(seasonInfo)
+        seasonCard.appendChild(seasonInfo1)
+
+        materialTopInfo = document.createElement("p")
+        materialTopInfo.innerText = "матеріал верху"
+        materialTopInfo1 = document.createElement("p")
+        materialTopInfo1.classList.add("bold-card")
+        materialTopInfo1.innerText = product.materialTop
+        materialTop.appendChild(materialTopInfo)
+        materialTop.appendChild(materialTopInfo1)
+
+        materialBottomInfo = document.createElement("p")
+        materialBottomInfo.innerText = "матеріал підкладки"
+        materialBottomInfo1 = document.createElement("p")
+        materialBottomInfo1.classList.add("bold-card")
+        materialBottomInfo1.innerText = product.materialBottom
+        materialBottom.appendChild(materialBottomInfo)
+        materialBottom.appendChild(materialBottomInfo1)
+
+        materialSoleInfo = document.createElement("p")
+        materialSoleInfo.innerText = "матеріал підошви"
+        materialSoleInfo1 = document.createElement("p")
+        materialSoleInfo1.classList.add("bold-card")
+        materialSoleInfo1.innerText = product.materialSole
+        materialSole.appendChild(materialSoleInfo)
+        materialSole.appendChild(materialSoleInfo1)
+
+        styleCardInfo = document.createElement("p")
+        styleCardInfo.innerText = "стиль"
+        styleCardInfo1 = document.createElement("p")
+        styleCardInfo1.classList.add("bold-card")
+        styleCardInfo1.innerText = product.styleCard
+        styleCard.appendChild(styleCardInfo)
+        styleCard.appendChild(styleCardInfo1)
 
 
-            
+
         descrHead.innerText = product.head
         newPricePopap.innerText = product.price
         spanId.innerText = product.id
@@ -324,15 +324,15 @@ document.addEventListener("DOMContentLoaded", function () {
         smallPopapImg2.alt = product.altPopap2
         smallPopapImg3.src = product.imgPopap3
         smallPopapImg3.alt = product.altPopap3
-        
+
         const listPopap = document.createElement("ol"),
-        topdescript = document.createElement("p")
-        if(product.bottomDescript) {
-           const bottomDescript = document.createElement("p")
-           bottomDescript.innerText = product.bottomDescript
-           descriptPopap.appendChild(bottomDescript)
+            topdescript = document.createElement("p")
+        if (product.bottomDescript) {
+            const bottomDescript = document.createElement("p")
+            bottomDescript.innerText = product.bottomDescript
+            descriptPopap.appendChild(bottomDescript)
         }
-        
+
         descriptPopap.appendChild(topdescript)
         topdescript.innerText = product.descript
 
@@ -354,108 +354,108 @@ document.addEventListener("DOMContentLoaded", function () {
             inputSize.id = `input-${product.id}-${size}`
             inputSize.name = "size-popap"
             inputSize.value = size
-        
+
             const labelInput = document.createElement("label")
             labelInput.classList.add(`label${size}`)
             labelInput.setAttribute("for", `input-${product.id}-${size}`)
             labelInput.innerText = `${size}`
-        
+
             if (`size${size}` in product) {
                 inputSize.disabled = false
             } else {
                 inputSize.disabled = true
             }
-        
+
             choiseSizePopap.appendChild(inputSize)
             choiseSizePopap.appendChild(labelInput)
         }
         // виведення кольору
-        
-            const formColor = document.createElement("form")
-            formColor.classList.add("color-form-popap")
-            choiseColorPopap.appendChild(formColor)
 
-            let availableColors = [product.color, product.color1, product.color2].filter(Boolean)
+        const formColor = document.createElement("form")
+        formColor.classList.add("color-form-popap")
+        choiseColorPopap.appendChild(formColor)
 
-            console.log(availableColors)
-            availableColors.forEach(function (color) {
-                const inputId = color + "-popap" + product.id
-                
-                const inputColorPopap = document.createElement('input');
-                inputColorPopap.type = 'checkbox'
-                inputColorPopap.id = inputId
-                inputColorPopap.name = 'color-popap'
-                inputColorPopap.value = color
-        
-                const labelColor = document.createElement('label')
-                labelColor.htmlFor = inputId
-                switch (color) {
-                    case 'blue':
-                        console.log("blue");
-                        labelColor.classList.add("blue");
-                        break;
-                    case 'black':
-                        console.log("black");
-                        labelColor.classList.add("black");
-                        break;
-                    case 'green':
-                        console.log("green");
-                        labelColor.classList.add("haki");
-                        break;
-                    case 'brown':
-                        console.log("brown");
-                        labelColor.classList.add("brown");
-                        break;
-                    default:
-                        break;
-                }
+        let availableColors = [product.color, product.color1, product.color2].filter(Boolean)
 
-                formColor.appendChild(inputColorPopap)
-                formColor.appendChild(labelColor)   
-            })
+        console.log(availableColors)
+        availableColors.forEach(function (color) {
+            const inputId = color + "-popap" + product.id
 
-         // лічильник на кількість товару який буде в кошику
+            const inputColorPopap = document.createElement('input');
+            inputColorPopap.type = 'checkbox'
+            inputColorPopap.id = inputId
+            inputColorPopap.name = 'color-popap'
+            inputColorPopap.value = color
+
+            const labelColor = document.createElement('label')
+            labelColor.htmlFor = inputId
+            switch (color) {
+                case 'blue':
+                    console.log("blue");
+                    labelColor.classList.add("blue");
+                    break;
+                case 'black':
+                    console.log("black");
+                    labelColor.classList.add("black");
+                    break;
+                case 'green':
+                    console.log("green");
+                    labelColor.classList.add("haki");
+                    break;
+                case 'brown':
+                    console.log("brown");
+                    labelColor.classList.add("brown");
+                    break;
+                default:
+                    break;
+            }
+
+            formColor.appendChild(inputColorPopap)
+            formColor.appendChild(labelColor)
+        })
+
+        // лічильник на кількість товару який буде в кошику
         const minCount = document.querySelector(".min-count_card"),
             maxCountCard = document.querySelector(".max-count_card"),
             numbCountCard = document.querySelector(".num-count-card")
 
-            let currentCount = 1
+        let currentCount = 1
 
-            const increaseCount = () => {
-                if (currentCount < 10) {
-                    currentCount++
-                    numbCountCard.innerText = currentCount
-                }
+        const increaseCount = () => {
+            if (currentCount < 10) {
+                currentCount++
+                numbCountCard.innerText = currentCount
             }
-            const decreaseCount = () => {
-                if (currentCount > 1) {
-                    currentCount--
-                    numbCountCard.innerText = currentCount
-                }
+        }
+        const decreaseCount = () => {
+            if (currentCount > 1) {
+                currentCount--
+                numbCountCard.innerText = currentCount
             }
+        }
 
-            minCount.addEventListener("click", decreaseCount)
-            maxCountCard.addEventListener("click", increaseCount)
+        minCount.addEventListener("click", decreaseCount)
+        maxCountCard.addEventListener("click", increaseCount)
 
-            let popupCategory = product.color
-            // скільки карточок виводиться в попапі
-            const maxSimilarProducts = 4 
+        let popupCategory = product.color
+        // скільки карточок виводиться в попапі
+        const maxSimilarProducts = 4
 
-            sameCard.innerHTML = ''
-        
-            displaySimilarProducts(jsonData, popupCategory, sameCard, maxSimilarProducts)
-                let ctaPopup = document.querySelector(".cta-popap")
-                ctaPopup.setAttribute("data-value", product.id)
-                ctaPopup.addEventListener("click", function (e) {
-                    e.preventDefault()
-                    productPopup.style.display = "none"
-                    //додати відкриття кошика 
-            })
+        sameCard.innerHTML = ''
+
+        displaySimilarProducts(jsonData, popupCategory, sameCard, maxSimilarProducts)
+        let ctaPopup = document.querySelector(".cta-popap")
+        ctaPopup.setAttribute("data-value", product.id)
+        ctaPopup.addEventListener("click", function (e) {
+            e.preventDefault()
+            productPopup.style.display = "none"
+            //додати відкриття кошика 
+        })
 
     }
 
     //вивід карточок товару
-    
+
     function displaySimilarProducts(products, popupCategory, container, maxCount) {
         let count = 0,
             hasSimilarProducts = false
@@ -470,7 +470,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 noSimilarProductsMessage.innerText = "схожі товари"
             }
         })
-        if(!hasSimilarProducts) {
+        if (!hasSimilarProducts) {
             noSimilarProductsMessage.innerText = 'Нажаль схожих товарів не знайдено.'
             container.appendChild(noSimilarProductsMessage)
         }
@@ -489,7 +489,7 @@ document.addEventListener("DOMContentLoaded", function () {
             materialBottom = document.querySelector(".material-bottom_popap"),
             materialSole = document.querySelector(".material-sole_popap"),
             styleCard = document.querySelector(".style-card_popap")
-    
+
         choiseSizePopap.innerHTML = ''
         descriptPopap.innerHTML = ''
         producerCard.innerHTML = ''
@@ -513,15 +513,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const backPopapCard = document.querySelector(".back-to-main")
-    
-    backPopapCard.addEventListener("click", function(e) {
+
+    backPopapCard.addEventListener("click", function (e) {
         e.preventDefault()
         productPopup.style.display = "none"
     })
     // вибір категорій і додавання до локального сховища, при завантажені сторінки підзавантажуються дані згідно вибраних категорій а не весь список
 
     const btnProduct = document.querySelectorAll(".card-cta-season"),
-        categories = ["winter", "summer", "demiseason"], 
+        categories = ["winter", "summer", "demiseason"],
         lastSelectedCategory = localStorage.getItem("lastSelectedCategory")
 
     function updateProductDisplay(category) {
@@ -532,7 +532,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
     }
-    
+
     categoryFilter.addEventListener("click", (evt) => {
         if (evt.target.tagName === "BUTTON") {
             selectedCategory = evt.target.getAttribute("data-href")
@@ -544,7 +544,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     // сщртування по селекту
-    
+
     function sortProducts(data) {
         const sortSelect = document.querySelector(".select__input"),
             selectedValue = parseInt(sortSelect.value)
@@ -566,10 +566,10 @@ document.addEventListener("DOMContentLoaded", function () {
             default:
                 break
         }
-    
+
         return data
     }
-    
+
     const selectInput = document.querySelector(".select__input")
     selectInput.addEventListener("change", function () {
         const sortedData = sortProducts(jsonData)
@@ -608,7 +608,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sizeBlockPopap.classList.remove("active-size-popap")
     })
 
-    
+
     //  пагінатор
 
     function showPagination() {
@@ -774,7 +774,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault()
         updateProductFilter()
     })
-    
+
     function updateProductFilter() {
         const minPrice = parseInt(document.querySelector('.input-min').value) || 0,
             maxPrice = parseInt(document.querySelector('.input-max').value) || 10000,
@@ -784,7 +784,7 @@ document.addEventListener("DOMContentLoaded", function () {
             selectedSeasons = getSelectedValues('season'),
             selectedMaterials = getSelectedValues('material'),
             selectedStyles = getSelectedValues('style')
-    
+
         categories.forEach((category) => {
             const elements = document.querySelectorAll(`.${category}`)
             elements.forEach((element) => {
@@ -796,21 +796,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     checkFilter(element.classList, selectedMaterials) &&
                     checkFilter(element.classList, selectedStyles) &&
                     checkPrice(element, minPrice, maxPrice)
-    
+
                 element.style.display = showElement ? "grid" : "none"
             })
         })
     }
-    
+
     function checkPrice(element, min, max) {
         const priceValue = parseInt(element.dataset.price) // значення з data-price
         return priceValue >= min && priceValue <= max
     }
-    
+
     function getSelectedValues(name) {
         return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(input => input.value)
     }
-    
+
     function checkFilter(elementClasses, selectedValues) {
         return selectedValues.length === 0 || selectedValues.some(value => elementClasses.contains(value))
     }
@@ -819,24 +819,24 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault()
         resetFilters()
     })
-    
+
     function resetFilters() {
         document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
             checkbox.checked = false
         })
-    
+
         document.querySelector('.input-min').value = '0'
         document.querySelector('.input-max').value = '10000'
         document.querySelector(".range-min").value = "0"
         document.querySelector(".range-max").value = "10000"
-    
+
         document.querySelectorAll('.product-card').forEach(productCard => {
             productCard.style.display = "grid"
         })
 
         updateProductFilter()
     }
-    
+
     const images = document.querySelectorAll('.slider-images img'),
         arrLeft = document.querySelector(".arr-left"),
         arrRight = document.querySelector(".arr-right"),
@@ -971,7 +971,7 @@ let orderDetailSum = document.querySelector(".order-total-price"),
     addedProductsList = document.querySelector(".added-products-list "),
     orderDiscount = document.querySelector(".order-discount"),
     orderDiscountCalc = 0
-    orders = {}
+orders = {}
 
 const cartWaitTimeout = setTimeout(function () {
     cart()
@@ -1004,11 +1004,11 @@ function buyBtnFunc(e, size, quantityPopup) {
                             product: product,
                             quantity: quantityPopup ? Number(quantityPopup) : 1
                         }
-                        
+
                         if (size) {
                             orders[productID + size[i]].size = size[i]
                         }
-                        
+
                         orders.orderSumWithNoDiscount += orders[productID + size[i]].product.saleprice != "" ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) * orders[productID + size[i]].quantity : 0
                         orders.orderSumWithDiscount += Number((orders[productID + size[i]].product.price).slice(0, -4)) * orders[productID + size[i]].quantity
                         updateCart(productID, orders[productID + size[i]].size)
@@ -1027,17 +1027,17 @@ function buyBtnFunc(e, size, quantityPopup) {
                         orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                     } else {
                         // alert("been")
-                        if(quantityPopup) {
+                        if (quantityPopup) {
                             for (let i = quantityPopup; i > 0; i--) {
-    
+
                                 orders[productID + size[i]]
-                                console.log(productID );
+                                console.log(productID);
                                 console.log(size);
                                 // orders[productID + size].quantity++
                                 document.querySelector(".plus-quantity[data-value='" + productID + size[i] + "']").click()
-                                
+
                             }
-                            
+
                         } else if (size.length > 1) {
                             document.querySelector(".plus-quantity[data-value='" + productID + size[i] + "']").click()
 
@@ -1047,12 +1047,12 @@ function buyBtnFunc(e, size, quantityPopup) {
 
                         }
                     }
-                    
+
 
                 }
                 // console.log(orders)
             }
-            
+
         })
 }
 
@@ -1061,12 +1061,12 @@ function buyBtnFunc(e, size, quantityPopup) {
 
 function updateCart(id, sizesList) {
 
-        fetch('products.json')
-            .then(response => response.json())
-            .then(products => {
-                const product = products.find(product => product.id === id);
-                const card = document.createElement("div");
-                card.innerHTML = `
+    fetch('products.json')
+        .then(response => response.json())
+        .then(products => {
+            const product = products.find(product => product.id === id);
+            const card = document.createElement("div");
+            card.innerHTML = `
                     <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
                         <img src=${product.img}>
                         
@@ -1107,9 +1107,9 @@ function updateCart(id, sizesList) {
                         </div>
                     </div>
                 `;
-                addedProductsList.appendChild(card);
-            });
-    }
+            addedProductsList.appendChild(card);
+        });
+}
 
 
 function cart() {
@@ -1146,9 +1146,9 @@ function cart() {
                     selectedSizes.push(checkbox.value)
                     // alert(checkbox.value)
                 })
-                
-                let quantityFromPopup = document.querySelector('.popap-card[data-value="' + productId + '"] .quantity-number');
 
+                let quantityFromPopup = document.querySelector('.popap-card[data-value="' + productId + '"] .quantity-number');
+                console.log(quantityFromPopup);
                 // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
                 buyBtnFunc(ctaButton, selectedSizes, quantityFromPopup.innerText)
 
@@ -1181,11 +1181,11 @@ function cart() {
         //                             product: product,
         //                             quantity: quantityPopup ? Number(quantityPopup) : 1
         //                         }
-                                
+
         //                         if (size) {
         //                             orders[productID + size[i]].size = size[i]
         //                         }
-                                
+
         //                         orders.orderSumWithNoDiscount += orders[productID + size[i]].product.saleprice != "" ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) * orders[productID + size[i]].quantity : 0
         //                         orders.orderSumWithDiscount += Number((orders[productID + size[i]].product.price).slice(0, -4)) * orders[productID + size[i]].quantity
         //                         updateCart(productID, orders[productID + size[i]].size)
@@ -1214,12 +1214,12 @@ function cart() {
 
         //                         }
         //                     }
-                            
+
 
         //                 }
         //                 // console.log(orders)
         //             }
-                    
+
         //         })
         // }
     }
@@ -1234,7 +1234,7 @@ function cart() {
     //             card.innerHTML = `
     //                 <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
     //                     <img src=${product.img}>
-                        
+
     //                     <div class="w-100 flex-between items-center">
     //                         <div class="description">
     //                             <div>
@@ -1370,7 +1370,7 @@ function minBtn(button) {
                     numberOfProductsDOM.innerText = caclnumberOfProducts
                     orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                     orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
-    
+
                     orderDiscountCalc -= Number((orders[productID + productBlock.slice(-2)].product.saleprice).slice(0, -4)) - Number((orders[productID + productBlock.slice(-2)].product.price).slice(0, -4))
                     // console.log(5)
                     // console.log(orderDiscountCalc)
@@ -1424,7 +1424,7 @@ function sendData(orders) {
 
 }
 
-  
+
 document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener('click', function (event) {
         if (event.target.classList.contains('delete-product')) {
@@ -1455,7 +1455,7 @@ document.addEventListener("DOMContentLoaded", function () {
         confirmPopup = document.querySelector("#popup-confirm-outline"),
         confirmPopupClose = document.querySelector(".confirm-back")
 
-    openConfirmPopup.addEventListener("click", function() {
+    openConfirmPopup.addEventListener("click", function () {
         if (Object.keys(orders).length > 3) {
             confirmPopup.classList.toggle("d-block")
             sendData(orders)
@@ -1468,16 +1468,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     })
 
-    confirmPopupClose.addEventListener("click", function() {
+    confirmPopupClose.addEventListener("click", function () {
         confirmPopup.classList.toggle("d-block")
     })
 
 })
 
-function btnSimilar () {
+function btnSimilar() {
     let similarBtns = document.querySelectorAll(".popap-card .cta-card")
-    similarBtns.forEach(function(e) {
-        e.addEventListener("click", function() {
+    similarBtns.forEach(function (e) {
+        e.addEventListener("click", function () {
             let similarProductId = this.dataset.value,
                 similarSizesArr = []
 
