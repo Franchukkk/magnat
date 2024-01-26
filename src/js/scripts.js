@@ -326,9 +326,12 @@ document.addEventListener("DOMContentLoaded", function () {
         smallPopapImg3.alt = product.altPopap3
         
         const listPopap = document.createElement("ol"),
-        bottomDescript = document.createElement("p"),
         topdescript = document.createElement("p")
-        
+        if(product.bottomDescript) {
+           const bottomDescript = document.createElement("p")
+           bottomDescript.innerText = product.bottomDescript
+           descriptPopap.appendChild(bottomDescript)
+        }
         
         descriptPopap.appendChild(topdescript)
         topdescript.innerText = product.descript
@@ -341,8 +344,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         descriptPopap.appendChild(listPopap)
-        bottomDescript.innerText = product.bottomDescript
-        descriptPopap.appendChild(bottomDescript)
 
         const sizes = ["40", "41", "42", "43", "44", "45"],
             choiseSizePopap = document.querySelector(".choise-size_popap")
@@ -709,20 +710,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //сортування карток товарів
 
+    // JavaScript
+
     let selectedCategory = lastSelectedCategory
 
-    btnProduct.forEach((button) => (button.classList.add("card-cta-season")))
+    btnProduct.forEach((button) => {
+        button.classList.add("card-cta-season")
+
+        button.addEventListener("mouseenter", function () {
+            if (!button.classList.contains("selected")) {
+                button.classList.add("hovered")
+            }
+        })
+
+        button.addEventListener("mouseleave", function () {
+            button.classList.remove("hovered")
+        })
+    })
 
     if (!lastSelectedCategory) {
-        selectedCategory = "#all"
+        selectedCategory = "#all";
         localStorage.setItem("lastSelectedCategory", selectedCategory)
     }
 
-    const selectedItem = document.querySelector(`[data-href="${selectedCategory}"]`)
+    const selectedItem = document.querySelector(`[data-href="${selectedCategory}"]`);
     if (selectedItem) {
-        selectedItem.style.color = "#fff"
-        selectedItem.style.backgroundColor = "#4E98B6"
-    } 
+        selectedItem.classList.add("selected")
+    }
 
     categories.forEach((category) => {
         const elements = document.querySelectorAll(`.${category}`)
@@ -734,17 +748,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     btnProduct.forEach((item) => {
         item.addEventListener("click", (evt) => {
-            evt.preventDefault();
+            evt.preventDefault()
 
             btnProduct.forEach((button) => {
-                button.style.color = "#191919"
-                button.style.backgroundColor = "#fff"
-            });
-            item.style.color = "#fff";
-            item.style.backgroundColor = "#4E98B6"
+                button.classList.remove("selected", "hovered")
+            })
+
+            item.classList.add("selected")
 
             let category = evt.target.getAttribute("data-href")
-
             localStorage.setItem("lastSelectedCategory", category)
 
             updateProductDisplay(category)
@@ -759,6 +771,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
         })
     }
+
 
     // фільтр
     document.querySelector(".submit-filter").addEventListener("click", function (e) {
