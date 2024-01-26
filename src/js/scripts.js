@@ -1001,7 +1001,7 @@ function buyBtnFunc(e, size, quantityPopup) {
                 for (let i = 0; i < size.length; i++) {
                     if (!orders[productID + size[i]]) {
 
-                        // alert("hasnotbeen")
+                        alert("hasnotbeen")
 
                         orders[productID + size[i]] = {
                             product: product,
@@ -1029,14 +1029,9 @@ function buyBtnFunc(e, size, quantityPopup) {
                         orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                         orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                     } else {
-                        // alert("been")
+                        alert("been")
                         if (quantityPopup) {
-                            for (let i = quantityPopup; i > 0; i--) {
-
-                                orders[productID + size[i]]
-                                console.log(productID);
-                                console.log(size);
-                                // orders[productID + size].quantity++
+                            for (let j = quantityPopup; j > 0; j--) {
                                 document.querySelector(".plus-quantity[data-value='" + productID + size[i] + "']").click()
 
                             }
@@ -1118,7 +1113,7 @@ function updateCart(id, sizesList) {
 function cart() {
     let sizesList = ""
     if (document.querySelectorAll(".cta-card")) {
-        clearInterval(cartWaitTimeout)
+        clearTimeout(cartWaitTimeout)
         let buyBtns = document.querySelectorAll(".cta-card"),
             orderConfirmProductsQuantity = document.querySelector("#orderConfirmProductsQuantity")
 
