@@ -1505,3 +1505,23 @@ function btnSimilar() {
         })
     })
 }
+
+const openReviewsPopup = document.querySelector(".allReviewsPopupOpen"),
+    reviewsPopup = document.querySelector(".allReviewsPopup"),
+    reviewsBack = document.querySelector(".reviews-back"),
+    setReview = document.querySelector(".setReview")
+
+
+openReviewsPopup.addEventListener("click", function(e) {
+    e.preventDefault()
+    reviewsPopup.classList.toggle("d-block")
+});
+
+setReview.addEventListener("click" , function(e) {
+    e.preventDefault()
+    reviewsPopup.classList.toggle("d-block")
+})
+
+reviewsBack.addEventListener("click", function() {
+    reviewsPopup.classList.toggle("d-block")
+})

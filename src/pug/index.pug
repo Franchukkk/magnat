@@ -214,13 +214,15 @@ html(lang="uk")
             .popup-footer 
                 .wrapper
                     span.confirm-back повернутися у каталог
-        .popups-outline
+        .popups-outline.allReviewsPopup
             .reviews-popup
                 .popup-header-line
                     .wrapper.flex.items-center
-                        h2 усі відгуки
+                        h2.popup-h2 усі відгуки
                 .popup-main.flex-between.wrapper.overflow.popup-orders-main 
-                    .reviews-popup-list
+                    .reviews-and-btn
+                        .reviews-popup-list
+                        a(href="#").btn-style-one#moreReviewsBtn більше відгуків
                     .review-details 
                         h3 залишити відгук
                         form(action="reviewsend.php", method="POST") 
@@ -443,8 +445,8 @@ html(lang="uk")
                         //- +lastReviews(reviews.review5)
                                             
                 .review-btns.flex
-                    a(href="#").btn-style-one усі відгуки
-                    a(href="#").btn-style-two залишити відгук
+                    a(href="#").btn-style-one.allReviewsPopupOpen усі відгуки
+                    a(href="#").btn-style-two.setReview залишити відгук
             section.aboutus#aboutus
                 h2 про нашу компанію
                 .bgc-block 
