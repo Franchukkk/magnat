@@ -214,32 +214,38 @@ html(lang="uk")
             .popup-footer 
                 .wrapper
                     span.confirm-back повернутися у каталог
-        .popups-outline
+        .popups-outline.d-block
             .reviews-popup
                 .popup-header-line
                     .wrapper.flex.items-center
                         h2 усі відгуки
-                .popup-main.flex-between.wrapper.overflow 
-                    .reviews-popup-list.w-50
+                .popup-main.flex-between.wrapper.overflow.popup-orders-main 
+                    .reviews-popup-list
                     .review-details 
-                        form(action="", method="POST") 
+                        h3 залишити відгук
+                        form(action="reviewsend.php", method="POST") 
+                            input(type="hidden" name="userRate" id="userRate")
                             .rate-review.d-flex 
                                 span Оцініть товар
-                                .stars 
-                                    .star 
-                                    .star 
-                                    .star 
-                                    .star 
-                                    .star 
+                                .rate-stars
+                                    .star-review(data-value="1") 
+                                    .star-review(data-value="2") 
+                                    .star-review(data-value="3")  
+                                    .star-review(data-value="4")  
+                                    .star-review(data-value="5")  
                             .flex-between 
                                 label(for="")
-                                    p Імʼя
+                                    p 
+                                        span Імʼя
                                     input(type="text" name="userName") 
                                 label(for="")
-                                    p Прізвище
-                                    input(type="text" name="userFirstName") 
+                                    p 
+                                        span Прізвище
+                                    input(type="text" name="userFirstName")
+                            p 
+                                span Відгук
                             textarea(name="userReview")
-                            button(type="submit").btn-style-one підтвердити замовлення 
+                            button(type="submit").btn-style-one відправити 
 
                         
             .popup-footer 

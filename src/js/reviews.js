@@ -1,5 +1,4 @@
-const reviewsArr = [
-    {
+const reviewsArr = [{
         name: "Шамрай Артем",
         date: "30.12.2023",
         rate: "1",
@@ -77,7 +76,33 @@ function displayReviews(numReviews, targetClass) {
 
 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     displayReviews(5, "reviews-list")
     displayReviews(reviewsArr.length, "reviews-popup-list")
+
+    const stars = document.querySelectorAll('.star-review')
+    const userRateInput = document.getElementById('userRate')
+
+    for (let i = 0; i < stars.length; i++) {
+        stars[i].addEventListener('click', function () {
+            setRating(this.getAttribute('data-value'))
+        })
+    }
+
+    function setRating(rating) {
+        rating = parseInt(rating)
+
+        // Оновити класи зірок
+        for (let i = 0; i < stars.length; i++) {
+            if (i < rating) {
+                stars[i].classList.add('active')
+            } else {
+                stars[i].classList.remove('active')
+            }
+        }
+
+        // Присвоїти значення data-value в input з id "userRate"
+        userRateInput.value = rating
+    }
+
 })

@@ -1141,6 +1141,7 @@ div.same-card
     border: 1px solid #A0A0A0
     background-color: #fff
     padding: 20rem
+    box-sizing: border-box
 
     span
         font-size: 18rem
@@ -1166,6 +1167,9 @@ div.same-card
     +media(780)
         width: 26%
 
+.reviews-popup-list
+    width: 50%
+
 .reviews-popup-list .review-card
     margin-bottom: 10rem
 
@@ -1188,7 +1192,7 @@ span.date
     display: flex
     justify-content: center
     align-items: center
-    width: 200rem
+    min-width: 200rem
     min-height: 50rem
     text-align: center
     font-size: 16rem
@@ -2097,3 +2101,66 @@ hr
 
 .popup-h2
     padding: 0
+
+
+.review-details 
+    width: 45%
+    h3
+        color: #4E98B6
+        text-align: center
+        font-size: 20rem
+        font-weight: 700
+        text-transform: uppercase
+    span
+        color: #191919
+        font-size: 14rem
+        font-weight: 500
+    label
+        max-width: 300rem
+        width: 100%
+    input,
+    textarea
+        border-radius: 5rem
+        border: 1px solid #A0A0A0
+        background: #FFF
+        padding: 10rem
+        width: 100%
+        box-sizing: border-box
+        outline: none
+        margin-bottom: 20px
+
+    textarea
+        min-height: 120rem
+        resize: vertical
+
+    .flex-between
+        column-gap: 20rem
+
+    .btn-style-one
+        margin: auto
+
+
+.popup-orders-main
+    display: flex
+    column-gap: 50rem
+
+
+.rate-review
+    display: flex
+    column-gap: 20rem
+    margin-bottom: 20rem
+
+
+.star-review 
+    width: 20px
+    height: 20px
+    background-image: url(../img/send-review-star.svg)
+
+.star-review.active 
+    background-image: url(../img/send-review-star-active.svg)
+
+.rate-stars
+    width: 140rem
+    display: flex
+    justify-content: space-between
+    flex-wrap: wrap
