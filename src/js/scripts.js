@@ -1026,8 +1026,12 @@ function buyBtnFunc(e, size, quantityPopup) {
                         // console.log(document.querySelector(".minus-quantity[data-value='" + productID + size[i] + "']"))
                         plusBtn(".plus-quantity[data-value='" + productID + size[i] + "']")
                         minBtn(".minus-quantity[data-value='" + productID + size[i] + "']")
+                        if (quantityPopup) {
+                            caclnumberOfProducts +=Number(quantityPopup)
+                        } else {
+                            caclnumberOfProducts++
 
-                        caclnumberOfProducts++
+                        }
                         numberOfProductsDOM.innerText = caclnumberOfProducts
                         orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * orders[productID + size[i]].quantity
                         // console.log(1)
