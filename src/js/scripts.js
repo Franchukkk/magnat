@@ -1033,10 +1033,14 @@ function buyBtnFunc(e, size, quantityPopup) {
 
                         }
                         numberOfProductsDOM.innerText = caclnumberOfProducts
-                        orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * orders[productID + size[i]].quantity
+                        if (!quantityPopup) {
+                            orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * orders[productID + size[i]].quantity
+                        } else {
+                            orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * Number(quantityPopup)
+                        }
                         // console.log(1)
                         // console.log(orderDiscountCalc)
-                        orderDiscount.innerText = orderDiscountCalc * orders[productID + size[i]].quantity
+                        orderDiscount.innerText = orderDiscountCalc
                         orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                         orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                     } else {
