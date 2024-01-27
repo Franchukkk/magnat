@@ -585,7 +585,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updatePaginationButtons()
 
 
-        updateCartBtns()
+        // updateCartBtns()
     })
 
     //випадаючий список
@@ -1043,6 +1043,7 @@ function buyBtnFunc(e, size, quantityPopup) {
                         // alert("been")
                         if (quantityPopup) {
                             for (let j = quantityPopup; j > 0; j--) {
+                                console.log(j);
                                 document.querySelector(".plus-quantity[data-value='" + productID + size[i] + "']").click()
 
                             }
