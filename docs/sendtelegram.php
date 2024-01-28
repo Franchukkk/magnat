@@ -1,22 +1,19 @@
 <?php
 try {
-    $userEmail =  $_POST["userEmail"];
+    $userTel =  $_POST["userTel"];
 
 } catch (\Throwable $th) {
-        $userEmail = "ERROR IN MESSAGE";
+    $userTel = "ERROR IN MESSAGE";
 }
 
 $token = "6955843433:AAHq4PsIKlhlh9ED95MXctOJxMHziCney1Y"; // api телеграм бота
-$chat_id = 1398506404;
-
-const jsonString = encodeURIComponent(orderDetails);
-
+$chat_id = "-1001904336913";
 
 
 
 $urlQuery = "https://api.telegram.org/bot". $token ."/sendMessage?chat_id=". $chat_id ."&text=" . 
-    "Підписка на розсилку". "%0A". "%0A".
-    "E-mail покупця: ". $userEmail;
+    "Передзвоніть мені". "%0A". "%0A".
+    "Номер покупця: ". $userTel;
 
 
     
