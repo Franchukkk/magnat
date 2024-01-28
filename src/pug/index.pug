@@ -119,18 +119,23 @@ html(lang="uk")
                         h3 деталі замовлення
                         .order-line.flex-between.w-100
                             span Вартість замовлення
-                            span.order-total-price 0
+                            .d-flex
+                                span.order-total-price 0
+                                span  грн
                         .order-line.flex-between.w-100
                             span Знижка
-                            span.order-discount 0 
+                            .d-flex 
+                                span.order-discount 0 
+                                span  грн
                         .line 
                             hr
                         .order-line.flex-between.w-100.margin-to-btns
                             div.order-summarize
                                 p разом до  оплати
                                 span (без врахування доставки) 
-                            div.price-totally
+                            div.price-totally.d-flex
                                 b 0
+                                span  грн
                         .flex-between.order-btns 
                             a(href="#").btn-style-one.w-45#openConfirmPopup оформити замовлення  
                             a(href="#").btn-style-two.w-45 продовжити покупки
