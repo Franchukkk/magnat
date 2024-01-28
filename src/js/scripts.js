@@ -1314,22 +1314,30 @@ function cart() {
 
 
 
-const inputMask = document.querySelector(".inputMask")
+const inputMasks = document.querySelectorAll(".inputMask")
 
-inputMask.value = "+38"
+inputMasks.forEach(function(inputMask) {
+    inputMask.value = "+38"
 
-inputMask.addEventListener("input", function () {
-    let inputValue = inputMask.value
+    inputMask.addEventListener("input", function () {
+        let inputValue = inputMask.value
 
-    if (inputValue.length > 13) {
-        inputMask.value = inputValue.slice(0, 13)
-        return
-    }
+        let cleanedValue = inputValue.replace(/[^\d+]/g, "")
 
-    if (!inputValue.startsWith("+38")) {
-        inputMask.value = "+38" + inputValue.slice(3)
-    }
+        inputMask.value = cleanedValue
+
+        if (cleanedValue.length > 13) {
+            inputMask.value = cleanedValue.slice(0, 13)
+        }
+
+        if (!cleanedValue.startsWith("+38")) {
+            inputMask.value = "+38" + cleanedValue.slice(3)
+        }
+    })
 })
+
+
+
 
 
 function plusBtn(button) {
