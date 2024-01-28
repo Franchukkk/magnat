@@ -1172,11 +1172,12 @@ div.same-card
 
 .review-card
     width: 100%
-    max-width: 500rem
     border-radius: 5px
     border: 1px solid #A0A0A0
     background-color: #fff
     padding: 20rem
+    +media(950) 
+        max-width: 500rem
 
     span
         font-size: 18rem
@@ -1202,6 +1203,15 @@ div.same-card
     +media(780)
         width: 26%
 
+.reviews-and-btn
+    +media(950)
+        width: 50%
+    a
+        margin: auto
+
+.reviews-popup-list
+    margin-bottom: 40rem
+
 .reviews-popup-list .review-card
     margin-bottom: 10rem
 
@@ -1224,7 +1234,8 @@ span.date
     display: flex
     justify-content: center
     align-items: center
-    width: 200rem
+    width: 90%
+    min-width: 200rem
     min-height: 50rem
     text-align: center
     font-size: 16rem
@@ -1232,6 +1243,11 @@ span.date
     border-radius: 5px
     text-decoration: none
     border: 1px solid #4E98B6
+    margin: auto
+    +media(450)
+        margin: 0
+        width: 48.5%
+        max-width: 300rem
     &:hover
         color: #4E98B6
         border: 1px solid #4E98B6
@@ -1448,8 +1464,10 @@ h2.season
 .popup-main
     display: block
     padding-top: 50rem
+    padding-bottom: 140rem
     +media(1150)
         display: flex
+        column-gap: 30rem
 
     
 .popup,
@@ -1488,6 +1506,10 @@ h2.season
         color: #4E98B6
         font-size: 18rem
         font-weight: 700
+    span
+        color: #4E98B6 !important
+        font-size: 18rem !important
+        font-weight: 700 !important
 
 .calc-added-products
     display: flex
@@ -1507,6 +1529,7 @@ h2.season
     img 
         width: 150rem
         height: 150rem
+        margin: auto
     h3
         color: #191919
 
@@ -1514,11 +1537,11 @@ h2.season
         font-weight: 500
         text-transform: uppercase
     .description
-        max-width: 400rem
+        width: 80%
         td
             color: #191919
 
-            font-size: 12rem
+            font-size: 12px
             font-weight: 400
             span
                 color: #A0A0A0
@@ -2065,20 +2088,22 @@ h2.dropshipping-title
 
 .checkbox-style
     position: relative
-    padding-left: 25rem
 
-.custom-checkbox+label::before
-    content: ""
-    position: absolute
-    top: 0
-    left: 0rem
+.custom-checkbox
+    position: relative
+    appearance: none
     width: 15rem
     height: 15rem
     border-radius: 2rem
     border: 1px solid #a0a0a0
+    margin-right: 10rem
 
-.custom-checkbox:checked+label::before
-    opacity: 0
+.custom-checkbox:checked
+    border: 1px solid #4E98B6
+    background: #4E98B6
+
+// .custom-checkbox:checked+label::before
+//     opacity: 0
 
 
 .payment-method,
@@ -2089,10 +2114,10 @@ h2.dropshipping-title
         font-size: 16rem
         font-weight: 300
 
-.custom-checkbox
-    position: absolute
-    z-index: -1
-    opacity: 0
+// .custom-checkbox
+    // position: absolute
+    // z-index: -1
+    // opacity: 0
 
 .relative
     position: relative
@@ -2105,6 +2130,9 @@ hr
     width: 100%
     padding-bottom: 22rem
     border-bottom: 1px solid #25445E
+    flex-wrap: wrap
+    +media(690)
+        flex-wrap: nowrap
     table
         margin-bottom: 30rem
 
@@ -2133,3 +2161,90 @@ hr
 
 .popup-h2
     padding: 0
+
+
+.review-details 
+    width: 100%
+    padding-bottom: 50rem
+    +media(950)
+        width: 45%
+
+    h3
+        color: #4E98B6
+        text-align: center
+        font-size: 20rem
+        font-weight: 700
+        text-transform: uppercase
+    span
+        color: #191919
+        font-size: 14rem
+        font-weight: 500
+    label
+        max-width: 300rem
+        width: 100%
+    input,
+    textarea
+        border-radius: 5rem
+        border: 1px solid #A0A0A0
+        background: #FFF
+        padding: 10rem
+        width: 100%
+        box-sizing: border-box
+        outline: none
+        margin-bottom: 20px
+
+    textarea
+        min-height: 120rem
+        resize: vertical
+
+    .flex-between
+        column-gap: 20rem
+
+    .btn-style-one
+        margin: auto
+
+
+.popup-orders-main
+    display: flex
+    column-gap: 50rem
+
+
+.rate-review
+    display: flex
+    align-items: center
+    column-gap: 20rem
+    margin-bottom: 20rem
+
+
+.star-review 
+    width: 20px
+    height: 20px
+    background-image: url(../img/send-review-star.svg)
+
+.star-review.active 
+    background-image: url(../img/send-review-star-active.svg)
+
+.rate-stars
+    width: 140rem
+    display: flex
+    justify-content: space-between
+    flex-wrap: wrap
+
+.reviews-popup
+    .review-card
+        box-sizing: border-box
+
+
+.d-none
+    display: none
+
+.review-main
+    flex-wrap: wrap-reverse
+    +media(950)
+        flex-wrap: nowrap
+
+.btn-style-one.w-45,
+.btn-style-two.w-45
+    width: 100%
+    +media(450)
+        width: 45%

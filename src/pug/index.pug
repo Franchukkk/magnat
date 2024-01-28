@@ -119,21 +119,26 @@ html(lang="uk")
                         h3 деталі замовлення
                         .order-line.flex-between.w-100
                             span Вартість замовлення
-                            span.order-total-price 0
+                            .d-flex
+                                span.order-total-price 0
+                                span  грн
                         .order-line.flex-between.w-100
                             span Знижка
-                            span.order-discount 0 
+                            .d-flex 
+                                span.order-discount 0 
+                                span  грн
                         .line 
                             hr
                         .order-line.flex-between.w-100.margin-to-btns
                             div.order-summarize
                                 p разом до  оплати
                                 span (без врахування доставки) 
-                            div.price-totally
+                            div.price-totally.d-flex
                                 b 0
+                                span  грн
                         .flex-between.order-btns 
-                            a(href="#").btn-style-one#openConfirmPopup оформити замовлення  
-                            a(href="#").btn-style-two продовжити покупки
+                            a(href="#").btn-style-one.w-45#openConfirmPopup оформити замовлення  
+                            a(href="#").btn-style-two.w-45 продовжити покупки
             .popup-footer 
                 .wrapper
                     span.basket-back повернутися у каталог
@@ -151,7 +156,7 @@ html(lang="uk")
                             .flex-between
                                 label.w-50 
                                     p Мобільний телефон
-                                    input(type="number", name="userPhone") 
+                                    input(class="inputMask", type="text", name="userPhone") 
                                 label.w-50 
                                     p Електронна пошта
                                     input(type="email", name="userEmail") 
@@ -165,22 +170,22 @@ html(lang="uk")
                             .payment-method 
                                 h3 спосіб оплати
                                 .relative
-                                    input(type="radio", name="paymenttype" value="Готівкою при отриманні/накладений платіж").custom-checkbox
-                                    label.flex.checkbox-style
+                                    label.flex.checkbox-style.items-center
+                                        input(type="radio", name="paymenttype" value="Готівкою при отриманні/накладений платіж").custom-checkbox
                                         span Готівкою при отриманні/накладений платіж
                                 .relative
-                                    input(type="radio", name="paymenttype" value="Переказ на банківську картку").custom-checkbox
-                                    label.flex.checkbox-style
+                                    label.flex.checkbox-style.items-center
+                                        input(type="radio", name="paymenttype" value="Переказ на банківську картку").custom-checkbox
                                         span Переказ на банківську картку
                             .delivery-method 
                                 h3 спосіб доставки
                                 .relative
-                                    input(type="radio", name="deliveryMethod" value="Нова Пошта").custom-checkbox
-                                    label.d-block.checkbox-style
+                                    label.flex.checkbox-style.items-center
+                                        input(type="radio", name="deliveryMethod" value="Нова Пошта").custom-checkbox
                                         span Нова Пошта
                                 .relative
-                                    input(type="radio", name="deliveryMethod" value="Укрпошта").custom-checkbox
-                                    label.d-block.checkbox-style
+                                    label.flex.checkbox-style.items-center
+                                        input(type="radio", name="deliveryMethod" value="Укрпошта").custom-checkbox
                                         span Укрпошта
                                 .flex-between 
                                     label.w-50
@@ -214,32 +219,40 @@ html(lang="uk")
             .popup-footer 
                 .wrapper
                     span.confirm-back повернутися у каталог
-        .popups-outline
+        .popups-outline.allReviewsPopup
             .reviews-popup
                 .popup-header-line
                     .wrapper.flex.items-center
-                        h2 усі відгуки
-                .popup-main.flex-between.wrapper.overflow 
-                    .reviews-popup-list.w-50
+                        h2.popup-h2 усі відгуки
+                .popup-main.flex-between.wrapper.overflow.popup-orders-main.review-main
+                    .reviews-and-btn
+                        .reviews-popup-list
+                        a(href="#").btn-style-one#moreReviewsBtn більше відгуків
                     .review-details 
-                        form(action="", method="POST") 
+                        h3 залишити відгук
+                        form(action="reviewsend.php", method="POST") 
+                            input(type="hidden" name="userRate" id="userRate")
                             .rate-review.d-flex 
                                 span Оцініть товар
-                                .stars 
-                                    .star 
-                                    .star 
-                                    .star 
-                                    .star 
-                                    .star 
+                                .rate-stars
+                                    .star-review(data-value="1") 
+                                    .star-review(data-value="2") 
+                                    .star-review(data-value="3")  
+                                    .star-review(data-value="4")  
+                                    .star-review(data-value="5")  
                             .flex-between 
                                 label(for="")
-                                    p Імʼя
+                                    p 
+                                        span Імʼя
                                     input(type="text" name="userName") 
                                 label(for="")
-                                    p Прізвище
-                                    input(type="text" name="userFirstName") 
+                                    p 
+                                        span Прізвище
+                                    input(type="text" name="userFirstName")
+                            p 
+                                span Відгук
                             textarea(name="userReview")
-                            button(type="submit").btn-style-one підтвердити замовлення 
+                            button(type="submit").btn-style-one відправити 
 
                         
             .popup-footer 
@@ -437,8 +450,8 @@ html(lang="uk")
                         //- +lastReviews(reviews.review5)
                                             
                 .review-btns.flex
-                    a(href="#").btn-style-one усі відгуки
-                    a(href="#").btn-style-two залишити відгук
+                    a(href="#").btn-style-one.allReviewsPopupOpen усі відгуки
+                    a(href="#").btn-style-two.setReview залишити відгук
             section.aboutus#aboutus
                 h2 про нашу компанію
                 .bgc-block 
@@ -485,7 +498,7 @@ html(lang="uk")
                     .form-email.flex
                         form.flex.flex-form(action="sendtelegram.php", method="POST")
                             p.input-email
-                                input(class="inputMask", type="tel", placeholder="", name="userTel")
+                                input(class="inputMask", type="text", placeholder="", name="userTel")
                             button(type="submit") передзвоніть мені
         footer 
             .bottom-contact-block

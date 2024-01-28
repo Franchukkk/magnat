@@ -1,3 +1,23 @@
+function updateCartBtns() {
+    document.querySelector(".same-card").innerHTML = ""
+    document.querySelectorAll('.cta-card').forEach(ctaButton => {
+        ctaButton.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            const productId = this.getAttribute('data-value');
+            const selectedSizes = []
+
+            document.querySelectorAll(`input[type="checkbox"][id^="input-${productId}"]:checked`).forEach(checkbox => {
+                selectedSizes.push(checkbox.value)
+            })
+
+            // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
+            buyBtnFunc(ctaButton, selectedSizes)
+
+        })
+    })
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     //бургер меню
     const burger = document.querySelector(".burger"),
@@ -688,6 +708,9 @@ document.addEventListener("DOMContentLoaded", function () {
         showData(currentPage)
         showPagination()
         updatePaginationButtons()
+
+
+        updateCartBtns()
     })
 
     //випадаючий список
@@ -1127,7 +1150,7 @@ const cartWaitTimeout = setTimeout(function () {
 }, 1000)
 
 
-function buyBtnFunc(e, size, quantityPopup) {
+function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
 
     // console.log(e, size, quantityPopup);
     let productID = e.dataset.value
@@ -1160,29 +1183,33 @@ function buyBtnFunc(e, size, quantityPopup) {
 
                         orders.orderSumWithNoDiscount += orders[productID + size[i]].product.saleprice != "" ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) * orders[productID + size[i]].quantity : 0
                         orders.orderSumWithDiscount += Number((orders[productID + size[i]].product.price).slice(0, -4)) * orders[productID + size[i]].quantity
-                        updateCart(productID, orders[productID + size[i]].size)
+                        updateCart(productID, orders[productID + size[i]].size, colorCheckbox)
 
                         // console.log(document.querySelector(".minus-quantity[data-value='" + productID + size[i] + "']"))
                         plusBtn(".plus-quantity[data-value='" + productID + size[i] + "']")
                         minBtn(".minus-quantity[data-value='" + productID + size[i] + "']")
+                        if (quantityPopup) {
+                            caclnumberOfProducts += Number(quantityPopup)
+                        } else {
+                            caclnumberOfProducts++
 
-                        caclnumberOfProducts++
+                        }
                         numberOfProductsDOM.innerText = caclnumberOfProducts
-                        orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * orders[productID + size[i]].quantity
+                        if (!quantityPopup) {
+                            orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * orders[productID + size[i]].quantity
+                        } else {
+                            orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * Number(quantityPopup)
+                        }
                         // console.log(1)
                         // console.log(orderDiscountCalc)
-                        orderDiscount.innerText = orderDiscountCalc * orders[productID + size[i]].quantity
+                        orderDiscount.innerText = orderDiscountCalc
                         orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                         orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                     } else {
                         // alert("been")
                         if (quantityPopup) {
-                            for (let i = quantityPopup; i > 0; i--) {
-
-                                orders[productID + size[i]]
-                                console.log(productID);
-                                console.log(size);
-                                // orders[productID + size].quantity++
+                            for (let j = quantityPopup; j > 0; j--) {
+                                console.log(j);
                                 document.querySelector(".plus-quantity[data-value='" + productID + size[i] + "']").click()
 
                             }
@@ -1208,55 +1235,115 @@ function buyBtnFunc(e, size, quantityPopup) {
 
 
 
-function updateCart(id, sizesList) {
+// function updateCart(id, sizesList, colorCheckbox) {
+//     fetch('products.json')
+//         .then(response => response.json())
+//         .then(products => {
+//             const product = products.find(product => product.id === id);
+//             const card = document.createElement("div");
+//             card.innerHTML = `
+//                     <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
+//                         <img src=${product.img}>
+                        
+//                         <div class="w-100 flex-between items-center">
+//                             <div class="description">
+//                                 <div>
+//                                     <h3>${product.head}</h3>
+//                                     <table>
+//                                         <tr>
+//                                             <td>колір</td>
+//                                             <td>${colorCheckbox ? product.colorCheckbox : product.color}</td>
+//                                         </tr>
+//                                         <tr>
+//                                             <td>розмір</td>
+//                                             <td class="size-span">${sizesList}</td>
+//                                         </tr>
+//                                         <tr>
+//                                             <td>ціна</td>
+//                                             <td>${product.price} <span>${product.saleprice}</span></td>
+//                                         </tr>
+//                                         <tr>
+//                                             <td>кількість</td>
+//                                             <td>
+//                                                 <div class="quantity flex">
+//                                                     <div class="minus-quantity" data-value="${product.id + "" + sizesList}">-</div>
+//                                                     <div class="quantity-number">${orders[product.id + sizesList].quantity}</div>
+//                                                     <div class="plus-quantity" data-value="${product.id + "" + sizesList}">+</div>
+//                                                 </div>
+//                                             </td>
+//                                         </tr>
+//                                     </table>
+//                                     <div class="delete-product">видалити товар</div>
+//                                 </div>
+//                             </div>
+//                             <div class="total-price">
+//                                 <span>${Number((orders[product.id + sizesList].product.price).slice(0, -4)) * orders[product.id + sizesList].quantity + " грн"}</span>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 `;
+//             addedProductsList.appendChild(card);
+//         });
+// }
 
+
+function updateCart(id, sizesList, colorCheckbox) {
     fetch('products.json')
         .then(response => response.json())
         .then(products => {
             const product = products.find(product => product.id === id);
+
+            // Оновлений блок для порівняння кольорів
+            const selectedColor = colorCheckbox ? colorCheckbox : product.color;
+            const isColorMatch = product.color === selectedColor;
+
             const card = document.createElement("div");
             card.innerHTML = `
-                    <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
-                        <img src=${product.img}>
-                        
-                        <div class="w-100 flex-between items-center">
-                            <div class="description">
-                                <div>
-                                    <h3>${product.head}</h3>
-                                    <table>
-                                        <tr>
-                                            <td>колір</td>
-                                            <td>${product.color}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>розмір</td>
-                                            <td class="size-span">${sizesList}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>ціна</td>
-                                            <td>${product.price} <span>${product.saleprice}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>кількість</td>
-                                            <td>
-                                                <div class="quantity flex">
-                                                    <div class="minus-quantity" data-value="${product.id + "" + sizesList}">-</div>
-                                                    <div class="quantity-number">${orders[product.id + sizesList].quantity}</div>
-                                                    <div class="plus-quantity" data-value="${product.id + "" + sizesList}">+</div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <div class="delete-product">видалити товар</div>
-                                </div>
-                            </div>
-                            <div class="total-price">
-                                <span>${Number((orders[product.id + sizesList].product.price).slice(0, -4)) * orders[product.id + sizesList].quantity + " грн"}</span>
-                            </div>
+            <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
+                <img src=${product.img}>
+                
+                <div class="w-100 flex-between items-center">
+                    <div class="description">
+                        <div>
+                            <h3>${product.head}</h3>
+                            <table>
+                                <tr>
+                                    <td>колір</td>
+                                    <td>${selectedColor}</td>
+                                </tr>
+                                <tr>
+                                    <td>розмір</td>
+                                    <td class="size-span">${sizesList}</td>
+                                </tr>
+                                <tr>
+                                    <td>ціна</td>
+                                    <td>${product.price} <span>${product.saleprice}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>кількість</td>
+                                    <td>
+                                        <div class="quantity flex">
+                                            <div class="minus-quantity" data-value="${product.id + "" + sizesList}">-</div>
+                                            <div class="quantity-number">${orders[product.id + sizesList].quantity}</div>
+                                            <div class="plus-quantity" data-value="${product.id + "" + sizesList}">+</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="delete-product">видалити товар</div>
                         </div>
                     </div>
-                `;
+                    <div class="total-price">
+                        <span>${Number((orders[product.id + sizesList].product.price).slice(0, -4)) * orders[product.id + sizesList].quantity + " грн"}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+            // Додавання товару до списку, якщо колір співпадає
+            // if (isColorMatch) {
             addedProductsList.appendChild(card);
+            // }
         });
 }
 
@@ -1264,7 +1351,7 @@ function updateCart(id, sizesList) {
 function cart() {
     let sizesList = ""
     if (document.querySelectorAll(".cta-card")) {
-        clearInterval(cartWaitTimeout)
+        clearTimeout(cartWaitTimeout)
         let buyBtns = document.querySelectorAll(".cta-card"),
             orderConfirmProductsQuantity = document.querySelector("#orderConfirmProductsQuantity")
 
@@ -1290,11 +1377,16 @@ function cart() {
                 event.preventDefault()
                 const productId = this.getAttribute('data-value');
                 const selectedSizes = []
+                let selectColor = ""
 
                 document.querySelectorAll(`.popap-card input[type="checkbox"][id^="popup-input-${productId}"]:checked`).forEach(checkbox => {
                     selectedSizes.push(checkbox.value)
                     alert(checkbox.value)
                     // alert(checkbox.value)
+                })
+
+                document.querySelectorAll(`.popap-card input[name="color-popap"]:checked`).forEach(checkbox => {
+                    selectColor = checkbox.value
                 })
 
                 let quantityFromPopup = document.querySelector('.popap-card .quantity-number');
@@ -1304,7 +1396,7 @@ function cart() {
                 console.log(selectedSizes)
                 console.log(quantityFromPopup.innerText)
                 // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
-                buyBtnFunc(ctaButton, selectedSizes, quantityFromPopup.innerText)
+                buyBtnFunc(ctaButton, selectedSizes, quantityFromPopup.innerText, selectColor)
 
             })
         })
@@ -1433,22 +1525,30 @@ function cart() {
 
 
 
-const inputMask = document.querySelector(".inputMask")
+const inputMasks = document.querySelectorAll(".inputMask")
 
-inputMask.value = "+38"
+inputMasks.forEach(function (inputMask) {
+    inputMask.value = "+38"
 
-inputMask.addEventListener("input", function () {
-    let inputValue = inputMask.value
+    inputMask.addEventListener("input", function () {
+        let inputValue = inputMask.value
 
-    if (inputValue.length > 13) {
-        inputMask.value = inputValue.slice(0, 13)
-        return
-    }
+        let cleanedValue = inputValue.replace(/[^\d+]/g, "")
 
-    if (!inputValue.startsWith("+38")) {
-        inputMask.value = "+38" + inputValue.slice(3)
-    }
+        inputMask.value = cleanedValue
+
+        if (cleanedValue.length > 13) {
+            inputMask.value = cleanedValue.slice(0, 13)
+        }
+
+        if (!cleanedValue.startsWith("+38")) {
+            inputMask.value = "+38" + cleanedValue.slice(3)
+        }
+    })
 })
+
+
+
 
 
 function plusBtn(button) {
@@ -1617,7 +1717,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 confirmTotalPrice = document.querySelector("#confirmTotalPrice")
             orderConfirmProductsQuantity.innerText = caclnumberOfProducts + " "
             confirmTotalPrice.innerText = orders.orderSumWithDiscount + " грн"
-            confirmPrice.innerText = orders.orderSumWithDiscount + " грн"
+            confirmPrice.innerText = orders.orderSumWithNoDiscount + " грн"
 
         }
     })
@@ -1644,3 +1744,23 @@ function btnSimilar() {
         })
     })
 }
+
+const openReviewsPopup = document.querySelector(".allReviewsPopupOpen"),
+    reviewsPopup = document.querySelector(".allReviewsPopup"),
+    reviewsBack = document.querySelector(".reviews-back"),
+    setReview = document.querySelector(".setReview")
+
+
+openReviewsPopup.addEventListener("click", function (e) {
+    e.preventDefault()
+    reviewsPopup.classList.toggle("d-block")
+});
+
+setReview.addEventListener("click", function (e) {
+    e.preventDefault()
+    reviewsPopup.classList.toggle("d-block")
+})
+
+reviewsBack.addEventListener("click", function () {
+    reviewsPopup.classList.toggle("d-block")
+})
