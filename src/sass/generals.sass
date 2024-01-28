@@ -6,6 +6,8 @@ h1,h2,p
 html
     font-size: 0.8px
     scroll-behavior: smooth
+    +media(385)
+        font-size: 0.95px
     +media(650)
         font-size: 1px
     +media(2000)
@@ -1198,7 +1200,8 @@ span.date
     display: flex
     justify-content: center
     align-items: center
-    width: 200rem
+    width: 90%
+    min-width: 200rem
     min-height: 50rem
     text-align: center
     font-size: 16rem
@@ -1206,6 +1209,10 @@ span.date
     border-radius: 5px
     text-decoration: none
     border: 1px solid #4E98B6
+    margin: auto
+    +media(450)
+        width: 48.5%
+        max-width: 300rem
     &:hover
         color: #4E98B6
         border: 1px solid #4E98B6
@@ -2040,20 +2047,22 @@ h2.dropshipping-title
 
 .checkbox-style
     position: relative
-    padding-left: 25rem
 
-.custom-checkbox+label::before
-    content: ""
-    position: absolute
-    top: 0
-    left: 0rem
+.custom-checkbox
+    position: relative
+    appearance: none
     width: 15rem
     height: 15rem
     border-radius: 2rem
     border: 1px solid #a0a0a0
+    margin-right: 10rem
 
-.custom-checkbox:checked+label::before
-    opacity: 0
+.custom-checkbox:checked
+    border: 1px solid #4E98B6
+    background: #4E98B6
+
+// .custom-checkbox:checked+label::before
+//     opacity: 0
 
 
 .payment-method,
@@ -2064,10 +2073,10 @@ h2.dropshipping-title
         font-size: 16rem
         font-weight: 300
 
-.custom-checkbox
-    position: absolute
-    z-index: -1
-    opacity: 0
+// .custom-checkbox
+    // position: absolute
+    // z-index: -1
+    // opacity: 0
 
 .relative
     position: relative

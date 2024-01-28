@@ -1498,7 +1498,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 confirmTotalPrice = document.querySelector("#confirmTotalPrice")
             orderConfirmProductsQuantity.innerText = caclnumberOfProducts + " "
             confirmTotalPrice.innerText = orders.orderSumWithDiscount + " грн"
-            confirmPrice.innerText = orders.orderSumWithDiscount + " грн"
+            confirmPrice.innerText = orders.orderSumWithNoDiscount + " грн"
 
         }
     })
