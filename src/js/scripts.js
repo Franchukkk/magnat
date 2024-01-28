@@ -31,8 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // filter-mobile
     const filterMobile = document.querySelector(".mobile-filter"),
         filterBlock = document.querySelector(".filter"),
-        cancelFilter = document.querySelector(".cancel-filter"),
-        activeFilter = document.querySelector(".active-filter")
+        cancelFilter = document.querySelector(".cancel-filter")
 
 
     filterMobile.addEventListener("click", function (e) {
@@ -161,6 +160,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const imgElement = document.createElement("img")
         imgElement.src = product.img
         imgElement.alt = product.alt
+        imgElement.setAttribute('data-src', product.img)
+        imgElement.setAttribute('data-alt', product.alt)
         figcaptionItems.appendChild(imgElement)
 
         const headerCard = document.createElement("h2")
@@ -331,8 +332,6 @@ document.addEventListener("DOMContentLoaded", function () {
         styleCard.appendChild(styleCardInfo)
         styleCard.appendChild(styleCardInfo1)
 
-
-
         descrHead.innerText = product.head
         newPricePopap.innerText = product.price
         spanId.innerText = product.id
@@ -345,6 +344,115 @@ document.addEventListener("DOMContentLoaded", function () {
         smallPopapImg2.alt = product.altPopap2
         smallPopapImg3.src = product.imgPopap3
         smallPopapImg3.alt = product.altPopap3
+
+        // додавання маленьких у велику
+        
+        function openBigImage(src, alt) {
+            const bigImgPopap = document.createElement("div"),
+                cancelImg = document.createElement("a"),
+                bigImg = document.createElement("img")
+
+            const previousBigImgPopap = document.querySelector(".open-img")
+            if (previousBigImgPopap) {
+                previousBigImgPopap.remove()
+            }
+
+            bigImgPopap.classList.add("open-img")
+            bigImg.src = src
+            bigImg.alt = alt
+            cancelImg.classList.add('cancel-size-popap')
+            cancelImg.setAttribute('href', '#')
+            cancelImg.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.267146 0.181446C0.506963 -0.0604821 0.895783 -0.0604821 1.1356 0.181446L5 4.07987L8.8644 0.181446C9.10422 -0.0604821 9.49304 -0.0604821 9.73285 0.181446C9.97267 0.423375 9.97267 0.815619 9.73285 1.05755L5.86845 4.95597L9.82014 8.94245C10.06 9.18438 10.06 9.57662 9.82014 9.81855C9.58032 10.0605 9.1915 10.0605 8.95168 9.81855L5 5.83207L1.04832 9.81855C0.8085 10.0605 0.419679 10.0605 0.179863 9.81855C-0.0599542 9.57662 -0.0599542 9.18438 0.179863 8.94245L4.13155 4.95597L0.267146 1.05755C0.0273296 0.815619 0.0273296 0.423375 0.267146 0.181446Z" fill="#4E98B6"/>
+                </svg>
+            `
+            bgSizeDark.style.display = "block"
+            bigImgPopap.appendChild(bigImg)
+            bigImgPopap.appendChild(cancelImg)
+            productPopup.appendChild(bigImgPopap)
+
+            cancelImg.addEventListener("click", function () {
+                bgSizeDark.style.display = "none"
+                bigImgPopap.remove()
+            })
+        }
+
+        mainImgPopap.addEventListener("click", function () {
+            openBigImage(mainImgPopap.src, mainImgPopap.alt)
+        })
+
+        let isMainImgPopap1 = false
+        
+        smallPopapImg1.addEventListener("click", function () {
+            if (isMainImgPopap1) {
+                mainImgPopap.src = product.img
+                mainImgPopap.alt = product.alt
+                smallPopapImg1.src = product.imgPopap1
+                smallPopapImg1.alt = product.altPopap1
+            } else {
+                mainImgPopap.src = product.imgPopap1
+                mainImgPopap.alt = product.altPopap1
+                smallPopapImg1.src = product.img
+                smallPopapImg1.alt = product.alt
+            }
+        
+            smallPopapImg2.src = product.imgPopap2
+            smallPopapImg2.alt = product.altPopap2
+            smallPopapImg3.src = product.imgPopap3
+            smallPopapImg3.alt = product.altPopap3
+        
+            isMainImgPopap1 = !isMainImgPopap1
+        })
+        
+        let isMainImgPopap2 = false
+
+        smallPopapImg2.addEventListener("click", function () {
+            if (isMainImgPopap2) {
+                mainImgPopap.src = product.img
+                mainImgPopap.alt = product.alt
+                smallPopapImg2.src = product.imgPopap2
+                smallPopapImg2.alt = product.altPopap2
+            } else {
+                mainImgPopap.src = product.imgPopap2
+                mainImgPopap.alt = product.altPopap2
+                smallPopapImg2.src = product.img
+                smallPopapImg2.alt = product.alt
+            }
+        
+            smallPopapImg1.src = product.imgPopap1
+            smallPopapImg1.alt = product.altPopap1
+            smallPopapImg3.src = product.imgPopap3
+            smallPopapImg3.alt = product.altPopap3
+        
+            isMainImgPopap2 = !isMainImgPopap2
+        })
+        
+        let isMainImgPopap3 = false
+
+        smallPopapImg3.addEventListener("click", function () {
+            if (isMainImgPopap3) {
+                mainImgPopap.src = product.img
+                mainImgPopap.alt = product.alt
+                smallPopapImg3.src = product.imgPopap3
+                smallPopapImg3.alt = product.altPopap3
+                smallPopapImg1.src = product.imgPopap1
+                smallPopapImg1.alt = product.altPopap1
+                smallPopapImg2.src = product.imgPopap2
+                smallPopapImg2.alt = product.altPopap2
+            } else {
+                mainImgPopap.src = product.imgPopap3
+                mainImgPopap.alt = product.altPopap3
+                smallPopapImg3.src = product.img
+                smallPopapImg3.alt = product.alt
+            }
+            smallPopapImg1.src = product.imgPopap1
+            smallPopapImg1.alt = product.altPopap1
+            smallPopapImg2.src = product.imgPopap2
+            smallPopapImg2.alt = product.altPopap2
+        
+            isMainImgPopap3 = !isMainImgPopap3
+        })
 
         const listPopap = document.createElement("ol"),
             topdescript = document.createElement("p")
@@ -488,7 +596,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 container.appendChild(listItem)
                 count++
                 hasSimilarProducts = true
-                noSimilarProductsMessage.innerText = "схожі товари"
+                // noSimilarProductsMessage.innerText = "схожі товари"
             }
         })
         if (!hasSimilarProducts) {
@@ -541,6 +649,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.querySelector(".same-card").innerHTML = ""
     })
+
     // вибір категорій і додавання до локального сховища, при завантажені сторінки підзавантажуються дані згідно вибраних категорій а не весь список
 
     const btnProduct = document.querySelectorAll(".card-cta-season"),
@@ -796,9 +905,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // фільтр
-    document.querySelector(".submit-filter").addEventListener("click", function (e) {
-        e.preventDefault()
-        updateProductFilter()
+    // document.querySelector(".submit-filter").addEventListener("click", function (e) {
+    //     e.preventDefault()
+    //     updateProductFilter()
+    // })
+    let anyCategoryMessage = null
+
+    document.querySelectorAll('input[type="checkbox"], input[type="range"]').forEach(input => {
+        input.addEventListener("click", function () {
+            if (anyCategoryMessage) {
+                anyCategoryMessage.remove()
+                anyCategoryMessage = null
+            }
+            updateProductFilter()
+        })
     })
 
     function updateProductFilter() {
@@ -810,6 +930,8 @@ document.addEventListener("DOMContentLoaded", function () {
             selectedSeasons = getSelectedValues('season'),
             selectedMaterials = getSelectedValues('material'),
             selectedStyles = getSelectedValues('style')
+
+        let anyCategoryVisible = false
 
         categories.forEach((category) => {
             const elements = document.querySelectorAll(`.${category}`)
@@ -824,8 +946,32 @@ document.addEventListener("DOMContentLoaded", function () {
                     checkPrice(element, minPrice, maxPrice)
 
                 element.style.display = showElement ? "grid" : "none"
+
+                if (showElement) {
+                    anyCategoryVisible = true
+                }
             })
         })
+        if (!anyCategoryVisible) {
+
+            if (!anyCategoryMessage) {
+                const cardBott = document.querySelector(".card-bott")
+                anyCategoryMessage = document.createElement("div")
+                anyCategoryMessage.classList.add("any-block")
+                const spanIconAnyCategory = document.createElement("span")
+                spanIconAnyCategory.classList.add("icon-no-card")
+                spanIconAnyCategory.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-80q-83 0-141.5-58.5T80-280q0-83 58.5-141.5T280-480q83 0 141.5 58.5T480-280q0 83-58.5 141.5T280-80Zm544-40L568-376q-12-13-25.5-26.5T516-428q38-24 61-64t23-88q0-75-52.5-127.5T420-760q-75 0-127.5 52.5T240-580q0 6 .5 11.5T242-557q-18 2-39.5 8T164-535q-2-11-3-22t-1-23q0-109 75.5-184.5T420-840q109 0 184.5 75.5T680-580q0 43-13.5 81.5T629-428l251 252-56 56Zm-615-61 71-71 70 71 29-28-71-71 71-71-28-28-71 71-71-71-28 28 71 71-71 71 28 28Z"/></svg>';
+
+                const anyCategoryText = document.createElement("p")
+                anyCategoryText.classList.add("no-card")
+                anyCategoryText.innerText = "Нажаль, за вашим вибором не знайдено жодного товару"
+
+                anyCategoryMessage.appendChild(spanIconAnyCategory)
+                anyCategoryMessage.appendChild(anyCategoryText)
+
+                cardBott.appendChild(anyCategoryMessage)
+            }
+        }
     }
 
     function checkPrice(element, min, max) {
