@@ -119,6 +119,62 @@ document.addEventListener("DOMContentLoaded", function () {
                 showPagination()
                 updateProductDisplay(selectedCategory)
 
+                //input range 
+                const rangeInput = document.querySelectorAll(".range-input input"),
+                    priceInput = document.querySelectorAll(".price-input input"),
+                    range = document.querySelector(".slider .progress"),
+                    minPriceInput = Math.min(...jsonData.map(item => parseInt(item.price))),
+                    maxPriceInput = Math.max(...jsonData.map(item => parseInt(item.price)))
+                    
+                let priceGap = 10
+
+                priceInput.forEach((input) => {
+                    priceInput[0].setAttribute("value", minPriceInput)
+                    priceInput[1].setAttribute("value", maxPriceInput)
+                    input.addEventListener("input", (e) => {
+
+                        let minPrice = parseInt(priceInput[0].value),
+                            maxPrice = parseInt(priceInput[1].value)
+
+                        if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
+                            if (e.target.className === "input-min") {
+                                rangeInput[0].value = minPrice
+                                range.style.left = (minPrice / rangeInput[0].max) * 100 + "%"
+                            } else {
+                                rangeInput[1].value = maxPrice
+                                range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%"
+                            }
+                        }
+                    })
+                })
+
+                rangeInput.forEach((input) => {
+                    rangeInput[0].setAttribute("value", minPriceInput)
+                    rangeInput[1].setAttribute("value", maxPriceInput)
+                    rangeInput[0].setAttribute("min", minPriceInput)
+                    rangeInput[0].setAttribute("max", maxPriceInput)
+                    rangeInput[1].setAttribute("min", minPriceInput)
+                    rangeInput[1].setAttribute("max", maxPriceInput)
+                    input.addEventListener("input", (e) => {
+                        let minVal = parseInt(rangeInput[0].value),
+                            maxVal = parseInt(rangeInput[1].value)
+
+                        if (maxVal - minVal < priceGap) {
+                            if (e.target.className === "range-min") {
+                                rangeInput[0].value = maxVal - priceGap
+                            } else {
+                                rangeInput[1].value = minVal + priceGap
+                            }
+                        } else {
+                            priceInput[0].value = minVal
+                            priceInput[1].value = maxVal
+                            range.style.left = (minVal / rangeInput[0].max) * 100 + "%"
+                            range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%"
+                        }
+                    })
+                })
+
+
             })
             .catch(error => console.error("Помилка завантаження даних:", error))
     }
@@ -346,7 +402,7 @@ document.addEventListener("DOMContentLoaded", function () {
         smallPopapImg3.alt = product.altPopap3
 
         // додавання маленьких у велику
-        
+
         function openBigImage(src, alt) {
             const bigImgPopap = document.createElement("div"),
                 cancelImg = document.createElement("a"),
@@ -383,7 +439,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
 
         let isMainImgPopap1 = false
-        
+
         smallPopapImg1.addEventListener("click", function () {
             if (isMainImgPopap1) {
                 mainImgPopap.src = product.img
@@ -396,15 +452,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 smallPopapImg1.src = product.img
                 smallPopapImg1.alt = product.alt
             }
-        
+
             smallPopapImg2.src = product.imgPopap2
             smallPopapImg2.alt = product.altPopap2
             smallPopapImg3.src = product.imgPopap3
             smallPopapImg3.alt = product.altPopap3
-        
+
             isMainImgPopap1 = !isMainImgPopap1
         })
-        
+
         let isMainImgPopap2 = false
 
         smallPopapImg2.addEventListener("click", function () {
@@ -419,15 +475,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 smallPopapImg2.src = product.img
                 smallPopapImg2.alt = product.alt
             }
-        
+
             smallPopapImg1.src = product.imgPopap1
             smallPopapImg1.alt = product.altPopap1
             smallPopapImg3.src = product.imgPopap3
             smallPopapImg3.alt = product.altPopap3
-        
+
             isMainImgPopap2 = !isMainImgPopap2
         })
-        
+
         let isMainImgPopap3 = false
 
         smallPopapImg3.addEventListener("click", function () {
@@ -450,7 +506,7 @@ document.addEventListener("DOMContentLoaded", function () {
             smallPopapImg1.alt = product.altPopap1
             smallPopapImg2.src = product.imgPopap2
             smallPopapImg2.alt = product.altPopap2
-        
+
             isMainImgPopap3 = !isMainImgPopap3
         })
 
@@ -840,8 +896,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    fetchData()
-
     //сортування карток товарів
 
     let selectedCategory = lastSelectedCategory
@@ -1062,48 +1116,8 @@ document.addEventListener("DOMContentLoaded", function () {
     cart.addEventListener("click", basketToggle)
     returnBasket.addEventListener("click", basketToggle)
 
-    //input range 
-    const rangeInput = document.querySelectorAll(".range-input input"),
-        priceInput = document.querySelectorAll(".price-input input"),
-        range = document.querySelector(".slider .progress")
-    let priceGap = 1000;
 
-    priceInput.forEach((input) => {
-        input.addEventListener("input", (e) => {
-            let minPrice = parseInt(priceInput[0].value),
-                maxPrice = parseInt(priceInput[1].value)
-
-            if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
-                if (e.target.className === "input-min") {
-                    rangeInput[0].value = minPrice;
-                    range.style.left = (minPrice / rangeInput[0].max) * 100 + "%"
-                } else {
-                    rangeInput[1].value = maxPrice;
-                    range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%"
-                }
-            }
-        })
-    })
-
-    rangeInput.forEach((input) => {
-        input.addEventListener("input", (e) => {
-            let minVal = parseInt(rangeInput[0].value),
-                maxVal = parseInt(rangeInput[1].value)
-
-            if (maxVal - minVal < priceGap) {
-                if (e.target.className === "range-min") {
-                    rangeInput[0].value = maxVal - priceGap
-                } else {
-                    rangeInput[1].value = minVal + priceGap
-                }
-            } else {
-                priceInput[0].value = minVal
-                priceInput[1].value = maxVal
-                range.style.left = (minVal / rangeInput[0].max) * 100 + "%"
-                range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%"
-            }
-        })
-    })
+    fetchData()
 
     let imgCarousel = document.querySelector('.img-carousel'),
         stepBlocks = document.querySelectorAll(".step-block")
@@ -1151,6 +1165,7 @@ const cartWaitTimeout = setTimeout(function () {
 
 
 function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
+
     // console.log(e, size, quantityPopup);
     let productID = e.dataset.value
 
@@ -1175,8 +1190,6 @@ function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
                             product: product,
                             quantity: quantityPopup ? Number(quantityPopup) : 1
                         }
-
-                        orders[productID + size[i]].color = colorCheckbox ? colorCheckbox : orders[productID + size[i]].product.color
 
                         if (size) {
                             orders[productID + size[i]].size = size[i]
@@ -1245,7 +1258,7 @@ function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
 //             card.innerHTML = `
 //                     <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
 //                         <img src=${product.img}>
-                        
+
 //                         <div class="w-100 flex-between items-center">
 //                             <div class="description">
 //                                 <div>

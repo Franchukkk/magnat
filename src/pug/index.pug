@@ -358,14 +358,14 @@ html(lang="uk")
                                 .slider
                                     .progress
                                 .range-input
-                                    input.range-min(type='range' min='0' max='10000' value='0' step='100')
-                                    input.range-max(type='range' min='0' max='10000' value='10000' step='100')
+                                    input.range-min(type='range' step='10')
+                                    input.range-max(type='range' step='10')
                                 .price-input.flex
                                     .field
-                                        input.input-min(type='number' value='0')
+                                        input.input-min(type='number')
                                     .separator
                                     .field
-                                        input.input-max(type='number' value='10000')
+                                        input.input-max(type='number')
                             .color-filter.flex
                                 h3 Колір
                                 input(type="checkbox" id="brown" name="color" value="brown")
