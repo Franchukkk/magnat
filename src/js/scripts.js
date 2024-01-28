@@ -1005,7 +1005,6 @@ const cartWaitTimeout = setTimeout(function () {
 
 
 function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
-
     // console.log(e, size, quantityPopup);
     let productID = e.dataset.value
 
@@ -1030,6 +1029,8 @@ function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
                             product: product,
                             quantity: quantityPopup ? Number(quantityPopup) : 1
                         }
+
+                        orders[productID + size[i]].color = colorCheckbox ? colorCheckbox : orders[productID + size[i]].product.color
 
                         if (size) {
                             orders[productID + size[i]].size = size[i]
