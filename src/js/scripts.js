@@ -511,7 +511,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const inputId = color + "-popap" + product.id
 
             const inputColorPopap = document.createElement('input');
-            inputColorPopap.type = 'checkbox'
+            inputColorPopap.type = 'radio'
             inputColorPopap.id = inputId
             inputColorPopap.name = 'color-popap'
             inputColorPopap.value = color
