@@ -1,5 +1,21 @@
 function updateCartBtns () {
-    cart()
+    document.querySelector(".same-card").innerHTML = ""
+    document.querySelectorAll('.cta-card').forEach(ctaButton => {
+        ctaButton.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            const productId = this.getAttribute('data-value');
+            const selectedSizes = []
+
+            document.querySelectorAll(`input[type="checkbox"][id^="input-${productId}"]:checked`).forEach(checkbox => {
+                selectedSizes.push(checkbox.value)
+            })
+
+            // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
+            buyBtnFunc(ctaButton, selectedSizes)
+
+        })
+    })
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -585,7 +601,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updatePaginationButtons()
 
 
-        // updateCartBtns()
+        updateCartBtns()
     })
 
     //випадаючий список
