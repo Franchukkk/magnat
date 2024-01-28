@@ -704,6 +704,7 @@ document.addEventListener("DOMContentLoaded", function () {
         productPopup.style.display = "none"
 
         document.querySelector(".same-card").innerHTML = ""
+        sameCard.innerHTML = ""
     })
 
     // вибір категорій і додавання до локального сховища, при завантажені сторінки підзавантажуються дані згідно вибраних категорій а не весь список
