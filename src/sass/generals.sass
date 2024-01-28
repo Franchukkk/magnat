@@ -6,8 +6,6 @@ h1,h2,p
 html
     font-size: 0.8px
     scroll-behavior: smooth
-    +media(385)
-        font-size: 0.95px
     +media(650)
         font-size: 1px
     +media(2000)
@@ -1490,6 +1488,7 @@ h2.season
     img 
         width: 150rem
         height: 150rem
+        margin: auto
     h3
         color: #191919
 
@@ -1497,11 +1496,11 @@ h2.season
         font-weight: 500
         text-transform: uppercase
     .description
-        max-width: 400rem
+        width: 80%
         td
             color: #191919
 
-            font-size: 12rem
+            font-size: 12px
             font-weight: 400
             span
                 color: #A0A0A0
@@ -2090,6 +2089,9 @@ hr
     width: 100%
     padding-bottom: 22rem
     border-bottom: 1px solid #25445E
+    flex-wrap: wrap
+    +media(690)
+        flex-wrap: nowrap
     table
         margin-bottom: 30rem
 
