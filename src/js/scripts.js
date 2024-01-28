@@ -1,4 +1,4 @@
-function updateCartBtns () {
+function updateCartBtns() {
     document.querySelector(".same-card").innerHTML = ""
     document.querySelectorAll('.cta-card').forEach(ctaButton => {
         ctaButton.addEventListener('click', function (event) {
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault()
             openPopup(event, product.id)
             cart()
-            
+
         })
         figcaptionItems.appendChild(clickFigure)
 
@@ -1004,7 +1004,7 @@ const cartWaitTimeout = setTimeout(function () {
 }, 1000)
 
 
-function buyBtnFunc(e, size, quantityPopup) {
+function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
 
     // console.log(e, size, quantityPopup);
     let productID = e.dataset.value
@@ -1037,13 +1037,13 @@ function buyBtnFunc(e, size, quantityPopup) {
 
                         orders.orderSumWithNoDiscount += orders[productID + size[i]].product.saleprice != "" ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) * orders[productID + size[i]].quantity : 0
                         orders.orderSumWithDiscount += Number((orders[productID + size[i]].product.price).slice(0, -4)) * orders[productID + size[i]].quantity
-                        updateCart(productID, orders[productID + size[i]].size)
+                        updateCart(productID, orders[productID + size[i]].size, colorCheckbox)
 
                         // console.log(document.querySelector(".minus-quantity[data-value='" + productID + size[i] + "']"))
                         plusBtn(".plus-quantity[data-value='" + productID + size[i] + "']")
                         minBtn(".minus-quantity[data-value='" + productID + size[i] + "']")
                         if (quantityPopup) {
-                            caclnumberOfProducts +=Number(quantityPopup)
+                            caclnumberOfProducts += Number(quantityPopup)
                         } else {
                             caclnumberOfProducts++
 
@@ -1089,55 +1089,115 @@ function buyBtnFunc(e, size, quantityPopup) {
 
 
 
-function updateCart(id, sizesList) {
+// function updateCart(id, sizesList, colorCheckbox) {
+//     fetch('products.json')
+//         .then(response => response.json())
+//         .then(products => {
+//             const product = products.find(product => product.id === id);
+//             const card = document.createElement("div");
+//             card.innerHTML = `
+//                     <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
+//                         <img src=${product.img}>
+                        
+//                         <div class="w-100 flex-between items-center">
+//                             <div class="description">
+//                                 <div>
+//                                     <h3>${product.head}</h3>
+//                                     <table>
+//                                         <tr>
+//                                             <td>колір</td>
+//                                             <td>${colorCheckbox ? product.colorCheckbox : product.color}</td>
+//                                         </tr>
+//                                         <tr>
+//                                             <td>розмір</td>
+//                                             <td class="size-span">${sizesList}</td>
+//                                         </tr>
+//                                         <tr>
+//                                             <td>ціна</td>
+//                                             <td>${product.price} <span>${product.saleprice}</span></td>
+//                                         </tr>
+//                                         <tr>
+//                                             <td>кількість</td>
+//                                             <td>
+//                                                 <div class="quantity flex">
+//                                                     <div class="minus-quantity" data-value="${product.id + "" + sizesList}">-</div>
+//                                                     <div class="quantity-number">${orders[product.id + sizesList].quantity}</div>
+//                                                     <div class="plus-quantity" data-value="${product.id + "" + sizesList}">+</div>
+//                                                 </div>
+//                                             </td>
+//                                         </tr>
+//                                     </table>
+//                                     <div class="delete-product">видалити товар</div>
+//                                 </div>
+//                             </div>
+//                             <div class="total-price">
+//                                 <span>${Number((orders[product.id + sizesList].product.price).slice(0, -4)) * orders[product.id + sizesList].quantity + " грн"}</span>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 `;
+//             addedProductsList.appendChild(card);
+//         });
+// }
 
+
+function updateCart(id, sizesList, colorCheckbox) {
     fetch('products.json')
         .then(response => response.json())
         .then(products => {
             const product = products.find(product => product.id === id);
+
+            // Оновлений блок для порівняння кольорів
+            const selectedColor = colorCheckbox ? colorCheckbox : product.color;
+            const isColorMatch = product.color === selectedColor;
+
             const card = document.createElement("div");
             card.innerHTML = `
-                    <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
-                        <img src=${product.img}>
-                        
-                        <div class="w-100 flex-between items-center">
-                            <div class="description">
-                                <div>
-                                    <h3>${product.head}</h3>
-                                    <table>
-                                        <tr>
-                                            <td>колір</td>
-                                            <td>${product.color}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>розмір</td>
-                                            <td class="size-span">${sizesList}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>ціна</td>
-                                            <td>${product.price} <span>${product.saleprice}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>кількість</td>
-                                            <td>
-                                                <div class="quantity flex">
-                                                    <div class="minus-quantity" data-value="${product.id + "" + sizesList}">-</div>
-                                                    <div class="quantity-number">${orders[product.id + sizesList].quantity}</div>
-                                                    <div class="plus-quantity" data-value="${product.id + "" + sizesList}">+</div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <div class="delete-product">видалити товар</div>
-                                </div>
-                            </div>
-                            <div class="total-price">
-                                <span>${Number((orders[product.id + sizesList].product.price).slice(0, -4)) * orders[product.id + sizesList].quantity + " грн"}</span>
-                            </div>
+            <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
+                <img src=${product.img}>
+                
+                <div class="w-100 flex-between items-center">
+                    <div class="description">
+                        <div>
+                            <h3>${product.head}</h3>
+                            <table>
+                                <tr>
+                                    <td>колір</td>
+                                    <td>${selectedColor}</td>
+                                </tr>
+                                <tr>
+                                    <td>розмір</td>
+                                    <td class="size-span">${sizesList}</td>
+                                </tr>
+                                <tr>
+                                    <td>ціна</td>
+                                    <td>${product.price} <span>${product.saleprice}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>кількість</td>
+                                    <td>
+                                        <div class="quantity flex">
+                                            <div class="minus-quantity" data-value="${product.id + "" + sizesList}">-</div>
+                                            <div class="quantity-number">${orders[product.id + sizesList].quantity}</div>
+                                            <div class="plus-quantity" data-value="${product.id + "" + sizesList}">+</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="delete-product">видалити товар</div>
                         </div>
                     </div>
-                `;
+                    <div class="total-price">
+                        <span>${Number((orders[product.id + sizesList].product.price).slice(0, -4)) * orders[product.id + sizesList].quantity + " грн"}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+            // Додавання товару до списку, якщо колір співпадає
+            // if (isColorMatch) {
             addedProductsList.appendChild(card);
+            // }
         });
 }
 
@@ -1171,11 +1231,16 @@ function cart() {
                 event.preventDefault()
                 const productId = this.getAttribute('data-value');
                 const selectedSizes = []
+                let selectColor = ""
 
                 document.querySelectorAll(`.popap-card input[type="checkbox"][id^="popup-input-${productId}"]:checked`).forEach(checkbox => {
                     selectedSizes.push(checkbox.value)
                     alert(checkbox.value)
                     // alert(checkbox.value)
+                })
+
+                document.querySelectorAll(`.popap-card input[name="color-popap"]:checked`).forEach(checkbox => {
+                    selectColor = checkbox.value
                 })
 
                 let quantityFromPopup = document.querySelector('.popap-card .quantity-number');
@@ -1185,7 +1250,7 @@ function cart() {
                 console.log(selectedSizes)
                 console.log(quantityFromPopup.innerText)
                 // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
-                buyBtnFunc(ctaButton, selectedSizes, quantityFromPopup.innerText)
+                buyBtnFunc(ctaButton, selectedSizes, quantityFromPopup.innerText, selectColor)
 
             })
         })
@@ -1316,7 +1381,7 @@ function cart() {
 
 const inputMasks = document.querySelectorAll(".inputMask")
 
-inputMasks.forEach(function(inputMask) {
+inputMasks.forEach(function (inputMask) {
     inputMask.value = "+38"
 
     inputMask.addEventListener("input", function () {
@@ -1540,16 +1605,16 @@ const openReviewsPopup = document.querySelector(".allReviewsPopupOpen"),
     setReview = document.querySelector(".setReview")
 
 
-openReviewsPopup.addEventListener("click", function(e) {
+openReviewsPopup.addEventListener("click", function (e) {
     e.preventDefault()
     reviewsPopup.classList.toggle("d-block")
 });
 
-setReview.addEventListener("click" , function(e) {
+setReview.addEventListener("click", function (e) {
     e.preventDefault()
     reviewsPopup.classList.toggle("d-block")
 })
 
-reviewsBack.addEventListener("click", function() {
+reviewsBack.addEventListener("click", function () {
     reviewsPopup.classList.toggle("d-block")
 })
