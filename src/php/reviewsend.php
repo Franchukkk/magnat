@@ -18,21 +18,17 @@ $chat_id = "-1001904336913";
 
 var_dump($userName);
 
-// $userName = urlencode($userPhone);
-// $userFirstName = urlencode($userEmail);
-// $userReview = urlencode($userName);
-// $userRate = urlencode($userFirstName);
 
 var_dump($userName);
 
 $urlQuery = "https://api.telegram.org/bot". $token ."/sendMessage?chat_id=". $chat_id ."&text=" . 
-    "Коментар%0A%0A".
-    "Ім'я покупця: ". $userName. "%0A". "%0A".
-    "Прізвище покупця: ". $userFirstName. "%0A". "%0A".
-    "Оцінка: ". $userRate. "%0A". "%0A".
-    "Коментар: ". $userReview;
+    "<b>Коментар</b>%0A%0A".
+    "Ім'я покупця: <b>$userName</b> %0A%0A".
+    "Прізвище покупця: <b>$userFirstName</b> %0A%0A".
+    "Оцінка: <b>$userRate</b> %0A%0A".
+    "Коментар: <b>$userReview</b>";
 
-
+$urlQuery .= "&parse_mode=HTML";
     
 $result = file_get_contents($urlQuery);
 ?>

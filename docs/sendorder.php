@@ -69,16 +69,16 @@ foreach ($phpObject as $item) {
 
 // Оновлений фрагмент коду для відправки повідомлення з використанням HTML-підтримки
 $urlQuery = "https://api.telegram.org/bot". $token ."/sendMessage?chat_id=". $chat_id ."&text=" . 
-    "Замовлення%0A%0A".
+    "<b>Замовлення</b>%0A%0A".
     "Номер покупця: <b>$userPhone</b>%0A". "%0A".
     "E-mail покупця: <b>$userEmail</b>%0A". "%0A".
     "Ім'я покупця: <b>$userName</b>%0A". "%0A".
     "Прізвище покупця: <b>$userFirstName</b>%0A". "%0A".
     "Тип оплати: <b>$paymenttype</b>%0A". "%0A".
     "Метод доставки: <b>$deliveryMethod</b>%0A". "%0A".
-    "місто: <b>$city</b>%0A". "%0A".
+    "Місто: <b>$city</b>%0A". "%0A".
     "Номер відділення: <b>$postNumber</b>%0A". "%0A".
-    "замовлення: %0A". $textObj;
+    "$textObj";
 
 // Додано параметр parse_mode=HTML
 $urlQuery .= "&parse_mode=HTML";
