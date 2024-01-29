@@ -1,10 +1,10 @@
 function updateCartBtns() {
-    alert(1)
+    // alert(1)
     console.log(document.querySelectorAll('.cta-card'));
     document.querySelector(".same-card").innerHTML = ""
     document.querySelectorAll('.cta-card').forEach(ctaButton => {
         ctaButton.addEventListener('click', function (event) {
-            alert(2)
+            // alert(2)
             event.preventDefault()
 
             const productId = this.getAttribute('data-value');
@@ -954,7 +954,7 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("lastSelectedCategory", category)
             displayProducts(jsonData, productList)
             updateProductDisplay(category)
-            setTimeout(updateCartBtns(), 0)
+            setTimeout(updateCartBtns(), 10)
             
         })
     })
@@ -1427,7 +1427,7 @@ function cart() {
 
                 document.querySelectorAll(`.popap-card input[type="checkbox"][id^="popup-input-${productId}"]:checked`).forEach(checkbox => {
                     selectedSizes.push(checkbox.value)
-                    alert(checkbox.value)
+                    // alert(checkbox.value)
                     // alert(checkbox.value)
                 })
 
