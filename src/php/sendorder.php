@@ -28,29 +28,7 @@ try {
     $deliveryMethod =  $_POST["deliveryMethod"];
     $city =  $_POST["city"];
     $postNumber =  $_POST["postNumber"];
-    // $phpObject = json_decode($_POST["orderProducts"]);
-
-    $table = '<table border="1">
-        <thead>
-            <tr>
-                <th>Заголовок 1</th>
-                <th>Заголовок 2</th>
-                <th>Заголовок 3</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Строка 1</td>
-                <td>Строка 2</td>
-                <td>Строка 3</td>
-            </tr>
-            <tr>
-                <td>Строка 4</td>
-                <td>Строка 5</td>
-                <td>Строка 6</td>
-            </tr>
-        </tbody>
-    </table>';
+    $phpObject = json_decode($_POST["orderProducts"]);
 
 } catch (\Throwable $th) {
     $userPhone = "ERROR IN MESSAGE";
@@ -61,7 +39,6 @@ try {
     $deliveryMethod = "ERROR IN MESSAGE";
     $city = "ERROR IN MESSAGE";
     $postNumber = "ERROR IN MESSAGE";
-    // $phpObject = "ERROR IN MESSAGE";
 }
 
 $token = "6955843433:AAHq4PsIKlhlh9ED95MXctOJxMHziCney1Y"; // api телеграм бота
@@ -75,27 +52,38 @@ $paymenttype = urlencode("$paymenttype");
 $deliveryMethod = urlencode("$deliveryMethod");
 $city = urlencode("$city");
 $postNumber = urlencode("$postNumber");
-// $phpObject = urlencode("$phpObject");
-$table = urlencode("$table");
 
-// echo($phpObject);
+foreach ($phpObject as $item) {
+    // Перевірка наявності ключа 'product'
+    if (property_exists($item, 'product')) {
+        $product = $item->product;  
+        $productName = $product->head;
+        $productColor = $product->color;
+        $productSize = $item->size;
+        $productQuantity = $item->quantity;
 
+        // Додати інформацію про товар до тексту повідомлення з тегами форматування
+        $textObj .= "Товар: <b>$productName</b>,%0A Колір: <b>$productColor</b>,%0A Розмір: <b>$productSize</b>,%0A Кількість: <b>$productQuantity</b>%0A%0A";
+    }
+}
 
-
+// Оновлений фрагмент коду для відправки повідомлення з використанням HTML-підтримки
 $urlQuery = "https://api.telegram.org/bot". $token ."/sendMessage?chat_id=". $chat_id ."&text=" . 
     "Замовлення%0A%0A".
-    "Номер покупця: ". $userPhone. "%0A". "%0A".
-    "E-mail покупця: ". $userEmail. "%0A". "%0A".
-    "Ім'я покупця: ". $userName. "%0A". "%0A".
-    "Прізвище покупця: ". $userFirstName. "%0A". "%0A".
-    "Тип оплати: ". $paymenttype. "%0A". "%0A".
-    "Метод доставки: ". $deliveryMethod. "%0A". "%0A".
-    "місто: ". $city. "%0A". "%0A".
-    "Номер відділення: ". "%0A". "%0A";
-    // $phpObject;
+    "Номер покупця: <b>$userPhone</b>%0A". "%0A".
+    "E-mail покупця: <b>$userEmail</b>%0A". "%0A".
+    "Ім'я покупця: <b>$userName</b>%0A". "%0A".
+    "Прізвище покупця: <b>$userFirstName</b>%0A". "%0A".
+    "Тип оплати: <b>$paymenttype</b>%0A". "%0A".
+    "Метод доставки: <b>$deliveryMethod</b>%0A". "%0A".
+    "місто: <b>$city</b>%0A". "%0A".
+    "Номер відділення: <b>$postNumber</b>%0A". "%0A".
+    "замовлення: %0A". $textObj;
 
+// Додано параметр parse_mode=HTML
+$urlQuery .= "&parse_mode=HTML";
 
-    
 $result = file_get_contents($urlQuery);
+
 ?>
 
