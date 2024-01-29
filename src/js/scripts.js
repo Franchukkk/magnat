@@ -103,21 +103,21 @@ document.addEventListener("DOMContentLoaded", function () {
         sameCard = document.querySelector(".same-card")
 
     const itemsPerPage = 12
-
+    
     let currentPage = 1,
-        totalPages = 1,
-        jsonData = []
-
-
+    totalPages = 1,
+    jsonData = []
+    
+    
     function fetchData() {
         fetch("products.json")
-            .then(response => response.json())
-            .then(data => {
-                jsonData = data
-                totalPages = Math.ceil(jsonData.length / itemsPerPage)
-                showData(currentPage)
-                showPagination()
-                updateProductDisplay(selectedCategory)
+        .then(response => response.json())
+        .then(data => {
+            jsonData = data
+            totalPages = Math.ceil(jsonData.length / itemsPerPage)
+            showData(currentPage)
+            showPagination()
+            updateProductDisplay(selectedCategory)
 
                 //input range 
                 const rangeInput = document.querySelectorAll(".range-input input"),
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     range = document.querySelector(".slider .progress"),
                     minPriceInput = Math.min(...jsonData.map(item => parseInt(item.price))),
                     maxPriceInput = Math.max(...jsonData.map(item => parseInt(item.price)))
-                    
+
                 let priceGap = 10
 
                 priceInput.forEach((input) => {
@@ -136,8 +136,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         let minPrice = parseInt(priceInput[0].value),
                             maxPrice = parseInt(priceInput[1].value)
 
-                        if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
-                            if (e.target.className === "input-min") {
+                            if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
+                                if (e.target.className === "input-min") {
                                 rangeInput[0].value = minPrice
                                 range.style.left = (minPrice / rangeInput[0].max) * 100 + "%"
                             } else {
@@ -159,26 +159,30 @@ document.addEventListener("DOMContentLoaded", function () {
                         let minVal = parseInt(rangeInput[0].value),
                             maxVal = parseInt(rangeInput[1].value)
 
-                        if (maxVal - minVal < priceGap) {
-                            if (e.target.className === "range-min") {
-                                rangeInput[0].value = maxVal - priceGap
+                            if (maxVal - minVal < priceGap) {
+                                if (e.target.className === "range-min") {
+                                    rangeInput[0].value = maxVal - priceGap
+                                } else {
+                                    rangeInput[1].value = minVal + priceGap
+                                }
                             } else {
-                                rangeInput[1].value = minVal + priceGap
+                                priceInput[0].value = minVal
+                                priceInput[1].value = maxVal
+                                range.style.left = (minVal / rangeInput[0].max) * 100 + "%"
+                                range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%"
                             }
-                        } else {
-                            priceInput[0].value = minVal
-                            priceInput[1].value = maxVal
-                            range.style.left = (minVal / rangeInput[0].max) * 100 + "%"
-                            range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%"
-                        }
+                        })
                     })
+                const discountButton = document.querySelector('a.bottom-cart-season[data-href="discount"]');
+                discountButton.addEventListener("click", function (e) {
+                    e.preventDefault()
+                    const saleProducts = jsonData.filter(product => product.saleprice !== "");
+                    displayProducts(saleProducts, productList)
                 })
-
-
             })
             .catch(error => console.error("Помилка завантаження даних:", error))
-    }
-
+        }
+        
     function showData(pageNumber) {
         const startIndex = (pageNumber - 1) * itemsPerPage,
             endIndex = startIndex + itemsPerPage,
@@ -277,7 +281,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayProducts(products, container) {
         container.innerHTML = ""
-
         products.forEach(product => {
             const listItem = createCardElement(product)
             container.appendChild(listItem)
@@ -712,11 +715,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // вибір категорій і додавання до локального сховища, при завантажені сторінки підзавантажуються дані згідно вибраних категорій а не весь список
 
     const btnProduct = document.querySelectorAll(".card-cta-season"),
+        bottomProduct = document.querySelectorAll(".bottom-cart-season"),
         categories = ["winter", "summer", "demiseason"],
         lastSelectedCategory = localStorage.getItem("lastSelectedCategory")
 
     function updateProductDisplay(category) {
         jsonData.forEach(product => {
+            displayProducts(jsonData, productList)
             const element = document.querySelector(`.${product.category}`)
             if (element) {
                 element.style.display = category === "#all" || category === `#${product.category}` ? "block" : "none"
@@ -728,6 +733,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (evt.target.tagName === "BUTTON") {
             selectedCategory = evt.target.getAttribute("data-href")
             localStorage.setItem("lastSelectedCategory", selectedCategory)
+            displayProducts(jsonData, productList)
             resetFilters()
             updateProductDisplay(selectedCategory)
             showData(currentPage)
@@ -767,8 +773,6 @@ document.addEventListener("DOMContentLoaded", function () {
         showData(currentPage)
         showPagination()
         updatePaginationButtons()
-
-
         updateCartBtns()
     })
 
@@ -947,7 +951,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let category = evt.target.getAttribute("data-href")
             localStorage.setItem("lastSelectedCategory", category)
-
+            displayProducts(jsonData, productList)
+            updateProductDisplay(category)
+        })
+    })
+    
+    bottomProduct.forEach((item) => {
+        item.addEventListener("click", (evt) => {
+            evt.preventDefault()
+    
+            let category = evt.target.getAttribute("data-href")
+            localStorage.setItem("lastSelectedCategory", category)
+    
+            const catalogElement = document.getElementById("catalog")
+    
+            catalogElement.scrollIntoView({ behavior: "smooth" })
+    
+            btnProduct.forEach((button) => {
+                button.classList.remove("selected", "hovered")
+            })
+    
+            item.classList.add("selected")
+            displayProducts(jsonData, productList)
             updateProductDisplay(category)
         })
     })
