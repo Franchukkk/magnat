@@ -1,5 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="bg-order-popup">
+        <div class="orders-successful">
+            <h2>ви успішно оформили замовлення!</h2><img src="img/галочка.svg" alt="" />
+            <p>Ми звʼяжемося з вами найближчим часом для підтвердження замовлення.</p>
+            <a class="btn-style-one" href="index.html">на головну</a>
+        </div>
+    </div>
+</body>
+</html>
+
 <?php
-var_dump($_POST);
+
 try {
     $userPhone =  $_POST["userPhone"];
     $userEmail =  $_POST["userEmail"];
@@ -9,7 +28,7 @@ try {
     $deliveryMethod =  $_POST["deliveryMethod"];
     $city =  $_POST["city"];
     $postNumber =  $_POST["postNumber"];
-    $phpObject = json_decode($_POST["orderProducts"]);
+    // $phpObject = json_decode($_POST["orderProducts"]);
 
     $table = '<table border="1">
         <thead>
@@ -42,7 +61,7 @@ try {
     $deliveryMethod = "ERROR IN MESSAGE";
     $city = "ERROR IN MESSAGE";
     $postNumber = "ERROR IN MESSAGE";
-    $phpObject = "ERROR IN MESSAGE";
+    // $phpObject = "ERROR IN MESSAGE";
 }
 
 $token = "6955843433:AAHq4PsIKlhlh9ED95MXctOJxMHziCney1Y"; // api телеграм бота
@@ -56,10 +75,10 @@ $paymenttype = urlencode("$paymenttype");
 $deliveryMethod = urlencode("$deliveryMethod");
 $city = urlencode("$city");
 $postNumber = urlencode("$postNumber");
-$phpObject = urlencode("$phpObject");
+// $phpObject = urlencode("$phpObject");
 $table = urlencode("$table");
 
-echo($phpObject);
+// echo($phpObject);
 
 
 
@@ -72,13 +91,11 @@ $urlQuery = "https://api.telegram.org/bot". $token ."/sendMessage?chat_id=". $ch
     "Тип оплати: ". $paymenttype. "%0A". "%0A".
     "Метод доставки: ". $deliveryMethod. "%0A". "%0A".
     "місто: ". $city. "%0A". "%0A".
-    "Номер відділення: ". "%0A". "%0A".
-    $phpObject;
+    "Номер відділення: ". "%0A". "%0A";
+    // $phpObject;
 
 
     
 $result = file_get_contents($urlQuery);
 ?>
-
-
 
