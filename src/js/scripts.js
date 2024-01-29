@@ -183,6 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const saleProducts = jsonData.filter(product => product.saleprice !== "");
                     displayProducts(saleProducts, productList)
                     setTimeout(updateCartBtns(), 0)
+                    resetFilters()
                 })
             })
             .catch(error => console.error("Помилка завантаження даних:", error))
@@ -726,6 +727,7 @@ document.addEventListener("DOMContentLoaded", function () {
         jsonData.forEach(product => {
             displayProducts(jsonData, productList)
             setTimeout(updateCartBtns(), 0)
+            resetFilters()
             const element = document.querySelector(`.${product.category}`)
             if (element) {
                 element.style.display = category === "#all" || category === `#${product.category}` ? "block" : "none"
@@ -738,10 +740,10 @@ document.addEventListener("DOMContentLoaded", function () {
             selectedCategory = evt.target.getAttribute("data-href")
             localStorage.setItem("lastSelectedCategory", selectedCategory)
             displayProducts(jsonData, productList)
-            resetFilters()
             updateProductDisplay(selectedCategory)
             showData(currentPage)
             setTimeout(updateCartBtns(), 0)
+            resetFilters()
         }
     })
 
@@ -797,6 +799,7 @@ document.addEventListener("DOMContentLoaded", function () {
             updateProductDisplay(category)
 
             setTimeout(updateCartBtns(), 0)
+            resetFilters()
         })
     })
     
@@ -826,6 +829,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             updateProductDisplay(category)
             setTimeout(updateCartBtns(), 0)
+            resetFilters()
         })
     })
 
@@ -1107,17 +1111,16 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     function updateProductFilter() {
-        const minPrice = parseInt(document.querySelector('.input-min').value) || 0,
-            maxPrice = parseInt(document.querySelector('.input-max').value) || 10000,
+        const minPrice = parseInt(document.querySelector('.input-min').value),
+            maxPrice = parseInt(document.querySelector('.input-max').value),
             selectedSizes = getSelectedValues('size'),
             selectedColors = getSelectedValues('color'),
             selectedModels = getSelectedValues('model'),
             selectedSeasons = getSelectedValues('season'),
             selectedMaterials = getSelectedValues('material'),
             selectedStyles = getSelectedValues('style')
-
+        
         let anyCategoryVisible = false
-
         categories.forEach((category) => {
             const elements = document.querySelectorAll(`.${category}`)
             elements.forEach((element) => {
@@ -1171,6 +1174,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function checkFilter(elementClasses, selectedValues) {
         return selectedValues.length === 0 || selectedValues.some(value => elementClasses.contains(value))
     }
+
     // скидання фільтру
     // document.querySelector('button.cta-transparent.reset-filter[type="reset"]').addEventListener("click", function (e) {
     //     e.preventDefault()
@@ -1182,16 +1186,12 @@ document.addEventListener("DOMContentLoaded", function () {
             checkbox.checked = false
         })
 
-        // document.querySelector('.input-min').value = '0'
-        // document.querySelector('.input-max').value = '10000'
-        // document.querySelector(".range-min").value = "0"
-        // document.querySelector(".range-max").value = "10000"
-
-        document.querySelectorAll('.product-card').forEach(productCard => {
-            productCard.style.display = "grid"
-        })
-
-        updateProductFilter()
+        // document.querySelector('.input-min').setAttribute("value" , minPriceInput)
+        // document.querySelector('.input-max').value = `${maxPriceInput}`
+        // document.querySelector(".range-min").setAttribute("value" , minPriceInput)
+        // document.querySelector(".range-max").value = `${maxPriceInput}`
+            
+        updateProductDisplay(category)
     }
 
     const images = document.querySelectorAll('.slider-images img'),
