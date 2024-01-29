@@ -987,6 +987,90 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // //сортування карток товарів
+
+    // let selectedCategory = lastSelectedCategory
+
+    // btnProduct.forEach((button) => {
+    //     button.classList.add("card-cta-season")
+
+    //     button.addEventListener("mouseenter", function () {
+    //         if (!button.classList.contains("selected")) {
+    //             button.classList.add("hovered")
+    //         }
+    //     })
+
+    //     button.addEventListener("mouseleave", function () {
+    //         button.classList.remove("hovered")
+    //     })
+    // })
+
+    // if (!lastSelectedCategory) {
+    //     selectedCategory = "#all";
+    //     localStorage.setItem("lastSelectedCategory", selectedCategory)
+    // }
+
+    // const selectedItem = document.querySelector(`[data-href="${selectedCategory}"]`);
+    // if (selectedItem) {
+    //     selectedItem.classList.add("selected")
+    // }
+
+    // categories.forEach((category) => {
+    //     const elements = document.querySelectorAll(`.${category}`)
+    //     elements.forEach((element) => {
+    //         element.style.display =
+    //             selectedCategory === `${category}` || selectedCategory === "#all" ? "block" : "none"
+    //     })
+    // })
+
+    // btnProduct.forEach((item) => {
+    //     item.addEventListener("click", (evt) => {
+    //         evt.preventDefault()
+
+    //         btnProduct.forEach((button) => {
+    //             button.classList.remove("selected", "hovered")
+    //         })
+
+    //         item.classList.add("selected")
+
+    //         let category = evt.target.getAttribute("data-href")
+    //         localStorage.setItem("lastSelectedCategory", category)
+    //         displayProducts(jsonData, productList)
+    //         updateProductDisplay(category)
+    //     })
+    // })
+    
+    // bottomProduct.forEach((item) => {
+    //     item.addEventListener("click", (evt) => {
+    //         evt.preventDefault()
+    
+    //         let category = evt.target.getAttribute("data-href")
+    //         localStorage.setItem("lastSelectedCategory", category)
+    
+    //         const catalogElement = document.getElementById("catalog")
+    
+    //         catalogElement.scrollIntoView({ behavior: "smooth" })
+    
+    //         btnProduct.forEach((button) => {
+    //             button.classList.remove("selected", "hovered")
+    //         })
+            
+    //         item.classList.add("selected")
+    //         displayProducts(jsonData, productList)
+            
+    //         updateProductDisplay(category)
+    //     })
+    // })
+
+    // function updateProductDisplay(category) {
+    //     categories.forEach((cat) => {
+    //         const elements = document.querySelectorAll(`.${cat}`)
+    //         elements.forEach((element) => {
+    //             element.style.display = category === `${cat}` || category === "#all" ? "block" : "none"
+    //         })
+    //     })
+    // }
+
     // фільтр
     // document.querySelector(".submit-filter").addEventListener("click", function (e) {
     //     e.preventDefault()
