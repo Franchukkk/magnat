@@ -181,6 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     e.preventDefault()
                     const saleProducts = jsonData.filter(product => product.saleprice !== "");
                     displayProducts(saleProducts, productList)
+                    setTimeout(updateCartBtns(), 0)
                 })
             })
             .catch(error => console.error("Помилка завантаження даних:", error))
@@ -723,6 +724,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateProductDisplay(category) {
         jsonData.forEach(product => {
             displayProducts(jsonData, productList)
+            setTimeout(updateCartBtns(), 0)
             const element = document.querySelector(`.${product.category}`)
             if (element) {
                 element.style.display = category === "#all" || category === `#${product.category}` ? "block" : "none"
@@ -738,6 +740,7 @@ document.addEventListener("DOMContentLoaded", function () {
             resetFilters()
             updateProductDisplay(selectedCategory)
             showData(currentPage)
+            setTimeout(updateCartBtns(), 0)
         }
     })
 
@@ -821,6 +824,7 @@ document.addEventListener("DOMContentLoaded", function () {
             displayProducts(jsonData, productList)
             
             updateProductDisplay(category)
+            setTimeout(updateCartBtns(), 0)
         })
     })
 
