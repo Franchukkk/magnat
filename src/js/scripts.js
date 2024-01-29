@@ -704,6 +704,8 @@ document.addEventListener("DOMContentLoaded", function () {
         productPopup.style.display = "none"
 
         document.querySelector(".same-card").innerHTML = ""
+        console.log(123312);
+        console.log(document.querySelector(".same-card"));
         sameCard.innerHTML = ""
     })
 
