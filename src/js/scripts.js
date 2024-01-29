@@ -1586,3 +1586,38 @@ setReview.addEventListener("click", function (e) {
 reviewsBack.addEventListener("click", function () {
     reviewsPopup.classList.toggle("d-block")
 })
+document.addEventListener("DOMContentLoaded", function() {
+    let openPayAndDeliveryPopup = document.querySelectorAll(".openPayAndDeliveryPopup"),
+        exchangeAndReturn = document.querySelectorAll(".exchangeAndReturn"),
+        deliveryPopup = document.querySelector("#deliveryPopup"),
+        exchangePopup = document.querySelector("#exchangePopup");
+
+    function closeAndOpenPayAndDeliveryPopup() {
+        deliveryPopup.classList.toggle("d-block");
+    }
+
+    function closeAndOpenExchangeAndReturn() {
+        exchangePopup.classList.toggle("d-block");
+    }
+
+    function closeAndOpenPayAndDeliveryPopupHandler() {
+        openPayAndDeliveryPopup.forEach(function(e) {
+            e.addEventListener("click", function(i) {
+                i.preventDefault()
+                closeAndOpenPayAndDeliveryPopup();
+            });
+        });
+    }
+
+    function closeAndOpenExchangeAndReturnHandler() {
+        exchangeAndReturn.forEach(function(e) {
+            e.addEventListener("click", function(i) {
+                i.preventDefault()
+                closeAndOpenExchangeAndReturn();
+            });
+        });
+    }
+
+    closeAndOpenPayAndDeliveryPopupHandler();
+    closeAndOpenExchangeAndReturnHandler();
+});

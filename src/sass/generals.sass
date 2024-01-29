@@ -1646,7 +1646,9 @@ h2.season
 .basket-back,
 .back-to-main,
 .confirm-back,
-.reviews-back
+.reviews-back,
+.exchangeAndReturn,
+.openPayAndDeliveryPopup
     position: relative
     color: #191919
     cursor: pointer
@@ -1664,6 +1666,11 @@ h2.season
         background-image: url(../img/basket-arrow.svg)
         background-repeat: no-repeat
 
+a.exchangeAndReturn,
+a.openPayAndDeliveryPopup
+    padding: 0
+    &::before
+        display: none
 
 .basket-back
     cursor: pointer
@@ -2280,3 +2287,37 @@ hr
     width: 100%
     +media(450)
         width: 45%
+
+
+.info-popup
+    h3 
+        color: #25445E
+        font-size: 20rem
+        font-weight: 700
+        text-transform: uppercase
+
+    ul 
+        padding-left: 18rem
+
+    li
+        color: #191919
+        font-size: 18rem
+        font-weight: 400
+        line-height: 1.3em
+        list-style-type: disc
+
+    p
+        color: #191919
+        font-size: 18rem
+        font-weight: 500
+        line-height: 1.3em
+
+
+.description-popup
+    padding-top: 40rem
+
+.tal
+    text-align: left
+
+.mb20 ul
+    margin-bottom: 20rem
