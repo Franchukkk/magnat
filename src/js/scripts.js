@@ -710,8 +710,6 @@ document.addEventListener("DOMContentLoaded", function () {
         productPopup.style.display = "none"
 
         document.querySelector(".same-card").innerHTML = ""
-        console.log(123312);
-        console.log(document.querySelector(".same-card"));
         sameCard.innerHTML = ""
     })
 
@@ -975,9 +973,10 @@ document.addEventListener("DOMContentLoaded", function () {
             btnProduct.forEach((button) => {
                 button.classList.remove("selected", "hovered")
             })
-    
+            
             item.classList.add("selected")
             displayProducts(jsonData, productList)
+            
             updateProductDisplay(category)
         })
     })
@@ -1074,10 +1073,10 @@ document.addEventListener("DOMContentLoaded", function () {
         return selectedValues.length === 0 || selectedValues.some(value => elementClasses.contains(value))
     }
     // скидання фільтру
-    document.querySelector('button.cta-transparent.reset-filter[type="reset"]').addEventListener("click", function (e) {
-        e.preventDefault()
-        resetFilters()
-    })
+    // document.querySelector('button.cta-transparent.reset-filter[type="reset"]').addEventListener("click", function (e) {
+    //     e.preventDefault()
+    //     resetFilters()
+    // })
 
     function resetFilters() {
         document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
@@ -1211,77 +1210,127 @@ function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
             if (product.saleprice === "") {
                 product.saleprice = product.price;
             }
+            if (true) {
 
-            for (let i = 0; i < size.length; i++) {
-                if (!colorCheckbox) {
-                    colorCheckbox = product.color
-                }
-                console.log(productID)
-                console.log(size[i])
-                console.log(colorCheckbox);
-                if (orders[productID + size[i] + colorCheckbox] === undefined) {
+                // console.log(size)
+                for (let i = 0; i < size.length; i++) {
+                    if (!orders[productID + size[i]]) {
 
+                        // alert("hasnotbeen")
 
-
-
-                    // alert("hasnotbeen")
-
-                    orders[productID + size[i] + colorCheckbox] = {
-                        product: product,
-                        quantity: quantityPopup ? Number(quantityPopup) : 1
-                    }
-
-                    if (size) {
-                        orders[productID + size[i] + colorCheckbox].size = size[i]
-                    }
-
-                    orders.orderSumWithNoDiscount += orders[productID + size[i] + colorCheckbox].product.saleprice != "" ? Number((orders[productID + size[i] + colorCheckbox].product.saleprice).slice(0, -4)) * orders[productID + size[i] + colorCheckbox].quantity : 0
-                    orders.orderSumWithDiscount += Number((orders[productID + size[i] + colorCheckbox].product.price).slice(0, -4)) * orders[productID + size[i] + colorCheckbox].quantity
-                    updateCart(productID, orders[productID + size[i] + colorCheckbox].size, colorCheckbox)
-
-                    // console.log(document.querySelector(".minus-quantity[data-value='" + productID + size[i] + colorCheckbox + "']"))
-                    plusBtn(".plus-quantity[data-value='" + productID + size[i] + colorCheckbox + "']")
-                    minBtn(".minus-quantity[data-value='" + productID + size[i] + colorCheckbox + "']")
-                    if (quantityPopup) {
-                        caclnumberOfProducts += Number(quantityPopup)
-                    } else {
-                        caclnumberOfProducts++
-
-                    }
-                    numberOfProductsDOM.innerText = caclnumberOfProducts
-                    if (!quantityPopup) {
-                        orderDiscountCalc += (Number((orders[productID + size[i] + colorCheckbox].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i] + colorCheckbox].product.price).slice(0, -4))) * orders[productID + size[i] + colorCheckbox].quantity
-                    } else {
-                        orderDiscountCalc += (Number((orders[productID + size[i] + colorCheckbox].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i] + colorCheckbox].product.price).slice(0, -4))) * Number(quantityPopup)
-                    }
-                    // console.log(1)
-                    // console.log(orderDiscountCalc)
-                    orderDiscount.innerText = orderDiscountCalc
-                    orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
-                    orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
-                } else {
-                    // alert("been")
-                    if (quantityPopup) {
-                        for (let j = quantityPopup; j > 0; j--) {
-                            console.log(j);
-                            document.querySelector(".plus-quantity[data-value='" + productID + size[i] + colorCheckbox + "']").click()
-
+                        orders[productID + size[i]] = {
+                            product: product,
+                            quantity: quantityPopup ? Number(quantityPopup) : 1
                         }
 
-                    } else if (size.length > 1) {
-                        document.querySelector(".plus-quantity[data-value='" + productID + size[i] + colorCheckbox + "']").click()
+                        if (size) {
+                            orders[productID + size[i]].size = size[i]
+                        }
 
+                        orders.orderSumWithNoDiscount += orders[productID + size[i]].product.saleprice != "" ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) * orders[productID + size[i]].quantity : 0
+                        orders.orderSumWithDiscount += Number((orders[productID + size[i]].product.price).slice(0, -4)) * orders[productID + size[i]].quantity
+                        updateCart(productID, orders[productID + size[i]].size, colorCheckbox)
+
+                        // console.log(document.querySelector(".minus-quantity[data-value='" + productID + size[i] + "']"))
+                        plusBtn(".plus-quantity[data-value='" + productID + size[i] + "']")
+                        minBtn(".minus-quantity[data-value='" + productID + size[i] + "']")
+                        if (quantityPopup) {
+                            caclnumberOfProducts += Number(quantityPopup)
+                        } else {
+                            caclnumberOfProducts++
+
+                        }
+                        numberOfProductsDOM.innerText = caclnumberOfProducts
+                        if (!quantityPopup) {
+                            orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * orders[productID + size[i]].quantity
+                        } else {
+                            orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * Number(quantityPopup)
+                        }
+                        // console.log(1)
+                        // console.log(orderDiscountCalc)
+                        orderDiscount.innerText = orderDiscountCalc
+                        orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
+                        orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                     } else {
-                        document.querySelector(".plus-quantity[data-value='" + productID + size[0] + colorCheckbox + "']").click()
+                        // alert("been")
+                        if (quantityPopup) {
+                            for (let j = quantityPopup; j > 0; j--) {
+                                console.log(j);
+                                document.querySelector(".plus-quantity[data-value='" + productID + size[i] + "']").click()
 
+                            }
+
+                        } else if (size.length > 1) {
+                            document.querySelector(".plus-quantity[data-value='" + productID + size[i] + "']").click()
+
+                        } else {
+
+                            document.querySelector(".plus-quantity[data-value='" + productID + size[0] + "']").click()
+
+                        }
                     }
+
+
                 }
-
-
+                // console.log(orders)
             }
 
         })
 }
+
+
+
+
+// function updateCart(id, sizesList, colorCheckbox) {
+//     fetch('products.json')
+//         .then(response => response.json())
+//         .then(products => {
+//             const product = products.find(product => product.id === id);
+//             const card = document.createElement("div");
+//             card.innerHTML = `
+//                     <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
+//                         <img src=${product.img}>
+
+//                         <div class="w-100 flex-between items-center">
+//                             <div class="description">
+//                                 <div>
+//                                     <h3>${product.head}</h3>
+//                                     <table>
+//                                         <tr>
+//                                             <td>колір</td>
+//                                             <td>${colorCheckbox ? product.colorCheckbox : product.color}</td>
+//                                         </tr>
+//                                         <tr>
+//                                             <td>розмір</td>
+//                                             <td class="size-span">${sizesList}</td>
+//                                         </tr>
+//                                         <tr>
+//                                             <td>ціна</td>
+//                                             <td>${product.price} <span>${product.saleprice}</span></td>
+//                                         </tr>
+//                                         <tr>
+//                                             <td>кількість</td>
+//                                             <td>
+//                                                 <div class="quantity flex">
+//                                                     <div class="minus-quantity" data-value="${product.id + "" + sizesList}">-</div>
+//                                                     <div class="quantity-number">${orders[product.id + sizesList].quantity}</div>
+//                                                     <div class="plus-quantity" data-value="${product.id + "" + sizesList}">+</div>
+//                                                 </div>
+//                                             </td>
+//                                         </tr>
+//                                     </table>
+//                                     <div class="delete-product">видалити товар</div>
+//                                 </div>
+//                             </div>
+//                             <div class="total-price">
+//                                 <span>${Number((orders[product.id + sizesList].product.price).slice(0, -4)) * orders[product.id + sizesList].quantity + " грн"}</span>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 `;
+//             addedProductsList.appendChild(card);
+//         });
+// }
 
 
 function updateCart(id, sizesList, colorCheckbox) {
@@ -1290,12 +1339,13 @@ function updateCart(id, sizesList, colorCheckbox) {
         .then(products => {
             const product = products.find(product => product.id === id);
 
+            // Оновлений блок для порівняння кольорів
             const selectedColor = colorCheckbox ? colorCheckbox : product.color;
             const isColorMatch = product.color === selectedColor;
 
             const card = document.createElement("div");
             card.innerHTML = `
-            <div class="basket-card flex-between" data-value=${product.id + "" + sizesList + colorCheckbox}>
+            <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
                 <img src=${product.img}>
                 
                 <div class="w-100 flex-between items-center">
@@ -1319,9 +1369,9 @@ function updateCart(id, sizesList, colorCheckbox) {
                                     <td>кількість</td>
                                     <td>
                                         <div class="quantity flex">
-                                            <div class="minus-quantity" data-value="${product.id + "" + sizesList + colorCheckbox}">-</div>
-                                            <div class="quantity-number">${orders[product.id + sizesList + colorCheckbox].quantity}</div>
-                                            <div class="plus-quantity" data-value="${product.id + "" + sizesList + colorCheckbox}">+</div>
+                                            <div class="minus-quantity" data-value="${product.id + "" + sizesList}">-</div>
+                                            <div class="quantity-number">${orders[product.id + sizesList].quantity}</div>
+                                            <div class="plus-quantity" data-value="${product.id + "" + sizesList}">+</div>
                                         </div>
                                     </td>
                                 </tr>
@@ -1330,14 +1380,16 @@ function updateCart(id, sizesList, colorCheckbox) {
                         </div>
                     </div>
                     <div class="total-price">
-                        <span>${Number((orders[product.id + sizesList + colorCheckbox].product.price).slice(0, -4)) * orders[product.id + sizesList + colorCheckbox].quantity + " грн"}</span>
+                        <span>${Number((orders[product.id + sizesList].product.price).slice(0, -4)) * orders[product.id + sizesList].quantity + " грн"}</span>
                     </div>
                 </div>
             </div>
         `;
 
+            // Додавання товару до списку, якщо колір співпадає
+            // if (isColorMatch) {
             addedProductsList.appendChild(card);
-
+            // }
         });
 }
 
@@ -1395,8 +1447,126 @@ function cart() {
             })
         })
 
+        // function buyBtnFunc(e, size, quantityPopup) {
+
+        //     console.log(e, size, quantityPopup);
+        //     let productID = e.dataset.value
+
+
+        //     let currentSizesList = ""
+        //     fetch('products.json')
+        //         .then(response => response.json())
+        //         .then(products => {
+        //             const product = products.find(product => product.id === productID)
+        //             if (product.saleprice === "") {
+        //                 product.saleprice = product.price;
+        //             }
+        //             if (true) {
+
+        //                 // console.log(size)
+        //                 for (let i = 0; i < size.length; i++) {
+        //                     if (!orders[productID + size[i]]) {
+
+        //                         // alert("hasnotbeen")
+
+        //                         orders[productID + size[i]] = {
+        //                             product: product,
+        //                             quantity: quantityPopup ? Number(quantityPopup) : 1
+        //                         }
+
+        //                         if (size) {
+        //                             orders[productID + size[i]].size = size[i]
+        //                         }
+
+        //                         orders.orderSumWithNoDiscount += orders[productID + size[i]].product.saleprice != "" ? Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) * orders[productID + size[i]].quantity : 0
+        //                         orders.orderSumWithDiscount += Number((orders[productID + size[i]].product.price).slice(0, -4)) * orders[productID + size[i]].quantity
+        //                         updateCart(productID, orders[productID + size[i]].size)
+
+        //                         // console.log(document.querySelector(".minus-quantity[data-value='" + productID + size[i] + "']"))
+        //                         plusBtn(".plus-quantity[data-value='" + productID + size[i] + "']")
+        //                         minBtn(".minus-quantity[data-value='" + productID + size[i] + "']")
+
+        //                         caclnumberOfProducts++
+        //                         numberOfProductsDOM.innerText = caclnumberOfProducts
+        //                         orderDiscountCalc += (Number((orders[productID + size[i]].product.saleprice).slice(0, -4)) - Number((orders[productID + size[i]].product.price).slice(0, -4))) * orders[productID + size[i]].quantity
+        //                         // console.log(1)
+        //                         // console.log(orderDiscountCalc)
+        //                         orderDiscount.innerText = orderDiscountCalc * orders[productID + size[i]].quantity
+        //                         orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
+        //                         orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
+        //                     } else {
+        //                         // alert("been")
+        //                         for (let i = quantityPopup ? quantityPopup : 1; i > 0; i--) {
+
+        //                             orders[productID + size[i]]
+        //                             console.log(productID );
+        //                             console.log(size);
+        //                             // orders[productID + size].quantity++
+        //                             document.querySelector(".plus-quantity[data-value='" + productID + size + "']").click()
+
+        //                         }
+        //                     }
+
+
+        //                 }
+        //                 // console.log(orders)
+        //             }
+
+        //         })
+        // }
     }
 
+    // function updateCart(id, sizesList) {
+
+    //     fetch('products.json')
+    //         .then(response => response.json())
+    //         .then(products => {
+    //             const product = products.find(product => product.id === id);
+    //             const card = document.createElement("div");
+    //             card.innerHTML = `
+    //                 <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
+    //                     <img src=${product.img}>
+
+    //                     <div class="w-100 flex-between items-center">
+    //                         <div class="description">
+    //                             <div>
+    //                                 <h3>${product.head}</h3>
+    //                                 <table>
+    //                                     <tr>
+    //                                         <td>колір</td>
+    //                                         <td>${product.color}</td>
+    //                                     </tr>
+    //                                     <tr>
+    //                                         <td>розмір</td>
+    //                                         <td class="size-span">${sizesList}</td>
+    //                                     </tr>
+    //                                     <tr>
+    //                                         <td>ціна</td>
+    //                                         <td>${product.price} <span>${product.saleprice}</span></td>
+    //                                     </tr>
+    //                                     <tr>
+    //                                         <td>кількість</td>
+    //                                         <td>
+    //                                             <div class="quantity flex">
+    //                                                 <div class="minus-quantity" data-value="${product.id + "" + sizesList}">-</div>
+    //                                                 <div class="quantity-number">${orders[product.id + sizesList].quantity}</div>
+    //                                                 <div class="plus-quantity" data-value="${product.id + "" + sizesList}">+</div>
+    //                                             </div>
+    //                                         </td>
+    //                                     </tr>
+    //                                 </table>
+    //                                 <div class="delete-product">видалити товар</div>
+    //                             </div>
+    //                         </div>
+    //                         <div class="total-price">
+    //                             <span>${Number((orders[product.id + sizesList].product.price).slice(0, -4)) * orders[product.id + sizesList].quantity + " грн"}</span>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             `;
+    //             addedProductsList.appendChild(card);
+    //         });
+    // }
 }
 
 
@@ -1526,6 +1696,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function sendData(orders) {
+    // let orderDetails = ""
+    // for (const key in orders) {
+    //     if (Object.hasOwnProperty.call(orders, key)) {
+    //         const order = orders[key]
+
+    //         if (order && order.product) {
+    //             orderDetails += `ID: ${encodeURIComponent(order.product.id)}, Розмір: ${encodeURIComponent(order.size)}, Кількість: ${encodeURIComponent(order.quantity)}%0A`;
+
+    //         }
+    //     }
+    // }
+
+
+    // console.log(orderDetails)
+
+
+    // let ordersInput = document.querySelector("#orderProductsObject")
+    // const jsonString = encodeURIComponent(orderDetails)
+
+
+    // ordersInput.value = jsonString
+
     const phpOrdersObj = JSON.stringify(orders)
     let ordersInput = document.querySelector("#orderProductsObject")
     ordersInput.value = phpOrdersObj
@@ -1618,6 +1810,7 @@ setReview.addEventListener("click", function (e) {
 reviewsBack.addEventListener("click", function () {
     reviewsPopup.classList.toggle("d-block")
 })
+
 document.addEventListener("DOMContentLoaded", function() {
     let openPayAndDeliveryPopup = document.querySelectorAll(".openPayAndDeliveryPopup"),
         exchangeAndReturn = document.querySelectorAll(".exchangeAndReturn"),
@@ -1652,4 +1845,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
     closeAndOpenPayAndDeliveryPopupHandler();
     closeAndOpenExchangeAndReturnHandler();
-});
+
+    // privacyPolice
+    const privacyPolice = document.querySelector(".privacyPolice"),
+        privacyPolicePopap = document.querySelector("#privacyPolice"),
+        backPrivacy = document.querySelector(".back-privacy"),
+        ofertaPopap = document.querySelector("#oferta"),
+        oferta = document.querySelector(".oferta"),
+        ofertaBack = document.querySelector(".back-oferta")
+
+    privacyPolice.addEventListener("click", function(e) {
+        e.preventDefault()
+        privacyPolicePopap.classList.add("d-block")
+    })
+    backPrivacy.addEventListener("click", function() {
+        privacyPolicePopap.classList.remove("d-block")
+    })
+
+    oferta.addEventListener("click", function(e) {
+        e.preventDefault()
+        ofertaPopap.classList.add("d-block")
+    })
+    ofertaBack.addEventListener("click", function() {
+        ofertaPopap.classList.remove("d-block")
+    })
+
+})
