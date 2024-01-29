@@ -1440,7 +1440,7 @@ function updateCart(id, sizesList, colorCheckbox) {
             const card = document.createElement("div");
             card.innerHTML = `
             <div class="basket-card flex-between" data-value=${product.id + "" + sizesList}>
-                <img src=${product.img}>
+                <img src='${product.img}'>
                 
                 <div class="w-100 flex-between items-center">
                     <div class="description">
