@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
         productPopup = document.querySelector('.popap-card'),
         sameCard = document.querySelector(".same-card")
 
-    const itemsPerPage = 12
+    const itemsPerPage = 12 //ск  карток товару має бути на сторінці
     
     let currentPage = 1,
     totalPages = 1,
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
             showPagination()
             updateProductDisplay(selectedCategory)
 
-                //input range 
+                //input range виведення у велю значень з json
                 const rangeInput = document.querySelectorAll(".range-input input"),
                     priceInput = document.querySelectorAll(".price-input input"),
                     range = document.querySelector(".slider .progress"),
@@ -176,6 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
                         })
                     })
+                // виведення товарів зі знижками по нижній кнопці
                 const discountButton = document.querySelector('a.bottom-cart-season[data-href="discount"]');
                 discountButton.addEventListener("click", function (e) {
                     e.preventDefault()
@@ -193,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function () {
             pageData = jsonData.slice(startIndex, endIndex)
         displayProducts(pageData, productList)
     }
-
+    // створення карточки товару 
     function createCardElement(product) {
         const listItem = document.createElement("figure"),
             figcaptionItems = document.createElement("figcaption")
@@ -208,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         listItem.classList.add("card-box", product.category, product.seasonFilter, product.color, product.model, product.material, product.style, product.size40, product.size41, product.size42, product.size43, product.size44, product.size45)
         listItem.appendChild(figcaptionItems)
-
+        // відкриття попапу з карточкою товару клік
         const clickFigure = document.createElement("a")
         clickFigure.classList.add("click-card")
         clickFigure.href = "#"
@@ -290,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function () {
             container.appendChild(listItem)
         })
     }
-
+    displayProducts(jsonData, productList)
     let openedProductId
 
     // попап на карточку товару
@@ -408,7 +409,7 @@ document.addEventListener("DOMContentLoaded", function () {
         smallPopapImg3.src = product.imgPopap3
         smallPopapImg3.alt = product.altPopap3
 
-        // додавання маленьких у велику
+        // додавання маленьких  у велику
 
         function openBigImage(src, alt) {
             const bigImgPopap = document.createElement("div"),
@@ -1181,10 +1182,10 @@ document.addEventListener("DOMContentLoaded", function () {
             checkbox.checked = false
         })
 
-        document.querySelector('.input-min').value = '0'
-        document.querySelector('.input-max').value = '10000'
-        document.querySelector(".range-min").value = "0"
-        document.querySelector(".range-max").value = "10000"
+        // document.querySelector('.input-min').value = '0'
+        // document.querySelector('.input-max').value = '10000'
+        // document.querySelector(".range-min").value = "0"
+        // document.querySelector(".range-max").value = "10000"
 
         document.querySelectorAll('.product-card').forEach(productCard => {
             productCard.style.display = "grid"
