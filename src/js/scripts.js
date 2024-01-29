@@ -803,7 +803,13 @@ document.addEventListener("DOMContentLoaded", function () {
             catalogElement.scrollIntoView({ behavior: "smooth" })
     
             btnProduct.forEach((button) => {
-                button.classList.remove("selected", "hovered")
+                button.classList.remove("selected", "hovered") 
+            })
+    
+            btnProduct.forEach((button) => {
+                if (button.getAttribute("data-href") === category) {
+                    button.classList.add("selected", "hovered") 
+                }
             })
             
             item.classList.add("selected")
