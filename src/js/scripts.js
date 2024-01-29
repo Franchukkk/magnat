@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
             figcaptionItems.appendChild(saleFlag)
         }
 
-        listItem.classList.add("card-box", product.category, product.color, product.model, product.material, product.style, product.size40, product.size41, product.size42, product.size43, product.size44, product.size45)
+        listItem.classList.add("card-box", product.category, product.seasonFilter, product.color, product.model, product.material, product.style, product.size40, product.size41, product.size42, product.size43, product.size44, product.size45)
         listItem.appendChild(figcaptionItems)
 
         const clickFigure = document.createElement("a")
@@ -741,6 +741,98 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     })
 
+    //сортування карток товарів
+
+    let selectedCategory = lastSelectedCategory
+
+    btnProduct.forEach((button) => {
+        button.classList.add("card-cta-season")
+
+        button.addEventListener("mouseenter", function () {
+            if (!button.classList.contains("selected")) {
+                button.classList.add("hovered")
+            }
+        })
+
+        button.addEventListener("mouseleave", function () {
+            button.classList.remove("hovered")
+        })
+    })
+
+    if (!lastSelectedCategory) {
+        selectedCategory = "#all";
+        localStorage.setItem("lastSelectedCategory", selectedCategory)
+    }
+
+    const selectedItem = document.querySelector(`[data-href="${selectedCategory}"]`);
+    if (selectedItem) {
+        selectedItem.classList.add("selected")
+    }
+
+    categories.forEach((category) => {
+        const elements = document.querySelectorAll(`.${category}`)
+        elements.forEach((element) => {
+            element.style.display =
+                selectedCategory === `${category}` || selectedCategory === "#all" ? "block" : "none"
+        })
+    })
+
+    btnProduct.forEach((item) => {
+        item.addEventListener("click", (evt) => {
+            evt.preventDefault()
+
+            btnProduct.forEach((button) => {
+                button.classList.remove("selected", "hovered")
+            })
+
+            item.classList.add("selected")
+
+            let category = evt.target.getAttribute("data-href")
+            localStorage.setItem("lastSelectedCategory", category)
+            displayProducts(jsonData, productList)
+            updateProductDisplay(category)
+
+            setTimeout(updateCartBtns(), 0)
+        })
+    })
+    
+    bottomProduct.forEach((item) => {
+        item.addEventListener("click", (evt) => {
+            evt.preventDefault()
+    
+            let category = evt.target.getAttribute("data-href")
+            localStorage.setItem("lastSelectedCategory", category)
+    
+            const catalogElement = document.getElementById("catalog")
+    
+            catalogElement.scrollIntoView({ behavior: "smooth" })
+    
+            btnProduct.forEach((button) => {
+                button.classList.remove("selected", "hovered") 
+            })
+    
+            btnProduct.forEach((button) => {
+                if (button.getAttribute("data-href") === category) {
+                    button.classList.add("selected", "hovered") 
+                }
+            })
+            
+            item.classList.add("selected")
+            displayProducts(jsonData, productList)
+            
+            updateProductDisplay(category)
+        })
+    })
+
+    function updateProductDisplay(category) {
+        categories.forEach((cat) => {
+            const elements = document.querySelectorAll(`.${cat}`)
+            elements.forEach((element) => {
+                element.style.display = category === `${cat}` || category === "#all" ? "block" : "none"
+            })
+        })
+    }
+
     // сщртування по селекту
 
     function sortProducts(data) {
@@ -757,9 +849,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 break
             case 4:
                 // Сортування за новизною
+                data.sort((a, b) => new Date(b.date) - new Date(a.date))
                 break
             case 5:
-                // Сортування за популярністю 
+                // сортування за популярністю
+                data.sort((a, b) => b.popularity - a.popularity)
                 break
             default:
                 break
@@ -904,91 +998,91 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    //сортування карток товарів
+    // //сортування карток товарів
 
-    let selectedCategory = lastSelectedCategory
+    // let selectedCategory = lastSelectedCategory
 
-    btnProduct.forEach((button) => {
-        button.classList.add("card-cta-season")
+    // btnProduct.forEach((button) => {
+    //     button.classList.add("card-cta-season")
 
-        button.addEventListener("mouseenter", function () {
-            if (!button.classList.contains("selected")) {
-                button.classList.add("hovered")
-            }
-        })
+    //     button.addEventListener("mouseenter", function () {
+    //         if (!button.classList.contains("selected")) {
+    //             button.classList.add("hovered")
+    //         }
+    //     })
 
-        button.addEventListener("mouseleave", function () {
-            button.classList.remove("hovered")
-        })
-    })
+    //     button.addEventListener("mouseleave", function () {
+    //         button.classList.remove("hovered")
+    //     })
+    // })
 
-    if (!lastSelectedCategory) {
-        selectedCategory = "#all";
-        localStorage.setItem("lastSelectedCategory", selectedCategory)
-    }
+    // if (!lastSelectedCategory) {
+    //     selectedCategory = "#all";
+    //     localStorage.setItem("lastSelectedCategory", selectedCategory)
+    // }
 
-    const selectedItem = document.querySelector(`[data-href="${selectedCategory}"]`);
-    if (selectedItem) {
-        selectedItem.classList.add("selected")
-    }
+    // const selectedItem = document.querySelector(`[data-href="${selectedCategory}"]`);
+    // if (selectedItem) {
+    //     selectedItem.classList.add("selected")
+    // }
 
-    categories.forEach((category) => {
-        const elements = document.querySelectorAll(`.${category}`)
-        elements.forEach((element) => {
-            element.style.display =
-                selectedCategory === `${category}` || selectedCategory === "#all" ? "block" : "none"
-        })
-    })
+    // categories.forEach((category) => {
+    //     const elements = document.querySelectorAll(`.${category}`)
+    //     elements.forEach((element) => {
+    //         element.style.display =
+    //             selectedCategory === `${category}` || selectedCategory === "#all" ? "block" : "none"
+    //     })
+    // })
 
-    btnProduct.forEach((item) => {
-        item.addEventListener("click", (evt) => {
-            evt.preventDefault()
+    // btnProduct.forEach((item) => {
+    //     item.addEventListener("click", (evt) => {
+    //         evt.preventDefault()
 
-            btnProduct.forEach((button) => {
-                button.classList.remove("selected", "hovered")
-            })
+    //         btnProduct.forEach((button) => {
+    //             button.classList.remove("selected", "hovered")
+    //         })
 
-            item.classList.add("selected")
+    //         item.classList.add("selected")
 
-            let category = evt.target.getAttribute("data-href")
-            localStorage.setItem("lastSelectedCategory", category)
-            displayProducts(jsonData, productList)
-            updateProductDisplay(category)
-            setTimeout(updateCartBtns(), 10)
+    //         let category = evt.target.getAttribute("data-href")
+    //         localStorage.setItem("lastSelectedCategory", category)
+    //         displayProducts(jsonData, productList)
+    //         updateProductDisplay(category)
+    //         setTimeout(updateCartBtns(), 10)
             
-        })
-    })
+    //     })
+    // })
     
-    bottomProduct.forEach((item) => {
-        item.addEventListener("click", (evt) => {
-            evt.preventDefault()
+    // bottomProduct.forEach((item) => {
+    //     item.addEventListener("click", (evt) => {
+    //         evt.preventDefault()
     
-            let category = evt.target.getAttribute("data-href")
-            localStorage.setItem("lastSelectedCategory", category)
+    //         let category = evt.target.getAttribute("data-href")
+    //         localStorage.setItem("lastSelectedCategory", category)
     
-            const catalogElement = document.getElementById("catalog")
+    //         const catalogElement = document.getElementById("catalog")
     
-            catalogElement.scrollIntoView({ behavior: "smooth" })
+    //         catalogElement.scrollIntoView({ behavior: "smooth" })
     
-            btnProduct.forEach((button) => {
-                button.classList.remove("selected", "hovered")
-            })
+    //         btnProduct.forEach((button) => {
+    //             button.classList.remove("selected", "hovered")
+    //         })
             
-            item.classList.add("selected")
-            displayProducts(jsonData, productList)
+    //         item.classList.add("selected")
+    //         displayProducts(jsonData, productList)
             
-            updateProductDisplay(category)
-        })
-    })
+    //         updateProductDisplay(category)
+    //     })
+    // })
 
-    function updateProductDisplay(category) {
-        categories.forEach((cat) => {
-            const elements = document.querySelectorAll(`.${cat}`)
-            elements.forEach((element) => {
-                element.style.display = category === `${cat}` || category === "#all" ? "block" : "none"
-            })
-        })
-    }
+    // function updateProductDisplay(category) {
+    //     categories.forEach((cat) => {
+    //         const elements = document.querySelectorAll(`.${cat}`)
+    //         elements.forEach((element) => {
+    //             element.style.display = category === `${cat}` || category === "#all" ? "block" : "none"
+    //         })
+    //     })
+    // }
 
     // фільтр
     // document.querySelector(".submit-filter").addEventListener("click", function (e) {
