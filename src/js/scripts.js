@@ -291,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function () {
             container.appendChild(listItem)
         })
     }
-
+    displayProducts(jsonData, productList)
     let openedProductId
 
     // попап на карточку товару
@@ -409,7 +409,7 @@ document.addEventListener("DOMContentLoaded", function () {
         smallPopapImg3.src = product.imgPopap3
         smallPopapImg3.alt = product.altPopap3
 
-        // додавання маленьких картинок у велику
+        // додавання маленьких  у велику
 
         function openBigImage(src, alt) {
             const bigImgPopap = document.createElement("div"),
@@ -1182,10 +1182,10 @@ document.addEventListener("DOMContentLoaded", function () {
             checkbox.checked = false
         })
 
-        document.querySelector('.input-min').value = '0'
-        document.querySelector('.input-max').value = '10000'
-        document.querySelector(".range-min").value = "0"
-        document.querySelector(".range-max").value = "10000"
+        // document.querySelector('.input-min').value = '0'
+        // document.querySelector('.input-max').value = '10000'
+        // document.querySelector(".range-min").value = "0"
+        // document.querySelector(".range-max").value = "10000"
 
         document.querySelectorAll('.product-card').forEach(productCard => {
             productCard.style.display = "grid"
