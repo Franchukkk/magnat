@@ -643,7 +643,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ctaPopup.addEventListener("click", function (e) {
             e.preventDefault()
             productPopup.style.display = "none"
-            document.querySelector(".same-card").innerHTML = ""
             //додати відкриття кошика 
         })
         btnSimilar()
@@ -797,29 +796,29 @@ document.addEventListener("DOMContentLoaded", function () {
     btnProduct.forEach((item) => {
         item.addEventListener("click", (evt) => {
             evt.preventDefault()
-    
+
             btnProduct.forEach((button) => {
                 button.classList.remove("selected", "hovered")
             })
-    
+
             item.classList.add("selected")
-    
-            let category = evt.target.getAttribute("data-href")
             
+            let category = evt.target.getAttribute("data-href")
             if (category === "#all") {
                 category = "#all"
-                localStorage.setItem("lastSelectedCategory", "#all")
-                updateProductDisplay("#all")
+                localStorage.setItem("lastSelectedCategory", category)
                 const urlWithoutCategory = window.location.origin + window.location.pathname + window.location.hash
                 window.history.replaceState({}, '', urlWithoutCategory)
             } else {
-                updateProductDisplay(category)
+                // Дії для інших категорій
+                updateProductDisplay(category);
                 const urlWithCategory = window.location.origin + window.location.pathname + `?category=${category}#catalog`
                 window.history.replaceState({}, '', urlWithCategory)
                 localStorage.setItem("lastSelectedCategory", category)
             }
-    
             displayProducts(jsonData, productList)
+            updateProductDisplay(category)
+
             setTimeout(updateCartBtns(), 0)
             resetFilters()
         })
@@ -828,7 +827,7 @@ document.addEventListener("DOMContentLoaded", function () {
     bottomProduct.forEach((item) => {
         item.addEventListener("click", (evt) => {
             evt.preventDefault()
-            // гет параметр
+    
             let category = evt.target.getAttribute("data-href")
             const urlWithCategory = window.location.origin + window.location.pathname + (category ? `?category=${category}` : '') + "#catalog"
             window.history.replaceState({}, '', urlWithCategory)
