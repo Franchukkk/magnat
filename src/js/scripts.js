@@ -643,6 +643,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ctaPopup.addEventListener("click", function (e) {
             e.preventDefault()
             productPopup.style.display = "none"
+            document.querySelector(".same-card").innerHTML = ""
             //додати відкриття кошика 
         })
         btnSimilar()
