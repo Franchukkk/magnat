@@ -648,9 +648,16 @@ input[type="range"]
     position: absolute
 
         
-.no-card
+.no-card,
+.basket-empty p
     color: #ccc
     font-size: 20rem
+
+.basket-empty
+    display: flex
+    justify-content: center
+    width: 100%
+    text-align: center
 
 .icon-no-card
     svg
@@ -1258,6 +1265,11 @@ div.same-card
 .reviews-popup-list
     margin-bottom: 40rem
 
+.reviews-popup-list-flex
+    display: flex
+    justify-content: space-between
+    flex-wrap: wrap
+
 .reviews-popup-list .review-card
     margin-bottom: 10rem
 
@@ -1622,7 +1634,7 @@ h2.season
     overflow-y: hidden
 
 .w-100
-    width: 100%
+    width: 100% !important
 
 .total-price span
     color: #4E98B6
@@ -1675,6 +1687,14 @@ h2.season
         transform: translateY(-50%)
         background-image: url(../img/basket-arrow.svg)
         background-repeat: no-repeat
+    &:hover
+        transform: scale(2)
+
+a.basket-back,
+a.confirm-back
+    padding: 0
+    &:before 
+        display: none
 
 a.exchangeAndReturn,
 a.openPayAndDeliveryPopup
@@ -2345,3 +2365,93 @@ hr
 
 .mb20 ul
     margin-bottom: 20rem
+
+
+.toast
+    position: fixed
+    top: 25px
+    right: 25rem
+    width: 310rem
+    background: #fff
+    padding: 5rem
+    border-radius: 4px
+    box-shadow: -1px 1px 10px rgba(0, 0, 0, 0.3)
+    z-index: 1023
+    animation: slideInRight 0.3s ease-in-out forwards,  fadeOut 0.5s ease-in-out  forwards 3s
+    transform: translateX(110%)
+
+    &.closing
+        animation: slideOutRight 0.5s ease-in-out forwards
+
+.toast-progress
+    position: absolute
+    display: block
+    bottom: 0
+    left: 0
+    height: 4px
+    width: 100%
+    background: #b7b7b7
+    animation: toastProgress 3s ease-in-out forwards
+
+.toast-content-wrapper
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+.toast-icon
+    padding: 15rem 20rem
+    font-size: 15rem
+
+.toast-message
+    flex: 1
+    font-size: 13rem
+    color: #000
+    padding: 5rem
+
+.toast-success
+    background: #95eab8
+    .toast-progress
+        background-color: #2ecc71
+
+
+.toast-info
+    background: #bddaed
+    .toast-progress
+        background-color: #25445e
+
+
+@keyframes slideInRight
+    0%
+        transform: translateX(110%)
+
+    75%
+        transform: translateX(-10%)
+
+    100%
+        transform: translateX(0%)
+
+@keyframes slideOutRight
+    0%
+        transform: translateX(0%)
+
+    25%
+        transform: translateX(-10%)
+
+    100%
+        transform: translateX(110%)
+
+@keyframes fadeOut
+    0%
+        opacity: 1
+
+    100%
+        opacity: 0
+
+@keyframes toastProgress
+    0%
+        width: 100%
+
+    100%
+        width: 0%
+
+

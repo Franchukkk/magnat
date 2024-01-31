@@ -1,3 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="bg-order-popup">
+        <div class="orders-successful">
+            <h2>ви успішно залишили відгук!</h2><img src="img/галочка.svg" alt="" />
+            <p>Дякуємо за співпрацю.</p>
+            <a class="btn-style-one" href="index.html">на головну</a>
+        </div>
+    </div>
+</body>
+</html>
+
 <?php
 // var_dump($_POST["userName"]);
 try {
