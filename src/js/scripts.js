@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener('scroll', function () {
         sections.forEach(section => {
             const rect = section.getBoundingClientRect();
-    
+
             if (rect.top <= 0 && rect.bottom >= 0) {
                 burger.classList.remove('active')
                 mobileMenu.classList.remove('activemobile')
@@ -197,8 +197,57 @@ document.addEventListener("DOMContentLoaded", function () {
                     setTimeout(updateCartBtns(), 0)
                     resetFilters()
                 })
+                createInputsForSizeKeys(jsonData[0])
             })
             .catch(error => console.error("Помилка завантаження даних:", error))
+    }
+    //створення інпутів для фільтра
+    function createInputsForSizeKeys(product) {
+        const sizeInputsContainer = document.querySelector(".check-size"),
+            colorInputContainer = document.querySelector(".color-filter")
+        //розмір
+        for (var key in product) {
+            if (key.startsWith("size")) {
+                const inputSizeFilter = document.createElement("input"),
+                    labelSizeFilter = document.createElement("label")
+                inputSizeFilter.setAttribute("type", "checkbox")
+                inputSizeFilter.setAttribute("name", "size")
+                inputSizeFilter.setAttribute("id", product[key])
+                inputSizeFilter.setAttribute("value", product[key])
+
+                labelSizeFilter.setAttribute("for", product[key])
+                labelSizeFilter.innerText = key.slice(4)
+
+                sizeInputsContainer.appendChild(inputSizeFilter)
+                sizeInputsContainer.appendChild(labelSizeFilter)
+            }
+        }
+        //колір
+        let uniqueColorValues = []
+
+        jsonData.forEach(product => {
+            if (product.color && typeof product.color === 'object') {
+                Object.values(product.color).forEach(colorValue => {
+                    if (!uniqueColorValues.includes(colorValue)) {
+                        uniqueColorValues.push(colorValue)
+        
+                        const inputColorFilter = document.createElement("input")
+                        const labelColorFilter = document.createElement("label")
+        
+                        inputColorFilter.setAttribute("type", "checkbox")
+                        inputColorFilter.setAttribute("name", "color")
+                        inputColorFilter.setAttribute("id", colorValue)
+                        inputColorFilter.setAttribute("value", colorValue)
+        
+                        labelColorFilter.setAttribute("for", colorValue)
+                        labelColorFilter.innerText = colorValue;
+        
+                        colorInputContainer.appendChild(inputColorFilter)
+                        colorInputContainer.appendChild(labelColorFilter)
+                    }
+                })
+            }
+        })
     }
 
     function showData(pageNumber) {
@@ -220,7 +269,7 @@ document.addEventListener("DOMContentLoaded", function () {
             figcaptionItems.appendChild(saleFlag)
         }
 
-        listItem.classList.add("card-box", product.category, product.seasonFilter, product.color, product.model, product.material, product.style, product.size40, product.size41, product.size42, product.size43, product.size44, product.size45)
+        listItem.classList.add("card-box", product.category, product.seasonFilter, product.model, product.material, product.style, product.size40, product.size41, product.size42, product.size43, product.size44, product.size45)
         listItem.appendChild(figcaptionItems)
         // відкриття попапу з карточкою товару клік
         const clickFigure = document.createElement("a")
@@ -277,9 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
             labelInput.setAttribute("for", `input-${product.id}-${size}`)
             labelInput.innerText = `${size}`
 
-            if (`size${size}` in product) {
-                inputSize.disabled = false
-            } else {
+            if (!(`size${size}` in product)) {
                 inputSize.disabled = true
             }
 
@@ -349,7 +396,7 @@ document.addEventListener("DOMContentLoaded", function () {
         producerInfo.innerText = "виробник"
         producerInfo2 = document.createElement("p")
         producerInfo2.classList.add("bold-card")
-        producerInfo2.innerText = product.producer
+        producerInfo2.innerText = product.technicalHaracteristic.producer
         producerCard.appendChild(producerInfo)
         producerCard.appendChild(producerInfo2)
 
@@ -453,7 +500,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 bgSizeDark.style.display = "none"
                 bigImgPopap.remove()
             })
-            bgSizeDark.addEventListener("click", function() {
+            bgSizeDark.addEventListener("click", function () {
                 bgSizeDark.style.display = "none"
                 bigImgPopap.remove()
 
@@ -582,48 +629,45 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         // виведення кольору
 
-        const formColor = document.createElement("form")
-        formColor.classList.add("color-form-popap")
-        choiseColorPopap.appendChild(formColor)
+        const formColor = document.createElement("form");
+        formColor.classList.add("color-form-popap");
+        choiseColorPopap.appendChild(formColor);
 
-        let availableColors = [product.color, product.color1, product.color2].filter(Boolean)
+        const availableColors = Object.keys(product.color);
 
-        console.log(availableColors)
         availableColors.forEach(function (color) {
-            const inputId = color + "-popap" + product.id
+            const inputId = color + "-popap-" + product.id;
 
             const inputColorPopap = document.createElement('input');
-            inputColorPopap.type = 'radio'
-            inputColorPopap.id = inputId
-            inputColorPopap.name = 'color-popap'
-            inputColorPopap.value = color
+            inputColorPopap.type = 'radio';
+            inputColorPopap.id = inputId;
+            inputColorPopap.name = 'color-popap';
+            inputColorPopap.value = color;
 
-            const labelColor = document.createElement('label')
-            labelColor.htmlFor = inputId
+            const labelColor = document.createElement('label');
+            labelColor.htmlFor = inputId;
+
             switch (color) {
                 case 'blue':
-                    console.log("blue");
                     labelColor.classList.add("blue");
                     break;
                 case 'black':
-                    console.log("black");
                     labelColor.classList.add("black");
                     break;
                 case 'green':
-                    console.log("green");
                     labelColor.classList.add("haki");
                     break;
                 case 'brown':
-                    console.log("brown");
                     labelColor.classList.add("brown");
                     break;
                 default:
                     break;
             }
 
-            formColor.appendChild(inputColorPopap)
-            formColor.appendChild(labelColor)
-        })
+            formColor.appendChild(inputColorPopap);
+            formColor.appendChild(labelColor);
+        });
+
 
         // лічильник на кількість товару який буде в кошику
         const minCount = document.querySelector(".min-count_card"),
@@ -648,7 +692,7 @@ document.addEventListener("DOMContentLoaded", function () {
         minCount.addEventListener("click", decreaseCount)
         maxCountCard.addEventListener("click", increaseCount)
 
-        let popupCategory = product.color
+        let popupCategory = product.category
         // скільки карточок виводиться в попапі
         const maxSimilarProducts = 4
 
@@ -673,7 +717,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const noSimilarProductsMessage = document.querySelector(".text-same-card")
 
         products.forEach(product => {
-            if (count < maxCount && popupCategory && product.color === popupCategory && openedProductId !== product.id) {
+            if (count < maxCount && popupCategory && product.category === popupCategory && openedProductId !== product.id) {
                 const listItem = createCardElement(product)
                 container.appendChild(listItem)
                 count++
@@ -953,7 +997,7 @@ document.addEventListener("DOMContentLoaded", function () {
         bgSizeDark.style.display = "none"
         sizeBlockPopap.classList.remove("active-size-popap")
     })
-    bgSizeDark.addEventListener("click", function() {
+    bgSizeDark.addEventListener("click", function () {
         sizeBlockPopap.style.display = "none"
         bgSizeDark.style.display = "none"
         sizeBlockPopap.classList.remove("active-size-popap")
@@ -1064,7 +1108,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let anyCategoryMessage = null
 
     document.querySelectorAll('input[type="checkbox"], input[type="range"]').forEach(input => {
-        input.addEventListener("click", function () {
+        input.addEventListener("change", function () {
             if (anyCategoryMessage) {
                 anyCategoryMessage.remove()
                 anyCategoryMessage = null
@@ -1082,7 +1126,6 @@ document.addEventListener("DOMContentLoaded", function () {
             selectedSeasons = getSelectedValues('season'),
             selectedMaterials = getSelectedValues('material'),
             selectedStyles = getSelectedValues('style')
-
         let anyCategoryVisible = false
         categories.forEach((category) => {
             const elements = document.querySelectorAll(`.${category}`)

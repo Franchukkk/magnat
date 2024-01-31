@@ -5,9 +5,11 @@
         "seasonFilter": "winter-fall",
         "popularity": "1",
         "date": "2024-01-01",
-        "color": "black",
-        "color1": "green",
-        "color2": "blue",
+        "color": {
+            "black": "чорний", 
+            "green": "зелений", 
+            "blue": "синій"
+        },
         "model": "crosivky",
         "material": "shkira",
         "style": "povsiakdenny",
@@ -32,14 +34,16 @@
         "list3": "Рельєфна підошва ТЕП.",
         "list4": "Cтильний дизайн",
         "bottomDescript": "Вибирайте саме чоловічі шкіряні кросівки Adidas Originals Ozelia Black в нашому інтернет магазині.",
-        "producer": "Ads",
-        "country": "Україна",
-        "kind": "черевики",
-        "seasonHaract": "демісезон",
-        "materialTop": "натуральна шкіра",
-        "materialBottom": "текстиль",
-        "materialSole": "ТЕП",
-        "styleCard": "повсякденний",
+        "technicalHaracteristic": {
+            "producer": "Ads",
+            "country": "Україна",
+            "kind": "черевики",
+            "seasonHaract": "демісезон",
+            "materialTop": "натуральна шкіра",
+            "materialBottom": "текстиль",
+            "materialSole": "ТЕП",
+            "styleCard": "повсякденний" 
+        },
         "saleprice": "2300 грн",
         "price": "1890 грн",
         "cta": "купити",
@@ -51,7 +55,11 @@
         "seasonFilter": "winter-fall",
         "popularity": "2",
         "date": "2023-01-01",
-        "color": "black",
+        "color": {
+            "black": "чорний", 
+            "green": "зелений", 
+            "brown": "коричневий"
+        },
         "model": "crosivky",
         "material": "shkira",
         "style": "sport",
@@ -95,7 +103,11 @@
         "seasonFilter": "winter-fall",
         "popularity": "5",
         "date": "2024-01-10",
-        "color": "black",
+        "color": {
+            "black": "чорний", 
+            "green": "зелений", 
+            "red": "червоний"
+        },
         "model": "crosivky",
         "material": "shkira",
         "style": "sport",
@@ -139,7 +151,11 @@
         "seasonFilter": "winter-fall",
         "popularity": "2",
         "date": "2024-01-11",
-        "color": "brown",
+        "color": {
+            "black": "чорний", 
+            "green": "зелений", 
+            "white": "білий"
+        },
         "model": "crosivky",
         "material": "shkira",
         "style": "sport",
@@ -183,7 +199,11 @@
         "seasonFilter": "winter-fall",
         "popularity": "4",
         "date": "2024-01-21",
-        "color": "brown",
+        "color": {
+            "black": "чорний", 
+            "green": "зелений", 
+            "gray": "сірий"
+        },
         "model": "crosivky",
         "material": "shkira",
         "style": "sport",
@@ -227,7 +247,9 @@
         "seasonFilter": "winter-fall",
         "popularity": "6",
         "date": "2024-01-17",
-        "color": "green",
+        "color": {
+            "black": "чорний"
+        },
         "model": "crosivky",
         "material": "shkira",
         "style": "sport",
@@ -271,7 +293,9 @@
         "seasonFilter": "winter-fall",
         "popularity": "8",
         "date": "2024-01-19",
-        "color": "green",
+        "color": {
+            "green": "зелений"
+        },
         "model": "cherevyki",
         "material": "shkira",
         "style": "classic",
@@ -310,7 +334,11 @@
         "seasonFilter": "winter-fall",
         "popularity": "10",
         "date": "2024-01-19",
-        "color": "black",
+        "color": {
+            "black": "чорний", 
+            "green": "зелений", 
+            "gray": "сірий"
+        },
         "model": "kedy",
         "material": "shkira",
         "style": "classic",
@@ -347,7 +375,11 @@
         "seasonFilter": "summer-spring",
         "popularity": "12",
         "date": "2024-01-21",
-        "color": "black",
+        "color": {
+            "black": "чорний", 
+            "green": "зелений", 
+            "gray": "сірий"
+        },
         "model": "sandali",
         "material": "zamsh",
         "style": "povsiakdenny",
@@ -385,7 +417,11 @@
         "seasonFilter": "summer-spring",
         "popularity": "13",
         "date": "2024-01-22",
-        "color": "brown",
+        "color": {
+            "black": "чорний", 
+            "green": "зелений", 
+            "gray": "сірий"
+        },
         "model": "sandali",
         "material": "shkira",
         "style": "povsiakdenny",
@@ -423,7 +459,11 @@
         "seasonFilter": "summer-spring",
         "popularity": "5",
         "date": "2024-01-23",
-        "color": "blue",
+        "color": {
+            "black": "чорний", 
+            "green": "зелений", 
+            "gray": "сірий"
+        },
         "model": "sandali",
         "material": "nubuk",
         "style": "povsiakdenny",
@@ -457,7 +497,9 @@
         "seasonFilter": "summer-spring",
         "popularity": "1",
         "date": "2024-01-11",
-        "color": "green",
+        "color": {
+            "green": "зелений"
+        },
         "model": "sandali",
         "material": "zamsh",
         "style": "povsiakdenny",
