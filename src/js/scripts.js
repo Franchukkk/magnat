@@ -333,12 +333,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const inputSize = document.createElement("input")
             inputSize.type = "checkbox"
             inputSize.name = "size-popap"
-            inputSize.id = `popup-input-${product.id}-${size}`
+            inputSize.id = `input-${product.id}-${size}`
             inputSize.value = size
         
             const labelSize = document.createElement("label")
             labelSize.classList.add(`label${size}`)
-            labelSize.setAttribute("for", `popup-input-${product.id}-${size}`)
+            labelSize.setAttribute("for", `input-${product.id}-${size}`)
             labelSize.innerText = size
 
             if (!product.size.includes(size)) {
@@ -1544,6 +1544,7 @@ function cart() {
 
                 document.querySelectorAll(`input[type="checkbox"][id^="input-${productId}"]:checked`).forEach(checkbox => {
                     selectedSizes.push(checkbox.value)
+                    alert(selectedSizes)
                 })
 
                 // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
