@@ -2,7 +2,6 @@
     {
         "id": "a-04ch-r",
         "category": "demiseason",
-        "seasonFilter": "winter-fall",
         "popularity": "1",
         "date": "2024-01-01",
         "color": {
@@ -10,9 +9,9 @@
             "green": "зелений", 
             "blue": "синій"
         },
-        "model": "crosivky",
-        "material": "shkira",
-        "style": "povsiakdenny",
+        "model": "Кросівки",
+        "material": "Шкіра",
+        "style": "Повсякденний",
         "size": ["40", "41", "42", "43"],
         "img": "img/a-04ch-r/cholovichi-krosivky-adidas1.webp",
         "alt": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Black",
@@ -45,7 +44,6 @@
     {
         "id": "a_04_ch_kr",
         "category": "demiseason",
-        "seasonFilter": "winter-fall",
         "popularity": "2",
         "date": "2023-01-01",
         "color": {
@@ -86,7 +84,6 @@
     {
         "id": "a-04chs",
         "category": "demiseason",
-        "seasonFilter": "winter-fall",
         "popularity": "5",
         "date": "2024-01-10",
         "color": {
@@ -127,7 +124,6 @@
     {
         "id": "a-04-ol",
         "category": "demiseason",
-        "seasonFilter": "winter-fall",
         "popularity": "2",
         "date": "2024-01-11",
         "color": {
@@ -168,7 +164,6 @@
     {
         "id": "a-04shok",
         "category": "demiseason",
-        "seasonFilter": "winter-fall",
         "popularity": "4",
         "date": "2024-01-21",
         "color": {
@@ -209,7 +204,6 @@
     {
         "id": "a-04-haki",
         "category": "demiseason",
-        "seasonFilter": "winter-fall",
         "popularity": "6",
         "date": "2024-01-17",
         "color": {
@@ -248,7 +242,6 @@
     {
         "id": "bot-523-ol",
         "category": "winter",
-        "seasonFilter": "winter-fall",
         "popularity": "8",
         "date": "2024-01-19",
         "color": {
@@ -282,7 +275,6 @@
     {
         "id": "bot-520",
         "category": "winter",
-        "seasonFilter": "winter-fall",
         "popularity": "10",
         "date": "2024-01-19",
         "color": {
@@ -317,7 +309,6 @@
     {
         "id": "90-ch-lito",
         "category": "summer",
-        "seasonFilter": "summer-spring",
         "popularity": "12",
         "date": "2024-01-21",
         "color": {
@@ -353,7 +344,6 @@
     {
         "id": "90-kor-lito",
         "category": "summer",
-        "seasonFilter": "summer-spring",
         "popularity": "13",
         "date": "2024-01-22",
         "color": {
@@ -389,7 +379,6 @@
     {
         "id": "90-s-lito",
         "category": "summer",
-        "seasonFilter": "summer-spring",
         "popularity": "5",
         "date": "2024-01-23",
         "color": {
@@ -425,7 +414,6 @@
     {
         "id": "90-x-lito",
         "category": "summer",
-        "seasonFilter": "summer-spring",
         "popularity": "1",
         "date": "2024-01-11",
         "color": {
