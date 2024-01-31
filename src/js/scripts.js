@@ -1545,7 +1545,7 @@ function cart() {
 
                 document.querySelectorAll(`input[type="checkbox"][id^="input-${productId}"]:checked`).forEach(checkbox => {
                     selectedSizes.push(checkbox.value)
-                    alert(selectedSizes)
+                    
                 })
 
                 // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
