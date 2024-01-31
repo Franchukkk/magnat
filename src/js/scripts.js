@@ -453,6 +453,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 bgSizeDark.style.display = "none"
                 bigImgPopap.remove()
             })
+            bgSizeDark.addEventListener("click", function() {
+                bgSizeDark.style.display = "none"
+                bigImgPopap.remove()
+
+            })
         }
 
         mainImgPopap.addEventListener("click", function () {
@@ -942,12 +947,18 @@ document.addEventListener("DOMContentLoaded", function () {
         bgSizeDark.style.display = "block"
         sizeBlockPopap.classList.add("active-size-popap")
     })
+
     closePopapSize.addEventListener("click", function () {
         sizeBlockPopap.style.display = "none"
         bgSizeDark.style.display = "none"
         sizeBlockPopap.classList.remove("active-size-popap")
     })
+    bgSizeDark.addEventListener("click", function() {
+        sizeBlockPopap.style.display = "none"
+        bgSizeDark.style.display = "none"
+        sizeBlockPopap.classList.remove("active-size-popap")
 
+    })
 
     //  пагінатор
 
