@@ -382,12 +382,10 @@ html(lang="uk")
                                 span Відгук
                             textarea(name="userReview")
                             button(type="submit").btn-style-one відправити 
-
-                        
             .popup-footer 
                 .wrapper
                     span.reviews-back повернутися у каталог
-        header 
+        header#up.scrollBurger
             .top-line
                 .wrapper.flex-between.items-center.top-nav-gap
                     nav
@@ -395,7 +393,7 @@ html(lang="uk")
                             span.bord
                         ul.menu.flex-between.top-nav
                             li
-                                a(href="index.html") Головна
+                                a(href="#up") Головна
                             li
                                 a(href="#catalog") Каталог
                             li
@@ -462,12 +460,15 @@ html(lang="uk")
                             source(srcset="" type="image/jpg")
                             img(src="", alt="")
         main
-            section.card-menu.wrapper#catalog
+            section.card-menu.wrapper#catalog.scrollBurger
                 h2 каталог товарів
                 p Оберіть те, що вас цікавить
                 .flex-between.filter-block
                     .filter 
-                        span.cancel-filter
+                        a.cancel-size-popap.cancel-filter(href="#") 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.267146 0.181446C0.506963 -0.0604821 0.895783 -0.0604821 1.1356 0.181446L5 4.07987L8.8644 0.181446C9.10422 -0.0604821 9.49304 -0.0604821 9.73285 0.181446C9.97267 0.423375 9.97267 0.815619 9.73285 1.05755L5.86845 4.95597L9.82014 8.94245C10.06 9.18438 10.06 9.57662 9.82014 9.81855C9.58032 10.0605 9.1915 10.0605 8.95168 9.81855L5 5.83207L1.04832 9.81855C0.8085 10.0605 0.419679 10.0605 0.179863 9.81855C-0.0599542 9.57662 -0.0599542 9.18438 0.179863 8.94245L4.13155 4.95597L0.267146 1.05755C0.0273296 0.815619 0.0273296 0.423375 0.267146 0.181446Z" fill="#4E98B6"/>
+                            </svg>
                         h2 фільтр
                         form(action="")
                             .check-size.flex
@@ -567,7 +568,7 @@ html(lang="uk")
                             a(href="#") фільтр
                         .card-bott
                         div#pagination.pagination
-            section.reviews#comentar
+            section.reviews#comentar.scrollBurger
                 .wrapper 
                     h2.text-title Відгуки клієнтів
                     .reviews-list.flex-wrap
@@ -581,7 +582,7 @@ html(lang="uk")
                 .review-btns.flex
                     a(href="#").btn-style-one.allReviewsPopupOpen усі відгуки
                     a(href="#").btn-style-two.setReview залишити відгук
-            section.aboutus#aboutus
+            section.aboutus#aboutus.scrollBurger
                 h2 про нашу компанію
                 .bgc-block 
                     .our-advantage.wrapper
