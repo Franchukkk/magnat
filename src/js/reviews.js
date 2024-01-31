@@ -53,6 +53,36 @@ function displayReviews(numReviews, targetClass, lastCard, reviewsArr) {
 
         reviewsList.insertAdjacentHTML('beforeend', reviewCard)
     }
+
+
+    const setReview = document.querySelector(".setReview"),
+        openReviewsPopup = document.querySelector(".allReviewsPopupOpen")
+        reviewsBack = document.querySelector(".reviews-back")
+    setReview.addEventListener("click", function (e) {
+        e.preventDefault()
+        document.querySelector(".reviews-popup-list").innerHTML = ""
+        document.querySelector(".review-details").style.display = "block"
+        document.querySelector(".reviews-popup-list").classList.remove("reviews-popup-list-flex")
+        document.querySelector(".reviews-and-btn").classList.remove("w-100")
+        displayReviews(3, "reviews-popup-list", 0, reviewsArr)
+        document.getElementById('moreReviewsBtn').classList.add("d-none")
+        document.querySelector(".allReviewsPopup").classList.add("d-block")
+    })
+
+    openReviewsPopup.addEventListener("click", function (e) {
+        e.preventDefault()
+        document.querySelector(".reviews-popup-list").innerHTML = ""
+        document.querySelector(".review-details").style.display = "none"
+        document.querySelector(".reviews-popup-list").classList.add("reviews-popup-list-flex")
+        document.querySelector(".reviews-and-btn").classList.add("w-100")
+        displayReviews(reviewsArr.length, "reviews-popup-list", 0, reviewsArr)
+        document.getElementById('moreReviewsBtn').classList.add("d-none")
+        document.querySelector(".allReviewsPopup").classList.add("d-block")
+    });
+
+    reviewsBack.addEventListener("click", function () {
+        document.querySelector(".allReviewsPopup").classList.remove("d-block")
+    })
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -60,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let howMuchCardsActive = 0
 
         displayReviews(5, "reviews-list", 0, reviewsArr)
-        displayReviews(10, "reviews-popup-list", 0, reviewsArr)
+        // displayReviews(10, "reviews-popup-list", 0, reviewsArr)
 
         const stars = document.querySelectorAll('.star-review')
         const userRateInput = document.getElementById('userRate')
@@ -93,3 +123,5 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     })
 })
+
+
