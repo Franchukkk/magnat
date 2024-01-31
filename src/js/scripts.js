@@ -24,11 +24,23 @@ function updateCartBtns() {
 document.addEventListener("DOMContentLoaded", function () {
     //бургер меню
     const burger = document.querySelector(".burger"),
-        mobileMenu = document.querySelector(".top-nav")
+        mobileMenu = document.querySelector(".top-nav"),
+        sections = document.querySelectorAll(".scrollBurger")
 
     burger.addEventListener('click', function () {
         this.classList.toggle('active'),
             mobileMenu.classList.toggle('activemobile')
+    })
+
+    window.addEventListener('scroll', function () {
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+    
+            if (rect.top <= 0 && rect.bottom >= 0) {
+                burger.classList.remove('active')
+                mobileMenu.classList.remove('activemobile')
+            }
+        })
     })
 
     // filter-mobile
@@ -811,7 +823,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.history.replaceState({}, '', urlWithoutCategory)
             } else {
                 // Дії для інших категорій
-                updateProductDisplay(category);
+                updateProductDisplay(category)
                 const urlWithCategory = window.location.origin + window.location.pathname + `?category=${category}#catalog`
                 window.history.replaceState({}, '', urlWithCategory)
                 localStorage.setItem("lastSelectedCategory", category)
@@ -870,6 +882,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function sortProducts(data) {
         const sortSelect = document.querySelector(".select__input"),
             selectedValue = parseInt(sortSelect.value)
+
         switch (selectedValue) {
             case 2:
                 // Сортування за спаданням ціни
@@ -1081,6 +1094,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (!anyCategoryMessage) {
                 const cardBott = document.querySelector(".card-bott")
+                const cardBlock = document.querySelector(".card-block")
                 anyCategoryMessage = document.createElement("div")
                 anyCategoryMessage.classList.add("any-block")
                 const spanIconAnyCategory = document.createElement("span")
@@ -1093,7 +1107,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 anyCategoryMessage.appendChild(spanIconAnyCategory)
                 anyCategoryMessage.appendChild(anyCategoryText)
-
                 cardBott.appendChild(anyCategoryMessage)
             }
         }
