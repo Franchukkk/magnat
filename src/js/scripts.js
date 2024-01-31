@@ -1467,8 +1467,14 @@ function updateCart(id, sizesList, colorCheckbox) {
         .then(products => {
             const product = products.find(product => product.id === id);
 
-            // Оновлений блок для порівняння кольорів
-            const selectedColor = colorCheckbox ? colorCheckbox : product.color;
+            let firstColor = Object.keys(product.color)[0]
+            function colorInObjToStr() {
+                if (colorCheckbox && product.color.hasOwnProperty(colorCheckbox)) {
+                    const selectedColor = product.color[colorCheckbox]
+                    return(selectedColor)
+                }
+            }
+            const selectedColor = colorCheckbox ? colorInObjToStr() : product.color[firstColor]
             const isColorMatch = product.color === selectedColor;
 
             const card = document.createElement("div");
