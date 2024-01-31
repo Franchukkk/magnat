@@ -205,23 +205,37 @@ document.addEventListener("DOMContentLoaded", function () {
     function createInputsForSizeKeys(product) {
         const sizeInputsContainer = document.querySelector(".check-size"),
             colorInputContainer = document.querySelector(".color-filter")
-        //розмір
-        for (var key in product) {
-            if (key.startsWith("size")) {
-                const inputSizeFilter = document.createElement("input"),
-                    labelSizeFilter = document.createElement("label")
-                inputSizeFilter.setAttribute("type", "checkbox")
-                inputSizeFilter.setAttribute("name", "size")
-                inputSizeFilter.setAttribute("id", product[key])
-                inputSizeFilter.setAttribute("value", product[key])
+        // Зберігаємо унікальні значення розмірів
+        let uniqueSizes = [];
 
-                labelSizeFilter.setAttribute("for", product[key])
-                labelSizeFilter.innerText = key.slice(4)
+        // Перебираємо кожен продукт
+        jsonData.forEach(product => {
+            // Перевіряємо, чи є властивість "size" у продукта та чи вона є масивом
+            if (product.size && Array.isArray(product.size)) {
+                // Отримуємо всі розміри та додаємо їх до масиву унікальних значень
+                product.size.forEach(size => {
+                    if (!uniqueSizes.includes(size)) {
+                        uniqueSizes.push(size)
 
-                sizeInputsContainer.appendChild(inputSizeFilter)
-                sizeInputsContainer.appendChild(labelSizeFilter)
+                        // Створюємо інпут та мітку для розміру
+                        const inputSizeFilter = document.createElement("input")
+                        const labelSizeFilter = document.createElement("label")
+
+                        inputSizeFilter.setAttribute("type", "checkbox")
+                        inputSizeFilter.setAttribute("name", "size")
+                        inputSizeFilter.setAttribute("id", size)
+                        inputSizeFilter.setAttribute("value", size)
+
+                        labelSizeFilter.setAttribute("for", size)
+                        labelSizeFilter.innerText = size
+
+                        sizeInputsContainer.appendChild(inputSizeFilter)
+                        sizeInputsContainer.appendChild(labelSizeFilter)
+                    }
+                })
             }
-        }
+        })
+
         //колір
         let uniqueColorValues = []
 
@@ -269,7 +283,8 @@ document.addEventListener("DOMContentLoaded", function () {
             figcaptionItems.appendChild(saleFlag)
         }
 
-        listItem.classList.add("card-box", product.category, product.seasonFilter, product.model, product.material, product.style, product.size40, product.size41, product.size42, product.size43, product.size44, product.size45)
+        listItem.classList.add("card-box", product.category, product.seasonFilter, product.model, product.material, product.style)
+        listItem.setAttribute("data-size", product.size)
         listItem.appendChild(figcaptionItems)
         // відкриття попапу з карточкою товару клік
         const clickFigure = document.createElement("a")
@@ -314,30 +329,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const sizes = ["40", "41", "42", "43", "44", "45"]
 
-        for (const size of sizes) {
+        sizes.forEach(size => {
             const inputSize = document.createElement("input")
             inputSize.type = "checkbox"
-            inputSize.name = "size-radio"
-            inputSize.id = `input-${product.id}-${size}`
+            inputSize.name = "size-popap"
+            inputSize.id = `popup-input-${product.id}-${size}`
             inputSize.value = size
+        
+            const labelSize = document.createElement("label")
+            labelSize.classList.add(`label${size}`)
+            labelSize.setAttribute("for", `popup-input-${product.id}-${size}`)
+            labelSize.innerText = size
 
-            const labelInput = document.createElement("label")
-            labelInput.classList.add(`label${size}`)
-            labelInput.setAttribute("for", `input-${product.id}-${size}`)
-            labelInput.innerText = `${size}`
-
-            if (!(`size${size}` in product)) {
+            if (!product.size.includes(size)) {
                 inputSize.disabled = true
             }
-
+        
             inputBlock.appendChild(inputSize)
-            inputBlock.appendChild(labelInput)
-        }
+            inputBlock.appendChild(labelSize)
+        })
 
         const ctaBuy = document.createElement("a")
         ctaBuy.classList.add("cta-card")
         ctaBuy.setAttribute('data-value', product.id)
-        ctaBuy.innerText = product.cta
+        ctaBuy.innerText = "купити"
         ctaBuy.href = "#"
         figcaptionItems.appendChild(ctaBuy)
 
@@ -603,30 +618,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
         descriptPopap.appendChild(listPopap)
 
-        const sizes = ["40", "41", "42", "43", "44", "45"],
-            choiseSizePopap = document.querySelector(".choise-size_popap")
+        const sizes = ["40", "41", "42", "43", "44", "45"]
+        const choiseSizePopap = document.querySelector(".choise-size_popap")
 
-        for (const size of sizes) {
+        sizes.forEach(size => {
             const inputSize = document.createElement("input")
             inputSize.type = "checkbox"
             inputSize.id = `popup-input-${product.id}-${size}`
             inputSize.name = "size-popap"
             inputSize.value = size
 
-            const labelInput = document.createElement("label")
-            labelInput.classList.add(`label${size}`)
-            labelInput.setAttribute("for", `popup-input-${product.id}-${size}`)
-            labelInput.innerText = `${size}`
+            const labelSize = document.createElement("label")
+            labelSize.classList.add(`label${size}`)
+            labelSize.setAttribute("for", `popup-input-${product.id}-${size}`)
+            labelSize.innerText = size
 
-            if (`size${size}` in product) {
-                inputSize.disabled = false
-            } else {
+            if (!product.size.includes(size)) {
                 inputSize.disabled = true
             }
 
             choiseSizePopap.appendChild(inputSize)
-            choiseSizePopap.appendChild(labelInput)
-        }
+            choiseSizePopap.appendChild(labelSize)
+        })
+
         // виведення кольору
 
         const formColor = document.createElement("form");

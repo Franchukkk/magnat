@@ -13,12 +13,7 @@
         "model": "crosivky",
         "material": "shkira",
         "style": "povsiakdenny",
-        "size40": "size40",
-        "size41": "size41",
-        "size42": "size42",
-        "size43": "size43",
-        "size44": "size44",
-        "size45": "size45", 
+        "size": ["40", "41", "42", "43"],
         "img": "img/a-04ch-r/cholovichi-krosivky-adidas1.webp",
         "alt": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Black",
         "imgPopap1": "img/a-04ch-r/cholovichi-krosivky-adidas2.webp",
@@ -45,9 +40,7 @@
             "styleCard": "повсякденний" 
         },
         "saleprice": "2300 грн",
-        "price": "1890 грн",
-        "cta": "купити",
-        "href": "#"
+        "price": "1890 грн"
     },
     {
         "id": "a_04_ch_kr",
@@ -63,12 +56,7 @@
         "model": "crosivky",
         "material": "shkira",
         "style": "sport",
-        "size40": "size40",
-        "size41": "size41",
-        "size42": "size42",
-        "size43": "size43",
-        "size44": "size44",
-        "size45": "size45",
+        "size": ["40", "41", "42", "43", "44"],
         "img": "img/a-04-ch-kr/cholovichi-shkiriani-krosivky1.webp",
         "alt": "Чоловічі шкіряні кросівки Ads  Originals Ozelia",
         "imgPopap1": "img/a-04-ch-kr/cholovichi-shkiriani-krosivky2.webp",
@@ -93,9 +81,7 @@
         "materialSole": "ТЕП",
         "styleCard": "повсякденний",
         "saleprice": "2300 грн",
-        "price": "1890 грн",
-        "cta": "купити",
-        "href": "#"
+        "price": "1890 грн"
     },
     {
         "id": "a-04chs",
@@ -111,12 +97,7 @@
         "model": "crosivky",
         "material": "shkira",
         "style": "sport",
-        "size40": "size40",
-        "size41": "size41",
-        "size42": "size42",
-        "size43": "size43",
-        "size44": "size44",
-        "size45": "size45",
+        "size": ["40", "41", "42", "43", "44", "45"],
         "img": "img/a-04chs/cholovichi-shkiriani-cherevyky1.webp",
         "alt": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Black",
         "imgPopap1": "img/a-04chs/cholovichi-shkiriani-cherevyky2.webp",
@@ -141,9 +122,7 @@
         "styleCard": "повсякденний",
         "head": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Black",
         "saleprice": "2300 грн",
-        "price": "1890 грн",
-        "cta": "купити",
-        "href": "#"
+        "price": "1890 грн"
     },
     {
         "id": "a-04-ol",
@@ -159,12 +138,7 @@
         "model": "crosivky",
         "material": "shkira",
         "style": "sport",
-        "size40": "size40",
-        "size41": "size41",
-        "size42": "size42",
-        "size43": "size43",
-        "size44": "size44",
-        "size45": "size45",
+        "size": ["40", "41", "42", "43", "44", "45"],
         "img": "img/a-04-ol/cholovichi-shkiriani-crosivky1.webp",
         "alt": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Mokko",
         "imgPopap1": "img/a-04-ol/cholovichi-shkiriani-crosivky2.webp",
@@ -189,9 +163,7 @@
         "materialSole": "ТЕП",
         "styleCard": "повсякденний",
         "saleprice": "2300 грн",
-        "price": "1890 грн",
-        "cta": "купити",
-        "href": "#"
+        "price": "1890 грн"
     },
     {
         "id": "a-04shok",
@@ -207,12 +179,7 @@
         "model": "crosivky",
         "material": "shkira",
         "style": "sport",
-        "size40": "size40",
-        "size41": "size41",
-        "size42": "size42",
-        "size43": "size43",
-        "size44": "size44",
-        "size45": "size45",
+        "size": ["40", "41", "42", "43", "44", "45"],
         "img": "img/a-04shok/cholovichi-shkiriani-cherevyky1.webp",
         "alt": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Brown",
         "imgPopap1": "img/a-04shok/cholovichi-shkiriani-cherevyky2.webp",
@@ -237,9 +204,7 @@
         "materialSole": "ТЕП",
         "styleCard": "повсякденний",
         "saleprice": "2300 грн",
-        "price": "1890 грн",
-        "cta": "купити",
-        "href": "#"
+        "price": "1890 грн"
     },
     {
         "id": "a-04-haki",
@@ -253,12 +218,7 @@
         "model": "crosivky",
         "material": "shkira",
         "style": "sport",
-        "size40": "size40",
-        "size41": "size41",
-        "size42": "size42",
-        "size43": "size43",
-        "size44": "size44",
-        "size45": "size45",
+        "size": ["40", "41", "42", "43", "44", "45"],
         "img": "img/a-04-haki/cholovichi-shkiriani-crosivky1.webp",
         "alt": "Чоловічі шкіряні кросівки Ads  Originals Ozelia  Green",
         "imgPopap1": "img/a-04-haki/cholovichi-shkiriani-crosivky2.webp",
@@ -283,9 +243,7 @@
         "materialSole": "ТЕП",
         "styleCard": "повсякденний",
         "saleprice": "2300 грн",
-        "price": "1890 грн",
-        "cta": "купити",
-        "href": "#"
+        "price": "1890 грн"
     },
     {
         "id": "bot-523-ol",
@@ -299,12 +257,7 @@
         "model": "cherevyki",
         "material": "shkira",
         "style": "classic",
-        "size40": "size40",
-        "size41": "size41",
-        "size42": "size42",
-        "size43": "size43",
-        "size44": "size44",
-        "size45": "size45",
+        "size": ["40", "41", "42", "43", "44", "45"],
         "img": "img/bot-523-ol/adidashaki1.webp",
         "alt": "Чоловічі шкіряні черевики Ads Terrex Green",
         "imgPopap1": "img/bot-523-ol/adidashaki2.webp",
@@ -324,9 +277,7 @@
         "materialSole": "ТЕП",
         "styleCard": "повсякденний",
         "saleprice": "2510 грн",
-        "price": "2170 грн",
-        "cta": "купити",
-        "href": "#"
+        "price": "2170 грн"
     },
     {
         "id": "bot-520",
@@ -342,11 +293,7 @@
         "model": "kedy",
         "material": "shkira",
         "style": "classic",
-        "size40": "size40",
-        "size41": "size41",
-        "size42": "size42",
-        "size44": "size44",
-        "size45": "size45",
+        "size": ["40", "41", "42", "43", "44", "45"],
         "img": "img/bot-520/adidasblack1.webp",
         "alt": "Чоловічі шкіряні черевики Ads Terrex Black",
         "imgPopap1": "img/bot-520/adidasblack2.webp",
@@ -365,9 +312,7 @@
         "materialSole": "ТЕП",
         "styleCard": "повсякденний",
         "saleprice": "2510 грн",
-        "price": "2170 грн",
-        "cta": "купити",
-        "href": "#"
+        "price": "2170 грн"
     },
     {
         "id": "90-ch-lito",
@@ -383,11 +328,7 @@
         "model": "sandali",
         "material": "zamsh",
         "style": "povsiakdenny",
-        "size40": "size40",
-        "size41": "size41",
-        "size42": "size42",
-        "size43": "size43",
-        "size45": "size45",
+        "size": ["40", "41", "42", "43", "44", "45"],
         "img": "img/90-ch-lito/cholovichi-shkiriani-bosonizky1.webp",
         "alt": "чоловічі шкіряні сандалі на липучці ",
         "imgPopap1": "img/90-ch-lito/cholovichi-shkiriani-bosonizky2.webp",
@@ -407,9 +348,7 @@
         "materialSole": "ТЕП",
         "styleCard": "повсякденний",
         "saleprice": "",
-        "price": "950 грн",
-        "cta": "купити",
-        "href": "#"
+        "price": "950 грн"
     },
     {
         "id": "90-kor-lito",
@@ -425,11 +364,7 @@
         "model": "sandali",
         "material": "shkira",
         "style": "povsiakdenny",
-        "size40": "size40",
-        "size41": "size41",
-        "size42": "size42",
-        "size43": "size43",
-        "size44": "size44",
+        "size": ["40", "41", "42", "43", "44", "45"],
         "img": "img/90-kor-lito/cholovichi-shkiriani-bosonizky1.webp",
         "alt": "чоловічі шкіряні сандалі на липучці ",
         "imgPopap1": "img/90-kor-lito/cholovichi-shkiriani-bosonizky2.webp",
@@ -449,9 +384,7 @@
         "materialSole": "ТЕП",
         "styleCard": "повсякденний",
         "saleprice": "",
-        "price": "950 грн",
-        "cta": "купити",
-        "href": "#"
+        "price": "950 грн"
     },
     {
         "id": "90-s-lito",
@@ -467,7 +400,7 @@
         "model": "sandali",
         "material": "nubuk",
         "style": "povsiakdenny",
-        "size44": "size44",
+        "size": ["45"],
         "img": "img/90-s-lito/Чоловічі шкіряні черевики(1).jpg",
         "alt": "чоловічі шкіряні сандалі на липучці ",
         "imgPopap1": "img/90-s-lito/Чоловічі шкіряні черевики(2).jpg",
@@ -487,9 +420,7 @@
         "materialSole": "ТЕП",
         "styleCard": "повсякденний",
         "saleprice": "",
-        "price": "950 грн",
-        "cta": "купити",
-        "href": "#"
+        "price": "950 грн"
     },
     {
         "id": "90-x-lito",
@@ -503,7 +434,7 @@
         "model": "sandali",
         "material": "zamsh",
         "style": "povsiakdenny",
-        "size45": "size45",
+        "size": ["40", "41", "42", "43", "44", "45"],
         "img": "img/90-x-lito/Чоловічі шкіряні босоніжки(1).jpg",
         "alt": "чоловічі шкіряні сандалі на липучці ",
         "imgPopap1": "img/90-x-lito/Чоловічі шкіряні босоніжки(2).jpg",
@@ -523,8 +454,6 @@
         "materialSole": "ТЕП",
         "styleCard": "повсякденний",
         "saleprice": "",
-        "price": "950 грн",
-        "cta": "купити",
-        "href": "#"
+        "price": "950 грн"
     }
 ]
