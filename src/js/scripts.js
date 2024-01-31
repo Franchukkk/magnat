@@ -205,19 +205,14 @@ document.addEventListener("DOMContentLoaded", function () {
     function createInputsForSizeKeys(product) {
         const sizeInputsContainer = document.querySelector(".check-size"),
             colorInputContainer = document.querySelector(".color-filter")
-        // Зберігаємо унікальні значення розмірів
-        let uniqueSizes = [];
+        let uniqueSizes = []
 
-        // Перебираємо кожен продукт
         jsonData.forEach(product => {
-            // Перевіряємо, чи є властивість "size" у продукта та чи вона є масивом
             if (product.size && Array.isArray(product.size)) {
-                // Отримуємо всі розміри та додаємо їх до масиву унікальних значень
                 product.size.forEach(size => {
                     if (!uniqueSizes.includes(size)) {
                         uniqueSizes.push(size)
 
-                        // Створюємо інпут та мітку для розміру
                         const inputSizeFilter = document.createElement("input")
                         const labelSizeFilter = document.createElement("label")
 
@@ -624,13 +619,13 @@ document.addEventListener("DOMContentLoaded", function () {
         sizes.forEach(size => {
             const inputSize = document.createElement("input")
             inputSize.type = "checkbox"
-            inputSize.id = `input-${product.id}-${size}`
+            inputSize.id = `popup-input-${product.id}-${size}`
             inputSize.name = "size-popap"
             inputSize.value = size
 
             const labelSize = document.createElement("label")
             labelSize.classList.add(`label${size}`)
-            labelSize.setAttribute("for", `input-${product.id}-${size}`)
+            labelSize.setAttribute("for", `popup-input-${product.id}-${size}`)
             labelSize.innerText = size
 
             if (!product.size.includes(size)) {
@@ -1265,8 +1260,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     cart.addEventListener("click", basketToggle)
-    returnBasket.forEach(function (e) {
-        e.addEventListener("click", basketToggle)
+        returnBasket.forEach(function (e) {
+            e.addEventListener("click", basketToggle)
     })
 
 
