@@ -2048,6 +2048,12 @@ const showToast = (
     }
 
     document.body.appendChild(box)
+
+    document.body.querySelector(".toast").style.zIndex = "100"
+
+    let toastTimeout = setTimeout(function () {
+        document.body.querySelector(".toast").style.zIndex = "-10"
+    }, 5000)
 };
 
 let submit =
