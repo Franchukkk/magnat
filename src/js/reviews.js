@@ -2,31 +2,31 @@ function loadReviews() {
     return fetch('reviews.json')
         .then(response => {
             if (!response.ok) {
-                throw new Error('reviews error');
+                throw new Error('reviews error')
             }
-            return response.json();
+            return response.json()
         })
         .catch(error => {
-            console.error('Error:', error);
-            return [];
-        });
+            console.error('Error:', error)
+            return []
+        })
 }
 
 function displayReviews(numReviews, targetClass, lastCard, reviewsArr) {
-    const reviewsList = document.querySelector(`.${targetClass}`);
-    const numReviewsToDisplay = Math.min(reviewsArr.length, numReviews);
+    const reviewsList = document.querySelector(`.${targetClass}`)
+    const numReviewsToDisplay = Math.min(reviewsArr.length, numReviews)
 
     for (let i = reviewsArr.length - 1 - lastCard; i >= reviewsArr.length - numReviewsToDisplay - lastCard; i--) {
         if (!reviewsArr[i]) {
-            document.getElementById('moreReviewsBtn').classList.add("d-none");
-            break;
+            document.getElementById('moreReviewsBtn').classList.add("d-none")
+            break
         }
 
         let reviewerName = reviewsArr[i].name,
             reviewDate = reviewsArr[i].date,
             reviewDescription = reviewsArr[i].review,
             reviewRate = reviewsArr[i].rate,
-            reviewRateHtml = "";
+            reviewRateHtml = ""
 
         for (let j = 1; j <= 5; j++) {
             if (j <= parseFloat(reviewRate)) {
@@ -49,47 +49,47 @@ function displayReviews(numReviews, targetClass, lastCard, reviewsArr) {
                     <p>${reviewDescription}</p>
                 </div>
             </div>
-        `;
+        `
 
-        reviewsList.insertAdjacentHTML('beforeend', reviewCard);
+        reviewsList.insertAdjacentHTML('beforeend', reviewCard)
     }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     loadReviews().then(function (reviewsArr) {
-        let howMuchCardsActive = 0;
+        let howMuchCardsActive = 0
 
-        displayReviews(5, "reviews-list", 0, reviewsArr);
-        displayReviews(10, "reviews-popup-list", 0, reviewsArr);
+        displayReviews(5, "reviews-list", 0, reviewsArr)
+        displayReviews(10, "reviews-popup-list", 0, reviewsArr)
 
-        const stars = document.querySelectorAll('.star-review');
-        const userRateInput = document.getElementById('userRate');
-        const showMoreReviews = document.getElementById('moreReviewsBtn');
+        const stars = document.querySelectorAll('.star-review')
+        const userRateInput = document.getElementById('userRate')
+        const showMoreReviews = document.getElementById('moreReviewsBtn')
 
         for (let i = 0; i < stars.length; i++) {
             stars[i].addEventListener('click', function () {
-                setRating(this.getAttribute('data-value'));
-            });
+                setRating(this.getAttribute('data-value'))
+            })
         }
 
         function setRating(rating) {
-            rating = parseInt(rating);
+            rating = parseInt(rating)
 
             for (let i = 0; i < stars.length; i++) {
                 if (i < rating) {
-                    stars[i].classList.add('active');
+                    stars[i].classList.add('active')
                 } else {
-                    stars[i].classList.remove('active');
+                    stars[i].classList.remove('active')
                 }
             }
 
-            userRateInput.value = rating;
+            userRateInput.value = rating
         }
 
         showMoreReviews.addEventListener("click", function () {
-            howMuchCardsActive += 10;
+            howMuchCardsActive += 10
 
-            displayReviews(10, "reviews-popup-list", howMuchCardsActive, reviewsArr);
-        });
-    });
-});
+            displayReviews(10, "reviews-popup-list", howMuchCardsActive, reviewsArr)
+        })
+    })
+})
