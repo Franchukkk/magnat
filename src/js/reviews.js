@@ -1,161 +1,38 @@
-const reviewsArr = [{
-        name: "Шамрай Артем1",
-        date: "30.12.2023",
-        rate: "1",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем2",
-        date: "30.12.2023",
-        rate: "2",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем3",
-        date: "30.12.2023",
-        rate: "3",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем4",
-        date: "30.12.2023",
-        rate: "4",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем5",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем6",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем7",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем8",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем9",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем10",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем11",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем12",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем13",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем14",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем15",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем16",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем17",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем18",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем19",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем20",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем21",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-    {
-        name: "Шамрай Артем22",
-        date: "30.12.2023",
-        rate: "5",
-        review: "В принципі за свої гроші доволі не поганий товар. Виглядають надійно як і по матеріалах так і як виконанні.Як будуть носитися ще подивимося, поки в місті майже 10 як для зими.З нюансів це вага. Трохи не дуже сучасно зараз але вибирав за ціною."
-    },
-]
+function loadReviews() {
+    return fetch('reviews.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('reviews error');
+            }
+            return response.json();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            return [];
+        });
+}
 
-
-
-
-
-function displayReviews(numReviews, targetClass, lastCard) {
-    const reviewsList = document.querySelector(`.${targetClass}`)
-    const numReviewsToDisplay = Math.min(reviewsArr.length, numReviews)
+function displayReviews(numReviews, targetClass, lastCard, reviewsArr) {
+    const reviewsList = document.querySelector(`.${targetClass}`);
+    const numReviewsToDisplay = Math.min(reviewsArr.length, numReviews);
 
     for (let i = reviewsArr.length - 1 - lastCard; i >= reviewsArr.length - numReviewsToDisplay - lastCard; i--) {
         if (!reviewsArr[i]) {
-            document.getElementById('moreReviewsBtn').classList.add("d-none")
-            break
+            document.getElementById('moreReviewsBtn').classList.add("d-none");
+            break;
         }
+
         let reviewerName = reviewsArr[i].name,
             reviewDate = reviewsArr[i].date,
             reviewDescription = reviewsArr[i].review,
             reviewRate = reviewsArr[i].rate,
-            reviewRateHtml = ""
+            reviewRateHtml = "";
 
         for (let j = 1; j <= 5; j++) {
             if (j <= parseFloat(reviewRate)) {
-                reviewRateHtml += "<div class='star active'></div>"
+                reviewRateHtml += "<div class='star active'></div>";
             } else {
-                reviewRateHtml += "<div class='star'></div>"
+                reviewRateHtml += "<div class='star'></div>";
             }
         }
 
@@ -172,52 +49,47 @@ function displayReviews(numReviews, targetClass, lastCard) {
                     <p>${reviewDescription}</p>
                 </div>
             </div>
-        `
+        `;
 
-        reviewsList.insertAdjacentHTML('beforeend', reviewCard)
+        reviewsList.insertAdjacentHTML('beforeend', reviewCard);
     }
-
 }
 
-
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
-    let howMuchCardsActive = 0
-    displayReviews(5, "reviews-list", 0)
-    displayReviews(10, "reviews-popup-list", 0)
+    loadReviews().then(function (reviewsArr) {
+        let howMuchCardsActive = 0;
 
-    const stars = document.querySelectorAll('.star-review')
-    const userRateInput = document.getElementById('userRate')
-    const showMoreReviews = document.getElementById('moreReviewsBtn')
+        displayReviews(5, "reviews-list", 0, reviewsArr);
+        displayReviews(10, "reviews-popup-list", 0, reviewsArr);
 
-    for (let i = 0; i < stars.length; i++) {
-        stars[i].addEventListener('click', function () {
-            setRating(this.getAttribute('data-value'))
-        })
-    }
+        const stars = document.querySelectorAll('.star-review');
+        const userRateInput = document.getElementById('userRate');
+        const showMoreReviews = document.getElementById('moreReviewsBtn');
 
-    function setRating(rating) {
-        rating = parseInt(rating)
-
-        // Оновити класи зірок
         for (let i = 0; i < stars.length; i++) {
-            if (i < rating) {
-                stars[i].classList.add('active')
-            } else {
-                stars[i].classList.remove('active')
-            }
+            stars[i].addEventListener('click', function () {
+                setRating(this.getAttribute('data-value'));
+            });
         }
 
-        // Присвоїти значення data-value в input з id "userRate"
-        userRateInput.value = rating
-    }
+        function setRating(rating) {
+            rating = parseInt(rating);
 
-    showMoreReviews.addEventListener("click", function() {
-        howMuchCardsActive += 10
+            for (let i = 0; i < stars.length; i++) {
+                if (i < rating) {
+                    stars[i].classList.add('active');
+                } else {
+                    stars[i].classList.remove('active');
+                }
+            }
 
-        displayReviews(10, "reviews-popup-list", howMuchCardsActive)
-    })
+            userRateInput.value = rating;
+        }
 
-})
+        showMoreReviews.addEventListener("click", function () {
+            howMuchCardsActive += 10;
+
+            displayReviews(10, "reviews-popup-list", howMuchCardsActive, reviewsArr);
+        });
+    });
+});

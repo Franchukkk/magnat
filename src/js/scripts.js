@@ -106,21 +106,21 @@ document.addEventListener("DOMContentLoaded", function () {
         sameCard = document.querySelector(".same-card")
 
     const itemsPerPage = 12 //ск  карток товару має бути на сторінці
-    
+
     let currentPage = 1,
-    totalPages = 1,
-    jsonData = []
-    
-    
+        totalPages = 1,
+        jsonData = []
+
+
     function fetchData() {
         fetch("products.json")
-        .then(response => response.json())
-        .then(data => {
-            jsonData = data
-            totalPages = Math.ceil(jsonData.length / itemsPerPage)
-            showData(currentPage)
-            showPagination()
-            updateProductDisplay(selectedCategory)
+            .then(response => response.json())
+            .then(data => {
+                jsonData = data
+                totalPages = Math.ceil(jsonData.length / itemsPerPage)
+                showData(currentPage)
+                showPagination()
+                updateProductDisplay(selectedCategory)
 
                 //input range виведення у велю значень з json
                 const rangeInput = document.querySelectorAll(".range-input input"),
@@ -139,8 +139,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         let minPrice = parseInt(priceInput[0].value),
                             maxPrice = parseInt(priceInput[1].value)
 
-                            if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
-                                if (e.target.className === "input-min") {
+                        if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
+                            if (e.target.className === "input-min") {
                                 rangeInput[0].value = minPrice
                                 range.style.left = (minPrice / rangeInput[0].max) * 100 + "%"
                             } else {
@@ -162,20 +162,20 @@ document.addEventListener("DOMContentLoaded", function () {
                         let minVal = parseInt(rangeInput[0].value),
                             maxVal = parseInt(rangeInput[1].value)
 
-                            if (maxVal - minVal < priceGap) {
-                                if (e.target.className === "range-min") {
-                                    rangeInput[0].value = maxVal - priceGap
-                                } else {
-                                    rangeInput[1].value = minVal + priceGap
-                                }
+                        if (maxVal - minVal < priceGap) {
+                            if (e.target.className === "range-min") {
+                                rangeInput[0].value = maxVal - priceGap
                             } else {
-                                priceInput[0].value = minVal
-                                priceInput[1].value = maxVal
-                                range.style.left = (minVal / rangeInput[0].max) * 100 + "%"
-                                range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%"
+                                rangeInput[1].value = minVal + priceGap
                             }
-                        })
+                        } else {
+                            priceInput[0].value = minVal
+                            priceInput[1].value = maxVal
+                            range.style.left = (minVal / rangeInput[0].max) * 100 + "%"
+                            range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%"
+                        }
                     })
+                })
                 // виведення товарів зі знижками по нижній кнопці
                 const discountButton = document.querySelector('a.bottom-cart-season[data-href="discount"]');
                 discountButton.addEventListener("click", function (e) {
@@ -187,8 +187,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
             })
             .catch(error => console.error("Помилка завантаження даних:", error))
-        }
-        
+    }
+
     function showData(pageNumber) {
         const startIndex = (pageNumber - 1) * itemsPerPage,
             endIndex = startIndex + itemsPerPage,
@@ -642,7 +642,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ctaPopup.setAttribute("data-value", product.id)
         ctaPopup.addEventListener("click", function (e) {
             e.preventDefault()
-            productPopup.style.display = "none"
+            // productPopup.style.display = "none"
             //додати відкриття кошика 
         })
         btnSimilar()
@@ -752,7 +752,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let selectedCategory = lastSelectedCategory
 
     const urlParams = new URLSearchParams(window.location.search)
-        urlCategory = urlParams.get('category'),
+    urlCategory = urlParams.get('category'),
         urlHash = window.location.hash,
         selectedHash = urlHash || "#catalog"
 
@@ -802,7 +802,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
 
             item.classList.add("selected")
-            
+
             let category = evt.target.getAttribute("data-href")
             if (category === "#all") {
                 category = "#all"
@@ -823,38 +823,40 @@ document.addEventListener("DOMContentLoaded", function () {
             resetFilters()
         })
     })
-    
+
     bottomProduct.forEach((item) => {
         item.addEventListener("click", (evt) => {
             evt.preventDefault()
-    
+
             let category = evt.target.getAttribute("data-href")
             const urlWithCategory = window.location.origin + window.location.pathname + (category ? `?category=${category}` : '') + "#catalog"
             window.history.replaceState({}, '', urlWithCategory)
             localStorage.setItem("lastSelectedCategory", category)
-    
+
             const catalogElement = document.getElementById("catalog")
-    
-            catalogElement.scrollIntoView({ behavior: "smooth" })
-    
-            btnProduct.forEach((button) => {
-                button.classList.remove("selected", "hovered") 
+
+            catalogElement.scrollIntoView({
+                behavior: "smooth"
             })
-    
+
+            btnProduct.forEach((button) => {
+                button.classList.remove("selected", "hovered")
+            })
+
             btnProduct.forEach((button) => {
                 if (button.getAttribute("data-href") === category) {
-                    button.classList.add("selected", "hovered") 
+                    button.classList.add("selected", "hovered")
                 }
             })
-            
+
             item.classList.add("selected")
             displayProducts(jsonData, productList)
-            
+
             updateProductDisplay(category)
             setTimeout(updateCartBtns(), 0)
             resetFilters()
         })
-    })    
+    })
 
     function updateProductDisplay(category) {
         categories.forEach((cat) => {
@@ -1056,7 +1058,7 @@ document.addEventListener("DOMContentLoaded", function () {
             selectedSeasons = getSelectedValues('season'),
             selectedMaterials = getSelectedValues('material'),
             selectedStyles = getSelectedValues('style')
-        
+
         let anyCategoryVisible = false
         categories.forEach((category) => {
             const elements = document.querySelectorAll(`.${category}`)
@@ -1127,7 +1129,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // document.querySelector('.input-max').value = `${maxPriceInput}`
         // document.querySelector(".range-min").setAttribute("value" , minPriceInput)
         // document.querySelector(".range-max").value = `${maxPriceInput}`
-            
+
         // updateProductDisplay(category)
     }
 
@@ -1172,7 +1174,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const cart = document.querySelector(".cart"),
         basketPopup = document.querySelector("#basket-popup-outline"),
-        returnBasket = document.querySelector(".basket-back"),
+        returnBasket = document.querySelectorAll(".basket-back"),
         body = document.querySelector("body")
 
 
@@ -1182,7 +1184,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     cart.addEventListener("click", basketToggle)
-    returnBasket.addEventListener("click", basketToggle)
+    returnBasket.forEach(function (e) {
+        e.addEventListener("click", basketToggle)
+    })
 
 
     fetchData()
@@ -1233,7 +1237,18 @@ const cartWaitTimeout = setTimeout(function () {
 
 
 function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
-
+    if (size.length === 0) {
+        showToast("Спочатку виберіть розмір товару", "info", 5000);
+    } else {
+        showToast("Товар успішно додано", "success", 5000);
+        document.querySelector('.popap-card').style.display = "none"
+        if (document.querySelector(".same-card")) {
+            document.querySelector(".same-card").innerHTML = ""
+        }
+    }
+    if (Object.keys(orders).length <= 3) {
+        addedProductsList.innerHTML = ""
+    }
     // console.log(e, size, quantityPopup);
     let productID = e.dataset.value
 
@@ -1288,6 +1303,7 @@ function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
                         orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                         orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                     } else {
+
                         // alert("been")
                         if (quantityPopup) {
                             for (let j = quantityPopup; j > 0; j--) {
@@ -1425,6 +1441,7 @@ function updateCart(id, sizesList, colorCheckbox) {
             // Додавання товару до списку, якщо колір співпадає
             // if (isColorMatch) {
             addedProductsList.appendChild(card);
+
             // }
         });
 }
@@ -1716,19 +1733,20 @@ function minBtn(button) {
         })
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+// document.addEventListener("DOMContentLoaded", function () {
 
-    let buyBtns = document.querySelectorAll(".cta-card")
-    // console.log(buyBtns);
-    buyBtns.forEach(function (e) {
-        e.addEventListener("click", function () {
-            let plusQuantity = document.querySelectorAll(".plus-quantity")
-            plusBtn()
-        })
-    })
+//     let buyBtns = document.querySelectorAll(".cta-card")
+//     console.log(buyBtns);
+//     buyBtns.forEach(function (e) {
+//         console.log(e);
+//         e.addEventListener("click", function () {
+//             let plusQuantity = document.querySelectorAll(".plus-quantity")
+//             plusBtn()
+//         })
+//     })
 
 
-})
+// })
 
 
 function sendData(orders) {
@@ -1779,9 +1797,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                 delete orders[productID]
                 productBlock.remove()
-
+                if (Object.keys(orders).length <= 3) {
+                    addedProductsList.innerHTML = `
+                    <div class="basket-empty">
+                        <p>Кошик порожній </p>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 90 90" viewBox="0 0 90 90" width="256" height="256"><path d="M50.065 35.729c4.385 0 8.703 1.913 12.391 5.438.973.851 1.041 2.348.15 3.28-.896.938-2.391.938-3.281.005-3.01-2.883-6.172-4.188-9.26-4.188-3.084 0-6.24 1.304-9.25 4.188-.434.427-1.027.662-1.637.646-2.031-.052-2.979-2.545-1.488-3.932C41.372 37.642 45.685 35.729 50.065 35.729zM59.513 26.78c1.813 0 3.287 1.477 3.287 3.291 0 1.815-1.475 3.285-3.287 3.285s-3.281-1.47-3.281-3.285C56.231 28.256 57.7 26.78 59.513 26.78zM40.628 26.78c1.813 0 3.281 1.477 3.281 3.291 0 1.815-1.469 3.285-3.281 3.285-1.818 0-3.287-1.47-3.287-3.285C37.341 28.256 38.81 26.78 40.628 26.78zM10.237 5.269c-4.422.125-5.125 6.795-.844 7.958l5.582 1.971 6.568 34.245c.787 4.098 2.088 7.807 3.906 10.998 2.672 4.699 7.313 8.167 13.037 8.167h28.426c5.131.093 5.131-8.116 0-8.021H38.487c-4.047-.516-5.725-2.555-7.209-5.544H68.8c3.441 0 5.363-3.056 6.213-6.591l8.207-27.92c.438-4.59-1.994-5.496-6.25-5.496l-53.904.041-1.449-4.428c-.391-1.318-1.391-2.336-2.645-2.69L10.237 5.269zM40.425 72.697c-3.359 0-6.084 2.727-6.084 6.086 0 3.363 2.725 6.09 6.084 6.09s6.078-2.727 6.078-6.09C46.503 75.424 43.784 72.697 40.425 72.697zM64.663 72.697c-3.354 0-6.078 2.727-6.078 6.086 0 3.363 2.725 6.09 6.078 6.09 3.359 0 6.084-2.727 6.084-6.09C70.747 75.424 68.022 72.697 64.663 72.697z" fill="#cccccc" class="color000 svgShape"></path></svg>`
+                }
             }
         }
+
     })
 })
 
@@ -1789,7 +1814,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //попап оформлення замовлення
     const openConfirmPopup = document.querySelector("#openConfirmPopup"),
         confirmPopup = document.querySelector("#popup-confirm-outline"),
-        confirmPopupClose = document.querySelector(".confirm-back")
+        confirmPopupClose = document.querySelectorAll(".confirm-back")
 
     openConfirmPopup.addEventListener("click", function () {
         if (Object.keys(orders).length > 3) {
@@ -1801,11 +1826,15 @@ document.addEventListener("DOMContentLoaded", function () {
             confirmTotalPrice.innerText = orders.orderSumWithDiscount + " грн"
             confirmPrice.innerText = orders.orderSumWithNoDiscount + " грн"
 
+        } else {
+            showToast("Спочатку оберіть бажаний товар", "info", 5000);
         }
     })
 
-    confirmPopupClose.addEventListener("click", function () {
-        confirmPopup.classList.toggle("d-block")
+    confirmPopupClose.forEach(function (e) {
+        e.addEventListener("click", function () {
+            confirmPopup.classList.toggle("d-block")
+        })
     })
 
 })
@@ -1847,7 +1876,7 @@ reviewsBack.addEventListener("click", function () {
     reviewsPopup.classList.toggle("d-block")
 })
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let openPayAndDeliveryPopup = document.querySelectorAll(".openPayAndDeliveryPopup"),
         exchangeAndReturn = document.querySelectorAll(".exchangeAndReturn"),
         deliveryPopup = document.querySelector("#deliveryPopup"),
@@ -1862,8 +1891,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function closeAndOpenPayAndDeliveryPopupHandler() {
-        openPayAndDeliveryPopup.forEach(function(e) {
-            e.addEventListener("click", function(i) {
+        openPayAndDeliveryPopup.forEach(function (e) {
+            e.addEventListener("click", function (i) {
                 i.preventDefault()
                 closeAndOpenPayAndDeliveryPopup();
             });
@@ -1871,8 +1900,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function closeAndOpenExchangeAndReturnHandler() {
-        exchangeAndReturn.forEach(function(e) {
-            e.addEventListener("click", function(i) {
+        exchangeAndReturn.forEach(function (e) {
+            e.addEventListener("click", function (i) {
                 i.preventDefault()
                 closeAndOpenExchangeAndReturn();
             });
@@ -1890,20 +1919,148 @@ document.addEventListener("DOMContentLoaded", function() {
         oferta = document.querySelector(".oferta"),
         ofertaBack = document.querySelector(".back-oferta")
 
-    privacyPolice.addEventListener("click", function(e) {
+    privacyPolice.addEventListener("click", function (e) {
         e.preventDefault()
         privacyPolicePopap.classList.add("d-block")
     })
-    backPrivacy.addEventListener("click", function() {
+    backPrivacy.addEventListener("click", function () {
         privacyPolicePopap.classList.remove("d-block")
     })
 
-    oferta.addEventListener("click", function(e) {
+    oferta.addEventListener("click", function (e) {
         e.preventDefault()
         ofertaPopap.classList.add("d-block")
     })
-    ofertaBack.addEventListener("click", function() {
+    ofertaBack.addEventListener("click", function () {
         ofertaPopap.classList.remove("d-block")
     })
 
+})
+
+let icon = {
+    success: '<span class="material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><g fill="#20bf55" data-name="Flat Color"><path d="M12 22.75a10.75 10.75 0 0 1 0-21.5 10.53 10.53 0 0 1 4.82 1.15.75.75 0 0 1-.68 1.34 9 9 0 0 0-4.14-1A9.25 9.25 0 1 0 21.25 12a2 2 0 0 0 0-.25.75.75 0 1 1 1.5-.14V12A10.76 10.76 0 0 1 12 22.75z" fill="#045d22" opacity="1" data-original="#20bf55" class=""></path><path d="M11.82 15.41a.7.7 0 0 1-.52-.22l-4.83-4.74a.75.75 0 0 1 0-1.06.77.77 0 0 1 1.07 0l4.29 4.23 9.65-9.49a.77.77 0 0 1 1.07 0 .75.75 0 0 1 0 1.06l-10.18 10a.74.74 0 0 1-.55.22z" fill="#045d22" opacity="1" data-original="#20bf55" class=""></path></g></g></svg></span>',
+    info: '<span class="material-symbols-outlined"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" x="0" y="0" viewBox="0 0 330 330" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M165 0C74.019 0 0 74.02 0 165.001 0 255.982 74.019 330 165 330s165-74.018 165-164.999S255.981 0 165 0zm0 300c-74.44 0-135-60.56-135-134.999S90.56 30 165 30s135 60.562 135 135.001C300 239.44 239.439 300 165 300z" fill="#000000" opacity="1" data-original="#000000" class=""></path><path d="M164.998 70c-11.026 0-19.996 8.976-19.996 20.009 0 11.023 8.97 19.991 19.996 19.991 11.026 0 19.996-8.968 19.996-19.991 0-11.033-8.97-20.009-19.996-20.009zM165 140c-8.284 0-15 6.716-15 15v90c0 8.284 6.716 15 15 15 8.284 0 15-6.716 15-15v-90c0-8.284-6.716-15-15-15z" fill="#000000" opacity="1" data-original="#000000" class=""></path></g></svg></span>',
+};
+
+const showToast = (
+    message = "Sample Message",
+    toastType = "info",
+    duration = 5000) => {
+    if (!Object.keys(icon).includes(toastType)) toastType = "info";
+    let box = document.createElement("div");
+    box.classList.add(
+        "toast", `toast-${toastType}`);
+    box.innerHTML = ` <div class="toast-content-wrapper"> 
+                      <div class="toast-icon"> 
+                      ${icon[toastType]} 
+                      </div> 
+                      <div class="toast-message">${message}</div> 
+                      <div class="toast-progress"></div> 
+                      </div>`;
+    duration = duration || 5000;
+    box.querySelector(".toast-progress").style.animationDuration =
+        `${duration / 1000}s`;
+
+    let toastAlready =
+        document.body.querySelector(".toast");
+    if (toastAlready) {
+        toastAlready.remove();
+    }
+
+    document.body.appendChild(box)
+};
+
+let submit =
+    document.querySelector(".custom-toast.success-toast");
+let information =
+    document.querySelector(".custom-toast.info-toast");
+let failed =
+    document.querySelector(".custom-toast.danger-toast");
+let warn =
+    document.querySelector(".custom-toast.warning-toast");
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("form.order-confirm-form");
+
+    form.addEventListener("submit", (event) => {
+        const deliveryMethodInputs = form.querySelectorAll("input[name='deliveryMethod']");
+        const paymentTypeInputs = form.querySelectorAll("input[name='paymenttype']");
+
+        if (!isAnyRadioChecked(deliveryMethodInputs) || !isAnyRadioChecked(paymentTypeInputs)) {
+            showToast("Заповніть всі обов'язкові поля.", "info", 5000);
+            event.preventDefault();
+            return;
+        }
+
+        const inputs = form.querySelectorAll(".order-form input");
+        for (const input of inputs) {
+            if (!input.value.trim()) {
+                showToast("Заповніть всі обов'язкові поля.", "info", 5000);
+                event.preventDefault();
+                return;
+            }
+        }
+
+        // Перевірка валідності номеру телефону
+        const userPhoneInput = form.querySelector("input[name='userPhone']");
+        if (!isValidPhoneNumber(userPhoneInput.value.trim())) {
+            showToast("Введіть коректний номер телефону.", "info", 5000);
+            event.preventDefault();
+            return;
+        }
+    });
+
+    function isAnyRadioChecked(inputs) {
+        return Array.from(inputs).some(input => input.checked);
+    }
+
+    function isValidPhoneNumber(phoneNumber) {
+        // Регулярний вираз для перевірки формату номеру телефону +380xxxxxxxxx
+        const phoneRegex = /\+380[0-9]{9}$/;
+        return phoneRegex.test(phoneNumber);
+    }
+
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const formReview = document.querySelector("form.review-form");
+
+    formReview.addEventListener("submit", (event) => {
+        const userRate = document.getElementById("userRate");
+        const userName = formReview.querySelector("input[name='userName']");
+        const userFirstName = formReview.querySelector("input[name='userFirstName']");
+        const userReview = formReview.querySelector("textarea[name='userReview']");
+
+        if (!userRate.value.trim()) {
+            showToast("Оцініть товар", "info", 5000);
+            event.preventDefault();
+            return;
+        }
+
+        if (!userName.value.trim() || !userFirstName.value.trim() || !userReview.value.trim()) {
+            showToast("Заповніть всі обов'язкові поля", "info", 5000);
+            event.preventDefault();
+            return;
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const callMeForm = document.querySelector("form[action='sendtelegram.php']")
+
+    callMeForm.addEventListener("submit", (event) => {
+        const userTelInput = callMeForm.querySelector("input[name='userTel']")
+
+        if (!userTelInput.value.trim() || !isValidPhoneNumber(userTelInput.value)) {
+            showToast("Введіть коректний номер телефону", "info", 5000)
+            event.preventDefault()
+            return
+        }
+    })
+
+    function isValidPhoneNumber(phoneNumber) {
+        return /\+380[0-9]{9}$/.test(phoneNumber)
+    }
 })
