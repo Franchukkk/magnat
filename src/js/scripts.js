@@ -859,46 +859,12 @@ document.addEventListener("DOMContentLoaded", function () {
         sameCard.innerHTML = ""
     })
 
-    // вибір категорій і додавання до локального сховища, при завантажені сторінки підзавантажуються дані згідно вибраних категорій а не весь список
-
-    const btnProduct = document.querySelectorAll(".card-cta-season"),
-        bottomProduct = document.querySelectorAll(".bottom-cart-season"),
-        categories = ["winter", "summer", "demiseason"],
-        lastSelectedCategory = localStorage.getItem("lastSelectedCategory")
-
-    function updateProductDisplay(category) {
-        jsonData.forEach(product => {
-            displayProducts(jsonData, productList)
-            setTimeout(updateCartBtns(), 0)
-            resetFilters()
-            const element = document.querySelector(`.${product.category}`)
-            if (element) {
-                element.style.display = category === "#all" || category === `#${product.category}` ? "block" : "none"
-            }
-        })
-    }
-
-    categoryFilter.addEventListener("click", (evt) => {
-        if (evt.target.tagName === "BUTTON") {
-            selectedCategory = evt.target.getAttribute("data-href")
-            localStorage.setItem("lastSelectedCategory", selectedCategory)
-            displayProducts(jsonData, productList)
-            updateProductDisplay(selectedCategory)
-            showData(currentPage)
-            setTimeout(updateCartBtns(), 0)
-            resetFilters()
-        }
-    })
-
     //сортування карток товарів
     let anyCategoryMessage = null
 
     document.querySelectorAll('input[type="range"]').forEach(input => {
         input.addEventListener("change", function () {
-            if (anyCategoryMessage) {
-                anyCategoryMessage.remove()
-                anyCategoryMessage = null
-            }
+            removeAnyMessage()
             updateProductFilter()
         })
     })
@@ -946,6 +912,13 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     showData()
+    //видалення виключних ситуації при оновлені
+    function removeAnyMessage() {
+        if (anyCategoryMessage) {
+            anyCategoryMessage.remove()
+            anyCategoryMessage = null
+        }
+    }
 
     function updateProductFilter() {
         const minPrice = parseInt(document.querySelector('.input-min').value)
@@ -966,25 +939,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             })
         })
-
+        //виключні ситуації
         if (!anyCategoryVisible) {
-            if (!anyCategoryMessage) {
-                const cardBott = document.querySelector(".card-block")
-                anyCategoryMessage = document.createElement("div")
-                anyCategoryMessage.classList.add("any-block")
+            const cardBlock = document.querySelector(".card-block")
+            anyCategoryMessage = document.createElement("div")
+            anyCategoryMessage.classList.add("any-block")
 
-                const spanIconAnyCategory = document.createElement("span")
-                spanIconAnyCategory.classList.add("icon-no-card")
-                spanIconAnyCategory.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-80q-83 0-141.5-58.5T80-280q0-83 58.5-141.5T280-480q83 0 141.5 58.5T480-280q0 83-58.5 141.5T280-80Zm544-40L568-376q-12-13-25.5-26.5T516-428q38-24 61-64t23-88q0-75-52.5-127.5T420-760q-75 0-127.5 52.5T240-580q0 6 .5 11.5T242-557q-18 2-39.5 8T164-535q-2-11-3-22t-1-23q0-109 75.5-184.5T420-840q109 0 184.5 75.5T680-580q0 43-13.5 81.5T629-428l251 252-56 56Zm-615-61 71-71 70 71 29-28-71-71 71-71-28-28-71 71-71-71-28 28 71 71-71 71 28 28Z"/></svg>'
+            const spanIconAnyCategory = document.createElement("span")
+            spanIconAnyCategory.classList.add("icon-no-card")
+            spanIconAnyCategory.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-80q-83 0-141.5-58.5T80-280q0-83 58.5-141.5T280-480q83 0 141.5 58.5T480-280q0 83-58.5 141.5T280-80Zm544-40L568-376q-12-13-25.5-26.5T516-428q38-24 61-64t23-88q0-75-52.5-127.5T420-760q-75 0-127.5 52.5T240-580q0 6 .5 11.5T242-557q-18 2-39.5 8T164-535q-2-11-3-22t-1-23q0-109 75.5-184.5T420-840q109 0 184.5 75.5T680-580q0 43-13.5 81.5T629-428l251 252-56 56Zm-615-61 71-71 70 71 29-28-71-71 71-71-28-28-71 71-71-71-28 28 71 71-71 71 28 28Z"/></svg>'
 
-                const anyCategoryText = document.createElement("p")
-                anyCategoryText.classList.add("no-card")
-                anyCategoryText.innerText = "Нажаль, за вашим вибором не знайдено жодного товару"
+            const anyCategoryText = document.createElement("p")
+            anyCategoryText.classList.add("no-card")
+            anyCategoryText.innerText = "Нажаль, за вашим вибором не знайдено жодного товару"
 
-                anyCategoryMessage.appendChild(spanIconAnyCategory)
-                anyCategoryMessage.appendChild(anyCategoryText)
-                cardBott.appendChild(anyCategoryMessage)
-            }
+            anyCategoryMessage.appendChild(spanIconAnyCategory)
+            anyCategoryMessage.appendChild(anyCategoryText)
+            cardBlock.appendChild(anyCategoryMessage)
+
         }
     }
 
@@ -996,6 +968,36 @@ document.addEventListener("DOMContentLoaded", function () {
     function checkPrice(priceValue, min, max) {
         return priceValue >= min && priceValue <= max
     }
+
+    // вибір категорій і додавання до локального сховища, при завантажені сторінки підзавантажуються дані згідно вибраних категорій а не весь список
+
+    const btnProduct = document.querySelectorAll(".card-cta-season"),
+        bottomProduct = document.querySelectorAll(".bottom-cart-season"),
+        categories = ["winter", "summer", "demiseason"]
+
+    function updateProductDisplay(category) {
+        jsonData.forEach(product => {
+            displayProducts(jsonData, productList)
+            setTimeout(updateCartBtns(), 0)
+            resetFilters()
+            const element = document.querySelector(`.${product.category}`)
+            if (element) {
+                element.style.display = category === "#all" || category === `#${product.category}` ? "block" : "none"
+            }
+        })
+    }
+
+    categoryFilter.addEventListener("click", (evt) => {
+        if (evt.target.tagName === "BUTTON") {
+            selectedCategory = evt.target.getAttribute("data-href")
+            localStorage.setItem("lastSelectedCategory", selectedCategory)
+            displayProducts(jsonData, productList)
+            updateProductDisplay(selectedCategory)
+            showData(currentPage)
+            setTimeout(updateCartBtns(), 0)
+            resetFilters()
+        }
+    })
 
     let selectedCategory = localStorage.getItem("lastSelectedCategory") || "#all"
 
@@ -1044,6 +1046,8 @@ document.addEventListener("DOMContentLoaded", function () {
         item.addEventListener("click", (evt) => {
             evt.preventDefault()
 
+            removeAnyMessage()
+
             btnProduct.forEach((button) => {
                 button.classList.remove("selected", "hovered")
             })
@@ -1073,6 +1077,8 @@ document.addEventListener("DOMContentLoaded", function () {
     bottomProduct.forEach((item) => {
         item.addEventListener("click", (evt) => {
             evt.preventDefault()
+
+            removeAnyMessage()
 
             let category = evt.target.getAttribute("data-href")
             const urlWithCategory = window.location.origin + window.location.pathname + (category ? `?category=${category}` : '') + "#catalog"
