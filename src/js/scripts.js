@@ -874,6 +874,8 @@ document.addEventListener("DOMContentLoaded", function () {
         inputBlock = document.querySelectorAll(".card-bott input[type='checkbox'")
         inputBlock.forEach(elementSize => {
             elementSize.checked = false
+            // removeAnyMessage()
+            
         })
 
         const target = event.target
@@ -905,6 +907,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
             })
 
+            removeAnyMessage()
             displayProducts(filteredProducts, productList)
             updateProductFilter()
         }
@@ -956,8 +959,7 @@ document.addEventListener("DOMContentLoaded", function () {
             anyCategoryMessage.appendChild(spanIconAnyCategory)
             anyCategoryMessage.appendChild(anyCategoryText)
             cardBlock.appendChild(anyCategoryMessage)
-
-        }
+        } 
     }
 
     function checkFilters(element, minPrice, maxPrice) {
