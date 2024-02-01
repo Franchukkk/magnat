@@ -1423,7 +1423,6 @@ h2.season
     display: flex
     position: relative
     padding-top: 15vw
-    padding-bottom: 21vw
     transition: 1s
     background-repeat: no-repeat
     background-position: right
@@ -1537,7 +1536,6 @@ h2.season
     height: 100vh
     background-color: #fff
     z-index: 8
-    padding-bottom: 170px
 
 .popup-header-line
     column-gap: 10rem
@@ -1688,8 +1686,11 @@ h2.season
         transform: translateY(-50%)
         background-image: url(../img/basket-arrow.svg)
         background-repeat: no-repeat
-    &:hover
-        font-size: 19px
+
+
+
+.popup-back-btns:hover
+    font-size: 19px
 
 a.basket-back,
 a.confirm-back
@@ -2317,7 +2318,7 @@ hr
 .btn-style-two.w-45
     width: 100%
     +media(450)
-        width: 45%
+        width: 48%
 
 
 .info-popup
@@ -2456,3 +2457,8 @@ hr
         width: 0%
 
 
+.empty-baket
+    transform: translateX(-50%)
+    left: 25%
+    display: flex
+    align-items: center

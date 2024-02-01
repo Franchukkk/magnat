@@ -59,6 +59,7 @@ function displayReviews(numReviews, targetClass, lastCard, reviewsArr) {
         openReviewsPopup = document.querySelector(".allReviewsPopupOpen")
         reviewsBack = document.querySelector(".reviews-back")
     setReview.addEventListener("click", function (e) {
+        document.querySelector(".reviews-popup .popup-h2").innerText = setReview.innerText
         e.preventDefault()
         document.querySelector(".reviews-popup-list").innerHTML = ""
         document.querySelector(".review-details").style.display = "block"
@@ -70,6 +71,7 @@ function displayReviews(numReviews, targetClass, lastCard, reviewsArr) {
     })
 
     openReviewsPopup.addEventListener("click", function (e) {
+        document.querySelector(".reviews-popup .popup-h2").innerText = openReviewsPopup.innerText
         e.preventDefault()
         document.querySelector(".reviews-popup-list").innerHTML = ""
         document.querySelector(".review-details").style.display = "none"
