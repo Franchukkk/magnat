@@ -1256,6 +1256,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function resetFilters() {
         document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
             checkbox.checked = false
+            displayProducts(jsonData, productList)
         })
     }
 
