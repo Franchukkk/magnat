@@ -1192,7 +1192,7 @@ document.addEventListener("DOMContentLoaded", function () {
             displayProducts(filteredProducts, productList)
             updateProductFilter()
         }
-    
+        updateCartBtns()
     })
     showData()
     
