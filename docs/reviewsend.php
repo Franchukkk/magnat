@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="bg-order-popup">
+        <a class="to-main" href="index.html"></a>
         <div class="orders-successful">
             <h2>ви успішно залишили відгук!</h2><img src="img/галочка.svg" alt="" />
             <p>Дякуємо за співпрацю.</p>

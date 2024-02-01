@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="bg-order-popup">
+        <a class="to-main" href="index.html"></a>
         <div class="orders-successful">
             <h2>ви успішно оформили замовлення!</h2><img src="img/галочка.svg" alt="" />
             <p>Ми звʼяжемося з вами найближчим часом для підтвердження замовлення.</p>
@@ -18,7 +19,6 @@
 </html>
 
 <?php
-
 try {
     $userPhone =  $_POST["userPhone"];
     $userEmail =  $_POST["userEmail"];
