@@ -644,12 +644,18 @@ input[type="range"]
     +media(1440)
         grid-template-columns: 250rem 250rem 250rem 250rem
 
-.any-block
-    position: absolute
 
-        
+    
+.any-block
+    position: relative
+    top: -230rem
+    left: 0
+    width: 100%
+    background-color: #fff    
+
 .no-card,
 .basket-empty p
+    text-align: center
     color: #ccc
     font-size: 20rem
 
@@ -662,15 +668,15 @@ input[type="range"]
 .icon-no-card
     svg
         padding: 50rem 0
-        position: absolute
+        position: relative
         top: 0
         left: 50%
         transform: translateX(-50%)
         width: 100rem
         height: 100rem
         +media(1024)
-            width: 200rem
-            height: 200rem
+            width: 100rem
+            height: 100rem
 
     path 
         fill: #ddd
@@ -980,7 +986,6 @@ input[type="range"]
     background: rgba(25, 25, 25)
     opacity: 1
     z-index: 11
-
 
 .bg-order-popup 
     position: fixed

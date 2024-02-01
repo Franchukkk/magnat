@@ -134,60 +134,60 @@ document.addEventListener("DOMContentLoaded", function () {
                 showPagination()
                 updateProductDisplay(selectedCategory)
 
-                //input range виведення у велю значень з json
-                const rangeInput = document.querySelectorAll(".range-input input"),
-                    priceInput = document.querySelectorAll(".price-input input"),
-                    range = document.querySelector(".slider .progress"),
-                    minPriceInput = Math.min(...jsonData.map(item => parseInt(item.price))),
-                    maxPriceInput = Math.max(...jsonData.map(item => parseInt(item.price)))
+                // //input range виведення у велю значень з json
+                // const rangeInput = document.querySelectorAll(".range-input input"),
+                //     priceInput = document.querySelectorAll(".price-input input"),
+                //     range = document.querySelector(".slider .progress"),
+                //     minPriceInput = Math.min(...jsonData.map(item => parseInt(item.price))),
+                //     maxPriceInput = Math.max(...jsonData.map(item => parseInt(item.price)))
 
-                let priceGap = 10
+                // let priceGap = 10
 
-                priceInput.forEach((input) => {
-                    priceInput[0].setAttribute("value", minPriceInput)
-                    priceInput[1].setAttribute("value", maxPriceInput)
-                    input.addEventListener("input", (e) => {
+                // priceInput.forEach((input) => {
+                //     priceInput[0].setAttribute("value", minPriceInput)
+                //     priceInput[1].setAttribute("value", maxPriceInput)
+                //     input.addEventListener("input", (e) => {
 
-                        let minPrice = parseInt(priceInput[0].value),
-                            maxPrice = parseInt(priceInput[1].value)
+                //         let minPrice = parseInt(priceInput[0].value),
+                //             maxPrice = parseInt(priceInput[1].value)
 
-                        if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
-                            if (e.target.className === "input-min") {
-                                rangeInput[0].value = minPrice
-                                range.style.left = (minPrice / rangeInput[0].max) * 100 + "%"
-                            } else {
-                                rangeInput[1].value = maxPrice
-                                range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%"
-                            }
-                        }
-                    })
-                })
+                //         if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
+                //             if (e.target.className === "input-min") {
+                //                 rangeInput[0].value = minPrice
+                //                 range.style.left = (minPrice / rangeInput[0].max) * 100 + "%"
+                //             } else {
+                //                 rangeInput[1].value = maxPrice
+                //                 range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%"
+                //             }
+                //         }
+                //     })
+                // })
 
-                rangeInput.forEach((input) => {
-                    rangeInput[0].setAttribute("value", minPriceInput)
-                    rangeInput[1].setAttribute("value", maxPriceInput)
-                    rangeInput[0].setAttribute("min", minPriceInput)
-                    rangeInput[0].setAttribute("max", maxPriceInput)
-                    rangeInput[1].setAttribute("min", minPriceInput)
-                    rangeInput[1].setAttribute("max", maxPriceInput)
-                    input.addEventListener("input", (e) => {
-                        let minVal = parseInt(rangeInput[0].value),
-                            maxVal = parseInt(rangeInput[1].value)
+                // rangeInput.forEach((input) => {
+                //     rangeInput[0].setAttribute("value", minPriceInput)
+                //     rangeInput[1].setAttribute("value", maxPriceInput)
+                //     rangeInput[0].setAttribute("min", minPriceInput)
+                //     rangeInput[0].setAttribute("max", maxPriceInput)
+                //     rangeInput[1].setAttribute("min", minPriceInput)
+                //     rangeInput[1].setAttribute("max", maxPriceInput)
+                //     input.addEventListener("input", (e) => {
+                //         let minVal = parseInt(rangeInput[0].value),
+                //             maxVal = parseInt(rangeInput[1].value)
 
-                        if (maxVal - minVal < priceGap) {
-                            if (e.target.className === "range-min") {
-                                rangeInput[0].value = maxVal - priceGap
-                            } else {
-                                rangeInput[1].value = minVal + priceGap
-                            }
-                        } else {
-                            priceInput[0].value = minVal
-                            priceInput[1].value = maxVal
-                            range.style.left = (minVal / rangeInput[0].max) * 100 + "%"
-                            range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%"
-                        }
-                    })
-                })
+                //         if (maxVal - minVal < priceGap) {
+                //             if (e.target.className === "range-min") {
+                //                 rangeInput[0].value = maxVal - priceGap
+                //             } else {
+                //                 rangeInput[1].value = minVal + priceGap
+                //             }
+                //         } else {
+                //             priceInput[0].value = minVal
+                //             priceInput[1].value = maxVal
+                //             range.style.left = (minVal / rangeInput[0].max) * 100 + "%"
+                //             range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%"
+                //         }
+                //     })
+                // })
                 // виведення товарів зі знижками по нижній кнопці
                 const discountButton = document.querySelector('a.bottom-cart-season[data-href="discount"]');
                 discountButton.addEventListener("click", function (e) {
@@ -198,8 +198,66 @@ document.addEventListener("DOMContentLoaded", function () {
                     resetFilters()
                 })
                 createInputsForSizeKeys(jsonData[0])
+                createInputRange()
             })
             .catch(error => console.error("Помилка завантаження даних:", error))
+    }
+
+    function createInputRange() {
+        const rangeInput = document.querySelectorAll(".range-input input"),
+            priceInput = document.querySelectorAll(".price-input input"),
+            range = document.querySelector(".slider .progress"),
+            minPriceInput = Math.min(...jsonData.map(item => parseInt(item.price))),
+            maxPriceInput = Math.max(...jsonData.map(item => parseInt(item.price)))
+
+        let priceGap = 10
+
+        priceInput.forEach((input) => {
+            priceInput[0].setAttribute("value", minPriceInput)
+            priceInput[1].setAttribute("value", maxPriceInput)
+            input.addEventListener("input", (e) => {
+
+                let minPrice = parseInt(priceInput[0].value),
+                    maxPrice = parseInt(priceInput[1].value)
+
+                if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
+                    if (e.target.className === "input-min") {
+                        rangeInput[0].value = minPrice
+                        range.style.left = (minPrice / rangeInput[0].max) * 100 + "%"
+                    } else {
+                        rangeInput[1].value = maxPrice
+                        range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%"
+                    }
+                }
+            })
+        })
+
+        rangeInput.forEach((input) => {
+            rangeInput[0].setAttribute("value", minPriceInput)
+            rangeInput[1].setAttribute("value", maxPriceInput)
+            rangeInput[0].setAttribute("min", minPriceInput)
+            rangeInput[0].setAttribute("max", maxPriceInput)
+            rangeInput[1].setAttribute("min", minPriceInput)
+            rangeInput[1].setAttribute("max", maxPriceInput)
+            input.addEventListener("input", (e) => {
+                let minVal = parseInt(rangeInput[0].value),
+                    maxVal = parseInt(rangeInput[1].value)
+
+                if (maxVal - minVal < priceGap) {
+                    if (e.target.className === "range-min") {
+                        rangeInput[0].value = maxVal - priceGap
+                    } else {
+                        rangeInput[1].value = minVal + priceGap
+                    }
+                } else {
+                    priceInput[0].value = minVal
+                    priceInput[1].value = maxVal
+                    range.style.left = (minVal / rangeInput[0].max) * 100 + "%"
+                    range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%"
+                }
+            })
+        })
+
     }
     //створення інпутів для фільтра
     function createInputsForSizeKeys(product) {
@@ -483,19 +541,6 @@ document.addEventListener("DOMContentLoaded", function () {
         appendInfo(elements.materialSole, "матеріал підошви", product.technicalHaracteristic.materialSole)
         appendInfo(elements.styleCard, "стиль", product.technicalHaracteristic.styleCard)
 
-        // elements.descrHead.innerText = product.head;
-        // elements.newPricePopap.innerText = product.price;
-        // elements.spanId.innerText = product.id;
-        // elements.cardSpanPrice.innerText = product.saleprice;
-        // elements.mainImgPopap.src = product.img;
-        // elements.mainImgPopap.alt = product.alt;
-        // elements.smallPopapImg1.src = product.imgPopap1;
-        // elements.smallPopapImg1.alt = product.altPopap1;
-        // elements.smallPopapImg2.src = product.imgPopap2;
-        // elements.smallPopapImg2.alt = product.altPopap2;
-        // elements.smallPopapImg3.src = product.imgPopap3;
-        // elements.smallPopapImg3.alt = product.altPopap3;
-
         descrHead.innerText = product.head
         newPricePopap.innerText = product.price
         spanId.innerText = product.id
@@ -673,6 +718,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formColor.classList.add("color-form-popap")
         choiseColorPopap.appendChild(formColor)
 
+
         const dynamicStyles = document.createElement('style')
         document.head.appendChild(dynamicStyles)
 
@@ -845,16 +891,120 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     //сортування карток товарів
+    let anyCategoryMessage = null
 
-    let selectedCategory = lastSelectedCategory
+    document.querySelectorAll('input[type="range"]').forEach(input => {
+        input.addEventListener("change", function () {
+            if (anyCategoryMessage) {
+                anyCategoryMessage.remove()
+                anyCategoryMessage = null
+            }
+            updateProductFilter()
+        })
+    })
+
+    const filterAside = document.querySelector(".filter")
+    filterAside.addEventListener("change", function (event) {
+        inputBlock = document.querySelectorAll(".card-bott input[type='checkbox'")
+        inputBlock.forEach(elementSize => {
+            elementSize.checked = false
+        })
+
+        const target = event.target
+
+        const isFilterCheckbox = target.tagName === "INPUT" && target.type === "checkbox" && target.closest('.filter')
+
+        if (isFilterCheckbox) {
+            const filters = {}
+            const filterInputs = document.querySelectorAll("input[type='checkbox']:checked")
+            filterInputs.forEach(checkbox => {
+                const category = checkbox.name,
+                    value = checkbox.value
+                if (!filters[category]) {
+                    filters[category] = []
+                }
+                filters[category].push(value)
+            })
+
+            const filteredProducts = jsonData.filter(product => {
+                return Object.entries(filters).every(([category, values]) => {
+                    if (category === "color") {
+                        const productColors = product.color || {}
+                        return values.some(selectedColor => Object.values(productColors).includes(selectedColor))
+                    } else if (Array.isArray(product[category])) {
+                        return values.every(value => (product[category] || []).includes(value))
+                    } else {
+                        return values.includes(product[category])
+                    }
+                })
+            })
+
+            displayProducts(filteredProducts, productList)
+            updateProductFilter()
+        }
+        updateCartBtns()
+    })
+
+    showData()
+
+    function updateProductFilter() {
+        const minPrice = parseInt(document.querySelector('.input-min').value)
+        const maxPrice = parseInt(document.querySelector('.input-max').value)
+        const selectedCategory = localStorage.getItem("lastSelectedCategory") || "#all"
+
+        let anyCategoryVisible = false
+
+        categories.forEach((category) => {
+            const elements = document.querySelectorAll(`.${category}`)
+            elements.forEach((element) => {
+                const showElement = checkFilters(element, minPrice, maxPrice) && (selectedCategory === "#all" || element.classList.contains(selectedCategory))
+
+                element.style.display = showElement ? "grid" : "none"
+
+                if (showElement) {
+                    anyCategoryVisible = true
+                }
+            })
+        })
+
+        if (!anyCategoryVisible) {
+            if (!anyCategoryMessage) {
+                const cardBott = document.querySelector(".card-block")
+                anyCategoryMessage = document.createElement("div")
+                anyCategoryMessage.classList.add("any-block")
+
+                const spanIconAnyCategory = document.createElement("span")
+                spanIconAnyCategory.classList.add("icon-no-card")
+                spanIconAnyCategory.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-80q-83 0-141.5-58.5T80-280q0-83 58.5-141.5T280-480q83 0 141.5 58.5T480-280q0 83-58.5 141.5T280-80Zm544-40L568-376q-12-13-25.5-26.5T516-428q38-24 61-64t23-88q0-75-52.5-127.5T420-760q-75 0-127.5 52.5T240-580q0 6 .5 11.5T242-557q-18 2-39.5 8T164-535q-2-11-3-22t-1-23q0-109 75.5-184.5T420-840q109 0 184.5 75.5T680-580q0 43-13.5 81.5T629-428l251 252-56 56Zm-615-61 71-71 70 71 29-28-71-71 71-71-28-28-71 71-71-71-28 28 71 71-71 71 28 28Z"/></svg>'
+
+                const anyCategoryText = document.createElement("p")
+                anyCategoryText.classList.add("no-card")
+                anyCategoryText.innerText = "Нажаль, за вашим вибором не знайдено жодного товару"
+
+                anyCategoryMessage.appendChild(spanIconAnyCategory)
+                anyCategoryMessage.appendChild(anyCategoryText)
+                cardBott.appendChild(anyCategoryMessage)
+            }
+        }
+    }
+
+    function checkFilters(element, minPrice, maxPrice) {
+        const priceValue = parseInt(element.dataset.price)
+        return checkPrice(priceValue, minPrice, maxPrice)
+    }
+
+    function checkPrice(priceValue, min, max) {
+        return priceValue >= min && priceValue <= max
+    }
+
+    let selectedCategory = localStorage.getItem("lastSelectedCategory") || "#all"
 
     const urlParams = new URLSearchParams(window.location.search)
     urlCategory = urlParams.get('category'),
         urlHash = window.location.hash,
         selectedHash = urlHash || "#catalog"
 
-    // вибрана категорія
-    selectedCategory = lastSelectedCategory || "#all"
+    selectedCategory = selectedCategory || "#all"
 
     btnProduct.forEach((button) => {
         button.classList.add("card-cta-season")
@@ -870,8 +1020,8 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     })
 
-    if (!lastSelectedCategory) {
-        selectedCategory = "#all";
+    if (!selectedCategory) {
+        selectedCategory = "#all"
         localStorage.setItem("lastSelectedCategory", selectedCategory)
     }
 
@@ -907,7 +1057,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const urlWithoutCategory = window.location.origin + window.location.pathname + window.location.hash
                 window.history.replaceState({}, '', urlWithoutCategory)
             } else {
-                // Дії для інших категорій
                 updateProductDisplay(category)
                 const urlWithCategory = window.location.origin + window.location.pathname + `?category=${category}#catalog`
                 window.history.replaceState({}, '', urlWithCategory)
@@ -964,6 +1113,11 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
+    function resetFilters() {
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.checked = false
+        })
+    }
     // сщртування по селекту
 
     function sortProducts(data) {
@@ -1134,130 +1288,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 paginationButtons[i].disabled = false
             }
         }
-    }
-
-    // фільтр
-    // document.querySelector(".submit-filter").addEventListener("click", function (e) {
-    //     e.preventDefault()
-    //     updateProductFilter()
-    // })
-    let anyCategoryMessage = null
-
-    document.querySelectorAll('input[type="range"]').forEach(input => {
-        input.addEventListener("change", function () {
-            if (anyCategoryMessage) {
-                anyCategoryMessage.remove()
-                anyCategoryMessage = null
-            }
-            updateProductFilter()
-        })
-    })
-
-    const filterAside = document.querySelector(".filter")
-    filterAside.addEventListener("change", function (event) {
-        inputBlock = document.querySelectorAll(".card-bott input[type='checkbox'")
-        inputBlock.forEach(elementSize => {
-            elementSize.checked = false
-        })
-        const target = event.target;
-
-        // Перевірка, чи клікнуто на чекбокс в фільтрі, а не на чекбокс у карточці товару
-        const isFilterCheckbox = target.tagName === "INPUT" && target.type === "checkbox" && target.closest('.filter')
-
-        if (isFilterCheckbox) {
-            const filters = {}
-            const filterInputs = document.querySelectorAll("input[type='checkbox']:checked")
-            filterInputs.forEach(checkbox => {
-                const category = checkbox.name,
-                    value = checkbox.value
-                if (!filters[category]) {
-                    filters[category] = []
-                }
-                filters[category].push(value)
-            })
-
-            const filteredProducts = jsonData.filter(product => {
-                return Object.entries(filters).every(([category, values]) => {
-                    if (category === "color") {
-                        const productColors = product.color || {}
-                        return values.some(selectedColor => Object.values(productColors).includes(selectedColor))
-                    } else if (Array.isArray(product[category])) {
-                        return values.every(value => (product[category] || []).includes(value))
-                    } else {
-                        return values.includes(product[category])
-                    }
-                })
-            })
-
-            displayProducts(filteredProducts, productList)
-            updateProductFilter()
-        }
-        updateCartBtns()
-    })
-    showData()
-
-    function updateProductFilter() {
-
-        const minPrice = parseInt(document.querySelector('.input-min').value)
-        const maxPrice = parseInt(document.querySelector('.input-max').value)
-
-        let anyCategoryVisible = false
-
-        categories.forEach((category) => {
-            const elements = document.querySelectorAll(`.card-box`)
-            elements.forEach((element) => {
-                const showElement = checkFilters(element, minPrice, maxPrice)
-
-                element.style.display = showElement ? "grid" : "none"
-
-                if (showElement) {
-                    anyCategoryVisible = true
-                }
-            })
-        })
-
-        if (!anyCategoryVisible) {
-            if (!anyCategoryMessage) {
-                const cardBott = document.querySelector(".card-bott")
-                anyCategoryMessage = document.createElement("div")
-                anyCategoryMessage.classList.add("any-block")
-
-                const spanIconAnyCategory = document.createElement("span")
-                spanIconAnyCategory.classList.add("icon-no-card")
-                spanIconAnyCategory.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-80q-83 0-141.5-58.5T80-280q0-83 58.5-141.5T280-480q83 0 141.5 58.5T480-280q0 83-58.5 141.5T280-80Zm544-40L568-376q-12-13-25.5-26.5T516-428q38-24 61-64t23-88q0-75-52.5-127.5T420-760q-75 0-127.5 52.5T240-580q0 6 .5 11.5T242-557q-18 2-39.5 8T164-535q-2-11-3-22t-1-23q0-109 75.5-184.5T420-840q109 0 184.5 75.5T680-580q0 43-13.5 81.5T629-428l251 252-56 56Zm-615-61 71-71 70 71 29-28-71-71 71-71-28-28-71 71-71-71-28 28 71 71-71 71 28 28Z"/></svg>'
-
-                const anyCategoryText = document.createElement("p")
-                anyCategoryText.classList.add("no-card")
-                anyCategoryText.innerText = "Нажаль, за вашим вибором не знайдено жодного товару"
-
-                anyCategoryMessage.appendChild(spanIconAnyCategory)
-                anyCategoryMessage.appendChild(anyCategoryText)
-
-                cardBott.appendChild(anyCategoryMessage)
-            }
-        }
-    }
-    //фільтр по ренджу
-    function checkFilters(element, minPrice, maxPrice) {
-        const priceValue = parseInt(element.dataset.price)
-        return checkPrice(priceValue, minPrice, maxPrice)
-    }
-
-    function checkPrice(priceValue, min, max) {
-        return priceValue >= min && priceValue <= max
-    }
-
-    // скидання фільтру
-    // document.querySelector('button.cta-transparent.reset-filter[type="reset"]').addEventListener("click", function (e) {
-    //     e.preventDefault()
-    //     resetFilters()
-    // })
-
-    function resetFilters() {
-        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-            checkbox.checked = false
-            displayProducts(jsonData, productList)
-        })
     }
 
     const images = document.querySelectorAll('.slider-images img'),
