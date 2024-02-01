@@ -19,6 +19,7 @@
 </html>
 
 <?php
+
 try {
     $userPhone =  $_POST["userPhone"];
     $userEmail =  $_POST["userEmail"];
@@ -58,7 +59,7 @@ foreach ($phpObject as $item) {
     if (property_exists($item, 'product')) {
         $product = $item->product;  
         $productName = $product->head;
-        $productColor = $product->color;
+        $productColor = $item->color;
         $productSize = $item->size;
         $productQuantity = $item->quantity;
 
