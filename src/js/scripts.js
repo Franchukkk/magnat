@@ -235,28 +235,77 @@ document.addEventListener("DOMContentLoaded", function () {
         let uniqueColorValues = []
 
         jsonData.forEach(product => {
-            if (product.color && typeof product.color === 'object') {
-                Object.values(product.color).forEach(colorValue => {
-                    if (!uniqueColorValues.includes(colorValue)) {
-                        uniqueColorValues.push(colorValue)
-        
-                        const inputColorFilter = document.createElement("input")
-                        const labelColorFilter = document.createElement("label")
-        
-                        inputColorFilter.setAttribute("type", "checkbox")
-                        inputColorFilter.setAttribute("name", "color")
-                        inputColorFilter.setAttribute("id", colorValue)
-                        inputColorFilter.setAttribute("value", colorValue)
-        
-                        labelColorFilter.setAttribute("for", colorValue)
-                        labelColorFilter.innerText = colorValue;
-        
-                        colorInputContainer.appendChild(inputColorFilter)
-                        colorInputContainer.appendChild(labelColorFilter)
-                    }
-                })
+            const productColors = product.color || {}
+    
+            Object.values(productColors).forEach(colorValue => {
+                if (!uniqueColorValues.includes(colorValue)) {
+                    uniqueColorValues.push(colorValue)
+    
+                    const inputColorFilter = document.createElement("input")
+                    const labelColorFilter = document.createElement("label")
+    
+                    inputColorFilter.setAttribute("type", "checkbox")
+                    inputColorFilter.setAttribute("name", "color")
+                    inputColorFilter.setAttribute("id", colorValue)
+                    inputColorFilter.setAttribute("value", colorValue)
+    
+                    labelColorFilter.setAttribute("for", colorValue)
+                    labelColorFilter.innerText = colorValue
+    
+                    colorInputContainer.appendChild(inputColorFilter)
+                    colorInputContainer.appendChild(labelColorFilter)
+                }
+            })
+        })
+        // створення інпутів на фільтр
+        function createCheckbox(labelText, idPrefix, container) {
+            const inputCheckbox = document.createElement("input")
+            inputCheckbox.setAttribute("type", "checkbox")
+            inputCheckbox.setAttribute("name", idPrefix)
+            inputCheckbox.setAttribute("id", `${idPrefix}-${labelText}`)
+            inputCheckbox.setAttribute("value", labelText)
+
+            const labelCheckbox = document.createElement("label")
+            labelCheckbox.setAttribute("for", `${idPrefix}-${labelText}`)
+            labelCheckbox.innerText = labelText
+
+            container.appendChild(inputCheckbox)
+            container.appendChild(labelCheckbox)
+        }
+
+        let uniqueMaterials = [],
+            uniqueModels = [],
+            uniqueStyle = []
+
+        jsonData.forEach(product => {
+            if (product.material) {
+                uniqueMaterials = uniqueMaterials.concat(Array.isArray(product.material) ? product.material : [product.material])
+            }
+
+            if (product.model) {
+                uniqueModels.push(product.model)
+            }
+
+            if (product.style) {
+                uniqueStyle.push(product.style)
             }
         })
+
+        uniqueMaterials = [...new Set(uniqueMaterials)]
+        uniqueModels = [...new Set(uniqueModels)]
+        uniqueStyle = [...new Set(uniqueStyle)]
+
+        // чекбокси для матеріалів
+        const materialInputContainer = document.querySelector(".material")
+        uniqueMaterials.forEach(material => createCheckbox(material, "material", materialInputContainer))
+
+        //  чекбокси для моделей
+        const modelInputContainer = document.querySelector(".model")
+        uniqueModels.forEach(model => createCheckbox(model, "model", modelInputContainer))
+
+        //  чекбокси для моделей
+        const styleInputContainer = document.querySelector(".style")
+        uniqueStyle.forEach(style => createCheckbox(style, "style", styleInputContainer))
     }
 
     function showData(pageNumber) {
@@ -277,10 +326,16 @@ document.addEventListener("DOMContentLoaded", function () {
             saleFlag.innerText = `sale -${sale.toFixed(0)}%`
             figcaptionItems.appendChild(saleFlag)
         }
-
-        listItem.classList.add("card-box", product.category, product.seasonFilter, product.model, product.material, product.style)
-        listItem.setAttribute("data-size", product.size)
+        // дата атрибути для фільтра
+        listItem.classList.add("card-box", product.category)
+        listItem.dataset.sizes = JSON.stringify(product.size)
+        listItem.dataset.colors = JSON.stringify(Object.values(product.color))
+        listItem.dataset.model = product.model
+        listItem.dataset.material = product.material
+        listItem.dataset.style = product.style
+        listItem.dataset.price = product.price
         listItem.appendChild(figcaptionItems)
+        
         // відкриття попапу з карточкою товару клік
         const clickFigure = document.createElement("a")
         clickFigure.classList.add("click-card")
@@ -330,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function () {
             inputSize.name = "size-popap"
             inputSize.id = `input-${product.id}-${size}`
             inputSize.value = size
-        
+
             const labelSize = document.createElement("label")
             labelSize.classList.add(`label${size}`)
             labelSize.setAttribute("for", `input-${product.id}-${size}`)
@@ -339,7 +394,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!product.size.includes(size)) {
                 inputSize.disabled = true
             }
-        
+
             inputBlock.appendChild(inputSize)
             inputBlock.appendChild(labelSize)
         })
@@ -391,80 +446,55 @@ document.addEventListener("DOMContentLoaded", function () {
             smallPopapImg2 = document.querySelector(".small-img-second"),
             smallPopapImg3 = document.querySelector(".small-img-last"),
             choiseColorPopap = document.querySelector(".choise-color_popap"),
-            descriptPopap = document.querySelector(".descript-popap"),
-            producerCard = document.querySelector(".producer-card_popap"),
-            countryCard = document.querySelector(".country-card_popap"),
-            kindCard = document.querySelector(".kind-card_popap"),
-            seasonCard = document.querySelector(".season-card_popap"),
-            materialTop = document.querySelector(".material-top_popap"),
-            materialBottom = document.querySelector(".material-bottom_popap"),
-            materialSole = document.querySelector(".material-sole_popap"),
-            styleCard = document.querySelector(".style-card_popap")
+            descriptPopap = document.querySelector(".descript-popap")
 
-        //запис характеристик товару 
-        producerInfo = document.createElement("p")
-        producerInfo.innerText = "виробник"
-        producerInfo2 = document.createElement("p")
-        producerInfo2.classList.add("bold-card")
-        producerInfo2.innerText = product.technicalHaracteristic.producer
-        producerCard.appendChild(producerInfo)
-        producerCard.appendChild(producerInfo2)
+            const querySelector = (className) => document.querySelector(className)
 
-        countryInfo = document.createElement("p")
-        countryInfo.innerText = "країна виробник"
-        countryInfo2 = document.createElement("p")
-        countryInfo2.innerText = product.country
-        countryInfo2.classList.add("bold-card")
-        countryCard.appendChild(countryInfo)
-        countryCard.appendChild(countryInfo2)
-
-        kindInfo = document.createElement("p")
-        kindInfo.innerText = "вид взуття"
-        kindInfo1 = document.createElement("p")
-        kindInfo1.classList.add("bold-card")
-        kindInfo1.innerText = product.kind
-        kindCard.appendChild(kindInfo)
-        kindCard.appendChild(kindInfo1)
-
-        seasonInfo = document.createElement("p")
-        seasonInfo.innerText = "сезон"
-        seasonInfo1 = document.createElement("p")
-        seasonInfo1.classList.add("bold-card")
-        seasonInfo1.innerText = product.seasonHaract
-        seasonCard.appendChild(seasonInfo)
-        seasonCard.appendChild(seasonInfo1)
-
-        materialTopInfo = document.createElement("p")
-        materialTopInfo.innerText = "матеріал верху"
-        materialTopInfo1 = document.createElement("p")
-        materialTopInfo1.classList.add("bold-card")
-        materialTopInfo1.innerText = product.materialTop
-        materialTop.appendChild(materialTopInfo)
-        materialTop.appendChild(materialTopInfo1)
-
-        materialBottomInfo = document.createElement("p")
-        materialBottomInfo.innerText = "матеріал підкладки"
-        materialBottomInfo1 = document.createElement("p")
-        materialBottomInfo1.classList.add("bold-card")
-        materialBottomInfo1.innerText = product.materialBottom
-        materialBottom.appendChild(materialBottomInfo)
-        materialBottom.appendChild(materialBottomInfo1)
-
-        materialSoleInfo = document.createElement("p")
-        materialSoleInfo.innerText = "матеріал підошви"
-        materialSoleInfo1 = document.createElement("p")
-        materialSoleInfo1.classList.add("bold-card")
-        materialSoleInfo1.innerText = product.materialSole
-        materialSole.appendChild(materialSoleInfo)
-        materialSole.appendChild(materialSoleInfo1)
-
-        styleCardInfo = document.createElement("p")
-        styleCardInfo.innerText = "стиль"
-        styleCardInfo1 = document.createElement("p")
-        styleCardInfo1.classList.add("bold-card")
-        styleCardInfo1.innerText = product.styleCard
-        styleCard.appendChild(styleCardInfo)
-        styleCard.appendChild(styleCardInfo1)
+            const elements = {
+                descriptPopap: querySelector(".descript-popap"),
+                producerCard: querySelector(".producer-card_popap"),
+                countryCard: querySelector(".country-card_popap"),
+                kindCard: querySelector(".kind-card_popap"),
+                seasonCard: querySelector(".season-card_popap"),
+                materialTop: querySelector(".material-top_popap"),
+                materialBottom: querySelector(".material-bottom_popap"),
+                materialSole: querySelector(".material-sole_popap"),
+                styleCard: querySelector(".style-card_popap"),
+            }
+        
+            const appendInfo = (parent, label, value) => {
+                const infoElement = document.createElement("p")
+                infoElement.innerText = label
+                
+                const valueElement = document.createElement("p")
+                valueElement.innerText = value
+                valueElement.classList.add("bold-card")
+                
+                parent.appendChild(infoElement)
+                parent.appendChild(valueElement)
+            }
+        
+            appendInfo(elements.producerCard, "виробник", product.technicalHaracteristic.producer)
+            appendInfo(elements.countryCard, "країна виробник", product.technicalHaracteristic.country)
+            appendInfo(elements.kindCard, "вид взуття", product.technicalHaracteristic.kind)
+            appendInfo(elements.seasonCard, "сезон", product.technicalHaracteristic.seasonHaract)
+            appendInfo(elements.materialTop, "матеріал верху", product.technicalHaracteristic.materialTop)
+            appendInfo(elements.materialBottom, "матеріал підкладки", product.technicalHaracteristic.materialBottom)
+            appendInfo(elements.materialSole, "матеріал підошви", product.technicalHaracteristic.materialSole)
+            appendInfo(elements.styleCard, "стиль", product.technicalHaracteristic.styleCard)
+        
+            // elements.descrHead.innerText = product.head;
+            // elements.newPricePopap.innerText = product.price;
+            // elements.spanId.innerText = product.id;
+            // elements.cardSpanPrice.innerText = product.saleprice;
+            // elements.mainImgPopap.src = product.img;
+            // elements.mainImgPopap.alt = product.alt;
+            // elements.smallPopapImg1.src = product.imgPopap1;
+            // elements.smallPopapImg1.alt = product.altPopap1;
+            // elements.smallPopapImg2.src = product.imgPopap2;
+            // elements.smallPopapImg2.alt = product.altPopap2;
+            // elements.smallPopapImg3.src = product.imgPopap3;
+            // elements.smallPopapImg3.alt = product.altPopap3;
 
         descrHead.innerText = product.head
         newPricePopap.innerText = product.price
@@ -595,23 +625,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const listPopap = document.createElement("ol"),
             topdescript = document.createElement("p")
-        if (product.bottomDescript) {
-            const bottomDescript = document.createElement("p")
-            bottomDescript.innerText = product.bottomDescript
-            descriptPopap.appendChild(bottomDescript)
-        }
 
-        descriptPopap.appendChild(topdescript)
-        topdescript.innerText = product.descript
-
+            descriptPopap.appendChild(topdescript)
+            topdescript.innerText = product.descript
+            
         const arrListPopap = [product.list1, product.list2, product.list3, product.list4, product.list5, product.list6].filter(Boolean);
         for (const listItem of arrListPopap) {
             const listPopapChild = document.createElement('li')
             listPopapChild.innerText = listItem
             listPopap.appendChild(listPopapChild)
         }
-
+        
         descriptPopap.appendChild(listPopap)
+        
+        if (product.bottomDescript) {
+            const bottomDescript = document.createElement("p")
+            bottomDescript.innerText = product.bottomDescript
+            descriptPopap.appendChild(bottomDescript)
+        }
 
         const sizes = ["40", "41", "42", "43", "44", "45"]
         const choiseSizePopap = document.querySelector(".choise-size_popap")
@@ -638,44 +669,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // виведення кольору
 
-        const formColor = document.createElement("form");
-        formColor.classList.add("color-form-popap");
-        choiseColorPopap.appendChild(formColor);
+        const formColor = document.createElement("form")
+        formColor.classList.add("color-form-popap")
+        choiseColorPopap.appendChild(formColor)
 
-        const availableColors = Object.keys(product.color);
+        const availableColors = Object.keys(product.color)
 
         availableColors.forEach(function (color) {
-            const inputId = color + "-popap-" + product.id;
+            const inputId = color + "-popap-" + product.id
 
-            const inputColorPopap = document.createElement('input');
-            inputColorPopap.type = 'radio';
-            inputColorPopap.id = inputId;
-            inputColorPopap.name = 'color-popap';
-            inputColorPopap.value = color;
+            const inputColorPopap = document.createElement('input')
+            inputColorPopap.type = 'radio'
+            inputColorPopap.id = inputId
+            inputColorPopap.name = 'color-popap'
+            inputColorPopap.value = color
 
-            const labelColor = document.createElement('label');
-            labelColor.htmlFor = inputId;
+            const labelColor = document.createElement('label')
+            labelColor.htmlFor = inputId
 
             switch (color) {
                 case 'blue':
-                    labelColor.classList.add("blue");
-                    break;
+                    labelColor.classList.add("blue")
+                    break
                 case 'black':
-                    labelColor.classList.add("black");
-                    break;
+                    labelColor.classList.add("black")
+                    break
                 case 'green':
-                    labelColor.classList.add("haki");
-                    break;
+                    labelColor.classList.add("haki")
+                    break
                 case 'brown':
-                    labelColor.classList.add("brown");
-                    break;
+                    labelColor.classList.add("brown")
+                    break
                 default:
-                    break;
+                    break
             }
 
-            formColor.appendChild(inputColorPopap);
-            formColor.appendChild(labelColor);
-        });
+            formColor.appendChild(inputColorPopap)
+            formColor.appendChild(labelColor)
+        })
 
 
         // лічильник на кількість товару який буде в кошику
@@ -848,7 +879,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("lastSelectedCategory", selectedCategory)
     }
 
-    const selectedItem = document.querySelector(`[data-href="${selectedCategory}"]`);
+    const selectedItem = document.querySelector(`[data-href="${selectedCategory}"]`)
     if (selectedItem) {
         selectedItem.classList.add("selected")
     }
@@ -978,7 +1009,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //випадаючий список
 
-    const btnReadMore = document.querySelectorAll(".readmore");
+    const btnReadMore = document.querySelectorAll(".readmore")
 
     btnReadMore.forEach((item) => {
         item.addEventListener("click", function () {
@@ -1116,7 +1147,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // })
     let anyCategoryMessage = null
 
-    document.querySelectorAll('input[type="checkbox"], input[type="range"]').forEach(input => {
+    document.querySelectorAll('input[type="range"]').forEach(input => {
         input.addEventListener("change", function () {
             if (anyCategoryMessage) {
                 anyCategoryMessage.remove()
@@ -1125,71 +1156,97 @@ document.addEventListener("DOMContentLoaded", function () {
             updateProductFilter()
         })
     })
-
+    
+    const filterAside = document.querySelector(".filter")
+    filterAside.addEventListener("change", function (event) {
+        const target = event.target;
+    
+        // Перевірка, чи клікнуто на чекбокс в фільтрі, а не на чекбокс у карточці товару
+        const isFilterCheckbox = target.tagName === "INPUT" && target.type === "checkbox" && target.closest('.filter')
+    
+        if (isFilterCheckbox) {
+            const filters = {}
+            const filterInputs = document.querySelectorAll("input[type='checkbox']:checked")
+            filterInputs.forEach(checkbox => {
+                const category = checkbox.name,
+                    value = checkbox.value
+                if (!filters[category]) {
+                    filters[category] = []
+                }
+                filters[category].push(value)
+            })
+    
+            const filteredProducts = jsonData.filter(product => {
+                return Object.entries(filters).every(([category, values]) => {
+                    if (category === "color") {
+                        const productColors = product.color || {}
+                        return values.some(selectedColor => Object.values(productColors).includes(selectedColor))
+                    } else if (Array.isArray(product[category])) {
+                        return values.every(value => (product[category] || []).includes(value))
+                    } else {
+                        return values.includes(product[category])
+                    }
+                })
+            })
+    
+            displayProducts(filteredProducts, productList)
+            updateProductFilter()
+        }
+    
+    })
+    showData()
+    
     function updateProductFilter() {
-        const minPrice = parseInt(document.querySelector('.input-min').value),
-            maxPrice = parseInt(document.querySelector('.input-max').value),
-            selectedSizes = getSelectedValues('size'),
-            selectedColors = getSelectedValues('color'),
-            selectedModels = getSelectedValues('model'),
-            selectedSeasons = getSelectedValues('season'),
-            selectedMaterials = getSelectedValues('material'),
-            selectedStyles = getSelectedValues('style')
+    
+        const minPrice = parseInt(document.querySelector('.input-min').value)
+        const maxPrice = parseInt(document.querySelector('.input-max').value)
+    
         let anyCategoryVisible = false
+        
         categories.forEach((category) => {
-            const elements = document.querySelectorAll(`.${category}`)
+            const elements = document.querySelectorAll(`.card-box`)
             elements.forEach((element) => {
-                const showElement =
-                    checkFilter(element.classList, selectedSizes) &&
-                    checkFilter(element.classList, selectedColors) &&
-                    checkFilter(element.classList, selectedModels) &&
-                    checkFilter(element.classList, selectedSeasons) &&
-                    checkFilter(element.classList, selectedMaterials) &&
-                    checkFilter(element.classList, selectedStyles) &&
-                    checkPrice(element, minPrice, maxPrice)
-
+                const showElement = checkFilters(element, minPrice, maxPrice)
+    
                 element.style.display = showElement ? "grid" : "none"
-
+    
                 if (showElement) {
                     anyCategoryVisible = true
                 }
             })
         })
+    
         if (!anyCategoryVisible) {
-
             if (!anyCategoryMessage) {
                 const cardBott = document.querySelector(".card-bott")
-                const cardBlock = document.querySelector(".card-block")
                 anyCategoryMessage = document.createElement("div")
                 anyCategoryMessage.classList.add("any-block")
+    
                 const spanIconAnyCategory = document.createElement("span")
                 spanIconAnyCategory.classList.add("icon-no-card")
-                spanIconAnyCategory.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-80q-83 0-141.5-58.5T80-280q0-83 58.5-141.5T280-480q83 0 141.5 58.5T480-280q0 83-58.5 141.5T280-80Zm544-40L568-376q-12-13-25.5-26.5T516-428q38-24 61-64t23-88q0-75-52.5-127.5T420-760q-75 0-127.5 52.5T240-580q0 6 .5 11.5T242-557q-18 2-39.5 8T164-535q-2-11-3-22t-1-23q0-109 75.5-184.5T420-840q109 0 184.5 75.5T680-580q0 43-13.5 81.5T629-428l251 252-56 56Zm-615-61 71-71 70 71 29-28-71-71 71-71-28-28-71 71-71-71-28 28 71 71-71 71 28 28Z"/></svg>';
-
+                spanIconAnyCategory.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-80q-83 0-141.5-58.5T80-280q0-83 58.5-141.5T280-480q83 0 141.5 58.5T480-280q0 83-58.5 141.5T280-80Zm544-40L568-376q-12-13-25.5-26.5T516-428q38-24 61-64t23-88q0-75-52.5-127.5T420-760q-75 0-127.5 52.5T240-580q0 6 .5 11.5T242-557q-18 2-39.5 8T164-535q-2-11-3-22t-1-23q0-109 75.5-184.5T420-840q109 0 184.5 75.5T680-580q0 43-13.5 81.5T629-428l251 252-56 56Zm-615-61 71-71 70 71 29-28-71-71 71-71-28-28-71 71-71-71-28 28 71 71-71 71 28 28Z"/></svg>'
+    
                 const anyCategoryText = document.createElement("p")
                 anyCategoryText.classList.add("no-card")
                 anyCategoryText.innerText = "Нажаль, за вашим вибором не знайдено жодного товару"
-
+    
                 anyCategoryMessage.appendChild(spanIconAnyCategory)
                 anyCategoryMessage.appendChild(anyCategoryText)
+    
                 cardBott.appendChild(anyCategoryMessage)
             }
         }
     }
-
-    function checkPrice(element, min, max) {
-        const priceValue = parseInt(element.dataset.price) // значення з data-price
+    //фільтр по ренджу
+    function checkFilters(element, minPrice, maxPrice) {
+        const priceValue = parseInt(element.dataset.price)
+        return checkPrice(priceValue, minPrice, maxPrice)
+    }
+    
+    function checkPrice(priceValue, min, max) {
         return priceValue >= min && priceValue <= max
     }
-
-    function getSelectedValues(name) {
-        return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(input => input.value)
-    }
-
-    function checkFilter(elementClasses, selectedValues) {
-        return selectedValues.length === 0 || selectedValues.some(value => elementClasses.contains(value))
-    }
-
+    
     // скидання фільтру
     // document.querySelector('button.cta-transparent.reset-filter[type="reset"]').addEventListener("click", function (e) {
     //     e.preventDefault()
@@ -1200,13 +1257,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
             checkbox.checked = false
         })
-
-        // document.querySelector('.input-min').setAttribute("value" , minPriceInput)
-        // document.querySelector('.input-max').value = `${maxPriceInput}`
-        // document.querySelector(".range-min").setAttribute("value" , minPriceInput)
-        // document.querySelector(".range-max").value = `${maxPriceInput}`
-
-        // updateProductDisplay(category)
     }
 
     const images = document.querySelectorAll('.slider-images img'),
@@ -1260,8 +1310,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     cart.addEventListener("click", basketToggle)
-        returnBasket.forEach(function (e) {
-            e.addEventListener("click", basketToggle)
+    returnBasket.forEach(function (e) {
+        e.addEventListener("click", basketToggle)
     })
 
 
@@ -1468,10 +1518,11 @@ function updateCart(id, sizesList, colorCheckbox) {
             const product = products.find(product => product.id === id);
 
             let firstColor = Object.keys(product.color)[0]
+
             function colorInObjToStr() {
                 if (colorCheckbox && product.color.hasOwnProperty(colorCheckbox)) {
                     const selectedColor = product.color[colorCheckbox]
-                    return(selectedColor)
+                    return (selectedColor)
                 }
             }
             const selectedColor = colorCheckbox ? colorInObjToStr() : product.color[firstColor]
@@ -1545,7 +1596,7 @@ function cart() {
 
                 document.querySelectorAll(`input[type="checkbox"][id^="input-${productId}"]:checked`).forEach(checkbox => {
                     selectedSizes.push(checkbox.value)
-                    
+
                 })
 
                 // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
