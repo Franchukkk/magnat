@@ -2,6 +2,10 @@
 
 h1,h2,p
     margin: 0
+
+a,
+button 
+    cursor: pointer
     
 html
     font-size: 0.8px
@@ -663,11 +667,27 @@ input[type="range"]
     font-size: 20rem
 
 .basket-empty
-    display: flex
-    justify-content: center
+    position: relative
+    left: 50%
+    transform: translateX(-50%)
+    display: block
     width: 100%
-    text-align: center
-
+    svg
+        position: relative
+        left: 50%
+        transform: translateX(-50%)
+    +media(1150)
+        position: relative
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
+        display: flex
+        justify-content: center
+        align-items: center
+        svg
+            position: relative
+            left: auto
+            transform: translateX(0)
 .icon-no-card
     svg
         padding: 50rem 0
@@ -1301,12 +1321,13 @@ span.date
     border-radius: 5px
     text-decoration: none
     border: 1px solid #4E98B6
-    margin: auto
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15)
     +media(450)
         margin: 0
         width: 48.5%
         max-width: 300rem
     &:hover
+        font-size: 15rem
         color: #4E98B6
         border: 1px solid #4E98B6
         background-color: #d2d1d1
@@ -1431,7 +1452,7 @@ h2.season
     overflow: hidden
     background: linear-gradient(100deg, rgba(255, 255, 255, 0.75) 10.01%, rgba(255, 255, 255, 0.00) 86.53%)
     min-height: 590rem
-    
+    padding-bottom: 50px
 .slider-images
     img
         position: absolute
@@ -1583,7 +1604,7 @@ h2.season
     font-weight: 600
 
 .added-products-list 
-
+    width: 100%
     img 
         width: 150rem
         height: 150rem
@@ -1610,7 +1631,8 @@ h2.season
         tr > td:first-child
             color: #A0A0A0
             font-weight: 300
-
+    +media(1150)
+        width: 50%
 .delete-product
     position: relative
     color: #191919
@@ -1660,14 +1682,14 @@ h2.season
     +media(650)
         bottom: 0px
 
-.basket-back,
+.popup-footer .basket-back,
 .back-to-main,
-.confirm-back,
-.reviews-back,
-.exchangeAndReturn,
-.openPayAndDeliveryPopup,
-.back-oferta,
-.back-privacy
+.popup-footer .confirm-back,
+.popup-footer .reviews-back,
+.popup-footer .exchangeAndReturn,
+.popup-footer .openPayAndDeliveryPopup,
+.popup-footer .back-oferta,
+.popup-footer .back-privacy
     position: relative
     padding: 10rem 0
     color: #191919
@@ -1686,11 +1708,11 @@ h2.season
         transform: translateY(-50%)
         background-image: url(../img/basket-arrow.svg)
         background-repeat: no-repeat
+    &:hover
+        font-size: 17px
 
 
 
-.popup-back-btns:hover
-    font-size: 17px
 
 a.basket-back,
 a.confirm-back
@@ -1729,7 +1751,7 @@ a.openPayAndDeliveryPopup
     width: 100%
     margin-bottom: 20rem
     +media(1150)
-        width: 40%
+        width: 50%
     h3
         color: #4E98B6
         text-align: center
@@ -2221,8 +2243,6 @@ hr
     column-gap: 10rem
     flex-wrap: wrap
     row-gap: 15rem
-    a
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15)
 
 .d-block
     display: block
@@ -2457,8 +2477,3 @@ hr
         width: 0%
 
 
-.empty-baket
-    transform: translateX(-50%)
-    left: 25%
-    display: flex
-    align-items: center
