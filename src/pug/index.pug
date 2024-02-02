@@ -286,17 +286,21 @@ html(lang="uk")
                             .flex-between
                                 label.w-50 
                                     p Мобільний телефон
-                                    input(class="inputMask", type="text", name="userPhone") 
+                                    .required-field 
+                                        input(class="inputMask", type="text", name="userPhone") 
                                 label.w-50 
                                     p Електронна пошта
-                                    input(type="email", name="userEmail") 
+                                    .required-field
+                                        input(type="email", name="userEmail") 
                             .flex-between
                                 label.w-50 
                                     p Імʼя
-                                    input(type="text", name="userName") 
+                                    .required-field
+                                        input(type="text", name="userName") 
                                 label.w-50 
                                     p Прізвище
-                                    input(type="text", name="userFirstName")
+                                    .required-field
+                                        input(type="text", name="userFirstName")
                             .payment-method 
                                 h3 спосіб оплати
                                 .relative
@@ -320,10 +324,12 @@ html(lang="uk")
                                 .flex-between 
                                     label.w-50
                                         p Місто
-                                        input(type="text", name="city")
+                                        .required-field
+                                            input(type="text", name="city")
                                     label.w-50
                                         p Номер відділення
-                                        input(type="text", name="postNumber")
+                                        .required-field
+                                            input(type="text", name="postNumber")
                             .hidden-inputs
                         .order-details
                             h3 Разом
@@ -374,14 +380,17 @@ html(lang="uk")
                                 label(for="")
                                     p 
                                         span Імʼя
-                                    input(type="text" name="userName") 
+                                    .required-field
+                                        input(type="text" name="userName") 
                                 label(for="")
                                     p 
                                         span Прізвище
-                                    input(type="text" name="userFirstName")
+                                    .required-field
+                                        input(type="text" name="userFirstName")
                             p 
                                 span Відгук
-                            textarea(name="userReview")
+                            .required-field
+                                textarea(name="userReview")
                             button(type="submit").btn-style-one відправити 
             .popup-footer 
                 .wrapper
