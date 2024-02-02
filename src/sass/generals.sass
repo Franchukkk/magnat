@@ -332,14 +332,17 @@ ul.activemobile
 .mobile-filter
     a
         position: fixed
-        top: 120rem
-        left: -30rem
+        top: 118rem
+        left: -20rem
         transform: rotate(-90deg)
         display: block
-        color: #000
+        color: #fff
         font-size: 16rem
-        padding: 10rem
+        padding: 5rem
         text-transform: uppercase
+        background-color: #4E98B6
+        border-radius: 3rem 0 0 3rem
+        z-index: 8
 
     +media(1024)
         display: none
@@ -635,9 +638,11 @@ input[type="range"]
     flex-basis: auto
     max-width: 1000rem
 
+.card-bott 
+    margin-bottom: 150rem
+
 .card-bott,
 .same-card
-    padding-bottom: 150rem
     display: grid
     width: 100%
     grid-template-columns: 1fr
@@ -1371,13 +1376,15 @@ span.date
 .deliver,
 .our-client,
 .our-like
-    column-gap: 50rem
+    column-gap: 20rem
+    +media(768)
+        column-gap: 50rem
     
 .circle
     display: flex
     align-items: center
     justify-content: center
-    width: 200rem
+    width: 250rem
     height: 70rem
     color: #fff
     border-radius: 50%

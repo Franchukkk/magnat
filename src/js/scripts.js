@@ -54,7 +54,8 @@ document.addEventListener("DOMContentLoaded", function () {
         filterBlock.classList.add("active-filter")
     })
 
-    cancelFilter.addEventListener("click", function () {
+    cancelFilter.addEventListener("click", function (e) {
+        e.preventDefault()
         filterBlock.classList.remove("active-filter")
     })
 
@@ -189,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 //     })
                 // })
                 // виведення товарів зі знижками по нижній кнопці
-                const discountButton = document.querySelector('a.bottom-cart-season[data-href="discount"]');
+                const discountButton = document.querySelector('a.bottom-cart-season[data-href="all"]');
                 discountButton.addEventListener("click", function (e) {
                     e.preventDefault()
                     const saleProducts = jsonData.filter(product => product.saleprice !== "");
@@ -202,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => console.error("Помилка завантаження даних:", error))
     }
-
+    displayProducts(jsonData, productList)
     function createInputRange() {
         const rangeInput = document.querySelectorAll(".range-input input"),
             priceInput = document.querySelectorAll(".price-input input"),
@@ -926,14 +927,14 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateProductFilter() {
         const minPrice = parseInt(document.querySelector('.input-min').value)
         const maxPrice = parseInt(document.querySelector('.input-max').value)
-        const selectedCategory = localStorage.getItem("lastSelectedCategory") || "#all"
+        const selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
 
         let anyCategoryVisible = false
 
         categories.forEach((category) => {
             const elements = document.querySelectorAll(`.${category}`)
             elements.forEach((element) => {
-                const showElement = checkFilters(element, minPrice, maxPrice) && (selectedCategory === "#all" || element.classList.contains(selectedCategory))
+                const showElement = checkFilters(element, minPrice, maxPrice) && (selectedCategory === "all" || element.classList.contains(selectedCategory))
 
                 element.style.display = showElement ? "grid" : "none"
 
@@ -984,7 +985,7 @@ document.addEventListener("DOMContentLoaded", function () {
             resetFilters()
             const element = document.querySelector(`.${product.category}`)
             if (element) {
-                element.style.display = category === "#all" || category === `#${product.category}` ? "block" : "none"
+                element.style.display = category === "all" || category === `#${product.category}` ? "block" : "none"
             }
         })
     }
@@ -1001,14 +1002,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     })
 
-    let selectedCategory = localStorage.getItem("lastSelectedCategory") || "#all"
+    let selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
 
     const urlParams = new URLSearchParams(window.location.search)
     urlCategory = urlParams.get('category'),
         urlHash = window.location.hash,
         selectedHash = urlHash || "#catalog"
 
-    selectedCategory = selectedCategory || "#all"
+    selectedCategory = selectedCategory || "all"
 
     btnProduct.forEach((button) => {
         button.classList.add("card-cta-season")
@@ -1025,7 +1026,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     if (!selectedCategory) {
-        selectedCategory = "#all"
+        selectedCategory = "all"
         localStorage.setItem("lastSelectedCategory", selectedCategory)
     }
 
@@ -1040,7 +1041,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const elements = document.querySelectorAll(`.${category}`)
         elements.forEach((element) => {
             element.style.display =
-                selectedCategory === `${category}` || selectedCategory === "#all" ? "block" : "none"
+                selectedCategory === `${category}` || selectedCategory === "all" ? "block" : "none"
         })
     })
 
@@ -1057,8 +1058,8 @@ document.addEventListener("DOMContentLoaded", function () {
             item.classList.add("selected")
 
             let category = evt.target.getAttribute("data-href")
-            if (category === "#all") {
-                category = "#all"
+            if (category === "all") {
+                category = "all"
                 localStorage.setItem("lastSelectedCategory", category)
                 const urlWithoutCategory = window.location.origin + window.location.pathname + window.location.hash
                 window.history.replaceState({}, '', urlWithoutCategory)
@@ -1116,7 +1117,7 @@ document.addEventListener("DOMContentLoaded", function () {
         categories.forEach((cat) => {
             const elements = document.querySelectorAll(`.${cat}`)
             elements.forEach((element) => {
-                element.style.display = category === `${cat}` || category === "#all" ? "block" : "none"
+                element.style.display = category === `${cat}` || category === "all" ? "block" : "none"
             })
         })
     }
