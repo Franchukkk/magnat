@@ -118,12 +118,11 @@ document.addEventListener("DOMContentLoaded", function () {
         productPopup = document.querySelector('.popap-card'),
         sameCard = document.querySelector(".same-card")
 
-    const itemsPerPage = 12 //ск  карток товару має бути на сторінці
+    const itemsPerPage = 2 //ск  карток товару має бути на сторінці
 
     let currentPage = 1,
         totalPages = 1,
         jsonData = []
-
 
     function fetchData() {
         fetch("products.json")
@@ -132,63 +131,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 jsonData = data
                 totalPages = Math.ceil(jsonData.length / itemsPerPage)
                 showData(currentPage)
-                showPagination()
+                showPagination(currentPage)
                 updateProductDisplay(selectedCategory)
-
-                // //input range виведення у велю значень з json
-                // const rangeInput = document.querySelectorAll(".range-input input"),
-                //     priceInput = document.querySelectorAll(".price-input input"),
-                //     range = document.querySelector(".slider .progress"),
-                //     minPriceInput = Math.min(...jsonData.map(item => parseInt(item.price))),
-                //     maxPriceInput = Math.max(...jsonData.map(item => parseInt(item.price)))
-
-                // let priceGap = 10
-
-                // priceInput.forEach((input) => {
-                //     priceInput[0].setAttribute("value", minPriceInput)
-                //     priceInput[1].setAttribute("value", maxPriceInput)
-                //     input.addEventListener("input", (e) => {
-
-                //         let minPrice = parseInt(priceInput[0].value),
-                //             maxPrice = parseInt(priceInput[1].value)
-
-                //         if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
-                //             if (e.target.className === "input-min") {
-                //                 rangeInput[0].value = minPrice
-                //                 range.style.left = (minPrice / rangeInput[0].max) * 100 + "%"
-                //             } else {
-                //                 rangeInput[1].value = maxPrice
-                //                 range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%"
-                //             }
-                //         }
-                //     })
-                // })
-
-                // rangeInput.forEach((input) => {
-                //     rangeInput[0].setAttribute("value", minPriceInput)
-                //     rangeInput[1].setAttribute("value", maxPriceInput)
-                //     rangeInput[0].setAttribute("min", minPriceInput)
-                //     rangeInput[0].setAttribute("max", maxPriceInput)
-                //     rangeInput[1].setAttribute("min", minPriceInput)
-                //     rangeInput[1].setAttribute("max", maxPriceInput)
-                //     input.addEventListener("input", (e) => {
-                //         let minVal = parseInt(rangeInput[0].value),
-                //             maxVal = parseInt(rangeInput[1].value)
-
-                //         if (maxVal - minVal < priceGap) {
-                //             if (e.target.className === "range-min") {
-                //                 rangeInput[0].value = maxVal - priceGap
-                //             } else {
-                //                 rangeInput[1].value = minVal + priceGap
-                //             }
-                //         } else {
-                //             priceInput[0].value = minVal
-                //             priceInput[1].value = maxVal
-                //             range.style.left = (minVal / rangeInput[0].max) * 100 + "%"
-                //             range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%"
-                //         }
-                //     })
-                // })
                 // виведення товарів зі знижками по нижній кнопці
                 const discountButton = document.querySelector('a.bottom-cart-season[data-href="all"]');
                 discountButton.addEventListener("click", function (e) {
@@ -203,7 +147,8 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => console.error("Помилка завантаження даних:", error))
     }
-    displayProducts(jsonData, productList)
+    // displayProducts(jsonData, productList)
+
     function createInputRange() {
         const rangeInput = document.querySelectorAll(".range-input input"),
             priceInput = document.querySelectorAll(".price-input input"),
@@ -367,12 +312,27 @@ document.addEventListener("DOMContentLoaded", function () {
         uniqueStyle.forEach(style => createCheckbox(style, "style", styleInputContainer))
     }
 
+    let totalItems = 0
+
     function showData(pageNumber) {
-        const startIndex = (pageNumber - 1) * itemsPerPage,
-            endIndex = startIndex + itemsPerPage,
-            pageData = jsonData.slice(startIndex, endIndex)
+        const selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
+        const filteredData = jsonData.filter(product => {
+            return selectedCategory === "all" || product.category === selectedCategory
+        })
+    
+        totalItems = filteredData.length
+    
+        const startIndex = (pageNumber - 1) * itemsPerPage
+        const endIndex = startIndex + itemsPerPage
+        const pageData = filteredData.slice(startIndex, endIndex)
+        
+        // Оновлення itemsPerPage
+    
+        // Передача фільтрованих товарів у функцію displayProducts
         displayProducts(pageData, productList)
+        showPagination(pageNumber)
     }
+
     // створення карточки товару 
     function createCardElement(product) {
         const listItem = document.createElement("figure"),
@@ -469,13 +429,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function displayProducts(products, container) {
-        container.innerHTML = ""
-        products.forEach(product => {
-            const listItem = createCardElement(product)
+        container.innerHTML = "";
+        const itemsPerPage = 2
+    
+        for (let i = 0; i < Math.min(products.length, itemsPerPage); i++) {
+            const listItem = createCardElement(products[i])
             container.appendChild(listItem)
-        })
+        }
     }
-    displayProducts(jsonData, productList)
     let openedProductId
 
     // попап на карточку товару
@@ -866,7 +827,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('input[type="range"]').forEach(input => {
         input.addEventListener("change", function () {
             removeAnyMessage()
-            updateProductFilter()
         })
     })
 
@@ -875,8 +835,7 @@ document.addEventListener("DOMContentLoaded", function () {
         inputBlock = document.querySelectorAll(".card-bott input[type='checkbox'")
         inputBlock.forEach(elementSize => {
             elementSize.checked = false
-            // removeAnyMessage()
-            
+            removeAnyMessage()
         })
 
         const target = event.target
@@ -889,6 +848,7 @@ document.addEventListener("DOMContentLoaded", function () {
             filterInputs.forEach(checkbox => {
                 const category = checkbox.name,
                     value = checkbox.value
+                    updateProductFilter(category)
                 if (!filters[category]) {
                     filters[category] = []
                 }
@@ -909,13 +869,17 @@ document.addEventListener("DOMContentLoaded", function () {
             })
 
             removeAnyMessage()
-            displayProducts(filteredProducts, productList)
+            showData(currentPage)
+            showPagination(currentPage)
             updateProductFilter()
+            updateProductDisplay(filteredProducts)
+            displayProducts(filteredProducts, productList)
         }
+        // removeAnyMessage()
         updateCartBtns()
     })
 
-    showData()
+    showData(currentPage)
     //видалення виключних ситуації при оновлені
     function removeAnyMessage() {
         if (anyCategoryMessage) {
@@ -923,25 +887,24 @@ document.addEventListener("DOMContentLoaded", function () {
             anyCategoryMessage = null
         }
     }
-
+    
     function updateProductFilter() {
         const minPrice = parseInt(document.querySelector('.input-min').value)
         const maxPrice = parseInt(document.querySelector('.input-max').value)
         const selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
-
+        console.log("+");
         let anyCategoryVisible = false
 
         categories.forEach((category) => {
-            const elements = document.querySelectorAll(`.${category}`)
+            const elements = document.querySelectorAll(`.${category}`);
             elements.forEach((element) => {
+                const priceValue = parseInt(element.dataset.price)
                 const showElement = checkFilters(element, minPrice, maxPrice) && (selectedCategory === "all" || element.classList.contains(selectedCategory))
-
-                element.style.display = showElement ? "grid" : "none"
-
+    
                 if (showElement) {
-                    anyCategoryVisible = true
+                    anyCategoryVisible = true;
                 }
-            })
+            });
         })
         //виключні ситуації
         if (!anyCategoryVisible) {
@@ -960,7 +923,7 @@ document.addEventListener("DOMContentLoaded", function () {
             anyCategoryMessage.appendChild(spanIconAnyCategory)
             anyCategoryMessage.appendChild(anyCategoryText)
             cardBlock.appendChild(anyCategoryMessage)
-        } 
+        }
     }
 
     function checkFilters(element, minPrice, maxPrice) {
@@ -978,30 +941,15 @@ document.addEventListener("DOMContentLoaded", function () {
         bottomProduct = document.querySelectorAll(".bottom-cart-season"),
         categories = ["winter", "summer", "demiseason"]
 
-    function updateProductDisplay(category) {
-        jsonData.forEach(product => {
-            displayProducts(jsonData, productList)
-            setTimeout(updateCartBtns(), 0)
-            resetFilters()
-            const element = document.querySelector(`.${product.category}`)
-            if (element) {
-                element.style.display = category === "all" || category === `#${product.category}` ? "block" : "none"
-            }
-        })
-    }
-
-    categoryFilter.addEventListener("click", (evt) => {
-        if (evt.target.tagName === "BUTTON") {
-            selectedCategory = evt.target.getAttribute("data-href")
-            localStorage.setItem("lastSelectedCategory", selectedCategory)
-            displayProducts(jsonData, productList)
+    categoryFilter.addEventListener("change", (evt) => {
+        if (evt.target.tagName === "INPUT" && evt.target.type === "checkbox" && evt.target.closest('.filter')) {
             updateProductDisplay(selectedCategory)
-            showData(currentPage)
-            setTimeout(updateCartBtns(), 0)
-            resetFilters()
+            removeAnyMessage()
         }
+        showData(currentPage)
+        showPagination(currentPage)
     })
-
+    
     let selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
 
     const urlParams = new URLSearchParams(window.location.search)
@@ -1035,15 +983,7 @@ document.addEventListener("DOMContentLoaded", function () {
         selectedItem.classList.add("selected")
     }
 
-    updateProductDisplay(selectedCategory)
-
-    categories.forEach((category) => {
-        const elements = document.querySelectorAll(`.${category}`)
-        elements.forEach((element) => {
-            element.style.display =
-                selectedCategory === `${category}` || selectedCategory === "all" ? "block" : "none"
-        })
-    })
+    // updateProductDisplay(selectedCategory)
 
     btnProduct.forEach((item) => {
         item.addEventListener("click", (evt) => {
@@ -1064,13 +1004,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 const urlWithoutCategory = window.location.origin + window.location.pathname + window.location.hash
                 window.history.replaceState({}, '', urlWithoutCategory)
             } else {
-                updateProductDisplay(category)
+                // updateProductDisplay(category)
                 const urlWithCategory = window.location.origin + window.location.pathname + `?category=${category}#catalog`
                 window.history.replaceState({}, '', urlWithCategory)
                 localStorage.setItem("lastSelectedCategory", category)
             }
-            displayProducts(jsonData, productList)
-            updateProductDisplay(category)
+            updateProductDisplay(selectedCategory)
 
             setTimeout(updateCartBtns(), 0)
             resetFilters()
@@ -1105,21 +1044,20 @@ document.addEventListener("DOMContentLoaded", function () {
             })
 
             item.classList.add("selected")
-            displayProducts(jsonData, productList)
 
-            updateProductDisplay(category)
+            updateProductDisplay(selectedCategory)
             setTimeout(updateCartBtns(), 0)
             resetFilters()
         })
     })
 
     function updateProductDisplay(category) {
-        categories.forEach((cat) => {
-            const elements = document.querySelectorAll(`.${cat}`)
-            elements.forEach((element) => {
-                element.style.display = category === `${cat}` || category === "all" ? "block" : "none"
-            })
-        })
+        const filteredProducts = jsonData.filter(product => category === "all" || product.category === category)
+        
+        displayProducts(filteredProducts, productList)
+        showData(currentPage)
+        showPagination(currentPage)
+        setTimeout(updateCartBtns, 0)
     }
 
     function resetFilters() {
@@ -1161,7 +1099,7 @@ document.addEventListener("DOMContentLoaded", function () {
     selectInput.addEventListener("change", function () {
         const sortedData = sortProducts(jsonData)
         showData(currentPage)
-        showPagination()
+        showPagination(currentPage)
         updatePaginationButtons()
         updateCartBtns()
     })
@@ -1204,19 +1142,23 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     //  пагінатор
+    showPagination(currentPage)
 
-    function showPagination() {
-        var paginationContainer = document.querySelector('#pagination')
-        paginationContainer.innerHTML = ''
+    function showPagination(pageNumber) {
+        var paginationContainer = document.querySelector('#pagination');
+        paginationContainer.innerHTML = '';
+
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
 
         if (totalPages > 1) {
 
             paginationContainer.appendChild(createButton('←', 'arrow-pag prev', function () {
                 if (currentPage > 1) {
                     currentPage--
-                    showData(currentPage)
-                    showPagination()
+                    showData(pageNumber)
+                    showPagination(currentPage)
                     updatePaginationButtons()
+                    updateProductFilter()
                 }
             }))
 
@@ -1230,8 +1172,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 paginationContainer.appendChild(createButton(1, '', function () {
                     currentPage = 1
                     showData(currentPage)
-                    showPagination()
+                    showPagination(currentPage)
                     updatePaginationButtons()
+                    updateProductFilter()
                 }))
 
                 if (startPage > 2) {
@@ -1244,8 +1187,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     paginationContainer.appendChild(createButton(pageNumber, (pageNumber === currentPage) ? 'active' : '', function () {
                         currentPage = pageNumber
                         showData(currentPage)
-                        showPagination()
+                        showPagination(currentPage)
                         updatePaginationButtons()
+                        updateProductFilter()
                     }))
                 })(i)
             }
@@ -1258,8 +1202,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 paginationContainer.appendChild(createButton(totalPages, '', function () {
                     currentPage = totalPages
                     showData(currentPage)
-                    showPagination()
+                    showPagination(currentPage)
                     updatePaginationButtons()
+                    updateProductFilter()
                 }))
             }
 
@@ -1268,8 +1213,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (currentPage < totalPages) {
                     currentPage++
                     showData(currentPage)
-                    showPagination()
+                    showPagination(currentPage)
                     updatePaginationButtons()
+                    updateProductFilter()
                 }
             }))
         }
