@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
         productPopup = document.querySelector('.popap-card'),
         sameCard = document.querySelector(".same-card")
 
-    const itemsPerPage = 6 //ск  карток товару має бути на сторінці
+    const itemsPerPage = 18 //ск  карток товару має бути на сторінці
 
     let currentPage = 1,
         jsonData = []
@@ -435,7 +435,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayProducts(products, container) {
         container.innerHTML = "";
-        const itemsPerPage = 6
+        const itemsPerPage = 18
 
         for (let i = 0; i < Math.min(products.length, itemsPerPage); i++) {
             const listItem = createCardElement(products[i])
@@ -828,7 +828,8 @@ document.addEventListener("DOMContentLoaded", function () {
         filters = {}
 
     document.querySelectorAll('.input-min, .input-max').forEach(input => {
-        input.addEventListener('input', function () {
+        input.addEventListener('input', function (e) {
+            e.preventDefault()
             removeAnyMessage()
             updateFilters()
         })
@@ -836,6 +837,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const filterAside = document.querySelector(".filter")
     filterAside.addEventListener("change", function (event) {
+        event.preventDefault()
         inputBlock = document.querySelectorAll(".card-bott input[type='checkbox'")
         inputBlock.forEach(elementSize => {
             elementSize.checked = false
@@ -998,6 +1000,7 @@ document.addEventListener("DOMContentLoaded", function () {
         categories = ["winter", "summer", "demiseason"]
 
     categoryFilter.addEventListener("change", (evt) => {
+        evt.preventDefault()
         if (evt.target.tagName === "INPUT" && evt.target.type === "checkbox" && evt.target.closest('.filter')) {
             updateProductDisplay(selectedCategory)
             removeAnyMessage()
