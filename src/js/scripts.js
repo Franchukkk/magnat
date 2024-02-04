@@ -316,9 +316,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function showData(pageNumber) {
         const selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
         let filteredData
-    
+
         const storedFilteredProducts = localStorage.getItem('filteredProducts')
-    
+
         if (storedFilteredProducts) {
             filteredData = JSON.parse(storedFilteredProducts)
         } else {
@@ -326,14 +326,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 return selectedCategory === "all" || product.category === selectedCategory
             })
         }
-    
+
         totalItems = filteredData.length
         totalPages = Math.ceil(totalItems / itemsPerPage)
-    
+
         const startIndex = (pageNumber - 1) * itemsPerPage
         const endIndex = startIndex + itemsPerPage
         const pageData = filteredData.slice(startIndex, endIndex)
-    
+
         displayProducts(pageData, productList)
         showPagination(pageNumber)
     }
@@ -752,8 +752,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ctaPopup.setAttribute("data-value", product.id)
         ctaPopup.addEventListener("click", function (e) {
             e.preventDefault()
-            // productPopup.style.display = "none"
-            //додати відкриття кошика 
         })
         btnSimilar()
     }
@@ -771,7 +769,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 container.appendChild(listItem)
                 count++
                 hasSimilarProducts = true
-                // noSimilarProductsMessage.innerText = "схожі товари"
             }
         })
         if (!hasSimilarProducts) {
@@ -858,11 +855,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!filters[category]) {
                     filters[category] = []
                 }
-
+                //додавання в масив того що було чекнуто користувачем
                 if (!filters[category].includes(value)) {
                     filters[category].push(value);
                 }
             })
+            //видалення з масиву категорій і значень
             const uncheckedCheckboxes = document.querySelectorAll("input[type='checkbox']:not(:checked)");
             uncheckedCheckboxes.forEach(checkbox => {
                 const category = checkbox.name
@@ -874,7 +872,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         filters[category].splice(index, 1)
                     }
 
-                    // Check if the category should be removed
                     if (filters[category].length === 0) {
                         delete filters[category]
                     }
@@ -912,8 +909,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const minPrice = parseInt(document.querySelector('.input-min').value),
             maxPrice = parseInt(document.querySelector('.input-max').value),
             selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
-        // selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null,
-        // selectedFiltSizes = document.querySelector('input[name="size"]:checked')
 
         const filteredProducts = jsonData.filter(product => {
             const element = document.querySelector(`[data-value="${product.id}"]`)
@@ -967,7 +962,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cardBlock.appendChild(anyCategoryMessage)
         }
     }
-
+    //фільтрування по категоріях з масивів
     function checkFilters(product, minPrice, maxPrice, selectedCategory, filters) {
         const priceValue = parseFloat(product.price) || 0,
             productCategory = product.category
@@ -978,8 +973,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const productFilterValue = product[filterCategory]
 
             if (filterCategory === "color") {
-                const productColors = Array.isArray(product.color) ? product.color : Object.values(product.color || {});
-                return filters[filterCategory].some(selectedColor => productColors.includes(selectedColor));
+                const productColors = Array.isArray(product.color) ? product.color : Object.values(product.color || {})
+                return filters[filterCategory].some(selectedColor => productColors.includes(selectedColor))
             }
             if (Array.isArray(productFilterValue)) {
                 return productFilterValue.some(value => filters[filterCategory].includes(value))
@@ -987,7 +982,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return filters[filterCategory].includes(productFilterValue)
             }
         })
-        
+
         return priceFilter && categoryFilter && allFiltersMatch
     }
 
@@ -995,7 +990,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return priceValue >= min && priceValue <= max
     }
 
-
+    localStorage.removeItem('filteredProducts')
     // вибір категорій і додавання до локального сховища, при завантажені сторінки підзавантажуються дані згідно вибраних категорій а не весь список
 
     const btnProduct = document.querySelectorAll(".card-cta-season"),
@@ -1018,7 +1013,6 @@ document.addEventListener("DOMContentLoaded", function () {
         urlHash = window.location.hash,
         selectedHash = urlHash || "#catalog"
 
-    selectedCategory = selectedCategory || "all"
 
     btnProduct.forEach((button) => {
         button.classList.add("card-cta-season")
@@ -1034,7 +1028,12 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     })
 
+
     if (!selectedCategory) {
+        selectedCategory = "all"
+        localStorage.setItem("lastSelectedCategory", selectedCategory)
+        localStorage.removeItem('filteredProducts')
+    } else if (!categories.includes(selectedCategory)) {
         selectedCategory = "all"
         localStorage.setItem("lastSelectedCategory", selectedCategory)
         localStorage.removeItem('filteredProducts')
@@ -1129,6 +1128,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
             checkbox.checked = false
         })
+
     }
     // сщртування по селекту
 
