@@ -887,11 +887,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const minPrice = parseInt(document.querySelector('.input-min').value),
             maxPrice = parseInt(document.querySelector('.input-max').value),
             selectedCategory = localStorage.getItem("lastSelectedCategory") || "all",
-            selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null
+            selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null,
+            selectedFiltSizes = document.querySelector('input[name="size"]:checked')
 
         const filteredProducts = jsonData.filter(product => {
             const element = document.querySelector(`[data-value="${product.id}"]`)
-            return checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor)
+            return checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor, selectedFiltSizes)
         })
 
         removeAnyMessage()
@@ -906,7 +907,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const minPrice = parseInt(document.querySelector('.input-min').value),
             maxPrice = parseInt(document.querySelector('.input-max').value),
             selectedCategory = localStorage.getItem("lastSelectedCategory") || "all",
-            selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null
+            selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null,
+            selectedFiltSizes = document.querySelector('input[name="size"]:checked')
 
         let anyCategoryVisible = false;
 
@@ -914,7 +916,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const element = document.querySelector(`[data-value="${product.id}"]`)
 
             if (element) {
-                const showElement = checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor)
+                const showElement = checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor, selectedFiltSizes)
                 console.log(selectedColor)
                 if (showElement) {
                     anyCategoryVisible = true
@@ -941,15 +943,25 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor) {
+    function checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor, selectedFiltSizes) {
+        
         const priceValue = parseFloat(product.price) || 0,
         category = product.category,
         color = product.color,
         priceFilter = checkPrice(priceValue, minPrice, maxPrice),
-        categoryFilter = selectedCategory === "all" || category === selectedCategory,
-        colorFilter = selectedColor === null || color === selectedColor
-        console.log(color);
-        return priceFilter && categoryFilter && colorFilter
+        categoryFilter = selectedCategory === "all" || category === selectedCategory
+        let colorFilter = null,
+            selectedFiltSizesLet = null
+        for (let i = 0; i < Object.keys(color).length; i++) {
+            colorFilter = selectedColor == color[Object.keys(color)[i]] ? selectedColor : null
+        }
+
+        for (let i = 0; i < selectedFiltSizes.length; i++) {
+            if (product.size.includes(selectedFiltSizes[i].value)) {
+                selectedFiltSizesLet = selectedFiltSizes[i].value
+            }
+        }
+        return priceFilter && categoryFilter && colorFilter && selectedFiltSizes
     }
 
     function checkPrice(priceValue, min, max) {
