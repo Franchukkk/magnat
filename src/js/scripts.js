@@ -315,16 +315,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function showData(pageNumber) {
         const selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
-        const filteredData = jsonData.filter(product => {
-            return selectedCategory === "all" || product.category === selectedCategory
-        })
-
+        let filteredData
+    
+        const storedFilteredProducts = localStorage.getItem('filteredProducts')
+    
+        if (storedFilteredProducts) {
+            filteredData = JSON.parse(storedFilteredProducts)
+        } else {
+            filteredData = jsonData.filter(product => {
+                return selectedCategory === "all" || product.category === selectedCategory
+            })
+        }
+    
         totalItems = filteredData.length
-
+        totalPages = Math.ceil(totalItems / itemsPerPage)
+    
         const startIndex = (pageNumber - 1) * itemsPerPage
         const endIndex = startIndex + itemsPerPage
         const pageData = filteredData.slice(startIndex, endIndex)
-
+    
         displayProducts(pageData, productList)
         showPagination(pageNumber)
     }
@@ -850,17 +859,32 @@ document.addEventListener("DOMContentLoaded", function () {
                     filters[category] = []
                 }
 
-                filters[category].push(value)
+                if (!filters[category].includes(value)) {
+                    filters[category].push(value);
+                }
             })
+            const uncheckedCheckboxes = document.querySelectorAll("input[type='checkbox']:not(:checked)");
+            uncheckedCheckboxes.forEach(checkbox => {
+                const category = checkbox.name
+                const value = checkbox.value
 
+                if (filters[category]) {
+                    const index = filters[category].indexOf(value)
+                    if (index !== -1) {
+                        filters[category].splice(index, 1)
+                    }
+
+                    // Check if the category should be removed
+                    if (filters[category].length === 0) {
+                        delete filters[category]
+                    }
+                }
+            })
             const minPrice = parseInt(document.querySelector('.input-min').value),
                 maxPrice = parseInt(document.querySelector('.input-max').value),
                 selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
-            // selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null,
-            // selectedFiltSizes = document.querySelector('input[name="size"]:checked')
 
             const filteredProducts = jsonData.filter(product => {
-                // const element = document.querySelector(`[data-value="${product.id}"]`)
                 return checkFilters(product, minPrice, maxPrice, selectedCategory, filters)
             })
 
@@ -908,11 +932,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const minPrice = parseInt(document.querySelector('.input-min').value),
             maxPrice = parseInt(document.querySelector('.input-max').value),
             selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
-        // selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null,
-        // selectedFiltSizes = document.querySelector('input[name="size"]:checked')
 
-        let anyCategoryVisible = false;
-
+        const filteredProducts = jsonData.filter(product => {
+            return checkFilters(product, minPrice, maxPrice, selectedCategory, filters)
+        })
+        localStorage.setItem('filteredProducts', JSON.stringify(filteredProducts))
+        let anyCategoryVisible = filteredProducts.length > 0
         for (const product of jsonData) {
             const element = document.querySelector(`[data-value="${product.id}"]`)
 
@@ -924,24 +949,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         }
+        if (!anyCategoryVisible) {
+            const cardBlock = document.querySelector(".card-block")
+            anyCategoryMessage = document.createElement("div")
+            anyCategoryMessage.classList.add("any-block")
 
-        // if (!anyCategoryVisible) {
-        //     const cardBlock = document.querySelector(".card-block")
-        //     anyCategoryMessage = document.createElement("div")
-        //     anyCategoryMessage.classList.add("any-block")
+            const spanIconAnyCategory = document.createElement("span")
+            spanIconAnyCategory.classList.add("icon-no-card")
+            spanIconAnyCategory.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-80q-83 0-141.5-58.5T80-280q0-83 58.5-141.5T280-480q83 0 141.5 58.5T480-280q0 83-58.5 141.5T280-80Zm544-40L568-376q-12-13-25.5-26.5T516-428q38-24 61-64t23-88q0-75-52.5-127.5T420-760q-75 0-127.5 52.5T240-580q0 6 .5 11.5T242-557q-18 2-39.5 8T164-535q-2-11-3-22t-1-23q0-109 75.5-184.5T420-840q109 0 184.5 75.5T680-580q0 43-13.5 81.5T629-428l251 252-56 56Zm-615-61 71-71 70 71 29-28-71-71 71-71-28-28-71 71-71-71-28 28 71 71-71 71 28 28Z"/></svg>'
 
-        //     const spanIconAnyCategory = document.createElement("span")
-        //     spanIconAnyCategory.classList.add("icon-no-card")
-        //     spanIconAnyCategory.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-80q-83 0-141.5-58.5T80-280q0-83 58.5-141.5T280-480q83 0 141.5 58.5T480-280q0 83-58.5 141.5T280-80Zm544-40L568-376q-12-13-25.5-26.5T516-428q38-24 61-64t23-88q0-75-52.5-127.5T420-760q-75 0-127.5 52.5T240-580q0 6 .5 11.5T242-557q-18 2-39.5 8T164-535q-2-11-3-22t-1-23q0-109 75.5-184.5T420-840q109 0 184.5 75.5T680-580q0 43-13.5 81.5T629-428l251 252-56 56Zm-615-61 71-71 70 71 29-28-71-71 71-71-28-28-71 71-71-71-28 28 71 71-71 71 28 28Z"/></svg>'
+            const anyCategoryText = document.createElement("p")
+            anyCategoryText.classList.add("no-card")
+            anyCategoryText.innerText = "Нажаль, за вашим вибором не знайдено жодного товару"
 
-        //     const anyCategoryText = document.createElement("p")
-        //     anyCategoryText.classList.add("no-card")
-        //     anyCategoryText.innerText = "Нажаль, за вашим вибором не знайдено жодного товару"
-
-        //     anyCategoryMessage.appendChild(spanIconAnyCategory)
-        //     anyCategoryMessage.appendChild(anyCategoryText)
-        //     cardBlock.appendChild(anyCategoryMessage)
-        // }
+            anyCategoryMessage.appendChild(spanIconAnyCategory)
+            anyCategoryMessage.appendChild(anyCategoryText)
+            cardBlock.appendChild(anyCategoryMessage)
+        }
     }
 
     function checkFilters(product, minPrice, maxPrice, selectedCategory, filters) {
@@ -963,12 +987,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 return filters[filterCategory].includes(productFilterValue)
             }
         })
-
+        
         return priceFilter && categoryFilter && allFiltersMatch
     }
-
-
-
 
     function checkPrice(priceValue, min, max) {
         return priceValue >= min && priceValue <= max
@@ -1016,6 +1037,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!selectedCategory) {
         selectedCategory = "all"
         localStorage.setItem("lastSelectedCategory", selectedCategory)
+        localStorage.removeItem('filteredProducts')
     }
 
     const selectedItem = document.querySelector(`[data-href="${selectedCategory}"]`)
@@ -1041,6 +1063,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (category === "all") {
                 category = "all"
                 localStorage.setItem("lastSelectedCategory", category)
+                localStorage.removeItem('filteredProducts')
                 const urlWithoutCategory = window.location.origin + window.location.pathname + window.location.hash
                 window.history.replaceState({}, '', urlWithoutCategory)
             } else {
@@ -1048,6 +1071,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const urlWithCategory = window.location.origin + window.location.pathname + `?category=${category}#catalog`
                 window.history.replaceState({}, '', urlWithCategory)
                 localStorage.setItem("lastSelectedCategory", category)
+                localStorage.removeItem('filteredProducts')
             }
             updateProductDisplay(selectedCategory)
 
@@ -1066,6 +1090,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const urlWithCategory = window.location.origin + window.location.pathname + (category ? `?category=${category}` : '') + "#catalog"
             window.history.replaceState({}, '', urlWithCategory)
             localStorage.setItem("lastSelectedCategory", category)
+            localStorage.removeItem('filteredProducts')
 
             const catalogElement = document.getElementById("catalog")
 
@@ -1185,10 +1210,10 @@ document.addEventListener("DOMContentLoaded", function () {
     showPagination(currentPage)
 
     function showPagination(pageNumber) {
-        var paginationContainer = document.querySelector('#pagination');
-        paginationContainer.innerHTML = '';
+        var paginationContainer = document.querySelector('#pagination')
+        paginationContainer.innerHTML = ''
 
-        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        let totalPages = Math.ceil(totalItems / itemsPerPage)
 
         if (totalPages > 1) {
 
@@ -1284,6 +1309,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
+
 
     const images = document.querySelectorAll('.slider-images img'),
         arrLeft = document.querySelector(".arr-left"),
