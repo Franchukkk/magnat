@@ -1,6 +1,6 @@
 function updateCartBtns() {
     // alert(1)
-    console.log(document.querySelectorAll('.cta-card'));
+    // console.log(document.querySelectorAll('.cta-card'));
     document.querySelector(".same-card").innerHTML = ""
     document.querySelectorAll('.cta-card').forEach(ctaButton => {
         ctaButton.addEventListener('click', function (event) {
@@ -940,7 +940,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (element) {
                 const showElement = checkFilters(product, minPrice, maxPrice, selectedCategory, filters)
-                console.log(filters)
+                // console.log(filters)
                 if (showElement) {
                     anyCategoryVisible = true
                 }
@@ -1463,7 +1463,7 @@ function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
                             orders[productID + size[i]].color = product.color[colorCheckbox]
                         } else {
                             let colorProduct = Object.keys(product.color)
-                            console.log(colorProduct);
+                            // console.log(colorProduct);
                             orders[productID + size[i]].color = product.color[colorProduct[0]]
                         }
 
@@ -1496,7 +1496,7 @@ function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
                         // alert("been")
                         if (quantityPopup) {
                             for (let j = quantityPopup; j > 0; j--) {
-                                console.log(j);
+                                // console.log(j);
                                 document.querySelector(".plus-quantity[data-value='" + productID + size[i] + "']").click()
 
                             }
@@ -1687,10 +1687,10 @@ function cart() {
 
                 let quantityFromPopup = document.querySelector('.popap-card .quantity-number');
                 // console.log(quantityFromPopup);
-                console.log(document.querySelectorAll(`choise-size_popap input[type="checkbox"][id^="popup-input-${productId}"]:checked`));
-                console.log(ctaButton)
-                console.log(selectedSizes)
-                console.log(quantityFromPopup.innerText)
+                // console.log(document.querySelectorAll(`choise-size_popap input[type="checkbox"][id^="popup-input-${productId}"]:checked`));
+                // console.log(ctaButton)
+                // console.log(selectedSizes)
+                // console.log(quantityFromPopup.innerText)
                 // console.log('Вибрані розміри для продукту з ID', productId, ':', selectedSizes);
                 buyBtnFunc(ctaButton, selectedSizes, quantityFromPopup.innerText, selectColor)
 
