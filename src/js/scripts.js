@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
         productPopup = document.querySelector('.popap-card'),
         sameCard = document.querySelector(".same-card")
 
-    const itemsPerPage = 2 //ск  карток товару має бути на сторінці
+    const itemsPerPage = 6 //ск  карток товару має бути на сторінці
 
     let currentPage = 1,
         jsonData = []
@@ -426,7 +426,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayProducts(products, container) {
         container.innerHTML = "";
-        const itemsPerPage = 2
+        const itemsPerPage = 6
 
         for (let i = 0; i < Math.min(products.length, itemsPerPage); i++) {
             const listItem = createCardElement(products[i])
@@ -818,7 +818,8 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
     //сортування карток товарів
-    let anyCategoryMessage = null
+    let anyCategoryMessage = null,
+        filters = {}
 
     document.querySelectorAll('.input-min, .input-max').forEach(input => {
         input.addEventListener('input', function () {
@@ -839,7 +840,6 @@ document.addEventListener("DOMContentLoaded", function () {
             isFilterCheckbox = target.tagName === "INPUT" && target.type === "checkbox" && target.closest('.filter')
 
         if (isFilterCheckbox) {
-            const filters = {}
             const filterInputs = document.querySelectorAll("input[type='checkbox']:checked")
 
             filterInputs.forEach(checkbox => {
@@ -852,16 +852,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 filters[category].push(value)
             })
-            
+
             const minPrice = parseInt(document.querySelector('.input-min').value),
                 maxPrice = parseInt(document.querySelector('.input-max').value),
-                selectedCategory = localStorage.getItem("lastSelectedCategory") || "all",
-                selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null,
-                selectedFiltSizes = document.querySelector('input[name="size"]:checked')
+                selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
+            // selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null,
+            // selectedFiltSizes = document.querySelector('input[name="size"]:checked')
 
             const filteredProducts = jsonData.filter(product => {
-                const element = document.querySelector(`[data-value="${product.id}"]`)
-                return checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor, selectedFiltSizes)
+                // const element = document.querySelector(`[data-value="${product.id}"]`)
+                return checkFilters(product, minPrice, maxPrice, selectedCategory, filters)
             })
 
             removeAnyMessage()
@@ -887,13 +887,13 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateFilters() {
         const minPrice = parseInt(document.querySelector('.input-min').value),
             maxPrice = parseInt(document.querySelector('.input-max').value),
-            selectedCategory = localStorage.getItem("lastSelectedCategory") || "all",
-            selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null,
-            selectedFiltSizes = document.querySelector('input[name="size"]:checked')
+            selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
+        // selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null,
+        // selectedFiltSizes = document.querySelector('input[name="size"]:checked')
 
         const filteredProducts = jsonData.filter(product => {
             const element = document.querySelector(`[data-value="${product.id}"]`)
-            return checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor, selectedFiltSizes)
+            return checkFilters(product, minPrice, maxPrice, selectedCategory, filters)
         })
 
         removeAnyMessage()
@@ -907,9 +907,9 @@ document.addEventListener("DOMContentLoaded", function () {
     async function updateProductFilter() {
         const minPrice = parseInt(document.querySelector('.input-min').value),
             maxPrice = parseInt(document.querySelector('.input-max').value),
-            selectedCategory = localStorage.getItem("lastSelectedCategory") || "all",
-            selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null,
-            selectedFiltSizes = document.querySelector('input[name="size"]:checked')
+            selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
+        // selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null,
+        // selectedFiltSizes = document.querySelector('input[name="size"]:checked')
 
         let anyCategoryVisible = false;
 
@@ -917,53 +917,58 @@ document.addEventListener("DOMContentLoaded", function () {
             const element = document.querySelector(`[data-value="${product.id}"]`)
 
             if (element) {
-                const showElement = checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor, selectedFiltSizes)
-                console.log(selectedColor)
+                const showElement = checkFilters(product, minPrice, maxPrice, selectedCategory, filters)
+                console.log(filters)
                 if (showElement) {
                     anyCategoryVisible = true
                 }
             }
         }
 
-        if (!anyCategoryVisible) {
-            const cardBlock = document.querySelector(".card-block")
-            anyCategoryMessage = document.createElement("div")
-            anyCategoryMessage.classList.add("any-block")
+        // if (!anyCategoryVisible) {
+        //     const cardBlock = document.querySelector(".card-block")
+        //     anyCategoryMessage = document.createElement("div")
+        //     anyCategoryMessage.classList.add("any-block")
 
-            const spanIconAnyCategory = document.createElement("span")
-            spanIconAnyCategory.classList.add("icon-no-card")
-            spanIconAnyCategory.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-80q-83 0-141.5-58.5T80-280q0-83 58.5-141.5T280-480q83 0 141.5 58.5T480-280q0 83-58.5 141.5T280-80Zm544-40L568-376q-12-13-25.5-26.5T516-428q38-24 61-64t23-88q0-75-52.5-127.5T420-760q-75 0-127.5 52.5T240-580q0 6 .5 11.5T242-557q-18 2-39.5 8T164-535q-2-11-3-22t-1-23q0-109 75.5-184.5T420-840q109 0 184.5 75.5T680-580q0 43-13.5 81.5T629-428l251 252-56 56Zm-615-61 71-71 70 71 29-28-71-71 71-71-28-28-71 71-71-71-28 28 71 71-71 71 28 28Z"/></svg>'
+        //     const spanIconAnyCategory = document.createElement("span")
+        //     spanIconAnyCategory.classList.add("icon-no-card")
+        //     spanIconAnyCategory.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-80q-83 0-141.5-58.5T80-280q0-83 58.5-141.5T280-480q83 0 141.5 58.5T480-280q0 83-58.5 141.5T280-80Zm544-40L568-376q-12-13-25.5-26.5T516-428q38-24 61-64t23-88q0-75-52.5-127.5T420-760q-75 0-127.5 52.5T240-580q0 6 .5 11.5T242-557q-18 2-39.5 8T164-535q-2-11-3-22t-1-23q0-109 75.5-184.5T420-840q109 0 184.5 75.5T680-580q0 43-13.5 81.5T629-428l251 252-56 56Zm-615-61 71-71 70 71 29-28-71-71 71-71-28-28-71 71-71-71-28 28 71 71-71 71 28 28Z"/></svg>'
 
-            const anyCategoryText = document.createElement("p")
-            anyCategoryText.classList.add("no-card")
-            anyCategoryText.innerText = "Нажаль, за вашим вибором не знайдено жодного товару"
+        //     const anyCategoryText = document.createElement("p")
+        //     anyCategoryText.classList.add("no-card")
+        //     anyCategoryText.innerText = "Нажаль, за вашим вибором не знайдено жодного товару"
 
-            anyCategoryMessage.appendChild(spanIconAnyCategory)
-            anyCategoryMessage.appendChild(anyCategoryText)
-            cardBlock.appendChild(anyCategoryMessage)
-        }
+        //     anyCategoryMessage.appendChild(spanIconAnyCategory)
+        //     anyCategoryMessage.appendChild(anyCategoryText)
+        //     cardBlock.appendChild(anyCategoryMessage)
+        // }
     }
 
-    function checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor, selectedFiltSizes) {
-        
+    function checkFilters(product, minPrice, maxPrice, selectedCategory, filters) {
         const priceValue = parseFloat(product.price) || 0,
-        category = product.category,
-        color = product.color,
-        priceFilter = checkPrice(priceValue, minPrice, maxPrice),
-        categoryFilter = selectedCategory === "all" || category === selectedCategory
-        let colorFilter = null,
-            selectedFiltSizesLet = null
-        for (let i = 0; i < Object.keys(color).length; i++) {
-            colorFilter = selectedColor == color[Object.keys(color)[i]] ? selectedColor : null
-        }
+            productCategory = product.category
 
-        for (let i = 0; i < selectedFiltSizesLet.length; i++) {
-            if (product.size.includes(selectedFiltSizes[i].value)) {
-                selectedFiltSizesLet = selectedFiltSizes[i].value
+        const priceFilter = checkPrice(priceValue, minPrice, maxPrice),
+            categoryFilter = selectedCategory === "all" || productCategory === selectedCategory
+        const allFiltersMatch = Object.keys(filters).every(filterCategory => {
+            const productFilterValue = product[filterCategory]
+
+            if (filterCategory === "color") {
+                const productColors = Array.isArray(product.color) ? product.color : Object.values(product.color || {});
+                return filters[filterCategory].some(selectedColor => productColors.includes(selectedColor));
             }
-        }
-        return priceFilter && categoryFilter && colorFilter && selectedFiltSizes
+            if (Array.isArray(productFilterValue)) {
+                return productFilterValue.some(value => filters[filterCategory].includes(value))
+            } else {
+                return filters[filterCategory].includes(productFilterValue)
+            }
+        })
+
+        return priceFilter && categoryFilter && allFiltersMatch
     }
+
+
+
 
     function checkPrice(priceValue, min, max) {
         return priceValue >= min && priceValue <= max
