@@ -121,7 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const itemsPerPage = 2 //ск  карток товару має бути на сторінці
 
     let currentPage = 1,
-        totalPages = 1,
         jsonData = []
 
     function fetchData() {
@@ -319,16 +318,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const filteredData = jsonData.filter(product => {
             return selectedCategory === "all" || product.category === selectedCategory
         })
-    
+
         totalItems = filteredData.length
-    
+
         const startIndex = (pageNumber - 1) * itemsPerPage
         const endIndex = startIndex + itemsPerPage
         const pageData = filteredData.slice(startIndex, endIndex)
-        
-        // Оновлення itemsPerPage
-    
-        // Передача фільтрованих товарів у функцію displayProducts
+
         displayProducts(pageData, productList)
         showPagination(pageNumber)
     }
@@ -431,7 +427,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function displayProducts(products, container) {
         container.innerHTML = "";
         const itemsPerPage = 2
-    
+
         for (let i = 0; i < Math.min(products.length, itemsPerPage); i++) {
             const listItem = createCardElement(products[i])
             container.appendChild(listItem)
@@ -824,89 +820,108 @@ document.addEventListener("DOMContentLoaded", function () {
     //сортування карток товарів
     let anyCategoryMessage = null
 
-    document.querySelectorAll('input[type="range"]').forEach(input => {
-        input.addEventListener("change", function () {
-            removeAnyMessage()
-        })
-    })
+    document.querySelectorAll('.input-min, .input-max').forEach(input => {
+        input.addEventListener('input', function () {
+            removeAnyMessage();
+            updateFilters();
+        });
+    });
 
     const filterAside = document.querySelector(".filter")
     filterAside.addEventListener("change", function (event) {
-        inputBlock = document.querySelectorAll(".card-bott input[type='checkbox'")
+        inputBlock = document.querySelectorAll(".card-bott input[type='checkbox'");
         inputBlock.forEach(elementSize => {
             elementSize.checked = false
-            removeAnyMessage()
-        })
+            removeAnyMessage();
+        });
 
-        const target = event.target
-
-        const isFilterCheckbox = target.tagName === "INPUT" && target.type === "checkbox" && target.closest('.filter')
+        const target = event.target;
+        const isFilterCheckbox = target.tagName === "INPUT" && target.type === "checkbox" && target.closest('.filter');
 
         if (isFilterCheckbox) {
-            const filters = {}
-            const filterInputs = document.querySelectorAll("input[type='checkbox']:checked")
+            const filters = {};
+            const filterInputs = document.querySelectorAll("input[type='checkbox']:checked");
+
             filterInputs.forEach(checkbox => {
-                const category = checkbox.name,
-                    value = checkbox.value
-                    updateProductFilter(category)
+                const category = checkbox.name;
+                const value = checkbox.value;
+
                 if (!filters[category]) {
-                    filters[category] = []
+                    filters[category] = [];
                 }
-                filters[category].push(value)
-            })
+
+                filters[category].push(value);
+            });
+            
+            const minPrice = parseInt(document.querySelector('.input-min').value);
+            const maxPrice = parseInt(document.querySelector('.input-max').value);
+            const selectedCategory = localStorage.getItem("lastSelectedCategory") || "all";
+            const selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null;
 
             const filteredProducts = jsonData.filter(product => {
-                return Object.entries(filters).every(([category, values]) => {
-                    if (category === "color") {
-                        const productColors = product.color || {}
-                        return values.some(selectedColor => Object.values(productColors).includes(selectedColor))
-                    } else if (Array.isArray(product[category])) {
-                        return values.every(value => (product[category] || []).includes(value))
-                    } else {
-                        return values.includes(product[category])
-                    }
-                })
-            })
+                const element = document.querySelector(`[data-value="${product.id}"]`);
+                return checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor);
+            });
 
-            removeAnyMessage()
-            showData(currentPage)
-            showPagination(currentPage)
-            updateProductFilter()
-            updateProductDisplay(filteredProducts)
-            displayProducts(filteredProducts, productList)
+            removeAnyMessage();
+            showData(currentPage);
+            showPagination(currentPage);
+            updateProductFilter();
+            updateProductDisplay(filteredProducts);
+            displayProducts(filteredProducts, productList);
         }
-        // removeAnyMessage()
-        updateCartBtns()
-    })
+        updateFilters();
+        updateCartBtns();
+    });
 
-    showData(currentPage)
-    //видалення виключних ситуації при оновлені
+    showData(currentPage);
+
     function removeAnyMessage() {
         if (anyCategoryMessage) {
             anyCategoryMessage.remove()
             anyCategoryMessage = null
         }
     }
-    
-    function updateProductFilter() {
-        const minPrice = parseInt(document.querySelector('.input-min').value)
-        const maxPrice = parseInt(document.querySelector('.input-max').value)
-        const selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
-        console.log("+");
-        let anyCategoryVisible = false
 
-        categories.forEach((category) => {
-            const elements = document.querySelectorAll(`.${category}`);
-            elements.forEach((element) => {
-                const priceValue = parseInt(element.dataset.price)
-                const showElement = checkFilters(element, minPrice, maxPrice) && (selectedCategory === "all" || element.classList.contains(selectedCategory))
-    
+    function updateFilters() {
+        const minPrice = parseInt(document.querySelector('.input-min').value);
+        const maxPrice = parseInt(document.querySelector('.input-max').value);
+        const selectedCategory = localStorage.getItem("lastSelectedCategory") || "all";
+        const selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null;
+
+        const filteredProducts = jsonData.filter(product => {
+            const element = document.querySelector(`[data-value="${product.id}"]`);
+            return checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor);
+        });
+
+        removeAnyMessage();
+        showData(currentPage);
+        showPagination(currentPage);
+        updateProductFilter();
+        updateProductDisplay(filteredProducts);
+        displayProducts(filteredProducts, productList);
+    }
+
+    async function updateProductFilter() {
+        const minPrice = parseInt(document.querySelector('.input-min').value);
+        const maxPrice = parseInt(document.querySelector('.input-max').value);
+        const selectedCategory = localStorage.getItem("lastSelectedCategory") || "all";
+        const selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null
+
+        let anyCategoryVisible = false;
+
+        for (const product of jsonData) {
+            const element = document.querySelector(`[data-value="${product.id}"]`)
+
+            if (element) {
+                const showElement = checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor)
+                console.log(selectedColor)
                 if (showElement) {
-                    anyCategoryVisible = true;
+                    anyCategoryVisible = true
                 }
-            });
-        })
-        //виключні ситуації
+            }
+        }
+
         if (!anyCategoryVisible) {
             const cardBlock = document.querySelector(".card-block")
             anyCategoryMessage = document.createElement("div")
@@ -926,14 +941,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function checkFilters(element, minPrice, maxPrice) {
-        const priceValue = parseInt(element.dataset.price)
-        return checkPrice(priceValue, minPrice, maxPrice)
+    function checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor) {
+        const priceValue = parseFloat(product.price) || 0,
+        category = product.category,
+        color = product.color,
+        priceFilter = checkPrice(priceValue, minPrice, maxPrice),
+        categoryFilter = selectedCategory === "all" || category === selectedCategory,
+        colorFilter = selectedColor === null || color === selectedColor
+        console.log(color);
+        return priceFilter && categoryFilter && colorFilter
     }
 
     function checkPrice(priceValue, min, max) {
         return priceValue >= min && priceValue <= max
     }
+
 
     // вибір категорій і додавання до локального сховища, при завантажені сторінки підзавантажуються дані згідно вибраних категорій а не весь список
 
@@ -949,7 +971,7 @@ document.addEventListener("DOMContentLoaded", function () {
         showData(currentPage)
         showPagination(currentPage)
     })
-    
+
     let selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
 
     const urlParams = new URLSearchParams(window.location.search)
@@ -1053,7 +1075,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateProductDisplay(category) {
         const filteredProducts = jsonData.filter(product => category === "all" || product.category === category)
-        
+
         displayProducts(filteredProducts, productList)
         showData(currentPage)
         showPagination(currentPage)
