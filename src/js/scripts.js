@@ -4,7 +4,7 @@
 
 
 function updateCartBtns() {
-    alert(32189)
+    // alert(32189)
     console.log(document.querySelectorAll('.cta-card'));
     document.querySelector(".same-card").innerHTML = ""
     document.querySelectorAll('.cta-card').forEach(ctaButton => {
@@ -1458,7 +1458,7 @@ function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
                     if ((orders[productID + size[i]]) == undefined) {
                         // alert(1)
                         document.querySelector(".added-products-list").classList.remove("empty-baket")
-                        alert("hasnotbeen")
+                        // alert("hasnotbeen")
 
                         orders[productID + size[i]] = {
                             product: product,
@@ -1503,7 +1503,7 @@ function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
                         orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                     } else {
                         console.log(".plus-quantity[data-value='" + productID + size[i] + "']");
-                        alert("been")
+                        // alert("been")
                         if (quantityPopup) {
                             for (let j = quantityPopup; j > 0; j--) {
                                 // console.log(j);
