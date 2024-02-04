@@ -822,59 +822,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelectorAll('.input-min, .input-max').forEach(input => {
         input.addEventListener('input', function () {
-            removeAnyMessage();
-            updateFilters();
-        });
-    });
+            removeAnyMessage()
+            updateFilters()
+        })
+    })
 
     const filterAside = document.querySelector(".filter")
     filterAside.addEventListener("change", function (event) {
-        inputBlock = document.querySelectorAll(".card-bott input[type='checkbox'");
+        inputBlock = document.querySelectorAll(".card-bott input[type='checkbox'")
         inputBlock.forEach(elementSize => {
             elementSize.checked = false
-            removeAnyMessage();
-        });
+            removeAnyMessage()
+        })
 
-        const target = event.target;
-        const isFilterCheckbox = target.tagName === "INPUT" && target.type === "checkbox" && target.closest('.filter');
+        const target = event.target,
+            isFilterCheckbox = target.tagName === "INPUT" && target.type === "checkbox" && target.closest('.filter')
 
         if (isFilterCheckbox) {
-            const filters = {};
-            const filterInputs = document.querySelectorAll("input[type='checkbox']:checked");
+            const filters = {}
+            const filterInputs = document.querySelectorAll("input[type='checkbox']:checked")
 
             filterInputs.forEach(checkbox => {
-                const category = checkbox.name;
-                const value = checkbox.value;
+                const category = checkbox.name
+                const value = checkbox.value
 
                 if (!filters[category]) {
-                    filters[category] = [];
+                    filters[category] = []
                 }
 
-                filters[category].push(value);
-            });
+                filters[category].push(value)
+            })
             
-            const minPrice = parseInt(document.querySelector('.input-min').value);
-            const maxPrice = parseInt(document.querySelector('.input-max').value);
-            const selectedCategory = localStorage.getItem("lastSelectedCategory") || "all";
-            const selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null;
+            const minPrice = parseInt(document.querySelector('.input-min').value),
+                maxPrice = parseInt(document.querySelector('.input-max').value),
+                selectedCategory = localStorage.getItem("lastSelectedCategory") || "all",
+                selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null
 
             const filteredProducts = jsonData.filter(product => {
-                const element = document.querySelector(`[data-value="${product.id}"]`);
-                return checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor);
-            });
+                const element = document.querySelector(`[data-value="${product.id}"]`)
+                return checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor)
+            })
 
-            removeAnyMessage();
-            showData(currentPage);
-            showPagination(currentPage);
-            updateProductFilter();
-            updateProductDisplay(filteredProducts);
-            displayProducts(filteredProducts, productList);
+            removeAnyMessage()
+            showData(currentPage)
+            showPagination(currentPage)
+            updateProductFilter()
+            updateProductDisplay(filteredProducts)
+            displayProducts(filteredProducts, productList)
         }
-        updateFilters();
-        updateCartBtns();
-    });
+        updateFilters()
+        updateCartBtns()
+    })
 
-    showData(currentPage);
+    showData(currentPage)
 
     function removeAnyMessage() {
         if (anyCategoryMessage) {
@@ -884,29 +884,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateFilters() {
-        const minPrice = parseInt(document.querySelector('.input-min').value);
-        const maxPrice = parseInt(document.querySelector('.input-max').value);
-        const selectedCategory = localStorage.getItem("lastSelectedCategory") || "all";
-        const selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null;
+        const minPrice = parseInt(document.querySelector('.input-min').value),
+            maxPrice = parseInt(document.querySelector('.input-max').value),
+            selectedCategory = localStorage.getItem("lastSelectedCategory") || "all",
+            selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null
 
         const filteredProducts = jsonData.filter(product => {
-            const element = document.querySelector(`[data-value="${product.id}"]`);
-            return checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor);
-        });
+            const element = document.querySelector(`[data-value="${product.id}"]`)
+            return checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor)
+        })
 
-        removeAnyMessage();
-        showData(currentPage);
-        showPagination(currentPage);
-        updateProductFilter();
+        removeAnyMessage()
+        showData(currentPage)
+        showPagination(currentPage)
+        updateProductFilter()
         updateProductDisplay(filteredProducts);
-        displayProducts(filteredProducts, productList);
+        displayProducts(filteredProducts, productList)
     }
 
     async function updateProductFilter() {
-        const minPrice = parseInt(document.querySelector('.input-min').value);
-        const maxPrice = parseInt(document.querySelector('.input-max').value);
-        const selectedCategory = localStorage.getItem("lastSelectedCategory") || "all";
-        const selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null
+        const minPrice = parseInt(document.querySelector('.input-min').value),
+            maxPrice = parseInt(document.querySelector('.input-max').value),
+            selectedCategory = localStorage.getItem("lastSelectedCategory") || "all",
+            selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null
 
         let anyCategoryVisible = false;
 
