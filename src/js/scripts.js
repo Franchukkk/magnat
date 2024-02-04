@@ -856,11 +856,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const minPrice = parseInt(document.querySelector('.input-min').value),
                 maxPrice = parseInt(document.querySelector('.input-max').value),
                 selectedCategory = localStorage.getItem("lastSelectedCategory") || "all",
-                selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null
+                selectedColor = document.querySelector('input[name="color"]:checked') ? document.querySelector('input[name="color"]:checked').value : null,
+                selectedFiltSizes = document.querySelector('input[name="size"]:checked')
 
             const filteredProducts = jsonData.filter(product => {
                 const element = document.querySelector(`[data-value="${product.id}"]`)
-                return checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor)
+                return checkFilters(product, minPrice, maxPrice, selectedCategory, selectedColor, selectedFiltSizes)
             })
 
             removeAnyMessage()
@@ -956,7 +957,7 @@ document.addEventListener("DOMContentLoaded", function () {
             colorFilter = selectedColor == color[Object.keys(color)[i]] ? selectedColor : null
         }
 
-        for (let i = 0; i < selectedFiltSizes.length; i++) {
+        for (let i = 0; i < selectedFiltSizesLet.length; i++) {
             if (product.size.includes(selectedFiltSizes[i].value)) {
                 selectedFiltSizesLet = selectedFiltSizes[i].value
             }
