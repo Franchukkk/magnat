@@ -1,6 +1,11 @@
+// function updateCartBtnsOnFunc () {
+//     cart()
+// }
+
+
 function updateCartBtns() {
-    // alert(1)
-    // console.log(document.querySelectorAll('.cta-card'));
+    // alert(32189)
+    console.log(document.querySelectorAll('.cta-card'));
     document.querySelector(".same-card").innerHTML = ""
     document.querySelectorAll('.cta-card').forEach(ctaButton => {
         ctaButton.addEventListener('click', function (event) {
@@ -138,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     e.preventDefault()
                     const saleProducts = jsonData.filter(product => product.saleprice !== "");
                     displayProducts(saleProducts, productList)
-                    setTimeout(updateCartBtns(), 0)
+                    // setTimeout(updateCartBtns(), 0)
                     resetFilters()
                 })
                 createInputsForSizeKeys(jsonData[0])
@@ -1007,6 +1012,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         showData(currentPage)
         showPagination(currentPage)
+        setTimeout(updateCartBtns(), 0)
     })
 
     let selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
@@ -1124,7 +1130,7 @@ document.addEventListener("DOMContentLoaded", function () {
         displayProducts(filteredProducts, productList)
         showData(currentPage)
         showPagination(currentPage)
-        setTimeout(updateCartBtns, 0)
+        // setTimeout(updateCartBtns, 0)
     }
 
     function resetFilters() {
@@ -1170,6 +1176,7 @@ document.addEventListener("DOMContentLoaded", function () {
         showPagination(currentPage)
         updatePaginationButtons()
         updateCartBtns()
+        
     })
 
     //випадаючий список
@@ -1445,8 +1452,11 @@ function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
             if (true) {
 
                 // console.log(size)
+                console.log(size.length);
                 for (let i = 0; i < size.length; i++) {
-                    if (!orders[productID + size[i]]) {
+                    console.log(orders[productID + size[i]]);
+                    if ((orders[productID + size[i]]) == undefined) {
+                        // alert(1)
                         document.querySelector(".added-products-list").classList.remove("empty-baket")
                         // alert("hasnotbeen")
 
@@ -1492,7 +1502,7 @@ function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
                         orderDetailSum.innerText = orders.orderSumWithNoDiscount != 0 ? orders.orderSumWithNoDiscount : orders.orderSumWithDiscount
                         orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
                     } else {
-
+                        console.log(".plus-quantity[data-value='" + productID + size[i] + "']");
                         // alert("been")
                         if (quantityPopup) {
                             for (let j = quantityPopup; j > 0; j--) {
@@ -1644,6 +1654,7 @@ function updateCart(id, sizesList, colorCheckbox) {
 
 
 function cart() {
+    // alert(123)
     let sizesList = ""
     if (document.querySelectorAll(".cta-card")) {
         clearTimeout(cartWaitTimeout)
@@ -1652,6 +1663,7 @@ function cart() {
 
         document.querySelectorAll('.cta-card').forEach(ctaButton => {
             ctaButton.addEventListener('click', function (event) {
+                console.log("clicked");
                 event.preventDefault()
 
                 const productId = this.getAttribute('data-value');
