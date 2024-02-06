@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function () {
         uniqueStyle.forEach(style => createCheckbox(style, "style", styleInputContainer))
     }
 
-    let totalItems = 0
+    let totalItems
 
     function showData(pageNumber) {
         const selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
@@ -334,9 +334,9 @@ document.addEventListener("DOMContentLoaded", function () {
         totalItems = filteredData.length
         totalPages = Math.ceil(totalItems / itemsPerPage)
 
-        const startIndex = (pageNumber - 1) * itemsPerPage
-        const endIndex = startIndex + itemsPerPage
-        const pageData = filteredData.slice(startIndex, endIndex)
+        const startIndex = (pageNumber - 1) * itemsPerPage,
+            endIndex = startIndex + itemsPerPage,
+            pageData = filteredData.slice(startIndex, endIndex)
 
         displayProducts(pageData, productList)
         showPagination(pageNumber)
@@ -439,7 +439,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function displayProducts(products, container) {
-        container.innerHTML = "";
+        container.innerHTML = ""
         const itemsPerPage = 18
 
         for (let i = 0; i < Math.min(products.length, itemsPerPage); i++) {
@@ -915,6 +915,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateFilters() {
+        currentPage = 1
         const minPrice = parseInt(document.querySelector('.input-min').value),
             maxPrice = parseInt(document.querySelector('.input-max').value),
             selectedCategory = localStorage.getItem("lastSelectedCategory") || "all"
@@ -1056,12 +1057,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // updateProductDisplay(selectedCategory)
-
+    
     btnProduct.forEach((item) => {
         item.addEventListener("click", (evt) => {
             evt.preventDefault()
-
             removeAnyMessage()
+            currentPage = 1
 
             btnProduct.forEach((button) => {
                 button.classList.remove("selected", "hovered")
@@ -1084,7 +1085,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 localStorage.removeItem('filteredProducts')
             }
             updateProductDisplay(selectedCategory)
-
+            showPagination(currentPage)
             setTimeout(updateCartBtns(), 0)
             resetFilters()
         })
@@ -1093,7 +1094,7 @@ document.addEventListener("DOMContentLoaded", function () {
     bottomProduct.forEach((item) => {
         item.addEventListener("click", (evt) => {
             evt.preventDefault()
-
+            currentPage = 1
             removeAnyMessage()
 
             let category = evt.target.getAttribute("data-href")
@@ -1119,7 +1120,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
 
             item.classList.add("selected")
-
+            showPagination(currentPage)
             updateProductDisplay(selectedCategory)
             setTimeout(updateCartBtns(), 0)
             resetFilters()
@@ -1232,7 +1233,7 @@ document.addEventListener("DOMContentLoaded", function () {
             paginationContainer.appendChild(createButton('←', 'arrow-pag prev', function () {
                 if (currentPage > 1) {
                     currentPage--
-                    showData(pageNumber)
+                    showData(currentPage)
                     showPagination(currentPage)
                     updatePaginationButtons()
                     updateProductFilter()
