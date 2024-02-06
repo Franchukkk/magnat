@@ -382,6 +382,7 @@ document.addEventListener("DOMContentLoaded", function () {
         imgElement.alt = product.images.alt
         imgElement.setAttribute('data-src', product.images.img)
         imgElement.setAttribute('data-alt', product.images.alt)
+        imgElement.setAttribute('loading', "lazy")
         figcaptionItems.appendChild(imgElement)
 
         const headerCard = document.createElement("h2")
@@ -538,6 +539,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             bigImgPopap.classList.add("open-img")
+            bigImg.setAttribute('loading', "lazy")
             bigImg.src = src
             bigImg.alt = alt
             cancelImg.classList.add('cancel-size-popap')
