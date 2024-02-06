@@ -151,7 +151,6 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => console.error("Помилка завантаження даних:", error))
     }
-    // displayProducts(jsonData, productList)
 
     function createInputRange() {
         const rangeInput = document.querySelectorAll(".range-input input"),
@@ -827,6 +826,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector(".same-card").innerHTML = ""
         sameCard.innerHTML = ""
     })
+    
 
     //сортування карток товарів
     let anyCategoryMessage = null,

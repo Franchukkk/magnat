@@ -78,6 +78,7 @@ h2
     width: 100%
     padding-top: 100rem
     display: none
+    overflow: hidden
 
 
 .popap-header
@@ -1134,6 +1135,7 @@ div.active-size-popap
         max-width: none
     +media(1024)
         max-width: 710rem
+
 .readmore
     position: relative
     display: block
@@ -1196,19 +1198,38 @@ div.active-size-popap
 
 .same-card-block
     padding-bottom: 150rem
+    width: 100%
 
 div.same-card
     padding: 0
     display: grid
-    grid-template-columns: 350rem
+    grid-template-columns: 177rem 177rem
+    grid-auto-flow: row
+    grid-auto-rows: minmax(auto, auto)
     grid-template-rows: 1fr
-    +media(425)
-        grid-template-columns: 240rem 240rem
-    +media(700)
-        grid-template-columns: 250rem 250rem
+    h2
+        padding: 0
+        font-size: 10px
+    p
+        font-size: 10px
+    +media(430)
+        grid-template-columns: 170rem 170rem 170rem
+    +media(490)
+        grid-template-columns: 310rem 310rem
+        h2
+            padding: 0
+            font-size: 14rem
+        p
+            font-size: 14px
     +media(1024)
+        grid-template-columns: 1fr 1fr 1fr
+        h2
+            padding: 0
+            font-size: 14rem
+        p
+            font-size: 14px
+    +media(1200)
         grid-template-columns: 1fr 1fr 1fr 1fr
-
 
 .pagination
     text-align: center
