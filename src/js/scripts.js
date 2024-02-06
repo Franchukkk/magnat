@@ -712,15 +712,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
             formColor.appendChild(inputColorPopap)
             formColor.appendChild(labelColor)
-
+            let dynamicStyle
             // стилі для кожного кольору
-            const dynamicStyle = `
-                input + .${color}::before {
-                    width: 15rem;
-                    height: 15rem;
-                    background-color: ${color};
-                }
-            `
+            if(color == "white") {
+                dynamicStyle = `
+                    input + label.${color}::before {
+                        width: 14rem;
+                        height: 14rem;
+                        background-color: ${color};
+                        border: 0.5rem solid #ccc;
+                    }
+                `
+            } else {
+                dynamicStyle = `
+                    input + .${color}::before {
+                        width: 15rem;
+                        height: 15rem;
+                        background-color: ${color};
+                    }
+                `
+            }
             dynamicStyles.sheet.insertRule(dynamicStyle, dynamicStyles.sheet.cssRules.length)
         })
 
