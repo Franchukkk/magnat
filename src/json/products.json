@@ -1,5 +1,47 @@
 [
     {
+        "id": "NB-5-Orange",
+        "category": "demiseason",
+        "popularity": "9",
+        "date": "2024-02-08",
+        "color": {
+            "black": "оранжевий"
+        },
+        "model": "Кросівки",
+        "material": "Шкіра",
+        "style": "Повсякденний",
+        "size": ["40", "41", "42", "43", "44", "45"],
+        "images": {
+            "img": "img/NB-5-риж/NB-5-Orange 1.jpg",
+            "alt": "Чоловічі шкіряні кросівки New Balance 510 Black",
+            "imgPopap1": "img/NB-5-риж/NB-5-Orange 2.jpg",
+            "altPopap1": "Чоловічі шкіряні кросівки New Balance 510 Black",
+            "imgPopap2": "img/NB-5-риж/NB-5-Orange 3 .jpg",
+            "altPopap2": "Чоловічі шкіряні кросівки New Balance 510 Black",
+            "imgPopap3": "img/NB-5-риж/NB-5-Orange 4 .jpg",
+            "altPopap3": "Чоловічі шкіряні кросівки New Balance 510 Orange"
+        },
+        "head": "Чоловічі шкіряні кросівки New Balance Orange",
+        "descript": "До вашої уваги  чоловічі демісезонні кросівки New Balance виготовлені з якісних матеріалів в Україні. Спортивне взуття цієї моделі відмінно підійде на кожен день, зайняття спортом. Під яас довгих прогулянок ваша стопа не буде втомлюватися. ви зможете насолодитися краєвидами свого міста. Верх зроблений з натуральної шкіри чорного кольору. З рельєфним візерунком, який підкреслює актуальність та смак даного взуття. До речі, задники кросівок цієї моделі оброблені шкіряною  вставкою.",
+        "list1": "Виріб зроблено з високоякісної шкіри від українського виробника.",
+        "list2": "На носку і задника нашиті елементи товстої шкіри для міцності.",
+        "list3": "Рельєфна підошва ТЕП.",
+        "list4": "Cтильний дизайн",
+        "bottomDescript": "Вибирайте саме чоловічі шкіряні кросівки New Balance в нашому інтернет магазині.",
+        "technicalHaracteristic": {
+            "producer": "New Balance",
+            "country": "Україна",
+            "kind": "черевики",
+            "seasonHaract": "демісезон",
+            "materialTop": "натуральна шкіра",
+            "materialBottom": "текстиль",
+            "materialSole": "ТЕП",
+            "styleCard": "повсякденний" 
+        },
+        "saleprice": "2200 грн",
+        "price": "1910 грн"
+    },
+    {
         "id": "NB-5-Black",
         "category": "demiseason",
         "popularity": "10",
@@ -12,13 +54,13 @@
         "style": "Повсякденний",
         "size": ["40", "41", "42", "43", "44", "45"],
         "images": {
-            "img": "img/NB-5-черн/NB-5-chorn-1.jpg",
+            "img": "img/NB-5-черн /NB-5-chorn-1.jpg",
             "alt": "Чоловічі шкіряні кросівки New Balance 510 Black",
-            "imgPopap1": "img/NB-5-черн/NB-5-chorn-2.jpg",
+            "imgPopap1": "img/NB-5-черн /NB-5-chorn-2.jpg",
             "altPopap1": "Чоловічі шкіряні кросівки New Balance 510 Black",
-            "imgPopap2": "img/NB-5-черн/NB-5-chorn-3.jpg",
+            "imgPopap2": "img/NB-5-черн /NB-5-chorn-3.jpg",
             "altPopap2": "Чоловічі шкіряні кросівки New Balance 510 Black",
-            "imgPopap3": "img/NB-5-черн/NB-5-chorn-4.jpg",
+            "imgPopap3": "img/NB-5-черн /NB-5-chorn-4.jpg",
             "altPopap3": "Чоловічі шкіряні кросівки New Balance 510 Black"
         },
         "head": "Чоловічі шкіряні кросівки New Balance",
