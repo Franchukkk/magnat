@@ -12,13 +12,13 @@
         "style": "Повсякденний",
         "size": ["40", "41", "42", "43", "44", "45"],
         "images": {
-            "img": "img/NB-5-риж/NB-5-Orange 1.jpg",
+            "img": "img/NB-5-Orange/NB-5-Orange-1.jpg",
             "alt": "Чоловічі шкіряні кросівки New Balance 510 Black",
-            "imgPopap1": "img/NB-5-риж/NB-5-Orange 2.jpg",
+            "imgPopap1": "img/NB-5-Orange/NB-5-Orange-2.jpg",
             "altPopap1": "Чоловічі шкіряні кросівки New Balance 510 Black",
-            "imgPopap2": "img/NB-5-риж/NB-5-Orange 3 .jpg",
+            "imgPopap2": "img/NB-5-Orange/NB-5-Orange-3.jpg",
             "altPopap2": "Чоловічі шкіряні кросівки New Balance 510 Black",
-            "imgPopap3": "img/NB-5-риж/NB-5-Orange 4 .jpg",
+            "imgPopap3": "img/NB-5-Orange/NB-5-Orange-4.jpg",
             "altPopap3": "Чоловічі шкіряні кросівки New Balance 510 Orange"
         },
         "head": "Чоловічі шкіряні кросівки New Balance Orange",
