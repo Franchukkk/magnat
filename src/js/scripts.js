@@ -1500,8 +1500,10 @@ function buyBtnFunc(e, size, quantityPopup, colorCheckbox) {
                         minBtn(".minus-quantity[data-value='" + productID + size[i] + "']")
                         if (quantityPopup) {
                             caclnumberOfProducts += Number(quantityPopup)
+                            document.querySelector(".calc-number-of-products-header-line span").innerText = caclnumberOfProducts = caclnumberOfProducts
                         } else {
                             caclnumberOfProducts++
+                            document.querySelector(".calc-number-of-products-header-line span").innerText = caclnumberOfProducts = caclnumberOfProducts
 
                         }
                         numberOfProductsDOM.innerText = caclnumberOfProducts
@@ -1902,6 +1904,7 @@ function plusBtn(button) {
                 orderWithDiscountPrice.innerText = orders.orderSumWithDiscount
 
                 caclnumberOfProducts++
+                document.querySelector(".calc-number-of-products-header-line span").innerText = caclnumberOfProducts = caclnumberOfProducts
                 numberOfProductsDOM.innerText = caclnumberOfProducts
                 orderDiscountCalc += Number((orders[productID + productBlock.slice(-2)].product.saleprice).slice(0, -4)) - Number((orders[productID + productBlock.slice(-2)].product.price).slice(0, -4))
                 // console.log(4)
@@ -1941,6 +1944,7 @@ function minBtn(button) {
 
                     if (totalQuantitySpan !== 1) {
                         caclnumberOfProducts--
+                        document.querySelector(".calc-number-of-products-header-line span").innerText = caclnumberOfProducts = caclnumberOfProducts
                     }
 
                     numberOfProductsDOM.innerText = caclnumberOfProducts
@@ -2011,6 +2015,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (orders[productID]) {
                 const size = orders[productID].size;
                 caclnumberOfProducts -= orders[productID].quantity
+                document.querySelector(".calc-number-of-products-header-line span").innerText = caclnumberOfProducts = caclnumberOfProducts
                 numberOfProductsDOM.innerText = caclnumberOfProducts
                 orders.orderSumWithNoDiscount -= Number((orders[productID].product.saleprice).slice(0, -4)) * orders[productID].quantity
                 orderDetailSum.innerText = orders.orderSumWithNoDiscount
