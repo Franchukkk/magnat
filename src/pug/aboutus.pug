@@ -427,78 +427,21 @@ html(lang="uk")
                                 span 0
             
         main
-            section.card-menu.wrapper#catalog.scrollBurger
-                h2 каталог товарів
-                p Оберіть те, що вас цікавить
-                .flex-between.filter-block
-                    .filter 
-                        a.cancel-size-popap.cancel-filter(href="#") 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0.267146 0.181446C0.506963 -0.0604821 0.895783 -0.0604821 1.1356 0.181446L5 4.07987L8.8644 0.181446C9.10422 -0.0604821 9.49304 -0.0604821 9.73285 0.181446C9.97267 0.423375 9.97267 0.815619 9.73285 1.05755L5.86845 4.95597L9.82014 8.94245C10.06 9.18438 10.06 9.57662 9.82014 9.81855C9.58032 10.0605 9.1915 10.0605 8.95168 9.81855L5 5.83207L1.04832 9.81855C0.8085 10.0605 0.419679 10.0605 0.179863 9.81855C-0.0599542 9.57662 -0.0599542 9.18438 0.179863 8.94245L4.13155 4.95597L0.267146 1.05755C0.0273296 0.815619 0.0273296 0.423375 0.267146 0.181446Z" fill="#4E98B6"/>
-                            </svg>
-                        h2 фільтр
-                        form(action="")
-                            .check-size.flex
-                                h3 Розміри
-                                //- input(type="checkbox" id="s-40" name="size" value="size40")
-                                //- label(for="s-40") 40
-                                //- input(type="checkbox" id="s-41" name="size" value="size41")
-                                //- label(for="s-41") 41
-                                //- input(type="checkbox" id="s-42" name="size" value="size42")
-                                //- label(for="s-42") 42
-                                //- input(type="checkbox" id="s-43" name="size" value="size43") 
-                                //- label(for="s-43") 43
-                                //- input(type="checkbox" id="s-44" name="size" value="size44")
-                                //- label(for="s-44") 44
-                                //- input(type="checkbox" id="s-45" name="size" value="size45")
-                                //- label(for="s-45") 45
-                            .price-filter.flex
-                                h3 Ціна
-                                .slider
-                                    .progress
-                                .range-input
-                                    input.range-min(type='range' step='10')
-                                    input.range-max(type='range' step='10')
-                                .price-input.flex
-                                    .field
-                                        input.input-min(type='number')
-                                    .separator
-                                    .field
-                                        input.input-max(type='number')
-                            .color-filter.flex
-                                h3 Колір
-                            .model.flex
-                                h3 Модель
-                            .material.flex
-                                h3 Матеріал
-                            .style.flex
-                                h3 Стиль
-                                
-                    .card-block 
-                        .btn-season.flex
-                            ul.menu.flex.filter-season
-                                li
-                                    a.card-cta-season(href="catalog.html" data-href="all") Усі товари
-                                li
-                                    a.card-cta-season(href="#catalog" data-href="winter") Зимове взуття
-                                li
-                                    a.card-cta-season(href="#catalog" data-href="demiseason") Демісезонне взуття
-                                li
-                                    a.card-cta-season(href="#catalog" data-href="summer") Літнє взуття
-                            form(action="#")
-                                label.arrow-select
-                                    .select
-                                        input(type='hidden').select__input
-                                        .select__in сортування: за замовчуванням
-                                        .select__list
-                                            .select__item(data-value='2') ціна за спаданням
-                                            .select__item(data-value='3') ціна за зростанням
-                                            .select__item(data-value='4') за новизною
-                                            .select__item(data-value='5') за популярністю
-                        .mobile-filter
-                            a(href="#") фільтр
-                        .card-bott
-                        div#pagination.pagination
+            section.aboutus#aboutus.scrollBurger.p-0
+                h2 про нашу компанію
+                .bgc-block 
+                    .our-advantage.wrapper
+                        h3 Чому саме нас обирають клієнти?
+                        p.deliver.flex
+                            span.circle 1-3
+                            span Дні доставка взуття у ваше місто. Доставка товару здійснюється компаніями «Нова Пошта» та «Укрпошта»
+                        p.our-client.flex
+                            span.circle 2-5
+                            span Середня кількість пар взуття яку придбали наші постійні клієнти (для постійних клієнтів діють вигідні знижки)
+                        p.our-like.flex
+                            span.circle 5000+
+                            span Задоволених клієнтів за 3 роки, які замовили у нас чоловіче взуття та порекомендували нас друзям та знайомим.
+                        a.catalog-cta(href="catalog.html") в каталог
         footer 
             .bottom-contact-block
                 .wrapper.flex.bottom-navigation

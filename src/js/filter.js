@@ -904,10 +904,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     })
 
+
+    
+
     orders.orderSumWithNoDiscount = 0
     orders.orderSumWithDiscount = 0
 
     orders.orderSum = 0
+
+
+
     // карточки товару
 
 
@@ -1349,3 +1355,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 })
+
+fetchData()

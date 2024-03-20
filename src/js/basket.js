@@ -24,6 +24,24 @@ function setLocalStorage() {
     }
     // alert(1)
     localStorage.setItem('orders', JSON.stringify(orderToStorage));
+    console.log(localStorage.getItem('orders'));
+}
+
+function btnSimilar() {
+    let similarBtns = document.querySelectorAll(".popap-card .cta-card")
+    similarBtns.forEach(function (e) {
+        e.addEventListener("click", function () {
+            let similarProductId = this.dataset.value,
+                similarSizesArr = []
+
+
+            document.querySelectorAll(`.popap-card input[type="checkbox"][id^="input-${similarProductId}"]:checked`).forEach(checkbox => {
+                similarSizesArr.push(checkbox.value)
+            })
+
+            buyBtnFunc(e, similarSizesArr)
+        })
+    })
 }
 
 
@@ -225,26 +243,7 @@ function updateCart(id, sizesList, colorCheckbox, isLocalStorage) {
             addedProductsList.appendChild(card);
         });
 
-    // for (let orderId in orders) {
-    //     if (orderId !== "orderSumWithNoDiscount" && orderId !== "orderSumWithDiscount" && orderId !== "orderSum") {
-    //         let order = orders[orderId];
-    //         let product = order.product;
-    //         let id = product.id;
-    //         let color = order.color;
-    //         let size = order.size;
-    //         let quantity = order.quantity;
 
-    //         // Записуємо в orderToStorage
-    //         orderToStorage[id] = {
-    //             id,
-    //             color,
-    //             size,
-    //             quantity
-    //         };
-    //     }
-    // }
-    // // alert(1)
-    // localStorage.setItem('orders', JSON.stringify(orderToStorage));
     
 }
 
@@ -252,6 +251,7 @@ function updateCart(id, sizesList, colorCheckbox, isLocalStorage) {
 function cart() {
     let sizesList = ""
     if (document.querySelectorAll(".cta-card")) {
+
         clearTimeout(cartWaitTimeout)
         let buyBtns = document.querySelectorAll(".cta-card"),
             orderConfirmProductsQuantity = document.querySelector("#orderConfirmProductsQuantity")
@@ -465,4 +465,28 @@ document.addEventListener("DOMContentLoaded", function () {
         
 
     })
+
+
+    const cart = document.querySelector(".cart"),
+        basketPopup = document.querySelector("#basket-popup-outline"),
+        returnBasket = document.querySelectorAll(".basket-back"),
+        body = document.querySelector("body")
+
+
+    function basketToggle() {
+        basketPopup.classList.toggle("d-block")
+        body.classList.toggle("hidden")
+    }
+
+    cart.addEventListener("click", basketToggle)
+    returnBasket.forEach(function (e) {
+        e.addEventListener("click", basketToggle)
+    })
+
+
+
 })
+
+const cartWaitTimeout = setTimeout(function () {
+    cart()
+}, 1000)

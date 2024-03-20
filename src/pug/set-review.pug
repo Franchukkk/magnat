@@ -1,0 +1,64 @@
+doctype html
+html(lang="uk")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0")
+        link(rel="shortcut icon" href="img/favicon.ico" type="image/x-icon")
+        link(rel="icon" href="img/favicon.ico" type="image/x-icon")
+        title Взуттєвий Магнат
+        link(rel="stylesheet", href="css/styles.css")
+    
+    body 
+        include components/mixin
+        .popups-outline.allReviewsPopup.d-block
+            .reviews-popup(data-value="set")
+                .popup-header-line
+                    .wrapper.flex.items-center
+                        h2.popup-h2 ЗАЛИШИТИ ВІДГУК
+                .popup-main.flex-between.wrapper.overflow.popup-orders-main.review-main
+                    .reviews-and-btn
+                        .reviews-popup-list
+                        a(href="#").btn-style-one#moreReviewsBtn більше відгуків
+                    .review-details 
+                        h3 залишити відгук
+                        form(action="reviewsend.php", method="POST").review-form 
+                            input(type="hidden" name="userRate" id="userRate")
+                            .rate-review.d-flex 
+                                span Оцініть товар
+                                .rate-stars
+                                    .star-review(data-value="1") 
+                                    .star-review(data-value="2") 
+                                    .star-review(data-value="3")  
+                                    .star-review(data-value="4")  
+                                    .star-review(data-value="5")  
+                            .flex-between 
+                                label(for="")
+                                    p 
+                                        span Імʼя
+                                    .required-field
+                                        input(type="text" name="userName") 
+                                label(for="")
+                                    p 
+                                        span Прізвище
+                                    .required-field
+                                        input(type="text" name="userFirstName")
+                            p 
+                                span Відгук
+                            .required-field
+                                textarea(name="userReview")
+                            button(type="submit").btn-style-one відправити 
+            .popup-footer 
+                .wrapper
+                    a(href="index.html") 
+                        span.reviews-back.popup-back-btns повернутися у каталог
+        
+
+
+
+        script(src="js/scripts.js" defer)
+
+
+
+
